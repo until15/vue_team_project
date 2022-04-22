@@ -4,8 +4,8 @@ import App from './App.vue';
 // router
 import router from './routes';
 
-// stores 
-import stores from './stores';
+// // stores 
+// import stores from './stores';
 
 // element plus
 import ElementPlus from 'element-plus';
@@ -16,7 +16,7 @@ const app = createApp(App);
 
 
 app.use(router);
-app.use(stores);    
+// app.use(stores);    
 app.use(ElementPlus);    
 
 
