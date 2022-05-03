@@ -14,7 +14,7 @@
                     </tr>
                     <tr v-for="tmp in state.items" :key="tmp">
                         <td>{{tmp.bno}}</td>
-                        <td>{{tmp.btitle}}</td>
+                        <td @click="handlePage(tmp.bno)" style="cursor:pointer">{{tmp.btitle}}</td>
                         <td>{{tmp.memberchg.memail}}</td>
                         <td>{{tmp.bhit}}</td>
                         <td>{{tmp.bregdate}}</td>
@@ -27,8 +27,11 @@
 <script>
 import { reactive, onMounted } from 'vue'
 import axios from 'axios';
+import {useRouter} from 'vue-router';
 export default {
     setup () {
+
+        const router = useRouter();
 
         const state = reactive({
             page : 1,
@@ -49,7 +52,17 @@ export default {
             }
         }
 
-        return {state}
+        const handlePage = async(bno) => {
+            const url = `/ROOT/api/community/updatehit?bno=${bno}`;
+            const headers = {"Content-Type":"application/json"};
+            const response = await axios.put(url, {headers});
+            console.log(response.data);
+            if(response.data.status === 200){
+                router.push({name:"BoardOne", query : {bno:bno}});
+            }
+        }
+
+        return {state, handlePage}
     }
 }
 </script>
