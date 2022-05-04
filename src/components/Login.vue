@@ -13,8 +13,10 @@
 import { reactive } from 'vue';
 import {useRouter} from 'vue-router';
 import axios from 'axios';
+import {useStore} from 'vuex';
 export default {
     setup () {
+        const store = useStore();
         const router = useRouter();
         const state = reactive({
             memail : '',
@@ -33,6 +35,7 @@ export default {
             if(response.data.status === 200){
                 alert('로그인 되었습니다');
                 sessionStorage.setItem("TOKEN", response.data.token);
+                store.commit('setLogged', true);
                 router.push({name : "Home"});
                 
             }

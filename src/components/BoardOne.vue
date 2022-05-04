@@ -9,8 +9,7 @@
         작성자 : {{state.item.memberchg.memail}} <br />
         조회수 : {{state.item.bhit}} <br />
         등록일 : {{state.item.bregdate}} <br />
-        이미지 : <img :src="state.image" style="width:50px" /> <br />
-        {{state.image}}
+        이미지 : <img :src="state.item.imageurl" style="width:100px" /> <br />
         <hr />
 
         <router-link to="/board"><button>목록으로</button></router-link>
@@ -53,6 +52,7 @@ export default {
             reply1 :{
                 cmtcontent : '',
             },
+            imageUrl : require('../assets/img/default.png'),
             token : sessionStorage.getItem("TOKEN") 
         });
 
@@ -77,7 +77,7 @@ export default {
                 const headers = {"Content-Type":"application/json", "token":state.token};
                 const response = await axios.delete(url, {headers});
                 console.log(response.data);
-                if(response.data.status === 200){
+                if(response === 200){
                     router.push({name:"Board"});
                 }
             }
@@ -118,24 +118,14 @@ export default {
             }
         }
 
-        const handleImage = async(bno) => {
-            const url = `/ROOT/api/bimg/selectimageone?bno=${bno}`;
-            const headers = {"Content-Type":"application/json"};
-            const response = await axios.get(url, {headers});
-            console.log(response.data);
-            if(response.data.status === 200){
-                state.image = response.data.result;
-            }
-        }
-
         onMounted(() => {
             handleData(state.bno);
             handleSelectComment(state.bno); 
-            handleImage(state.bno);
+            
         });
         
 
-        return {state, handleData, handleImage, handleUpdate, handleDelete, handleSelectComment, handleComment ,handleReplyDelete}
+        return {state, handleData, handleUpdate, handleDelete, handleSelectComment, handleComment ,handleReplyDelete}
     }
 }
 </script>

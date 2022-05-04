@@ -18,7 +18,7 @@
             <option value="admin">관리자</option>
             <option value="member">회원</option>
         </select><br />
-        <img :src="state.imageUrl" style="width:50px" />
+        <img :src="state.imageUrl" style="width:100px" />
         프로필사진 : <input type="file" @change="handleImage($event)" /><br />
         <button @click="handleData">화원가입</button>
     </div>
