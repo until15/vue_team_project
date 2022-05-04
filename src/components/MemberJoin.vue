@@ -46,7 +46,7 @@ export default {
             mphone : '',
             mrole : '',
             mimage : null,
-            imageUrl : require('../assets/logo.png'),
+            imageUrl : require('../assets/img/default.png'),
 
         });
 
@@ -80,7 +80,7 @@ export default {
                 state.mimage = e.target.files[0];
             }
             else{
-                state.imageUrl = require('../assets/logo.png');
+                state.imageUrl = require('../assets/img/default.png');
                 state.mimage = null;
             }
         }

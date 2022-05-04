@@ -4,6 +4,8 @@
         <h3>게시판 글쓰기</h3>
         제목 : <input type="text" v-model="state.btitle" /><br />
         내용 : <textarea rows="10" v-model="state.bcontent"></textarea><br />
+        <hr />
+        <img :src="state.imageUrl" style="width:50px" />
         이미지 : <input type="file" @change="handleImage($event)" /><br />
         <button @click="handleInsert">등록하기</button>
     </div>
@@ -21,7 +23,8 @@ export default {
         const state = reactive({
             btitle : '',
             bcontent : '',
-            minage : null,
+            mimage : null,
+            imageUrl : require('../assets/img/default.png'),
             token : sessionStorage.getItem("TOKEN")
         });
 
@@ -52,11 +55,11 @@ export default {
 
         const handleImage = (e) => {
             if(e.target.files[0]){
-                state.mimage = URL.createObjectURL(e.target.files[0]);
+                state.imageUrl = URL.createObjectURL(e.target.files[0]);
                 state.mimage = e.target.files[0];
             }
             else{
-                state.imageUrl = require('../assets/logo.png');
+                state.imageUrl = require('../assets/img/default.png');
                 state.mimage = null;
             }
         }
