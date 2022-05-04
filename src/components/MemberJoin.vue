@@ -1,3 +1,4 @@
+@@ -1,95 +0,0 @@
 <template>
     <div style="padding:20px">
         이메일 : <input type="text" v-model="state.memail" placeholder="이메일" /><br />
@@ -75,7 +76,7 @@ export default {
 
         const handleImage = (e) => {
             if(e.target.files[0]){
-                state.mimage = URL.createObjectURL(e.target.files[0]);
+                state.imageUrl = URL.createObjectURL(e.target.files[0]);
                 state.mimage = e.target.files[0];
             }
             else{
