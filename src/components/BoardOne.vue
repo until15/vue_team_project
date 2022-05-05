@@ -6,10 +6,10 @@
         번호 : {{state.item.bno}} <br />
         제목 : {{state.item.btitle}} <br />
         내용 : {{state.item.bcontent}} <br />
-        작성자 : {{state.item.memberchg.memail}} <br />
+        작성자 : {{state.item.memberchgMemail}} <br />
         조회수 : {{state.item.bhit}} <br />
         등록일 : {{state.item.bregdate}} <br />
-        이미지 : <img :src="state.item.imageurl" style="width:100px" /> <br />
+        이미지 : <img :src="state.image[0]" style="width:200px" /> <br />
         <hr />
 
         <router-link to="/board"><button>목록으로</button></router-link>
@@ -22,7 +22,7 @@
                 <tr>
 
                     <th>작성자</th>
-                    <td>{{tmp.memberchg.memail}}</td>
+                    <td>{{tmp.memberchgMemail}}</td>
                     <th>내용</th>
                     <td>{{tmp.cmtcontent}}</td>
                     <td><button @click="handleReplyDelete(tmp.cmtno)">삭제</button></td>
@@ -64,6 +64,7 @@ export default {
             console.log(response.data);
             if(response.data.status === 200){
                 state.item = response.data.result;
+                state.image = response.data.imgurl;
             }
         };
 
@@ -78,6 +79,7 @@ export default {
                 const response = await axios.delete(url, {headers});
                 console.log(response.data);
                 if(response === 200){
+                    handleData();
                     router.push({name:"Board"});
                 }
             }
