@@ -1,3 +1,4 @@
+@@ -1,95 +0,0 @@
 <template>
     <div style="padding:20px">
         이메일 : <input type="text" v-model="state.memail" placeholder="이메일" /><br />
@@ -17,7 +18,7 @@
             <option value="admin">관리자</option>
             <option value="member">회원</option>
         </select><br />
-        <img :src="state.imageUrl" style="width:50px" />
+        <img :src="state.imageUrl" style="width:100px" />
         프로필사진 : <input type="file" @change="handleImage($event)" /><br />
         <button @click="handleData">화원가입</button>
     </div>
@@ -45,7 +46,7 @@ export default {
             mphone : '',
             mrole : '',
             mimage : null,
-            imageUrl : require('../assets/logo.png'),
+            imageUrl : require('../assets/img/default.png'),
 
         });
 
@@ -75,11 +76,11 @@ export default {
 
         const handleImage = (e) => {
             if(e.target.files[0]){
-                state.mimage = URL.createObjectURL(e.target.files[0]);
+                state.imageUrl = URL.createObjectURL(e.target.files[0]);
                 state.mimage = e.target.files[0];
             }
             else{
-                state.imageUrl = require('../assets/logo.png');
+                state.imageUrl = require('../assets/img/default.png');
                 state.mimage = null;
             }
         }
