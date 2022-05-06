@@ -3,7 +3,8 @@
         <h3>게시판 글쓰기</h3>
         제목 : <input type="text" v-model="state.btitle" /><br />
         내용 : <textarea rows="10" v-model="state.bcontent"></textarea><br />
-        이미지 : <input type="file" /><br />
+        <img :src="state.imageUrl" style="width:50px" />
+        이미지 : <input type="file" @change="handleImage($event)"/><br />
         <button @click="handleInsert">등록하기</button>
     </div>
 </template>
@@ -20,7 +21,8 @@ export default {
         const state = reactive({
             btitle : '',
             bcontent : '',
-            minage : null,
+            mimage : null,
+            imageUrl : require('../assets/logo.png'),
             token : sessionStorage.getItem("TOKEN")
         });
 
@@ -34,14 +36,38 @@ export default {
             const response = await axios.post(url, body, {headers});
             console.log(response.data);
             if(response.data.status === 200){
-                router.push({name:"Board"});
+
+                const url1 = `/ROOT/api/bimg/insert`;
+                const headers1 = {"Content-Type":"multipart/form-data", "token":state.token};
+                const body1 = new FormData();
+                body1.append("file", state.mimage);
+                body1.append("bno", response.data.result);
+                
+                const response1 = await axios.post(url1, body1, {headers:headers1});
+                console.log(response1.data);
+                if(response1.data.status === 200){
+                    router.push({name:"Board"});
+                }
             }
+
+            
             
         };
 
+        const handleImage = (e) => {
+            if(e.target.files[0]){
+                state.mimage = URL.createObjectURL(e.target.files[0]);
+                state.mimage = e.target.files[0];
+            }
+            else{
+                state.imageUrl = require('../assets/logo.png');
+                state.mimage = null;
+            }
+        }
 
 
-        return {state, handleInsert}
+
+        return {state, handleInsert, handleImage}
     }
 }
 </script>

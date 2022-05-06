@@ -8,6 +8,7 @@
         작성자 : {{state.item.memberchg.memail}} <br />
         조회수 : {{state.item.bhit}} <br />
         조회수 : {{state.item.bregdate}} <br />
+        <img :src="state.item.mimage" style="width:50px" />
         <hr />
 
         <router-link to="/board"><button>목록으로</button></router-link>
@@ -16,16 +17,13 @@
         
         <hr />
         <div v-for="tmp in state.reply" :key="tmp">
-            <table border="1">
                 <tr>
-
                     <th>작성자</th>
                     <td>{{tmp.memberchg.memail}}</td>
                     <th>내용</th>
                     <td>{{tmp.cmtcontent}}</td>
                     <td><button @click="handleReplyDelete(tmp.cmtno)">삭제</button></td>
                 </tr>
-            </table>
         </div>
         <hr />
         댓글 : <input type="text" v-model="state.reply1.cmtcontent" />
@@ -50,7 +48,8 @@ export default {
             reply1 :{
                 cmtcontent : '',
             },
-            token : sessionStorage.getItem("TOKEN") 
+            editable : false,
+            token : sessionStorage.getItem("TOKEN")
         });
 
         
@@ -58,7 +57,7 @@ export default {
             const url = `/ROOT/api/community/selectone?bno=${bno}`;
             const headers = {"Content-Type":"application/json"};
             const response = await axios.get(url, {headers});
-            console.log("===========",response.data);
+            console.log(response.data);
             if(response.data.status === 200){
                 state.item = response.data.result;
             }
@@ -115,13 +114,20 @@ export default {
             }
         }
 
+        const handleSelectImage = async(bno) => {
+            const url = `/ROOT/api/bimg/selectimg?bno=${bno}`;
+            const headers = {"Content-Type":"application/json"};
+            const response = await axios.get(url, {headers});
+            console.log("============", response.data);
+        };
+
         onMounted(() => {
             handleData(state.bno);
             handleSelectComment(state.bno); 
         });
         
 
-        return {state, handleData, handleUpdate, handleDelete, handleSelectComment, handleComment ,handleReplyDelete}
+        return {state, handleData, handleUpdate, handleDelete, handleSelectComment, handleComment, handleSelectImage ,handleReplyDelete}
     }
 }
 </script>

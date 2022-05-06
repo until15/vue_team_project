@@ -4,6 +4,8 @@
         <router-link to="/boardwrite">글쓰기</router-link>
         <hr />
         <div v-if="state.items">
+            <input type="text" v-model="state.items.btitle" @keyup.enter="handleData" placeholder="검색어" />
+            <button @click="handleData">검색</button>
             <table border="1">
                     <tr>
                         <th>번호</th>
@@ -21,6 +23,11 @@
                     </tr>
             </table>
         </div>
+        <div>
+            <button v-for="tmp in state.pageable" :key="tmp" @click="handlePagenation(tmp)">
+                {{tmp}}
+            </button>
+        </div>
     </div>
 </template>
 
@@ -35,6 +42,8 @@ export default {
 
         const state = reactive({
             page : 1,
+            btitle : '',
+            total : 0,
 
         });
         
@@ -43,12 +52,14 @@ export default {
         });
 
         const handleData = async() => {
-            const url = `/ROOT/api/community/selectlist?page=${state.page}`;
+            const url = `/ROOT/api/community/selectlist?page=${state.page}&text=${state.btitle}`;
             const headers = {"Content-Type":"application/json"};
             const response = await axios.get(url, {headers});
             console.log(response.data);
             if(response.data.status === 200){
                 state.items = response.data.result;
+                state.total = Math.floor(
+                    (Number(response.data.pageable)-1)/10+1);
             }
         }
 
@@ -62,7 +73,12 @@ export default {
             }
         }
 
-        return {state, handlePage}
+        const handlePagenation = (tmp) => {
+            state.page = Number(tmp);
+            handleData();
+        }
+
+        return {state, handlePage, handlePagenation}
     }
 }
 </script>
