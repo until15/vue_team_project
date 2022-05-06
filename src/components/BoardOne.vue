@@ -1,3 +1,4 @@
+@@ -1,131 +0,0 @@
 <template>
     <div>
         <h3>게시물 상세</h3>
@@ -5,10 +6,15 @@
         번호 : {{state.item.bno}} <br />
         제목 : {{state.item.btitle}} <br />
         내용 : {{state.item.bcontent}} <br />
-        작성자 : {{state.item.memberchg.memail}} <br />
+        작성자 : {{state.item.memberchgMemail}} <br />
         조회수 : {{state.item.bhit}} <br />
+<<<<<<< HEAD
         조회수 : {{state.item.bregdate}} <br />
         <img :src="state.item.mimage" style="width:50px" />
+=======
+        등록일 : {{state.item.bregdate}} <br />
+        이미지 : <img :src="state.image[0]" style="width:200px" /> <br />
+>>>>>>> 6f7ae72f07d8d96f45b4f2d2bbaf91fb829cfb62
         <hr />
 
         <router-link to="/board"><button>목록으로</button></router-link>
@@ -19,7 +25,7 @@
         <div v-for="tmp in state.reply" :key="tmp">
                 <tr>
                     <th>작성자</th>
-                    <td>{{tmp.memberchg.memail}}</td>
+                    <td>{{tmp.memberchgMemail}}</td>
                     <th>내용</th>
                     <td>{{tmp.cmtcontent}}</td>
                     <td><button @click="handleReplyDelete(tmp.cmtno)">삭제</button></td>
@@ -48,8 +54,13 @@ export default {
             reply1 :{
                 cmtcontent : '',
             },
+<<<<<<< HEAD
             editable : false,
             token : sessionStorage.getItem("TOKEN")
+=======
+            imageUrl : require('../assets/img/default.png'),
+            token : sessionStorage.getItem("TOKEN") 
+>>>>>>> 6f7ae72f07d8d96f45b4f2d2bbaf91fb829cfb62
         });
 
         
@@ -60,6 +71,7 @@ export default {
             console.log(response.data);
             if(response.data.status === 200){
                 state.item = response.data.result;
+                state.image = response.data.imgurl;
             }
         };
 
@@ -73,7 +85,8 @@ export default {
                 const headers = {"Content-Type":"application/json", "token":state.token};
                 const response = await axios.delete(url, {headers});
                 console.log(response.data);
-                if(response.data.status === 200){
+                if(response === 200){
+                    handleData();
                     router.push({name:"Board"});
                 }
             }
@@ -124,6 +137,7 @@ export default {
         onMounted(() => {
             handleData(state.bno);
             handleSelectComment(state.bno); 
+            
         });
         
 
