@@ -70,7 +70,7 @@ export default {
             const response = await axios.post(url, body, {headers});
             console.log(response.data);
             if(response.data.status === 200){
-                router.push({name : "Home"});
+                router.push({name : "Login"});
             }
         }
 

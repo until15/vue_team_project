@@ -9,7 +9,6 @@
         작성자 : {{state.item.memberchgMemail}} <br />
         조회수 : {{state.item.bhit}} <br />
         등록일 : {{state.item.bregdate}} <br />
-        <img :src="state.item.mimage" style="width:50px" />
         이미지 : <img :src="state.image[0]" style="width:200px" /> <br />
         <hr />
 
@@ -54,7 +53,6 @@ export default {
             editable : false,
             token : sessionStorage.getItem("TOKEN"),
             imageUrl : require('../assets/img/default.png'),
-            token : sessionStorage.getItem("TOKEN") 
         });
 
         
