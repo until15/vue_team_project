@@ -73,18 +73,15 @@ export default {
             }
         }
 
-<<<<<<< HEAD
+
         const handlePagenation = (tmp) => {
             state.page = Number(tmp);
             handleData();
         }
 
         return {state, handlePage, handlePagenation}
-=======
-        
 
-        return {state, handlePage}
->>>>>>> 6f7ae72f07d8d96f45b4f2d2bbaf91fb829cfb62
+
     }
 }
 </script>
