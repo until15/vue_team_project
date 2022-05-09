@@ -8,13 +8,9 @@
         내용 : {{state.item.bcontent}} <br />
         작성자 : {{state.item.memberchgMemail}} <br />
         조회수 : {{state.item.bhit}} <br />
-<<<<<<< HEAD
-        조회수 : {{state.item.bregdate}} <br />
-        <img :src="state.item.mimage" style="width:50px" />
-=======
         등록일 : {{state.item.bregdate}} <br />
+        <img :src="state.item.mimage" style="width:50px" />
         이미지 : <img :src="state.image[0]" style="width:200px" /> <br />
->>>>>>> 6f7ae72f07d8d96f45b4f2d2bbaf91fb829cfb62
         <hr />
 
         <router-link to="/board"><button>목록으로</button></router-link>
@@ -54,13 +50,11 @@ export default {
             reply1 :{
                 cmtcontent : '',
             },
-<<<<<<< HEAD
+
             editable : false,
-            token : sessionStorage.getItem("TOKEN")
-=======
+            token : sessionStorage.getItem("TOKEN"),
             imageUrl : require('../assets/img/default.png'),
             token : sessionStorage.getItem("TOKEN") 
->>>>>>> 6f7ae72f07d8d96f45b4f2d2bbaf91fb829cfb62
         });
 
         
