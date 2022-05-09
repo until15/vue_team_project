@@ -1,7 +1,7 @@
 <template>
   <div>
     <router-link to="/">Home</router-link> |
-    <router-link v-if="logged === false"  to="/challenge">게시판</router-link> |
+    <router-link v-if="logged" to="/challenge">챌린지</router-link> |
     <router-link v-if="logged === false" to="/memberjoin">회원가입</router-link> |
     <router-link v-if="logged === false" to="/login">로그인</router-link> |
     <router-link v-if="logged === true" to="/mypage">마이페이지</router-link> |

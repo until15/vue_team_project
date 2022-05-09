@@ -29,28 +29,30 @@ export default {
         });
 
         const handleInsert = async() => {
-            const url = `/ROOT/api/community/insert`;
-            const headers = {"Content-Type":"application/json", "token":state.token};
-            const body = {
-                btitle : state.btitle,
-                bcontent : state.bcontent
-            };
-            const response = await axios.post(url, body, {headers});
-            console.log(response.data);
-            if(response.data.status === 200){
-                const url1 = `/ROOT/api/bimg/insert`;
-                const headers1 = {"Content-Type":"multipart/form-data", "token":state.token};
-                const body1 = new FormData();
-                body1.append("file", state.mimage);
-                body1.append("bno", response.data.result);
-                
-                const response1 = await axios.post(url1, body1, {headers:headers1});
-                console.log(response1.data);
-                if(response1.data.status === 200){
-                    router.push({name:"Board"});
+            if(state.token !== null){
+                const url = `/ROOT/api/community/insert`;
+                const headers = {"Content-Type":"application/json", "token":state.token};
+                const body = {
+                    btitle : state.btitle,
+                    bcontent : state.bcontent
+                };
+                const response = await axios.post(url, body, {headers});
+                console.log(response.data);
+                if(response.data.status === 200){
+                    const url1 = `/ROOT/api/bimg/insert`;
+                    const headers1 = {"Content-Type":"multipart/form-data", "token":state.token};
+                    const body1 = new FormData();
+                    body1.append("file", state.mimage);
+                    body1.append("bno", response.data.result);
+                    
+                    const response1 = await axios.post(url1, body1, {headers:headers1});
+                    console.log(response1.data);
+                    if(response1.data.status === 200){
+                        alert('등록되었습니다!');
+                        router.push({name:"Board"});
+                    }
                 }
-            }
-            
+            } 
         };
 
         const handleImage = (e) => {

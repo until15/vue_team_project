@@ -70,6 +70,7 @@ export default {
             const response = await axios.post(url, body, {headers});
             console.log(response.data);
             if(response.data.status === 200){
+                alert('가입되었습니다!');
                 router.push({name : "Login"});
             }
         }

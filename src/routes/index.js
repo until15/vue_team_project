@@ -11,6 +11,7 @@ import BoardWrite from '@/components/BoardWrite.vue';
 import BoardOne from '@/components/BoardOne.vue';
 import BoardUpdate from '@/components/BoardUpdate.vue';
 import Mypage from '@/components/Mypage.vue';
+import UpdatePw from '@/components/mypage/UpdatePw.vue';
 
 
 const routes = [
@@ -24,6 +25,7 @@ const routes = [
     { path:'/boardone', name:"BoardOne", component:BoardOne },
     { path:'/boardupdate', name:"BoardUpdate", component:BoardUpdate },
     { path:'/mypage', name:"Mypage", component:Mypage },
+    { path:'/updatepw', name:"UpdatePw", component:UpdatePw },
 ];
   
 const router = createRouter({

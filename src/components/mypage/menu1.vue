@@ -3,6 +3,7 @@
         <h3>정보수정</h3>
         <div v-if="state.item">
             이름 : <input type="text" v-model="state.item.mname" /><br />
+            <button @click="handleUpdatePW">암호변경</button><br />
             닉네임 : <input type="text" v-model="state.item.mid" /><br />
             연락처 : <input type="text" v-model="state.item.mphone" /><br />
             키 : <input type="text" v-model="state.item.mheight" /><br />
@@ -17,14 +18,15 @@
 
 <script>
 import { onMounted, reactive } from 'vue';
+import {useRouter} from 'vue-router';
 import axios from 'axios';
 export default {
     setup () {
+        const router = useRouter();
 
         const state = reactive({
             token : sessionStorage.getItem("TOKEN"),
             mimage : null,
-            imageUrl : '',
         });
 
         const handleData = async() => {
@@ -40,17 +42,23 @@ export default {
         };
 
         const handleUpdate = async() => {
-            const url = `/ROOT/api/member/updatemember`;
-            const headers = {"Content-Type":"multipart/form-data", "token":state.token};
-            const body = new FormData();
-            body.append("mname", state.item.mname);
-            body.append("mid", state.item.mid);
-            body.append("mphone", state.item.mphone);
-            body.append("mheight", state.item.mheight);
-            body.append("mweight", state.item.mweight);
-            body.append("mimage", state.item.mimage);
-            const response = await axios.put(url, body, {headers});
-            console.log(response.data);
+            if(state.token !== null){
+                const url = `/ROOT/api/member/updatemember`;
+                const headers = {"Content-Type":"multipart/form-data", "token":state.token};
+                const body = new FormData();
+                body.append("mname", state.item.mname);
+                body.append("mid", state.item.mid);
+                body.append("mphone", state.item.mphone);
+                body.append("mheight", state.item.mheight);
+                body.append("mweight", state.item.mweight);
+                body.append("mimage", state.item.mimage);
+                const response = await axios.put(url, body, {headers});
+                console.log(response.data);
+                if(response.data.status === 200){
+                    alert('수정되었습니다.');
+                    handleData();
+                }
+            }
         }
 
         onMounted(() => {
@@ -60,16 +68,19 @@ export default {
         const handleImage = (e) => {
             if(e.target.files[0]){
                 state.imageUrl = URL.createObjectURL(e.target.files[0]);
-                state.mimage = e.target.files[0];
+                state.item.mimage = e.target.files[0];
             }
             else{
-                state.imageUrl = '';
-                state.mimage = null;
+                state.item.mimage = '';
             }
+        }
+
+        const handleUpdatePW = async() => {
+            router.push({name :"UpdatePw"});
         }
         
 
-        return {state, handleUpdate, handleImage}
+        return {state, handleUpdate, handleImage, handleUpdatePW}
     }
 }
 </script>
