@@ -12,6 +12,8 @@ import BoardOne from '@/components/BoardOne.vue';
 import BoardUpdate from '@/components/BoardUpdate.vue';
 import Mypage from '@/components/Mypage.vue';
 import UpdatePw from '@/components/mypage/UpdatePw.vue';
+import Pose from '@/components/Pose/Pose.vue';
+import PoseOne from '@/components/Pose/PoseOne.vue';
 
 
 const routes = [
@@ -26,6 +28,8 @@ const routes = [
     { path:'/boardupdate', name:"BoardUpdate", component:BoardUpdate },
     { path:'/mypage', name:"Mypage", component:Mypage },
     { path:'/updatepw', name:"UpdatePw", component:UpdatePw },
+    { path:'/pose', name:"Pose", component:Pose },
+    { path:'/poseone', name:"PoseOne", component:PoseOne },
 ];
   
 const router = createRouter({
