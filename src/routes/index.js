@@ -3,6 +3,7 @@ import { createWebHashHistory, createRouter } from "vue-router";
 import Home from '@/components/Home.vue'; 
 
 import Challenge from '@/components/Challenge.vue'; 
+import ChallengeWrite from '@/components/ChallengeWrite.vue';
 import MemberJoin from '@/components/MemberJoin.vue';
 import Login from '@/components/Login.vue';
 import Logout from '@/components/Logout.vue';
@@ -19,6 +20,7 @@ import InquiryOne from '@/components/mypage/InquiryOne.vue';
 const routes = [
     { path:'/', name:"Home", component:Home },
     { path:'/challenge', name:"Challenge", component:Challenge },
+    { path:'/challengewrite', name:"ChallengeWrite", component:ChallengeWrite },
     { path:'/memberjoin', name:"MemberJoin", component:MemberJoin },
     { path:'/login', name:"Login", component:Login },
     { path:'/logout', name:"Logout", component:Logout },
