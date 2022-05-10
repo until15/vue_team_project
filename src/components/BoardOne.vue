@@ -20,7 +20,7 @@
         <div v-for="tmp in state.reply" :key="tmp">
                 <tr>
                     <th>작성자</th>
-                    <td>{{tmp.memberchgMemail}}</td>
+                    <td>{{tmp.memberchg.memail}}</td>
                     <th>내용</th>
                     <td>{{tmp.cmtcontent}}</td>
                     <td><button @click="handleReplyDelete(tmp.cmtno)">삭제</button></td>
