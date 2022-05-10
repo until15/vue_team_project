@@ -37,8 +37,7 @@ export default {
                 sessionStorage.setItem("TOKEN", response.data.token);
                 store.commit('setLogged', true);
                 router.push({name : "Home"});
-                
-            }
+            }   
         }
         
 

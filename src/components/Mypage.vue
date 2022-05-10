@@ -19,14 +19,16 @@ import { reactive } from 'vue'
 import menu1 from './mypage/menu1.vue';
 import menu2 from './mypage/menu2.vue';
 import menu3 from './mypage/menu3.vue';
+
 export default {
   components: {
        menu1, menu2, menu3 
        },
     setup () {
 
+
         const state = reactive({
-            menu : 1,
+            menu : 1
         });
         
 

@@ -21,6 +21,7 @@ export default {
         const router = useRouter();
 
         const state = reactive({
+           
             token : sessionStorage.getItem("TOKEN"),
 
         });
@@ -49,11 +50,12 @@ export default {
                 console.log(response.data);
                 if(response.data.status === 200){
                     alert('변경되었습니다');
-                    router.push({name:"Mypage"});
+                    router.push({name:"Mypage", query:{menu:1}});
                 }
                 else{
-                    alert('기존암호 또는 새암호가 일치하지 않습니다');
+                    alert('기존암호 또는 새암호가 일치하지 않습니다.');
                 }
+                
             }
         }
 
