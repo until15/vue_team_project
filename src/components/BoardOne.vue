@@ -78,7 +78,6 @@ export default {
                 const response = await axios.delete(url, {headers});
                 console.log(response.data);
                 if(response === 200){
-                    handleData();
                     router.push({name:"Board"});
                 }
             }
