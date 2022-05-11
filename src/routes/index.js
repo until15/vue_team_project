@@ -14,6 +14,7 @@ import Mypage from '@/components/Mypage.vue';
 import UpdatePw from '@/components/mypage/UpdatePw.vue';
 import Pose from '@/components/Pose/Pose.vue';
 import PoseOne from '@/components/Pose/PoseOne.vue';
+import PoseUpdate from '@/components/Pose/PoseUpdate.vue';
 
 
 const routes = [
@@ -30,6 +31,7 @@ const routes = [
     { path:'/updatepw', name:"UpdatePw", component:UpdatePw },
     { path:'/pose', name:"Pose", component:Pose },
     { path:'/poseone', name:"PoseOne", component:PoseOne },
+    { path:'/poseupdate', name:"PoseUpdate", component:PoseUpdate },
 ];
   
 const router = createRouter({

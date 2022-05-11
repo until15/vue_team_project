@@ -1,6 +1,9 @@
 <template>
     <div>
         <h3>자세 페이지</h3>
+        <input type="text" v-model="state.title">
+        <button @click="handleLoadData()">검색</button>
+        {{state.title}}
         <table border="1">
             <tr>
                 <td>번호</td>
@@ -64,7 +67,7 @@ export default {
 
         
 
-        return {state, handlePoseOne}
+        return {state, handlePoseOne, handleLoadData}
     }
 }
 </script>
