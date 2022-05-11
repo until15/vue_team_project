@@ -2,21 +2,21 @@
   <div>
     <el-menu :default-active="state.activeIndex" class="center" mode="horizontal" :router="true"  @select="handleSelect">
      
-    <el-menu-item index="/" v-if="logged" >홈</el-menu-item>
+      <el-menu-item index="/" v-if="logged" >홈</el-menu-item>
 
-    <el-menu-item index="/challenge" v-if="logged" >챌린지</el-menu-item>
-  
-    <el-menu-item index="/memberjoin" v-if="logged === false">회원가입</el-menu-item>
-
-    <el-menu-item index="/login" v-if="logged === false" >로그인</el-menu-item>
-
-    <el-menu-item index="/board">자유게시판</el-menu-item>
+      <el-menu-item index="/challenge" v-if="logged" >챌린지</el-menu-item>
     
-    <el-menu-item index="/mypage" v-if="logged === true">마이페이지</el-menu-item>
+      <el-menu-item index="/memberjoin" v-if="logged === false">회원가입</el-menu-item>
 
-    <el-menu-item index="/logout" v-if="logged === true">로그아웃</el-menu-item>
+      <el-menu-item index="/login" v-if="logged === false" >로그인</el-menu-item>
 
-  </el-menu>
+      <el-menu-item index="/board">자유게시판</el-menu-item>
+      
+      <el-menu-item index="/mypage" v-if="logged === true">마이페이지</el-menu-item>
+
+      <el-menu-item index="/logout" v-if="logged === true">로그아웃</el-menu-item>
+
+    </el-menu>
     <!-- <router-link to="/">Home</router-link> |
     <router-link v-if="logged" to="/challenge">챌린지</router-link> |
     <router-link v-if="logged === false" to="/memberjoin">회원가입</router-link> |
