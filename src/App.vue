@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-menu :default-active="state.activeIndex" class="el-menu-demo" mode="horizontal" :router="true"  @select="handleSelect">
+    <el-menu :default-active="state.activeIndex" class="center" mode="horizontal" :router="true"  @select="handleSelect">
      
     <el-menu-item index="/" v-if="logged" >홈</el-menu-item>
 
@@ -87,6 +87,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="css" scoped>
+.center{
+  text-align: center;
+}
 </style>
