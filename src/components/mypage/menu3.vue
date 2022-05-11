@@ -15,7 +15,7 @@
                     <tr v-for="tmp in state.items" :key="tmp">
                         <td>{{tmp.qno}}</td>
                         <td @click="handlePage(tmp.qno)" style="cursor:pointer">{{tmp.qtitle}}</td>
-                        <td>{{tmp.memberchg.memail}}</td>
+                        <td>{{tmp.memberchgMemail}}</td>
                         <td>{{tmp.qregdate}}</td>
                         <td>처리중</td>
                     </tr>
@@ -37,18 +37,17 @@ export default {
         const router = useRouter();
 
         const state = reactive({
+            token : sessionStorage.getItem("TOKEN")
 
         });
 
         const handleData = async() => {
-            const url = `/ROOT/api/Inquiry/selectlist`;
-            const headers = {"Content-Type":"application/json"};
+            const url = `/ROOT/api/Inquiry/selectlistone`;
+            const headers = {"Content-Type":"application/json", "token":state.token};
             const response = await axios.get(url, {headers});
             console.log(response.data);
             if(response.data.status === 200){
                 state.items = response.data.result;
-                state.total = Math.floor(
-                    (Number(response.data.pageable)-1)/10+1);
             }
           
         }

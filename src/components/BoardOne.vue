@@ -9,7 +9,13 @@
         작성자 : {{state.item.memberchgMemail}} <br />
         조회수 : {{state.item.bhit}} <br />
         등록일 : {{state.item.bregdate}} <br />
-        이미지 : <img :src="state.image[0]" style="width:200px" /> <br />
+       <div v-for="tmp in state.image" :key="tmp">
+        <img :src="tmp" style="width:200px" />
+       </div>
+       
+        <img :src="state.imageUrl" style="width:100px" />
+        <input type="file" @change="handleImage($event)" />
+        <button @click="handleImageInsert">이미지등록</button>
         <hr />
 
         <router-link to="/board"><button>목록으로</button></router-link>
@@ -20,7 +26,7 @@
         <div v-for="tmp in state.reply" :key="tmp">
                 <tr>
                     <th>작성자</th>
-                    <td>{{tmp.memberchgMemail}}</td>
+                    <td>{{tmp.memberchg.memail}}</td>
                     <th>내용</th>
                     <td>{{tmp.cmtcontent}}</td>
                     <td><button @click="handleReplyDelete(tmp.cmtno)">삭제</button></td>
@@ -49,6 +55,7 @@ export default {
             reply1 :{
                 cmtcontent : '',
             },
+            mimage : null,
 
             editable : false,
             token : sessionStorage.getItem("TOKEN"),
@@ -77,7 +84,7 @@ export default {
                 const headers = {"Content-Type":"application/json", "token":state.token};
                 const response = await axios.delete(url, {headers});
                 console.log(response.data);
-                if(response === 200){
+                if(response.data.status === 200){
                     router.push({name:"Board"});
                 }
             }
@@ -125,6 +132,31 @@ export default {
             console.log("============", response.data);
         };
 
+        const handleImageInsert = async() => {
+            const url = `/ROOT/api/bimg/insert`;
+            const headers = {"Content-Type":"multipart/form-data","token":state.token};
+            const body = new FormData();
+            body.append("file", state.mimage);
+            body.append("bno", state.bno);
+            const response = await axios.post(url, body, {headers});
+            console.log(response.data);
+            if(response.data.status === 200){
+                handleData(state.item.bno);
+            }
+
+        };
+
+        const handleImage = (e) => {
+            if(e.target.files[0]){
+                state.imageUrl = URL.createObjectURL(e.target.files[0]);
+                state.mimage = e.target.files[0];
+            }
+            else{
+                state.imageUrl = require('../assets/img/default.png');
+                state.mimage = null;
+            }
+        }
+
         onMounted(() => {
             handleData(state.bno);
             handleSelectComment(state.bno); 
@@ -132,7 +164,7 @@ export default {
         });
         
 
-        return {state, handleData, handleUpdate, handleDelete, handleSelectComment, handleComment, handleSelectImage ,handleReplyDelete}
+        return {state, handleData, handleUpdate, handleDelete, handleSelectComment, handleComment, handleSelectImage ,handleReplyDelete, handleImageInsert, handleImage}
     }
 }
 </script>
