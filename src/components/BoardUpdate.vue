@@ -5,10 +5,8 @@
         <div v-if="state.item">
         제목 : <input type="text" v-model="state.item.btitle" /><br />
         내용 : <input type="text" v-model="state.item.bcontent" /><br />
-        <div v-for="tmp in state.image" :key="tmp">
-            <img :src="tmp" style="width:200px" />
-            <button @click="handleImageUpdate">수정</button>
-            <button @click="handleImageDelete(tmp.bimgno)">삭제</button>
+        <div v-for="(tmp, idx) in state.image" :key="tmp">
+            <img :src="state.image[idx]" style="width:200px" />
         </div>
         <button @click="handleUpdate">수정하기</button>
         </div>
@@ -57,22 +55,13 @@ export default {
             }
         };
 
-        const handleImageDelete = async(bimgno) => {
-            const url = `/ROOT/api/bimg/delete?bimgno=${bimgno}`;
-            const headers = {"Content-Type":"application/json", "token":state.token};
-            const response = await axios.delete(url, {headers});
-            console.log(response.data);
-            if(response.data.status === 200){
-                handleData(state.bno);
-            }
-        }
-
+       
         onMounted(() =>{
             handleData(state.bno);
         });
         
 
-        return {state, handleData, handleUpdate, handleImageDelete}
+        return {state, handleData, handleUpdate}
     }
 }
 </script>
