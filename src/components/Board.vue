@@ -17,7 +17,7 @@
                     <tr v-for="tmp in state.items" :key="tmp">
                         <td>{{tmp.bno}}</td>
                         <td @click="handlePage(tmp.bno)" style="cursor:pointer">{{tmp.btitle}}</td>
-                        <td>{{tmp.memberchg.memail}}</td>
+                        <td>{{tmp.memail}}</td>
                         <td>{{tmp.bhit}}</td>
                         <td>{{tmp.bregdate}}</td>
                     </tr>

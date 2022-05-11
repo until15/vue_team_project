@@ -8,6 +8,10 @@
             작성자 : {{state.item.memberchgMemail}}<br /><br />
             이미지 : <img :src="state.image[0]" style="width:200px" />
         </div>
+        <hr />
+        <button @click="handleMenu">목록으로</button>
+        <button @click="handleDelete">삭제</button>
+        
 
         <hr />
         <div v-for="tmp in state.reply" :key="tmp">
@@ -32,9 +36,11 @@
 import { onMounted, reactive } from 'vue';
 import axios from 'axios';
 import {useRoute} from 'vue-router';
+import {useRouter} from 'vue-router';
 export default {
     setup () {
         const route = useRoute();
+        const router = useRouter();
 
         const state = reactive({
             qno : Number(route.query.qno),
@@ -92,6 +98,19 @@ export default {
             }
         }
 
+        const handleMenu = () => {
+            router.push({name : "Mypage", query:{menu:3}})
+        };
+
+        const handleDelete = async() => {
+            const url = `/ROOT/api/Inquiry/delete?qno=${state.qno}`;
+            const headers = {"Content-Type":"application/json", "token":state.token};
+            const response = await axios.delete(url, {headers});
+            console.log(response.data);
+            if(response.data.status === 200){
+                router.push({name : "Mypage", query:{menu:3}})
+            }
+        };
 
         onMounted(() =>{
             handleData(state.qno);
@@ -104,7 +123,7 @@ export default {
         
         
 
-        return {state, handleComment, handleReplyDelete}
+        return {state, handleComment, handleReplyDelete, handleMenu, handleDelete}
     }
 }
 </script>
