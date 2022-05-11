@@ -18,6 +18,9 @@ import Inquiry from '@/components/mypage/Inquiry.vue';
 import InquiryOne from '@/components/mypage/InquiryOne.vue';
 import JoinList from '@/components/JoinList.vue';
 import JoinState from '@/components/JoinState.vue';
+import Pose from '@/components/Pose/Pose.vue';
+import PoseOne from '@/components/Pose/PoseOne.vue';
+import PoseUpdate from '@/components/Pose/PoseUpdate.vue';
 
 
 const routes = [
@@ -38,6 +41,9 @@ const routes = [
     { path:'/inquiryone', name:"InquiryOne", component:InquiryOne },
     { path:'/joinlist', name:"JoinList", component:JoinList },
     { path:'/joinstate', name:"JoinState", component:JoinState },
+    { path:'/pose', name:"Pose", component:Pose },
+    { path:'/poseone', name:"PoseOne", component:PoseOne },
+    { path:'/poseupdate', name:"PoseUpdate", component:PoseUpdate },
 ];
   
 const router = createRouter({
