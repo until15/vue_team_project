@@ -14,7 +14,8 @@ import Mypage from '@/components/Mypage.vue';
 import UpdatePw from '@/components/mypage/UpdatePw.vue';
 import Inquiry from '@/components/mypage/Inquiry.vue';
 import InquiryOne from '@/components/mypage/InquiryOne.vue';
-import Join from '@/components/Join.vue';
+import JoinList from '@/components/JoinList.vue';
+import JoinState from '@/components/JoinState.vue';
 
 
 const routes = [
@@ -31,7 +32,8 @@ const routes = [
     { path:'/updatepw', name:"UpdatePw", component:UpdatePw },
     { path:'/inquiry', name:"Inquiry", component:Inquiry },
     { path:'/inquiryone', name:"InquiryOne", component:InquiryOne },
-    { path:'/join', name:"Join", component:Join },
+    { path:'/joinlist', name:"JoinList", component:JoinList },
+    { path:'/joinstate', name:"JoinState", component:JoinState },
 ];
   
 const router = createRouter({
