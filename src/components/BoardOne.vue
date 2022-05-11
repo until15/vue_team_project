@@ -6,7 +6,7 @@
         번호 : {{state.item.bno}} <br />
         제목 : {{state.item.btitle}} <br />
         내용 : {{state.item.bcontent}} <br />
-        작성자 : {{state.item.memberchgMemail}} <br />
+        작성자 : {{state.item.memail}} <br />
         조회수 : {{state.item.bhit}} <br />
         등록일 : {{state.item.bregdate}} <br />
        <div v-for="tmp in state.image" :key="tmp">
