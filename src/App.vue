@@ -10,9 +10,9 @@
 
     <el-menu-item index="/login" v-if="logged === false" >로그인</el-menu-item>
 
-    <el-menu-item index="/mypage" v-if="logged === true">마이페이지</el-menu-item>
-    
     <el-menu-item index="/board">자유게시판</el-menu-item>
+    
+    <el-menu-item index="/mypage" v-if="logged === true">마이페이지</el-menu-item>
 
     <el-menu-item index="/logout" v-if="logged === true">로그아웃</el-menu-item>
 
