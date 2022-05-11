@@ -7,8 +7,7 @@
          <!--  // form-data : "chgtitle":"aaa", "chgintro" : "bbb", "chgcontent" : "ccc", "chglevel" : 1,
     // "chgend" : yyyy-mm-dd 00:00:00, "recruitend" : yyyy-mm-dd 00:00:00, "chfee" : 10000 -->
         <div v-if="state.items">
-            <input type="text" v-model="state.items.btitle" @keyup.enter="handleData" placeholder="검색어" />
-            
+            <input type="text" v-model="state.text">
             <select name="" id="">
                 <option>전체</option>
                 <option>제목</option>
@@ -16,7 +15,8 @@
                 <option>인기순</option>
                 <option>작성자</option>
             </select>
-            <button @click="handleData">검색</button>
+            <button @click="handleData(state.page, state.text)">검색</button>          
+            
 
             <table border="1">
 
@@ -77,16 +77,10 @@ export default {
             }
         }
 
-        const handlePage = async(chgno) => {
-            const url= ``;
-            const headers = {"Content-Type" : "application/json"};
-            const response = await axios.put(url,{},{headers});
-
-            console.log(response.data);
-            if(response.data.status=== 200){
-                router.push({name:'ChallengeOne', query:{chgno:chgno}});
-            }
-        };
+        const  handlePage = async(chgno) => {
+            console.log(chgno);
+            router.push({name:"ChallengeOne", query:{chgno:chgno}});
+        }
 
         const handlePagenation = (tmp) => {
             state.page = Number(tmp);
