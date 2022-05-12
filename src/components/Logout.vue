@@ -16,6 +16,7 @@ export default {
         onMounted(() => {
             sessionStorage.removeItem("TOKEN");
             store.commit('setLogged', false);
+            store.commit('ClearMemail');
             router.push({name : 'Home'});
 
         })

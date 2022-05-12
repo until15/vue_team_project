@@ -20,7 +20,7 @@
                 <td>{{tmp.plevel}}</td>
             </tr>
         </table>
-
+        <button @click="handlePoseInsert">글쓰기</button><br>
     </div>
 </template>
 
@@ -39,6 +39,17 @@ export default {
             title : ''
 
         });
+
+        const handlePoseInsert = () => {
+            if(sessionStorage.getItem("TOKEN") !== null){
+                router.push({name:"PoseInsert"});
+
+            }
+            else{
+                alert('로그인이 필요한 페이지입니다.');
+                router.push({name:"Login"});
+            }
+        }
 
         const handleLoadData = async () => {
             const url = `/ROOT/api/pose/selectlist.json?title=${state.title}&page=${state.page}`;
@@ -67,7 +78,7 @@ export default {
 
         
 
-        return {state, handlePoseOne, handleLoadData}
+        return {state, handlePoseOne, handleLoadData, handlePoseInsert}
     }
 }
 </script>
