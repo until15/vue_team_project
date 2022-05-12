@@ -3,8 +3,6 @@
     <el-menu :default-active="state.activeIndex" class="center" mode="horizontal" :router="true"  @select="handleSelect">
      
       <el-menu-item index="/" v-if="logged" >홈</el-menu-item>
-
-      <el-menu-item index="/challenge" v-if="logged" >챌린지</el-menu-item>
     
       <el-menu-item index="/memberjoin" v-if="logged === false">회원가입</el-menu-item>
 

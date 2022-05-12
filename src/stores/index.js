@@ -40,8 +40,8 @@ export default createStore({
         setMrole(state, value){
             state.mrole = value;
         },
-        setMemail(state, value){
-            state.memail = value;
+        setMemail(state, memail){
+            state.memail = memail;
         },
         setMname(state, value){
             state.mname = value;
@@ -49,6 +49,9 @@ export default createStore({
         setMenu(state, value){
             state.menu = value;
         },
+        ClearMemail(state){
+            state.memail = '';
+        }
     },
 
     // actions

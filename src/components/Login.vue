@@ -36,6 +36,7 @@ export default {
                 alert('로그인 되었습니다');
                 sessionStorage.setItem("TOKEN", response.data.token);
                 store.commit('setLogged', true);
+                store.commit('setMemail', state.memail);
                 router.push({name : "Home"});
             }   
         }
