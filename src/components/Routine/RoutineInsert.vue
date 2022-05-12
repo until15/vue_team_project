@@ -2,6 +2,7 @@
     <div>
         <h3>루틴 생성 페이지</h3>
         <div v-for="(routine,i) in state.routines" :key="i">
+            <!-- {{routine[i]}} -->
             <input type="text" v-model="state.routines[i]">
         </div>
 
