@@ -21,6 +21,9 @@ import JoinState from '@/components/JoinState.vue';
 import Pose from '@/components/Pose/Pose.vue';
 import PoseOne from '@/components/Pose/PoseOne.vue';
 import PoseUpdate from '@/components/Pose/PoseUpdate.vue';
+import Header from '@/components/Header.vue';
+import Footer from '@/components/Footer.vue';
+import Navi from '@/components/Navi.vue';
 
 
 const routes = [
@@ -44,6 +47,9 @@ const routes = [
     { path:'/pose', name:"Pose", component:Pose },
     { path:'/poseone', name:"PoseOne", component:PoseOne },
     { path:'/poseupdate', name:"PoseUpdate", component:PoseUpdate },
+    { path:'/header', name:"Header", component: Header},
+    { path:'/footer', name:"Footer", component: Footer},
+    { path:'/navi', name:"Navi", component: Navi},
 ];
   
 const router = createRouter({
