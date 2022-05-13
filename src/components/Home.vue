@@ -2,14 +2,15 @@
   <div>
     <!-- 메인 화면 -->
     <section class="py-5">
-        
+        {{state.items}}
         <!-- 인기 리스트 -->
-        <div class="container px-4 px-lg-5 mt-5 mb-6" style="height:500px">
+        <div class="container px-4 px-lg-5 mt-5 mb-6" style="height:500px" v-if="state.items">
+            
             <div class="list-top">
-              <span> 인기 첼린지 </span>
+              <span>{{state.items[5].jno}}</span>
+              <span> 진행 중인 첼린지 </span>
               <a class="seemore"> 더 보기 </a>
             </div>
-            
             <!-- vueper Slider -->
             <vueper-slides
               :fixed-height="true"
@@ -17,20 +18,22 @@
               :visible-slides="3"
               :slide-ratio="1 / 4"
               :dragging-distance="70">
-              <vueper-slide v-for="i in 9" :key="i" :span="9">
+              <vueper-slide v-for="i in state.items" :key="i" :span="9">
 
                 <!-- card -->
                 <template v-slot:content>
                   <el-row>
                     <el-col>
+                      
                       <el-card :body-style="{ padding: '0px' }" style="margin: 3rem;">
                         <img
                           src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
                           class="image"
                         />
+                        
                         <!-- 내용 -->
                         <div style="padding: 14px">
-                          <span>challenge title</span>
+                          <!-- <span>{{state.items[i].challengechgChgtitle}}</span> -->
                           <span class="ch-mem">이름</span>
                           <div class="bottom">
                             <time class="time">{{ currentDate }}</time>
@@ -144,9 +147,11 @@
 </template>
 
 <script>
-import { reactive } from '@vue/reactivity'
-import { VueperSlides, VueperSlide } from 'vueperslides'
-import 'vueperslides/dist/vueperslides.css'
+import { reactive } from '@vue/reactivity';
+import { VueperSlides, VueperSlide } from 'vueperslides';
+import 'vueperslides/dist/vueperslides.css';
+import { onMounted } from '@vue/runtime-core';
+import axios from 'axios';
 
 export default {
   components: {
@@ -158,13 +163,27 @@ export default {
 
     const state = reactive({
 
-      // 슬라이더
-      slides: [
-        {
-          title: 'Slide #1',
-          content: 'Slide content.'
-        }
-      ]
+      token : sessionStorage.getItem("TOKEN"),
+
+    });
+
+    const handleData = async() => {
+
+      const url = `/ROOT/api/join/inglist`;
+      const headers = {
+        "Content-Type":"application/json",
+        "token" : state.token
+      };
+      const response = await axios.get(url, {headers});
+      console.log("벡엔드에서 불러온 데이터 : ", response.data);
+      if (response.data.status === 200) {
+        state.items = response.data.result
+      }
+
+    };
+
+    onMounted(()=> {
+      handleData();
     });
 
     return {state, currentDate}
