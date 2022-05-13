@@ -22,6 +22,68 @@
         프로필사진 : <input type="file" @change="handleImage($event)" /><br />
         <button @click="handleData">화원가입</button>
     </div>
+    <el-card shadow="always">
+            <el-form :inline="true"  >
+                <el-form-item  label="이메일" label-width="80px">
+                    <el-input  size="mini" ref="memail" v-model="state.memail" placeholder="이메일" @keyup="handleEmailCheck"/>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" size="mini" round >{{state.usermailcheck}}</el-button> 
+                </el-form-item>
+            </el-form>
+            
+            <el-form :inline="true"  >
+                <el-form-item label="암호" label-width="80px" style="margin-top:-20px" >
+                    <el-input  size="mini" ref="mpw" v-model="state.mpw" type="password" placeholder="암호"/>
+                </el-form-item>
+            </el-form>
+
+            <el-form :inline="true"  >
+                <el-form-item label="암호확인" label-width="80px" style="margin-top:-20px">
+                    <el-input  size="mini" ref="mpw1" v-model="state.mpw1" type="password" placeholder="암호확인"/>
+                </el-form-item>
+            </el-form>
+
+             <el-form :inline="true"  >
+                <el-form-item  label="이름" label-width="80px" style="margin-top:-20px">
+                    <el-input  size="mini" ref="mname"  v-model="state.mname" placeholder="이름" />
+                </el-form-item>
+            </el-form>
+
+            <el-form :inline="true"  >
+                <el-form-item  label="닉네임" label-width="80px" style="margin-top:-20px">
+                    <el-input  size="mini" ref="mid"  v-model="state.mid" placeholder="닉네임" />
+                </el-form-item>
+            </el-form>
+
+            <el-form :inline="true"  >
+                <el-form-item  label="성별" label-width="80px" style="margin-top:-20px">
+                    <el-select v-model="state.mgender" size="mini" placeholder="성별">
+                        <el-option value="1" label="남자">남자</el-option>
+                        <el-option value="2" label="여자">여자</el-option>
+                    </el-select>
+              </el-form-item>
+            </el-form>
+
+
+            <el-form :inline="true" style="margin-top:-20px" >
+                <el-form-item label="이용약관" label-width="80px">
+                    <el-input  type="textarea" v-model="state.text" placeholder="이용약관"></el-input>
+                </el-form-item>
+            </el-form>
+
+            <el-form :inline="true"  >
+                <el-form-item  label="권한" label-width="80px" style="margin-top:-20px">
+                    <el-select v-model="state.userrole" size="mini" placeholder="Select">
+                        <el-option value="CUSTOMER" label="고객">고객</el-option>
+                        <el-option value="SELLER" label="판매자">판매자</el-option>
+                    </el-select>
+              </el-form-item>
+            </el-form>
+
+            <el-button type="primary" size="mini" round style="margin-left:75px" @click="handleJoin">회원가입</el-button>
+            <el-button type="primary" size="mini" round @click="hendleHome">홈으로</el-button>
+        </el-card>
 </template>
 
 <script>
