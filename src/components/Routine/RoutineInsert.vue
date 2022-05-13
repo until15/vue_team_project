@@ -21,7 +21,7 @@
         </div>
         <el-dialog v-model="dialogTableVisible" title="자세 추가" width="500px">
             <el-table :data="state.pose">
-                {{state.pose}}
+                <!-- chk : true 된 것 번호 저장, state.routines[i].posechg.pno 에 세팅-->
                 <el-table-column>
                     <template #default="scope">
                         <el-checkbox :value="state.pose.pno" v-model="state.pose[scope.$index].chk" size="small"/>
