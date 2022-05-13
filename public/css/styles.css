@@ -4511,7 +4511,7 @@ textarea.form-control-lg {
   position: relative;
   display: flex;
   flex-direction: column;
-  min-width: 0;
+  min-width: 1;
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
@@ -7377,6 +7377,10 @@ textarea.form-control-lg {
 
 .mb-5 {
   margin-bottom: 3rem !important;
+}
+
+.mb-6 {
+  margin-bottom: 4.5rem !important;
 }
 
 .mb-auto {
