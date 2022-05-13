@@ -23,6 +23,9 @@ import PoseOne from '@/components/Pose/PoseOne.vue';
 import PoseUpdate from '@/components/Pose/PoseUpdate.vue';
 import PoseInsert from '@/components/Pose/PoseInsert.vue';
 import RoutineInsert from '@/components/Routine/RoutineInsert.vue';
+import Header from '@/components/Header.vue';
+import Footer from '@/components/Footer.vue';
+import Navi from '@/components/Navi.vue';
 
 
 const routes = [
@@ -48,6 +51,9 @@ const routes = [
     { path:'/poseupdate', name:"PoseUpdate", component:PoseUpdate },
     { path:'/poseinsert', name:"PoseInsert", component:PoseInsert },
     { path:'/routineinsert', name:"RoutineInsert", component:RoutineInsert },
+    { path:'/header', name:"Header", component:Header },
+    { path:'/footer', name:"Footer", component:Footer },
+    { path:'/navi', name:"Navi", component:Navi },
 ];
   
 const router = createRouter({

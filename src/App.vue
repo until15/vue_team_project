@@ -1,31 +1,13 @@
 <template>
   <div>
-    <el-menu :default-active="state.activeIndex" class="center" mode="horizontal" :router="true"  @select="handleSelect">
-     
-      <el-menu-item index="/" v-if="logged" >홈</el-menu-item>
-    
-      <el-menu-item index="/memberjoin" v-if="logged === false">회원가입</el-menu-item>
 
-      <el-menu-item index="/login" v-if="logged === false" >로그인</el-menu-item>
+    <Navi></Navi>
 
-      <el-menu-item index="/board">자유게시판</el-menu-item>
-      
-      <el-menu-item index="/mypage" v-if="logged === true">마이페이지</el-menu-item>
-
-      <el-menu-item index="/logout" v-if="logged === true">로그아웃</el-menu-item>
-
-    </el-menu>
-    <!-- <router-link to="/">Home</router-link> |
-    <router-link v-if="logged" to="/challenge">챌린지</router-link> |
-    <router-link v-if="logged === false" to="/memberjoin">회원가입</router-link> |
-    <router-link v-if="logged === false" to="/login">로그인</router-link> |
-    <router-link v-if="logged === true" to="/mypage">마이페이지</router-link> |
-    <router-link v-if="logged === true" to="/logout">로그아웃</router-link> |
-    <router-link v-if="logged" to="/board">자유게시판</router-link> |
-    <hr />
-    <div v-if="logged === true">{{memail}}, {{mname}}님 로그인</div> -->
+    <Header></Header>
 
     <router-view></router-view>
+
+    <Footer></Footer>
 
   </div>
 </template>
@@ -33,7 +15,16 @@
 <script>
 import { onMounted, computed, reactive } from 'vue';
 import {useStore} from 'vuex';
+import Header from './components/Header.vue';
+import Footer from './components/Footer.vue';
+import Navi from './components/Navi.vue';
+
 export default {
+
+  components : {
+    Header, Footer, Navi
+  },
+
   setup () {
     const store = useStore();
 
