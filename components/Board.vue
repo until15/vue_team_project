@@ -9,7 +9,7 @@
             <template #default="scope">
                 <div @click="handlePage(scope.row.bno)" style="cursor:pointer;">
                     {{scope.row.btitle}}
-                </div>
+                </div> 
             </template>
                 </el-table-column>
                 <el-table-column prop="memail" label="작성자" width="100" />
