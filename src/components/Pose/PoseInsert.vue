@@ -1,7 +1,6 @@
 <template>
     <div>
         <h3>자세 등록 페이지</h3>
-        {{state}}
         <br>
         자세 이름 : <input type="text" v-model="state.name"><br>
         자세 부위 : <input type="text" v-model="state.part"><br>
