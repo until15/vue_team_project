@@ -14,6 +14,7 @@
     "vue": "^3.0.0",
     "vue-router": "^4.0.13",
     "vue-video-player": "^5.0.2",
+    "vueperslides": "^3.3.2",
     "vuetify-media-player": "^0.8.1",
     "vuex": "^4.0.2"
   },

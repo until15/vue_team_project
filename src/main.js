@@ -3,6 +3,8 @@ import App from './App.vue';
 import router from './routes';
 import stores from './stores/index';
 import VideoPlayer from 'vue-video-player';
+
+
 require('video.js/dist/video-js.css')
 require('vue-video-player/src/custom-theme.css')
 
