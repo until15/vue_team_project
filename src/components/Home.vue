@@ -2,79 +2,141 @@
   <div>
     <!-- 메인 화면 -->
     <section class="py-5">
-        <!-- 첼린지 전체 --->
-        <div class="container px-4 px-lg-5 mt-5">
-            <span> 첼린지 전체 </span>
-            <a class="selectbutton"> 상세보기 </a>
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-              
-              <div class="col mb-5">
-                  <div class="card h-100">
-                      <!-- 첼린지 썸네일 -->
-                      <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-
-                      <!-- 첼린지 내용-->
-                      <div class="card-body p-4">
-                          <div class="text-center">
-                              <!-- 첼린지 제목-->
-                              <h5 class="fw-bolder">여기 제목</h5>
-                              <!-- 첼린지 기간 -->
-                              
-                          </div>
-                      </div>
-
-                      <!-- 첼린지 상세내용 -->
-                      <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                          <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-                      </div>
-                  </div>
-              </div>
+        
+        <!-- 인기 리스트 -->
+        <div class="container px-4 px-lg-5 mt-5 mb-6" style="height:500px">
+            <div class="list-top">
+              <span> 인기 첼린지 </span>
+              <a class="seemore"> 더 보기 </a>
+            </div>
             
-            </div>
-        </div>
+            <!-- vueper Slider -->
+            <vueper-slides
+              :fixed-height="true"
+              class="no-shadow"
+              :visible-slides="3"
+              :slide-ratio="1 / 4"
+              :dragging-distance="70">
+              <vueper-slide v-for="i in 9" :key="i" :span="9">
 
-        <!-- 인기 첼린지 -->
-        <div class="container px-4 px-lg-5 mt-5">
-            <span> 인기 첼린지 </span>
-            <a class="selectbutton"> 상세 보기 </a>
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-
-              <vueper-slides
-                class="no-shadow"
-                :visible-slides="3"
-                :slide-ratio="1 / 4"
-                :dragging-distance="70">
-                <vueper-slide v-for="i in 9" :key="i" :title="i.toString()">
-
-                  <template v-slot:content>
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- 첼린지 썸네일 -->
-                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-
-                            <!-- 첼린지 내용-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- 첼린지 제목 -->
-                                    <h5 class="fw-bolder">여기 제목</h5>
-                                    <!-- 첼린지 기간 -->
-                                    
-                                </div>
-                            </div>
-
-                            <!-- 첼린지 상세내용 -->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
-                            </div>
+                <!-- card -->
+                <template v-slot:content>
+                  <el-row>
+                    <el-col>
+                      <el-card :body-style="{ padding: '0px' }" style="margin: 3rem;">
+                        <img
+                          src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+                          class="image"
+                        />
+                        <!-- 내용 -->
+                        <div style="padding: 14px">
+                          <span>challenge title</span>
+                          <span class="ch-mem">이름</span>
+                          <div class="bottom">
+                            <time class="time">{{ currentDate }}</time>
+                          </div>
+                          <div class="chg-detail">
+                            <el-button text class="button">상세 보기</el-button>
+                          </div>
                         </div>
-                    </div>
-                  </template>
+                      </el-card>
+                    </el-col>
+                  </el-row>
+                </template>
 
-                </vueper-slide>
-              </vueper-slides>
-            </div>
+              </vueper-slide>
+            </vueper-slides>
         </div>
 
+
+        <!-- 추천 리스트 -->
+        <div class="container px-4 px-lg-5 mb-6" style="height:500px">
+            <div class="list-top">
+              <span> 추천 첼린지 </span>
+              <a class="seemore"> 더 보기 </a>
+            </div>
+            
+            <!-- vueper Slider -->
+            <vueper-slides
+              :fixed-height="true"
+              class="no-shadow"
+              :visible-slides="3"
+              :slide-ratio="1 / 4"
+              :dragging-distance="70">
+              <vueper-slide v-for="i in 9" :key="i" :span="9">
+
+                <!-- card -->
+                <template v-slot:content>
+                  <el-row>
+                    <el-col>
+                      <el-card :body-style="{ padding: '0px' }" style="margin: 3rem;">
+                        <img
+                          src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+                          class="image"
+                        />
+                        <div style="padding: 14px">
+                          <span>Yummy hamburger</span>
+                          <span class="ch-mem">이름</span>
+                          <div class="bottom">
+                            <time class="time">{{ currentDate }}</time>
+                          </div>
+                          <div class="chg-detail">
+                            <el-button text class="button">상세 보기</el-button>
+                          </div>
+                        </div>
+                      </el-card>
+                    </el-col>
+                  </el-row>
+                </template>
+
+              </vueper-slide>
+            </vueper-slides>
+        </div>
+
+
+        <!-- 기간별 리스트 -->
+        <div class="container px-4 px-lg-5 mb-6">
+            <div class="list-top">
+              <span> 기간별 첼린지 </span>
+              <a class="seemore"> 더 보기 </a>
+            </div>
+
+            <!-- vueper Slider -->
+            <vueper-slides
+              :fixed-height="true"
+              class="no-shadow"
+              :visible-slides="3"
+              :slide-ratio="1 / 4"
+              :dragging-distance="70">
+              <vueper-slide v-for="i in 9" :key="i" :span="9">
+
+                <!-- card -->
+                <template v-slot:content>
+                  <el-row>
+                    <el-col>
+                      <el-card :body-style="{ padding: '0px' }" style="margin: 3rem;">
+                        <img
+                          src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+                          class="image"
+                        />
+                        <div style="padding: 14px">
+                          <span>Yummy hamburger</span>
+                          <span class="ch-mem">이름</span>
+                          <div class="bottom">
+                            <time class="time">{{ currentDate }}</time>
+                          </div>
+                          <div class="chg-detail">
+                            <el-button text class="button">상세 보기</el-button>
+                          </div>
+                        </div>
+                      </el-card>
+                    </el-col>
+                  </el-row>
+                </template>
+
+              </vueper-slide>
+            </vueper-slides>
+        </div>
 
     </section>
 
@@ -92,6 +154,8 @@ export default {
   },
 
   setup () {
+    const currentDate = new Date();
+
     const state = reactive({
 
       // 슬라이더
@@ -103,13 +167,59 @@ export default {
       ]
     });
 
-    return {state}
+    return {state, currentDate}
   }
 }
 </script>
 
 <style lang="css" scoped>
-  .selectbutton {
+
+  .vueperslides--fixed-height { height: 470px; }
+
+  .ch-mem {
     float: right;
+    font-size: 12px;
+    color: #999;
   }
+
+  .list-top {
+    background-color: rgb(206, 206, 206);
+    padding: 15px;
+    text-align: center;
+  }
+
+  .chg-detail {
+    text-align: center;
+    padding: 5px;
+  }
+
+  .seemore {
+    float: right;
+    margin-right: 50px;
+  }
+
+  .time {
+    font-size: 12px;
+    color: #999;
+  }
+
+  .bottom {
+    margin-top: 13px;
+    line-height: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .button {
+    padding: 5px;
+    min-height: auto;
+  }
+
+  .image {
+    width: 100%;
+    display: block;
+  }
+
+
 </style>
