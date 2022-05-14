@@ -12,17 +12,24 @@ import Board from '@/components/Board.vue';
 import BoardWrite from '@/components/BoardWrite.vue';
 import BoardOne from '@/components/BoardOne.vue';
 import BoardUpdate from '@/components/BoardUpdate.vue';
+////////////////////////////////////////////////////////////////
 import Mypage from '@/components/Mypage.vue';
 import UpdatePw from '@/components/mypage/UpdatePw.vue';
 import Inquiry from '@/components/mypage/Inquiry.vue';
 import InquiryOne from '@/components/mypage/InquiryOne.vue';
+/////////////////////////// JOIN ////////////////////////////////
 import JoinList from '@/components/Join/JoinList.vue';
 import JoinState from '@/components/Join/JoinState.vue';
+import JoinOne from '@/components/Join/JoinOne.vue';
+import JoinListPage from '@/components/Join/JoinListPage.vue';
+////////////////////////////////////////////////////////////////
 import Pose from '@/components/Pose/Pose.vue';
 import PoseOne from '@/components/Pose/PoseOne.vue';
 import PoseUpdate from '@/components/Pose/PoseUpdate.vue';
 import PoseInsert from '@/components/Pose/PoseInsert.vue';
+////////////////////////////////////////////////////////////////
 import RoutineInsert from '@/components/Routine/RoutineInsert.vue';
+/////////////////////// 화면 틀 //////////////////////////
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
 import Navi from '@/components/Navi.vue';
@@ -54,6 +61,8 @@ const routes = [
     { path:'/header', name:"Header", component:Header },
     { path:'/footer', name:"Footer", component:Footer },
     { path:'/navi', name:"Navi", component:Navi },
+    { path:'/joinone', name:"JoinOne", component:JoinOne },
+    { path:'/joinlistpage', name:"JoinListPage", component:JoinListPage },
 ];
   
 const router = createRouter({

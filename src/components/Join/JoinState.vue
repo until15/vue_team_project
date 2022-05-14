@@ -31,6 +31,13 @@
                 </tr>
             </table>
         </div>
+
+        <!-- 페이지네이션 -->
+        <div>
+            <label v-for="tmp in state.pages" :key="tmp">
+                <button @click="handlePage(tmp)" >{{ tmp }}</button>
+            </label>
+        </div>
     </div>
 </template>
 
@@ -46,10 +53,10 @@ export default {
             token : sessionStorage.getItem("TOKEN")
         });
 
-        const handleData = async(chgstate)=> {
-            console.log("넘어오는 상태값 : ", chgstate);
+        const handleData = async(chgs)=> {
+            console.log("넘어오는 상태값 : ", chgs);
             console.log("페이지 : ", state.page);
-            const url = `/ROOT/api/join/joinstate?chgstate=${chgstate}&page=${state.page}`;
+            const url = `/ROOT/api/join/joinstate?chgstate=${chgs}&page=${state.page}`;
             const headers = {
                 "Content-Type":"application/json",
                 "token" : state.token
@@ -59,21 +66,29 @@ export default {
 
             if (response.data.status === 200) {
                 state.items = response.data.result
+                state.pages = response.data.pages
             }
 
         };
 
         // 상태에 따라 다른 값
-        const handleState = (event)=> {
-            console.log(event.target.value);
-            handleData(event.target.value);
+        const handleState = async(event)=> {
+            state.chgstate = event.target.value;
+            console.log("클릭시 진행 상태 : ", state.chgstate);
+            handleData(state.chgstate);
+        };
+
+        // 페이지네이션
+        const handlePage = async(page)=> {
+            state.page = page;
+            handleData(state.chgstate, state.page);
         };
 
         onMounted(()=> {
             handleData(state.chgstate, state.page);
         });
 
-        return {state, handleState, handleData}
+        return {state, handleState, handleData, handlePage}
     }
 }
 </script>

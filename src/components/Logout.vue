@@ -1,8 +1,3 @@
-<template>
-    <div>
-        <h3>로그아웃</h3>
-    </div>
-</template>
 
 <script>
 import { onMounted } from 'vue';
@@ -14,9 +9,14 @@ export default {
         const store = useStore();
 
         onMounted(() => {
-            sessionStorage.removeItem("TOKEN");
-            store.commit('setLogged', false);
-            store.commit('ClearMemail');
+            if (confirm("로그아웃 하시겠습니까?")) {
+                
+                alert("로그아웃 완료");
+                sessionStorage.removeItem("TOKEN");
+                store.commit('setLogged', false);
+                store.commit('ClearMemail');
+
+            }
             router.push({name : 'Home'});
 
         })
