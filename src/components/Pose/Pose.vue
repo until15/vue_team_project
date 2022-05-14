@@ -20,6 +20,14 @@
                 <td>{{tmp.plevel}}</td>
             </tr>
         </table>
+        <el-pagination
+            layout="prev, pager, next"
+            @current-change="currentChange"
+            :current-page="state.page"
+            :page-size="10"
+            :pager-count="5"
+            :total="state.total">
+        </el-pagination>
         <button @click="handlePoseInsert">글쓰기</button><br>
     </div>
 </template>
@@ -61,7 +69,14 @@ export default {
             console.log(response.data);
             if(response.data.status === 200){
                 state.pose = response.data.result;
+                state.total = response.data.titleTotal
             }
+        }
+
+        const currentChange = (page) => {
+            console.log('Pose.vue => currentChange', page);
+            state.page = page;
+            handleLoadData();
         }
 
         const handlePoseOne = (no) => {
@@ -75,10 +90,7 @@ export default {
 
         });
 
-
-        
-
-        return {state, handlePoseOne, handleLoadData, handlePoseInsert}
+        return {state, handlePoseOne, handleLoadData, handlePoseInsert, currentChange}
     }
 }
 </script>

@@ -141,7 +141,9 @@ export default {
             const response = await axios.post(url, body, {headers});
             console.log(response.data);
             if(response.data.status === 200){
+                alert('등록되었습니다');
                 handleData(state.item.bno);
+                
             }
 
         };
