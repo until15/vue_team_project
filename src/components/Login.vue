@@ -24,6 +24,19 @@ export default {
         });
 
         const handleLogin = async() => {
+
+            // 아이디 유효성 검사
+            if (state.memail.length <= 0) {
+                alert('아이디를 입력하세요.');
+                return false;
+            }
+
+            // 암호 유효성 검사
+            if (state.mpw.length <= 0) {
+                alert('아이디를 입력하세요.');
+                return false;
+            }
+
             const url = `/ROOT/api/member/login`;
             const headers = {"Content-Type":"application/json"};
             const body = {

@@ -15,7 +15,7 @@
                         <li class="nav-item" v-if="logged === true"><router-link to="/logout" class="nav-link">로그아웃</router-link></li>
 
                         <!-- 내리는 메뉴 -->
-                        <!-- <li class="nav-item dropdown">
+                        <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">마이페이지</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#!">정보수정</a></li>
@@ -23,7 +23,7 @@
                                 <li><a class="dropdown-item" href="#!">1:1 문의</a></li>
                                 <li><a class="dropdown-item" href="#!">회원탈퇴</a></li>
                             </ul>
-                        </li> -->
+                        </li>
                     </ul>
                     <form class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">

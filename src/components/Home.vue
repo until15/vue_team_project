@@ -3,7 +3,7 @@
     <!-- 메인 화면 -->
     <section class="py-5">
 
-        <!-- 인기 리스트 -->
+        <!-- 진행 중인 첼린지 -->
         <div class="container px-4 px-lg-5 mt-5 mb-6" v-if="state.items">
             
             <div class="list-top">
@@ -51,10 +51,10 @@
         </div>
 
 
-        <!-- 추천 리스트 -->
+        <!-- 인기 리스트 -->
         <div class="container px-4 px-lg-5 mb-6">
             <div class="list-top">
-              <span> 추천 첼린지 </span>
+              <span> 인기 리스트 </span>
               <a class="seemore"> 더 보기 </a>
             </div>
             
@@ -65,7 +65,7 @@
               :visible-slides="3"
               :slide-ratio="1 / 4"
               :dragging-distance="70">
-              <vueper-slide v-for="i in 9" :key="i" :span="9">
+              <vueper-slide v-for="i in 9" :key="i">
 
                 <!-- card -->
                 <template v-slot:content>
@@ -96,10 +96,10 @@
         </div>
 
 
-        <!-- 기간별 리스트 -->
+        <!-- 난이도 별 리스트 -->
         <div class="container px-4 px-lg-5 mb-6">
             <div class="list-top">
-              <span> 기간별 첼린지 </span>
+              <span> 난이도 별 첼린지 </span>
               <a class="seemore"> 더 보기 </a>
             </div>
 
@@ -224,12 +224,15 @@ export default {
 
 <style lang="css" scoped>
 
-  .vueperslides--fixed-height { height: 470px; }
+  .vueperslides--fixed-height { height: 480px; }
+
+  .vueper-list {
+    width: 940px;
+    float: center;
+  }
 
   .c-m {
-    margin-top: 3rem;
-    margin-left: 3rem;
-    margin-right: 3rem;
+    margin: 3rem;
   }
 
   .ch-mem {
@@ -261,6 +264,7 @@ export default {
 
   .bottom {
     margin-top: 13px;
+    margin-bottom: 13px;
     line-height: 12px;
     display: flex;
     justify-content: space-between;

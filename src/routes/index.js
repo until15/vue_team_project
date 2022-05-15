@@ -22,7 +22,9 @@ import JoinList from '@/components/Join/JoinList.vue';
 import JoinState from '@/components/Join/JoinState.vue';
 import JoinOne from '@/components/Join/JoinOne.vue';
 import JoinListPage from '@/components/Join/JoinListPage.vue';
-////////////////////////////////////////////////////////////////
+/////////////////////// Confirm ////////////////////////////////
+import ConfirmInsert from '@/components/Confirm/ConfirmInsert.vue';
+//////////////////////// Pose //////////////////////////////
 import Pose from '@/components/Pose/Pose.vue';
 import PoseOne from '@/components/Pose/PoseOne.vue';
 import PoseUpdate from '@/components/Pose/PoseUpdate.vue';
@@ -63,6 +65,7 @@ const routes = [
     { path:'/navi', name:"Navi", component:Navi },
     { path:'/joinone', name:"JoinOne", component:JoinOne },
     { path:'/joinlistpage', name:"JoinListPage", component:JoinListPage },
+    { path:'/confirminsert', name:"ConfirmInsert", component:ConfirmInsert },
 ];
   
 const router = createRouter({
