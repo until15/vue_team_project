@@ -9,7 +9,7 @@
         <button @click="handleMenu(3)">1:1문의</button>
         <button @click="handleMenu(2)">회원탈퇴</button>
 
-        <hr />
+    
         <menu-1 v-if="state.menu == 1"></menu-1>
         <menu-2 v-if="state.menu == 2"></menu-2>
         <menu-3 v-if="state.menu == 3"></menu-3>

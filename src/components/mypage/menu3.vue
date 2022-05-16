@@ -1,8 +1,38 @@
 <template>
-    <div>
+    <div align="center">
+        <el-card>
         <h3>1:1문의</h3>
-        <div v-if="state.items">
-            <input type="text" v-model="state.items.btitle" @keyup.enter="handleData" placeholder="검색어" />
+        <hr />
+            <el-table :data="state.items">
+                <el-table-column prop="qno" label="번호" width="60" />
+                <el-table-column prop="qtitle" label="제목"  width="250" >
+            <template #default="scope">
+                <div @click="handlePage(scope.row.qno)" style="cursor:pointer;">
+                    {{scope.row.qtitle}}
+                </div> 
+            </template>
+                </el-table-column>
+                <el-table-column prop="memberchg.memail" label="작성자" width="100" />
+                <el-table-column prop="qregdate" label="날짜" width="250" />
+            </el-table>
+
+            <el-pagination layout="prev, pager, next" :total="state.total" @current-change="currentchange">
+            </el-pagination>
+        </el-card>
+        <el-form :inline="true" v-if="state.items" >
+            <el-form-item>
+                <el-input type="text" size="mini" v-model="state.qtitle" placeholder="검색어 입력" @keydown.prevent.enter="handleData" />
+            </el-form-item>
+            <el-form-item>
+                <el-button type="info" plain size="mini" style="margin-left:5px" @click="handleData" >검색</el-button>
+            </el-form-item>
+        </el-form>
+        <el-button type="info" plain @click="handleInquiryWriter">글쓰기</el-button>
+
+    </div>
+
+        <!-- <div v-if="state.items">
+            <input type="text" v-model="state.items.title" @keyup.enter="handleData" placeholder="검색어" />
             <button @click="handleData">검색</button>
             <table border="1">
                     <tr>
@@ -20,11 +50,10 @@
                         <td>처리중</td>
                     </tr>
             </table>
-        </div>
-        
         <button @click="handleInquiryWriter">글쓰기</button>
+        </div> -->
+        
 
-    </div>
 </template>
 
 <script>
@@ -37,19 +66,28 @@ export default {
         const router = useRouter();
 
         const state = reactive({
-            token : sessionStorage.getItem("TOKEN")
+            token : sessionStorage.getItem("TOKEN"),
+            qtitle : '',
+            page : 1,
+            total : 0,
 
         });
 
         const handleData = async() => {
-            const url = `/ROOT/api/Inquiry/selectlistone`;
+            const url = `/ROOT/api/Inquiry/selectlist??page=${state.page}&qtitle=${state.qtitle}`;
             const headers = {"Content-Type":"application/json", "token":state.token};
             const response = await axios.get(url, {headers});
             console.log(response.data);
             if(response.data.status === 200){
                 state.items = response.data.result;
+                state.total = response.data.total;
             }
           
+        }
+
+        const currentchange = (page) => {
+            state.page = page;
+            handleData();
         }
 
         onMounted(() => {
@@ -67,11 +105,14 @@ export default {
 
         
 
-        return {state, handleInquiryWriter, handlePage}
+        return {state, handleInquiryWriter, handleData, currentchange, handlePage}
     }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
+.center{
+  text-align: center;
+}
 
 </style>
