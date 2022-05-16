@@ -4,22 +4,18 @@
         <input type="text" v-model="state.title">
         <button @click="handleLoadData()">검색</button>
         {{state.title}}
-        <table border="1">
-            <tr>
-                <td>번호</td>
-                <td>이름</td>
-                <td>부위</td>
-                <td>내용</td>
-                <td>난이도</td>
-            </tr>
-            <tr v-for="tmp in state.pose" :key="tmp">
-                <td>{{tmp.pno}}</td>
-                <td @click="handlePoseOne(tmp.pno)" style="cursor:pointer">{{tmp.pname}}</td>
-                <td>{{tmp.ppart}}</td>
-                <td>{{tmp.pcontent}}</td>
-                <td>{{tmp.plevel}}</td>
-            </tr>
-        </table>
+        <el-table :data="state.pose">
+            <el-table-column property="pno" label="번호" width="50"/>
+            <el-table-column property="pname" label="자세" width="150">
+                <template #default="scope">
+                    <div @click="handlePoseOne(scope.row.pno)" style="cursor:pointer;">
+                        {{scope.row.pname}}
+                    </div>
+                </template>
+            </el-table-column>
+            <el-table-column property="ppart" label="부위" width="100" />
+            <el-table-column property="plevel" label="난이도" width="100"/>
+        </el-table>
         <el-pagination
             layout="prev, pager, next"
             @current-change="currentChange"
