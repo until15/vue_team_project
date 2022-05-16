@@ -16,7 +16,7 @@
     </div>
     <div>
         <button> 채팅하기 </button>
-        <button> 인증하기 </button>
+        <button @click="handleConfirm(state.jno)"> 인증하기 </button>
     </div>
 </div>
 </template>
@@ -24,11 +24,13 @@
 import { reactive } from '@vue/reactivity';
 import { onMounted } from '@vue/runtime-core';
 import { useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
 import axios from 'axios';
 
 export default {
     setup () {
         const route = useRoute();
+        const router = useRouter();
 
         const state = reactive({
             jno : route.params.jno,
@@ -51,11 +53,20 @@ export default {
 
         };
 
+        // 인증하기
+        const handleConfirm = async(no)=> {
+            console.log("인증하기");
+            router.push({name:'ConfirmInsert', params:{jno:no}});
+        };
+
         onMounted(()=> {
             handleData(state.jno);
         });
 
-        return {state}
+        return {
+            state,
+            handleConfirm,
+        }
     }
 }
 </script>
