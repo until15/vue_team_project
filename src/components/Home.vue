@@ -4,7 +4,7 @@
     <section class="py-5">
 
         <!-- 진행 중인 첼린지 -->
-        <div class="container px-4 px-lg-5 mt-5 mb-6" v-if="state.items">
+        <div class="container px-4 px-lg-5 mt-5 mb-6" v-if="logged === true">
             
             <div class="list-top">
               <span> 진행 중인 첼린지 </span>
@@ -17,7 +17,7 @@
               :visible-slides="3"
               :slide-ratio="1 / 4"
               :dragging-distance="70">
-              <vueper-slide v-for="i in state.items" :key="i">
+              <vueper-slide v-for="(tmp, idx) in state.items" :key="tmp">
 
                 <!-- card -->
                 <template v-slot:content>
@@ -26,19 +26,19 @@
                       
                       <el-card :body-style="{ padding: '0px' }" class="c-m">
                         <img
-                          src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+                          :src="state.images[idx]"
                           class="image"
                         />
                         
                         <!-- 내용 -->
                         <div style="padding: 14px">
-                          <span>{{i.challengechgChgtitle}}</span>
-                          <span class="ch-mem">이름</span>
-                          <div class="bottom">
-                            <time class="time">{{ i.jregdate }}</time>
+                          <span>{{tmp.chgtitle}}</span>
+                          <span class="ch-mem">{{tmp.chgrate}}</span>
+                          <div class="bottom time">
+                            <time>{{ tmp.jregdate }}</time>
                           </div>
                           <div class="chg-detail">
-                            <el-button text class="button" @click="handleSelectOne(i.jno)">상세 보기</el-button>
+                            <el-button text class="button" @click="handleSelectOne(tmp.jno)">상세 보기</el-button>
                           </div>
                         </div>
                       </el-card>
@@ -146,12 +146,13 @@
 </template>
 
 <script>
-import { reactive } from '@vue/reactivity';
+import { reactive, computed } from 'vue';
 import { VueperSlides, VueperSlide } from 'vueperslides';
 import 'vueperslides/dist/vueperslides.css';
 import { onMounted } from '@vue/runtime-core';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+import {useStore} from 'vuex';
 
 export default {
   components: {
@@ -159,6 +160,12 @@ export default {
   },
 
   setup () {
+    const store = useStore();
+
+    const logged = computed(() => {
+      return store.getters.getLogged
+    });
+
     const router = useRouter();
 
     const currentDate = new Date();
@@ -201,18 +208,27 @@ export default {
         "token" : state.token
       };
       const response = await axios.get(url, {headers});
-      console.log("벡엔드에서 불러온 데이터 : ", response.data);
+      // console.log("벡엔드에서 불러온 데이터 : ", response.data);
       if (response.data.status === 200) {
         state.items = response.data.result
+        state.images = response.data.images
       }
 
     };
 
     onMounted(()=> {
       joinChallengeData();
+
+      if(sessionStorage.getItem("TOKEN") !== null){
+        store.commit('setLogged', true);
+      }
+      else {
+        store.commit('setLogged', false);
+      }
     });
 
     return {
+      logged,
       state,
       currentDate,
       handleSelectOne,
