@@ -1,32 +1,68 @@
 <template>
     <div>
         <h3>상세내용</h3>
-        <div v-if="state.item" style="padding:20px">
-            번호 : {{state.item.qno}}<br /><br />
+        <div v-if="state.item" class="">
+            <el-descriptions direction="horizontal" title="게시물 상세" :column="1" border>
+            <el-descriptions-item label="등록일"  label-align="center" align="center">
+                {{state.item.qregdate}}</el-descriptions-item>
+            <el-descriptions-item label="작성자" width="10px" label-align="center" align="center">
+                {{state.item.qno}}</el-descriptions-item>
+            <el-descriptions-item label="제목"  label-align="center" align="center">
+                {{state.item.qtitle}}</el-descriptions-item>
+            <el-descriptions-item label="내용" hight="20px" label-align="center" align="center">
+                {{state.item.qcontent}}</el-descriptions-item>
+            </el-descriptions>
+            <div class="center" v-for="tmp in state.image" :key="tmp">
+                <img :src="state.image[0]" style="width:300px" /><br />
+            </div>
+            <hr />
+            <el-button type="info" size="small" plain @click="handleMenu">목록</el-button>
+            <el-button type="info" size="small" plain @click="handleDelete">삭제</el-button>
+
+        </div>
+
+
+
+            <!-- 번호 : {{state.item.qno}}<br /><br />
             제목 : {{state.item.qtitle}}<br /><br />
             내용 : {{state.item.qcontent}}<br /><br />
             작성자 : {{state.item.memberchgMemail}}<br /><br />
             이미지 : <img :src="state.image[0]" style="width:200px" />
-        </div>
         <hr />
         <button @click="handleMenu">목록으로</button>
-        <button @click="handleDelete">삭제</button>
+        <button @click="handleDelete">삭제</button> -->
         
 
         <hr />
         <div v-for="tmp in state.reply" :key="tmp">
-                <tr>
+            <el-descriptions title="답글" :column="1" border>
+            <el-descriptions-item label="작성자" label-align="center" align="center" width="10px">{{tmp.memberchg.memail}}</el-descriptions-item>
+            <el-descriptions-item label="내용" label-align="center" align="center">{{tmp.iqcontent}}</el-descriptions-item>
+            <el-descriptions-item label="버튼" label-align="center" align="center">
+            <el-button type="info" size="small" plain @click="handleReplyDelete(tmp.iqcmtno)">삭제</el-button>
+            </el-descriptions-item>
+            </el-descriptions>
+        <hr />
+        </div>
+                <!-- <tr>
                     <th>작성자</th>
                     <td>{{tmp.memberchg.memail}}</td>
                     <th>내용</th>
                     <td>{{tmp.iqcontent}}</td>
                     <td><button @click="handleReplyDelete(tmp.iqcmtno)">삭제</button></td>
-                </tr>
-        </div>
+                </tr> -->
 
-        <hr />
-        댓글 : <input type="text" v-model="state.reply1.iqcontent" />
-        <button @click="handleComment">입력</button>
+
+        <el-form :inline="true" class="center">
+                <el-form-item  label="댓글" label-width="50px">
+                    <el-input  size="medium" ref="memail" v-model="state.reply1.iqcontent" placeholder="댓글"/>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="info" size="small" plain @click="handleComment">입력</el-button>
+                </el-form-item>
+            </el-form>
+        <!-- 댓글 : <input type="text" v-model="state.reply1.iqcontent" />
+        <button @click="handleComment">입력</button> -->
 
         
     </div>
@@ -128,6 +164,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="css" scoped>
+.center{
+  text-align: center;
+}
 </style>

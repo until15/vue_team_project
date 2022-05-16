@@ -1,7 +1,7 @@
 @@ -1,95 +0,0 @@
 <template>
-    <div style="padding:20px">
-        이메일 : <input type="text" v-model="state.memail" placeholder="이메일" /><br />
+    <div >
+        <!-- 이메일 : <input type="text" v-model="state.memail" placeholder="이메일" /><br />
         암호 : <input type="password" v-model="state.mpw" placeholder="암호" /><br />
         암호확인 : <input type="password" v-model="state.mpw1" placeholder="암호확인" /><br />
         이름 : <input type="text" v-model="state.mname" placeholder="이름" /><br />
@@ -20,75 +20,100 @@
         </select><br />
         <img :src="state.imageUrl" style="width:100px" />
         프로필사진 : <input type="file" @change="handleImage($event)" /><br />
-        <button @click="handleData">화원가입</button>
-    </div>
+        <button @click="handleData">화원가입</button> -->
+    
     <el-card shadow="always">
-            <el-form :inline="true"  >
+            <div class="center">
+            <el-form :inline="true" style="margin-left:90px" >
                 <el-form-item  label="이메일" label-width="80px">
-                    <el-input  size="mini" ref="memail" v-model="state.memail" placeholder="이메일" @keyup="handleEmailCheck"/>
+                    <el-input  size="medium" ref="memail" v-model="state.memail" placeholder="이메일" @keyup="emailCheck"/>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" size="mini" round >{{state.usermailcheck}}</el-button> 
+                    <el-button type="info" size="small" plain>{{state.usermailcheck}}</el-button> 
                 </el-form-item>
             </el-form>
-            
             <el-form :inline="true"  >
                 <el-form-item label="암호" label-width="80px" style="margin-top:-20px" >
-                    <el-input  size="mini" ref="mpw" v-model="state.mpw" type="password" placeholder="암호"/>
+                    <el-input  size="medium" ref="mpw" v-model="state.mpw" type="password" placeholder="암호"/>
                 </el-form-item>
             </el-form>
 
             <el-form :inline="true"  >
                 <el-form-item label="암호확인" label-width="80px" style="margin-top:-20px">
-                    <el-input  size="mini" ref="mpw1" v-model="state.mpw1" type="password" placeholder="암호확인"/>
+                    <el-input  size="medium" ref="mpw1" v-model="state.mpw1" type="password" placeholder="암호확인"/>
                 </el-form-item>
             </el-form>
 
              <el-form :inline="true"  >
                 <el-form-item  label="이름" label-width="80px" style="margin-top:-20px">
-                    <el-input  size="mini" ref="mname"  v-model="state.mname" placeholder="이름" />
+                    <el-input  size="medium" ref="mname"  v-model="state.mname" placeholder="이름" />
                 </el-form-item>
             </el-form>
 
-            <el-form :inline="true"  >
-                <el-form-item  label="닉네임" label-width="80px" style="margin-top:-20px">
-                    <el-input  size="mini" ref="mid"  v-model="state.mid" placeholder="닉네임" />
+            <el-form :inline="true" style="margin-left:90px;margin-top:-20px" >
+                <el-form-item  label="닉네임" label-width="80px">
+                    <el-input  size="medium" ref="mid"  v-model="state.mid" placeholder="닉네임" @keyup="checkMid" />
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="info" size="small" plain>{{state.usermidcheck}}</el-button> 
                 </el-form-item>
             </el-form>
 
             <el-form :inline="true"  >
                 <el-form-item  label="성별" label-width="80px" style="margin-top:-20px">
-                    <el-select v-model="state.mgender" size="mini" placeholder="성별">
+                    <el-select ref="mgender" v-model="state.mgender" size="medium" placeholder="성별">
                         <el-option value="1" label="남자">남자</el-option>
                         <el-option value="2" label="여자">여자</el-option>
                     </el-select>
               </el-form-item>
             </el-form>
 
+            <el-form :inline="true"  >
+                <el-form-item  label="생년월일" label-width="80px" style="margin-top:-20px">
+                    <el-date-picker ref="mbirth" v-model="state.mbirth" type="date" placeholder="날짜선택" />
+              </el-form-item>
+            </el-form>
 
-            <el-form :inline="true" style="margin-top:-20px" >
-                <el-form-item label="이용약관" label-width="80px">
-                    <el-input  type="textarea" v-model="state.text" placeholder="이용약관"></el-input>
-                </el-form-item>
+            <el-form :inline="true"  >
+                <el-form-item  label="키" label-width="80px" style="margin-top:-20px">
+                    <el-input-number ref="mheight" v-model="state.mheight" size="medium" />
+              </el-form-item>
+            </el-form>
+
+            <el-form :inline="true"  >
+                <el-form-item  label="몸무게" label-width="80px" style="margin-top:-20px">
+                    <el-input-number ref="mweight" v-model="state.mweight" size="medium" />
+              </el-form-item>
+            </el-form>
+
+            <el-form :inline="true"  >
+                <el-form-item  label="연락처" label-width="80px" style="margin-top:-20px">
+                    <el-input  size="medium" ref="mphone" v-model="state.mphone" type="text" placeholder="000-0000-0000"/>
+              </el-form-item>
             </el-form>
 
             <el-form :inline="true"  >
                 <el-form-item  label="권한" label-width="80px" style="margin-top:-20px">
-                    <el-select v-model="state.userrole" size="mini" placeholder="Select">
-                        <el-option value="CUSTOMER" label="고객">고객</el-option>
-                        <el-option value="SELLER" label="판매자">판매자</el-option>
+                    <el-select ref="mrole" v-model="state.mrole" size="medium" placeholder="권한">
+                        <el-option value="admin" label="관리자"></el-option>
+                        <el-option value="member" label="회원"></el-option>
                     </el-select>
               </el-form-item>
             </el-form>
 
-            <el-button type="primary" size="mini" round style="margin-left:75px" @click="handleJoin">회원가입</el-button>
-            <el-button type="primary" size="mini" round @click="hendleHome">홈으로</el-button>
+            <img :src="state.imageUrl" style="width:100px" />
+            프로필사진 : <input type="file" @change="handleImage($event)" /><br />
+
+            <el-button type="info" plain  style="margin-left:75px" @click="handleData">회원가입</el-button>
+            <el-button type="info" plain  @click="hendleHome">홈으로</el-button>
+            </div>
         </el-card>
+    </div>
 </template>
 
 <script>
 import axios from 'axios';
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import {useRouter} from 'vue-router';
 export default {
     setup () {
@@ -103,19 +128,104 @@ export default {
             mid : '',
             mgender : '',
             mbirth : '',
-            mheight : '',
-            mweight : '',
+            mheight : 1,
+            mweight : 1,
             mphone : '',
             mrole : '',
             mimage : null,
             imageUrl : require('../assets/img/default.png'),
+            usermailcheck : '중복확인',
+            usermidcheck : '중복확인'
 
         });
 
+        const memail = ref(null);
+        const mpw = ref(null);
+        const mpw1 = ref(null);
+        const mname = ref(null);
+        const mid = ref(null);
+        const mgender = ref(null);
+        const mbirth = ref(null);
+        const mheight = ref(null);
+        const mweight = ref(null);
+        const mphone = ref(null);
+        const mrole = ref(null);
+
         const handleData = async() => {
+            if(state.memail === ''){
+                alert('이메일을 입력해주세요');
+                memail.value.focus();
+                return false;
+            }
+
+            if(state.mpw === ''){
+                alert('암호을 입력해주세요');
+                mpw.value.focus();
+                return false;
+            } 
+
+            if(state.mpw1 === ''){
+                alert('암호확인을 입력해주세요');
+                mpw1.value.focus();
+                return false;
+            }
+
+            if(state.mpw1 !== state.mpw){
+                alert('암호가 일치하지 않습니다!');
+                mpw1.value.focus();
+                return false;
+            }
+          
+            if(state.mname === ''){
+                alert('이름을 입력해주세요');
+                mname.value.focus();
+                return false;
+            }
+
+            if(state.mid === ''){
+                alert('별명을 입력해주세요');
+                mid.value.focus();
+                return false;
+            }
+
+            if(state.mgender === ''){
+                alert('성별을 선택해주세요');
+                mgender.value.focus();
+                return false;
+            }
+
+            if(state.mbirth === ''){
+                alert('생일을 입력해주세요');
+                mbirth.value.focus();
+                return false;
+            }
+
+            if(state.mheight === ''){
+                alert('키를 입력해주세요');
+                mheight.value.focus();
+                return false;
+            }
+
+            if(state.mweight === ''){
+                alert('몸무게 입력해주세요');
+                mweight.value.focus();
+                return false;
+            }
+
+            if(state.mphone === ''){
+                alert('연락처를 입력해주세요');
+                mphone.value.focus();
+                return false;
+            }
+
+             if(state.mrole === ''){
+                alert('권한을 선택해주세요');
+                mrole.value.focus();
+                return false;
+            }
+
             const url = `/ROOT/api/member/join`;
             const headers = {"Content-Type":"multipart/form-data"};
-
             const body = new FormData();
             body.append("memail", state.memail);
             body.append("mpw", state.mpw);
@@ -137,6 +247,52 @@ export default {
             }
         }
 
+        //정확한 이메일 주소인지 확인
+        const validEmail = (memail) => {
+            // 정규표현식
+            var re = /[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]*$/i;
+            return re.test(memail);
+        }
+
+
+        const emailCheck = async() => {
+            if(validEmail(state.memail)){
+                console.log(state.memail);
+                const url = `/ROOT/api/member/emailcheck?memail=${state.memail}`;
+                const headers = {"Content-Type":"application/json"};
+                const response = await axios.get(url, {headers});
+                console.log(response.data);
+                if(response.data.status === 200){
+                    state.usermailcheck = '사용불가';
+                }
+                else{
+                    state.usermailcheck = '사용가능';
+                }   
+            }
+            else{
+            state.usermailcheck = '중복확인';
+            }
+        }
+
+        const checkMid = async() => {
+            if(state.mid){
+                const url = `/ROOT/api/member/checkmid?mid=${state.mid}`;
+                const headers = {"Content-Type":"application/json"};
+                const response = await axios.get(url, {headers});
+                console.log(response.data);
+                if(response.data.status === 200){
+                    state.usermidcheck = '사용불가';
+                }
+                else{
+                    state.usermidcheck = '사용가능';
+                    }
+            }
+            else{
+                state.usermidcheck = '중복확인';
+            }
+        }
+        
+
         const handleImage = (e) => {
             if(e.target.files[0]){
                 state.imageUrl = URL.createObjectURL(e.target.files[0]);
@@ -144,16 +300,23 @@ export default {
             }
             else{
                 state.imageUrl = require('../assets/img/default.png');
-                state.mimage = null;
+                state.mimage = '';
             }
         }
-        
 
-        return {state, handleData, handleImage}
+        const hendleHome = () => {
+            router.push({name :"Home"});
+        }
+
+    
+        return {state, memail, mpw, mpw1, mname, mid, mgender, mbirth, mheight, mweight, mphone, mrole, checkMid, handleData, handleImage, hendleHome, emailCheck}
     }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
+.center{
+  text-align: center;
+}
 
 </style>

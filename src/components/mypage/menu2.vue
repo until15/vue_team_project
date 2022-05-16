@@ -1,15 +1,25 @@
 <template>
     <div>
-        <h3>회원탈퇴</h3>
-        <div v-if="state.item">
-        암호 : <input type="password" v-model="state.item.mpw" /><br />
+        <div v-if="state.item" class="center" >
+            <el-card style="height:600px">
+            <h3>회원탈퇴</h3>
+            <hr />
+            <el-form :inline="true"  >
+                <el-form-item label="암호">
+                    <el-input  size="medium" ref="mpw" v-model="state.item.mpw" type="password" placeholder="암호"/>
+                </el-form-item>
+            </el-form>
+        <el-button type="info" size="small" plain @click="handleDelete">회원탈퇴</el-button> 
+        </el-card>
+        
         </div>
-        <button @click="handleDelete">회원탈퇴</button>
+        <!-- 암호 : <input type="password" v-model="state.item.mpw" /><br />
+        <button @click="handleDelete">회원탈퇴</button> -->
     </div>
 </template>
 
 <script>
-import { onMounted, reactive } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import {useRouter} from 'vue-router';
 import axios from 'axios';
 export default {
@@ -17,8 +27,11 @@ export default {
         const router = useRouter();
 
         const state = reactive({
-            token : sessionStorage.getItem("TOKEN")
+            token : sessionStorage.getItem("TOKEN"),
+            mpw : '',
         });
+
+        const mpw = ref(null);
 
         const handleData = async() => {
             
@@ -33,7 +46,7 @@ export default {
         };
         
         const handleDelete = async() => {
-            if(confirm('정말 탈퇴하시겠습니까?')){
+                if(confirm('정말 탈퇴하시겠습니까?')){
                 const url = `/ROOT/api/member/deletemember`;
                 const headers = {"Content-Type":"application/json", "token":state.token};
                 const body = {
@@ -52,11 +65,14 @@ export default {
             handleData();
         });
 
-        return {state, handleDelete}
+        return {state, mpw, handleDelete}
     }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
+.center{
+  text-align: center;
+}
 
 </style>

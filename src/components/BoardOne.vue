@@ -1,8 +1,52 @@
-@@ -1,131 +0,0 @@
 <template>
     <div>
         <h3>게시물 상세</h3>
         <div v-if="state.item">
+            <el-descriptions direction="horizontal" title="게시물 상세" :column="1" border>
+            <el-descriptions-item label="작성자" width="10px" label-align="center" align="center">
+                {{state.item.memail}}</el-descriptions-item>
+            <el-descriptions-item label="제목"  label-align="center" align="center">
+                {{state.item.btitle}}</el-descriptions-item>
+            <el-descriptions-item label="조회수"  label-align="center" align="center">
+                {{state.item.bhit}}</el-descriptions-item>
+                <el-descriptions-item label="등록일"  label-align="center" align="center">
+                {{state.item.bregdate}}</el-descriptions-item>
+            <el-descriptions-item label="내용" hight="20px" label-align="center" align="center">
+                {{state.item.bcontent}}</el-descriptions-item>
+            </el-descriptions>
+            <div class="center" v-for="tmp in state.image" :key="tmp">
+                <img :src="tmp" style="width:300px" /><br />
+                <img :src="state.imageUrl" style="width:80px" /><br />
+                <input type="file" @change="handleImage($event)" />
+                <el-button type="info" size="small" plain @click="handleImageInsert">이미지등록</el-button>
+            </div>
+            <hr />
+            <router-link to="/board"><el-button type="info" size="small" plain>목록</el-button></router-link>
+            <el-button type="info" size="small" plain @click="handleUpdate">수정</el-button>
+            <el-button type="info" size="small" plain @click="handleDelete">삭제</el-button>
+
+            <div v-for="tmp in state.reply" :key="tmp" class="center">
+                <el-divider border-style="dotted" />
+                작성자 : <span>{{tmp.memberchg.memail}}</span> //
+                내용 : <span>{{tmp.cmtcontent}}</span>
+                <el-button type="info" size="small" style="margin-left:20px" plain @click="handleReplyDelete(tmp.cmtno)">삭제</el-button>
+            </div>  
+            <hr />
+            <el-form :inline="true" class="center">
+                <el-form-item  label="댓글" label-width="50px">
+                    <el-input  size="medium" ref="memail" v-model="state.reply1.cmtcontent" placeholder="댓글"/>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="info" size="small" plain @click="handleComment">입력</el-button>
+                </el-form-item>
+            </el-form>
+
+
+
+
+
+
+        <!-- <div v-if="state.item">
         번호 : {{state.item.bno}} <br />
         제목 : {{state.item.btitle}} <br />
         내용 : {{state.item.bcontent}} <br />
@@ -12,18 +56,15 @@
        <div v-for="tmp in state.image" :key="tmp">
         <img :src="tmp" style="width:200px" />
        </div>
+        </div> -->
        
-        <img :src="state.imageUrl" style="width:100px" />
-        <input type="file" @change="handleImage($event)" />
-        <button @click="handleImageInsert">이미지등록</button>
-        <hr />
-
-        <router-link to="/board"><button>목록으로</button></router-link>
-        <button @click="handleUpdate">수정</button>
-        <button @click="handleDelete">삭제</button>
         
-        <hr />
-        <div v-for="tmp in state.reply" :key="tmp">
+
+        <!-- <router-link to="/board"><button>목록으로</button></router-link>
+        <button @click="handleUpdate">수정</button>
+        <button @click="handleDelete">삭제</button> -->
+        
+        <!-- <div v-for="tmp in state.reply" :key="tmp">
                 <tr>
                     <th>작성자</th>
                     <td>{{tmp.memberchg.memail}}</td>
@@ -36,7 +77,8 @@
         댓글 : <input type="text" v-model="state.reply1.cmtcontent" />
         <button @click="handleComment">입력</button>
         </div>
-
+         -->
+        </div>
     </div>
 </template>
 
@@ -171,6 +213,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="css" scoped>
+.center{
+  text-align: center;
+}
 </style>

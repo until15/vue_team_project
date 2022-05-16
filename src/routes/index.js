@@ -17,6 +17,9 @@ import Mypage from '@/components/Mypage.vue';
 import UpdatePw from '@/components/mypage/UpdatePw.vue';
 import Inquiry from '@/components/mypage/Inquiry.vue';
 import InquiryOne from '@/components/mypage/InquiryOne.vue';
+import menu1 from '@/components/mypage/menu1.vue';
+import menu2 from '@/components/mypage/menu2.vue';
+import menu3 from '@/components/mypage/menu3.vue';
 /////////////////////////// JOIN ////////////////////////////////
 import JoinList from '@/components/Join/JoinList.vue';
 import JoinState from '@/components/Join/JoinState.vue';
@@ -52,6 +55,9 @@ const routes = [
     { path:'/mypage', name:"Mypage", component:Mypage },
     { path:'/updatepw', name:"UpdatePw", component:UpdatePw },
     { path:'/inquiry', name:"Inquiry", component:Inquiry },
+    { path:'/menu1', name:"menu1", component:menu1 },
+    { path:'/menu2', name:"menu2", component:menu2 },
+    { path:'/menu3', name:"menu3", component:menu3 },
     { path:'/inquiryone', name:"InquiryOne", component:InquiryOne },
     { path:'/joinlist', name:"JoinList", component:JoinList },
     { path:'/joinstate', name:"JoinState", component:JoinState },
