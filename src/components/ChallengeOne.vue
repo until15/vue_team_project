@@ -2,8 +2,8 @@
 
     <div>
         <!-- 수정중 !!
-            CHGNO, CHGCNT, CHGCONTEN,T CHGEND 
-            CHGFEE, CHGINTRO, CHGLEVEL, CHGLIKE 
+             CHGCNT, CHGEND 
+            CHGFEE, CHGLEVEL, 
             CHGREGDATE, CHGSTART, CHGTITLE, RECRUITEND 
             RECRUITSTART, RECSTATE, CHGIMAGE, CHGINAME 
             CHGISIZE, CHGITYPE MEMAIL 
@@ -12,15 +12,27 @@
 
         <div v-if="state.item">
             번호 : {{state.item.chgno}} <br />
+            ♥♡ : {{state.item.chglike}} <br />
+            
             제목 : {{state.item.chgtitle}} <br />
+            소개 : {{state.item.chgintro}} <br />
+            내용 : {{state.item.chgcontent}} <br />
+            모집기간 : {{state.item.recruitstart}} ~ {{state.item.recruitend}} <br />
+            챌린지 시작 : {{state.item.chgstart}} <br />
+            참가비 : {{state.item.chgfee}} <br />
+            인원수 : {{state.item.chgcnt}} <br />
+            난이도 : {{state.item.chglevel}} <br />
 
-                <div v-for="tmp in state.image" :key="tmp">
-                    <img :src="tmp" style="width:200px" />
-                </div>
+            <div v-for="tmp in state.cimage" :key="tmp">
+                <img :src="tmp" style="width:200px" />
+            </div>
+
+            <img :src="state.imageUrl" style="width:100px" />
+
 
             <hr />
+            <button>참여하기</button>
             <router-link to="/challenge"><button>뒤로가기</button></router-link>
-            <button @click="handleUpdate">수정</button>
         </div>
     </div>
 
@@ -29,19 +41,16 @@
 <script>
 import { onMounted, reactive} from 'vue';
 import {useRoute} from 'vue-router';
-import {useRouter} from 'vue-router';
 import axios from 'axios';
 
 export default {
     setup () {
         const route = useRoute();
-        const router = useRouter();
 
         const state = reactive({
             chgno : Number(route.query.chgno),
             cimage : null,
             editable : false,
-            token : sessionStorage.getItem("TOKEN"),
             imageUrl : require('../assets/img/default.png'),
         });
         
@@ -56,17 +65,12 @@ export default {
             }
         };
 
-        const handleUpdate = async() => {
-            router.push({name : "ChallengeUpdate", query:{bno:state.chgno}});
-        };
-
         onMounted(() => {
             handleData(state.chgno);
         });
         return {
             state, 
             handleData,
-            handleUpdate
         }
     }
 }
