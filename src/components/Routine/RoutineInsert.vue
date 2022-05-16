@@ -3,11 +3,11 @@
         <el-card shadow="never">
         <h3>루틴 생성 페이지</h3>
         <br>
-        루틴 이름 : <input type="text" v-model="state.routines.rtnname"> <br><br>
+        루틴 이름 : <input type="text" v-model="state.rtnname"> <br><br>
         <el-button type="info" plain size="mini" @click="handlePlus">루틴추가</el-button>
         <el-button type="info" plain size="mini" @click="handleMinus">루틴삭제</el-button><br><br>
         <div v-for="(routine,i) in state.routines" :key="i">
-            루틴 이름 : <input type="text" v-model="state.routines[i].rtnname">
+            <!-- 루틴 이름 : <input type="text" v-model="state.routines[i].rtnname"> -->
             요일 : 
             <select v-model="state.routines[i].rtnday">
                 <option :value="'월'">월요일</option>
@@ -21,13 +21,13 @@
             횟수 : <input type="number" min="1" v-model="state.routines[i].rtncnt">
             세트 : <input type="number" min="1" v-model="state.routines[i].rtnset">
             <el-button @click="state.routines[i].dialogTableVisible = true" size="mini">자세추가</el-button>
-            자세 : <input type="text" v-model="state.routines[i].posechg.pno">
+            자세 : <input type="text" v-model="state.routines[i].posechg.pno" readonly>
             <el-dialog v-model="state.routines[i].dialogTableVisible" title="자세 추가" width="550px" center>
             <el-table :data="state.pose">
                 <!-- chk : true 된 것 번호 저장, state.routines[i].posechg.pno 에 세팅-->
                 <el-table-column>
                     <template #default="scope">
-                        <el-checkbox :value="state.pose.pno" v-model="state.pose[scope.$index].chk" size="small"/>
+                        <el-checkbox v-model="state.pose[scope.$index].chk" size="small"/>
                     </template>
                 </el-table-column>
                 <el-table-column v-if='false' property="pno" label="번호" width="50"/>
@@ -44,38 +44,45 @@
                 :total="state.total">
             </el-pagination>
             <br>
-            <el-button type="info" size="mini" @click="handleChk[i]">선택</el-button>
+            <el-button type="info" size="mini" @click="handleChk(i)">선택</el-button>
             </el-dialog>
         </div>
         <br>
-        {{state.routines}}
+        <!-- {{state.routines}} -->
         <el-button type="info" plain size="small" @click="handleRoutineInsert">생성</el-button>
+        <el-button type="info" plain size="small" @click="handleRoutineData">불러오기</el-button>
+        <div v-if="state.rtn">
+        {{state.rtn[0].rtnname}}
+        <div v-for="rtn,i in state.rtn" :key="i">
+        {{state.rtn[i].rtnday}}
+        횟수 : {{state.rtn[i].rtncnt}}
+        세트 : {{state.rtn[i].rtnset}}
+        </div>
+        </div>
         </el-card>
     </div>
 </template>
 
 <script>
-import { onMounted, reactive, ref } from 'vue';
+import { onMounted, reactive } from 'vue';
 import axios from 'axios';
 export default {
     setup () {
         const state = reactive({
             token : sessionStorage.getItem("TOKEN"),
+            rtnname : '',
             routines : [
-                {rtnday : '월', rtncnt : 1, rtnset : 1, rtnname : '루틴명', posechg:{pno:0}, 
-                dialogTableVisible: () => {
-                    handleChk();
-                },
-                },
+                {rtnday : '월', rtncnt : 1, rtnset : 1, rtnname : '루틴명', posechg:{pno:0}},
                 {rtnday : '화', rtncnt : 1, rtnset : 1, rtnname : '루틴명', posechg:{pno:0}},
                 {rtnday : '수', rtncnt : 1, rtnset : 1, rtnname : '루틴명', posechg:{pno:0}}
             ],
-            dialogTableVisible : [],
-            pnochk : '',
             // 자세
             step : 1, // 삭제 되지 않은 것만
             page : 1,
-            title : ''
+            title : '',
+
+            // 루틴
+            rtnseq : 38
         })
 
         const handlePlus = ()=> {
@@ -88,45 +95,60 @@ export default {
             }
         }
 
-        const handleChk = () => {
-            console.log("RoutineInsert.vue =>");
+        const handleChk = (index) => {
+            console.log("RoutineInsert.vue =>" + index);
             let arr = 1
-     
             for(let tmp of state.pose){
                 if(tmp.chk === true){
                     arr = (tmp.pno);
                 }
             }
-            console.log(arr)
-            for(let i=0; i<state.pose.length; i++){
-                state.routines[i].posechg.pno = arr
-                state.state.routines[i].posechg.pno = JSON.stringify(state.pnochk);
+            for(let i=0; i<state.routines.length; i++){
+                state.routines[index].posechg.pno = arr
                 console.log("==============" + state.routines[i].posechg.pno)
+                state.routines[i].dialogTableVisible = false;
+                for(let tmp of state.pose){
+                    tmp.chk = false
+                }
             }
-
-            state.dialogTableVisible = false;
         }
 
+        // 일괄등록 (RequestBody)
         const handleRoutineInsert = async() => {
+            if(state.rtnname === ''){
+                alert('루틴 이름을 입력하세요')
+                return false;
+            }
             const url = `/ROOT/api/routine/insertbatch.json`;
-            const headers = {"Content-Type":"application/json"};
-            // const body = {
-            //     rtnday : state.routines.rtnday,
-            //     rtncnt : state.routines.rtncnt,
-            //     rtnset : state.routines.rtnset,
-            //     rtnname : state.routines.rtnname,
-            //     posechg : state.pnochk
-            // }
-            const body = [];
-            for(let i=0; i<state.pose.length; i++){
-                body.append("rtnday", state.routines[i].rtnday);
-                body.append("rtncnt", state.routines[i].rtncnt);
-                body.append("rtnset", state.routines[i].rtnset);
-                body.append("rtnname", state.routines[i].rtnname);
-                body.append("posechg", state.routines[i].posechg.pno);
+            const headers = {"Content-Type":"application/json", "token":state.token};
+            let body = [];
+            for(let i=0; i<state.routines.length; i++){
+                state.routines[i].rtnname = state.rtnname
+                body.push({
+                    rtnday : state.routines[i].rtnday,
+                    rtncnt : state.routines[i].rtncnt,
+                    rtnset : state.routines[i].rtnset,
+                    rtnname : state.routines[i].rtnname,
+                    posechg : state.routines[i].posechg
+                })
+                console.log("==========" + JSON.stringify(body));
             }
             const response = await axios.post(url, body, {headers});
+            console.log(response);
+            if(response.data.status === 200){
+                alert('새 루틴이 생성되었습니다.');
+            }
+        }
+
+        // 루틴 불러오기 확인용
+        const handleRoutineData = async() => {
+            const url = `/ROOT/api/routine/selectlist.json?no=${state.rtnseq}`;
+            const headers = {"Content-Type":"application/json", "token":state.token};
+            const response = await axios.get(url, {headers:headers});
             console.log(response.data);
+            if(response.data.status === 200){
+                state.rtn = response.data.result
+            }
         }
 
         const handleLoadData = async () => {
@@ -154,26 +176,13 @@ export default {
 
         });
 
- 
-        const dialogTableVisible = () => {
-            // console.log(i);
-            // for(let i=0; i<state.pose.length; i++){
-            //     state.routines.dialogTableVisible[i] = false
-            // }
-            true;
-
-        }
-        
-        const dialogFormVisible = ref(false)
-
         return {
-            state, 
-            dialogTableVisible, 
-            dialogFormVisible, 
+            state,
             currentChange, 
             handleChk, 
             handlePlus, 
             handleMinus,
+            handleRoutineData,
             handleRoutineInsert 
         }
     }
