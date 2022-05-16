@@ -17,7 +17,7 @@
             </select>
             <button @click="handleData(state.page, state.text)">검색</button>          
             
-
+            <h3>챌린지</h3>
             <table border="1">
 
                 <tr>
@@ -25,8 +25,8 @@
                     <th>제목</th>
                     <th>참가비</th>
                     <th>참가인원</th>
-                    <th>좋아요</th>
                     <th>작성일</th>
+                    <th>좋아요</th>
                 </tr>
 
                 <tr v-for="tmp in state.items" :key="tmp">
@@ -34,19 +34,40 @@
                     <td @click="handlePage(tmp.chgno)" style="cursor:pointer">{{tmp.chgtitle}}</td>
                     <td>{{tmp.chgfee}}</td>
                     <td>{{tmp.chgcnt}}</td>
-                    <td>{{tmp.chglike}}</td>
                     <td>{{tmp.chgregdate}}</td>
+                    <td @click="handleLike(tmp.chgno)" style="cursor:pointer">{{tmp.chglike}}♥</td>
                 </tr>
 
             </table>
-        </div>
 
-        <div>
-            <button v-for="tmp in state.pageable" :key="tmp" @click="handlePagenation(tmp)">
-                {{tmp}}
-            </button>
-        </div>
+            <hr />
 
+            <h3>인기 챌린지</h3>
+
+            <table border="1">
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>참가비</th>
+                    <th>참가인원</th>
+                    <th>작성일</th>
+                    <th>좋아요</th>
+                </tr>
+
+                <tr v-for="tmp in state.items" :key="tmp">
+                    <td>{{tmp.chgno}}</td>
+                    <td @click="handlePage(tmp.chgno)" style="cursor:pointer">{{tmp.chgtitle}}</td>
+                    <td>{{tmp.chgfee}}</td>
+                    <td>{{tmp.chgcnt}}</td>
+                    <td>{{tmp.chgregdate}}</td>
+                    <td>{{tmp.chglike}}♥</td>
+                </tr>
+
+            </table>
+
+            <hr />
+
+        </div>
 
     </div>
 </template>
@@ -62,36 +83,53 @@ export default {
         const router = useRouter();
 
         const state = reactive({
-            page : 1,
             chgtitle : '',
-            total : 0,
         });
 
+
         const handleData = async() => {
-            const url = `/ROOT/api/challenge/selectlist?page=${state.page}&text=${state.chgtitle}`;
+            const url = `/ROOT/api/challenge/selectlist`;
             const headers = {"Content-Type" : "application/json"};
             const response = await axios.get(url, {headers});
+
             console.log(response.data);
+
             if(response.data.status === 200) {
                 state.items = response.data.result; 
             }
         }
 
+        // 챌린지 상세 조회(1개)
         const  handlePage = async(chgno) => {
             console.log(chgno);
             router.push({name:"ChallengeOne", query:{chgno:chgno}});
         }
 
-        const handlePagenation = (tmp) => {
-            state.page = Number(tmp);
-            handleData();
+        // 좋아요
+        const handleLike = async(chgno) => {
+            console.log(chgno);
+            const url = `/ROOT/api/like/insert`;
+            const headers = {"Content-Type" : "application/json"};
+            const response = await axios.get(url, {headers});
+
+            console.log(response.data);
+
+            if(response.data.status === 200) {
+                state.items = response.data.result; 
+            }
         }
+
 
         onMounted(() => {
             handleData();
         });
 
-        return {state, handlePage, handlePagenation}
+        return {
+            state, 
+            handleData,
+            handlePage, 
+            handleLike,
+        }
     }
 }
 </script>
