@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div align="center">
         <el-card shadow="never">
         <h3>루틴 생성 페이지</h3>
         <br>
