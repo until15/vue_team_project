@@ -22,14 +22,6 @@
             참가비 : {{state.item.chgfee}} <br />
             인원수 : {{state.item.chgcnt}} <br />
             난이도 : {{state.item.chglevel}} <br />
-
-            <div v-for="tmp in state.cimage" :key="tmp">
-                <img :src="tmp" style="width:200px" />
-            </div>
-
-            <img :src="state.imageUrl" style="width:100px" />
-
-
             <hr />
             <button>참여하기</button>
             <router-link to="/challenge"><button>뒤로가기</button></router-link>
@@ -48,10 +40,7 @@ export default {
         const route = useRoute();
 
         const state = reactive({
-            chgno : Number(route.query.chgno),
-            cimage : null,
-            editable : false,
-            imageUrl : require('../assets/img/default.png'),
+            chgno : route.params.chgno,     
         });
         
         const handleData = async(chgno) => {
@@ -61,7 +50,6 @@ export default {
             console.log(response.data);
             if(response.data.status === 200){
                 state.item = response.data.result;
-                state.image = response.data.imgurl;
             }
         };
 
@@ -69,8 +57,7 @@ export default {
             handleData(state.chgno);
         });
         return {
-            state, 
-            handleData,
+            state
         }
     }
 }
