@@ -1,30 +1,35 @@
 <template>
-    <div>
-        <h3>자세 페이지</h3>
-        <input type="text" v-model="state.title">
-        <button @click="handleLoadData()">검색</button>
-        {{state.title}}
-        <el-table :data="state.pose">
-            <el-table-column property="pno" label="번호" width="50"/>
-            <el-table-column property="pname" label="자세" width="150">
+    <div align="center">
+        <br>
+        <h3><mark>자세 페이지</mark></h3><br>
+        <el-form :inline="true" v-if="state.pose" align="center" label-width="100px">
+            <el-form-item>
+                <el-input v-model="state.title" placeholder="검색어를 입력하세요" size="small" v-on:keydown.enter.prevent='handleLoadData()'/>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="info" plain size="small" @click="handleLoadData()">검색</el-button>
+            </el-form-item>
+        </el-form>
+        <el-table :data="state.pose" align="center">
+            <el-table-column property="pno" label="번호" width="150"/>
+            <el-table-column property="pname" label="자세" width="250">
                 <template #default="scope">
                     <div @click="handlePoseOne(scope.row.pno)" style="cursor:pointer;">
                         {{scope.row.pname}}
                     </div>
                 </template>
             </el-table-column>
-            <el-table-column property="ppart" label="부위" width="100" />
+            <el-table-column property="ppart" label="부위" width="300" />
             <el-table-column property="plevel" label="난이도" width="100"/>
         </el-table>
         <el-pagination
+            align="center"
             layout="prev, pager, next"
             @current-change="currentChange"
             :current-page="state.page"
-            :page-size="10"
-            :pager-count="5"
             :total="state.total">
         </el-pagination>
-        <button @click="handlePoseInsert">글쓰기</button><br>
+        <el-button type="info" plain @click="handlePoseInsert" size="small" style="margin-left: 35%;">글쓰기</el-button><br><br>
     </div>
 </template>
 
@@ -56,7 +61,7 @@ export default {
         }
 
         const handleLoadData = async () => {
-            const url = `/ROOT/api/pose/selectlist.json?title=${state.title}&page=${state.page}`;
+            const url = `/ROOT/api/pose/selectlist.json?page=${state.page}&title=${state.title}`;
             const headers = {"Content-Type":"application/json"};
             const body = {
                 pstep : state.step
