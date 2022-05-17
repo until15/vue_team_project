@@ -22,44 +22,60 @@
         프로필사진 : <input type="file" @change="handleImage($event)" /><br />
         <button @click="handleData">화원가입</button> -->
     
-    <el-card shadow="always">
+        <el-card shadow="always">
             <div class="center">
-            <el-form :inline="true" style="margin-left:90px" >
+            <el-form :inline="true" style="margin-left:250px; display:block">
+                <el-form-item label="이메일" label-width="80px">
+                    <el-input v-model="state.memail" size="medium" ref="memail" placeholder="이메일" @keyup="handleChk" />
+                </el-form-item>
+                <el-form-item>@</el-form-item>
+                <el-form-item>
+                        <el-select v-model="state.memail1" size="medium" ref="memail1" placeholder="선택">
+                            <el-option  v-for="tmp in state.emailoption" :key="tmp" :label="tmp" :value="tmp" >
+                            </el-option>
+                        </el-select>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="info" size="small" plain @click="emailCheck">중복확인</el-button>{{state.usermailcheck}}
+                </el-form-item>
+            </el-form>
+
+            <!-- <el-form :inline="true" style="margin-left:90px" >
                 <el-form-item  label="이메일" label-width="80px">
                     <el-input  size="medium" ref="memail" v-model="state.memail" placeholder="이메일" @keyup="emailCheck"/>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="info" size="small" plain>{{state.usermailcheck}}</el-button> 
                 </el-form-item>
-            </el-form>
-            <el-form :inline="true"  >
+            </el-form> -->
+            <el-form :inline="true" style="margin-right:150px" >
                 <el-form-item label="암호" label-width="80px" style="margin-top:-20px" >
                     <el-input  size="medium" ref="mpw" v-model="state.mpw" type="password" placeholder="암호"/>
                 </el-form-item>
             </el-form>
 
-            <el-form :inline="true"  >
+            <el-form :inline="true" style="margin-right:150px"  >
                 <el-form-item label="암호확인" label-width="80px" style="margin-top:-20px">
                     <el-input  size="medium" ref="mpw1" v-model="state.mpw1" type="password" placeholder="암호확인"/>
                 </el-form-item>
             </el-form>
 
-             <el-form :inline="true"  >
+             <el-form :inline="true" style="margin-right:150px"  >
                 <el-form-item  label="이름" label-width="80px" style="margin-top:-20px">
                     <el-input  size="medium" ref="mname"  v-model="state.mname" placeholder="이름" />
                 </el-form-item>
             </el-form>
 
-            <el-form :inline="true" style="margin-left:90px;margin-top:-20px" >
+            <el-form :inline="true" style="margin-left:12px;margin-top:-20px" >
                 <el-form-item  label="닉네임" label-width="80px">
-                    <el-input  size="medium" ref="mid"  v-model="state.mid" placeholder="닉네임" @keyup="checkMid" />
+                    <el-input  size="medium" ref="mid"  v-model="state.mid" placeholder="닉네임" @keyup="handleMidChk" />
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="info" size="small" plain>{{state.usermidcheck}}</el-button> 
+                    <el-button type="info" size="small" plain @click="checkMid">중복확인</el-button> {{state.usermidcheck}}
                 </el-form-item>
             </el-form>
 
-            <el-form :inline="true"  >
+            <el-form :inline="true" style="margin-right:150px"  >
                 <el-form-item  label="성별" label-width="80px" style="margin-top:-20px">
                     <el-select ref="mgender" v-model="state.mgender" size="medium" placeholder="성별">
                         <el-option value="1" label="남자">남자</el-option>
@@ -68,31 +84,32 @@
               </el-form-item>
             </el-form>
 
-            <el-form :inline="true"  >
+            <el-form :inline="true" style="margin-right:150px" >
                 <el-form-item  label="생년월일" label-width="80px" style="margin-top:-20px">
-                    <el-date-picker ref="mbirth" v-model="state.mbirth" type="date" placeholder="날짜선택" />
+                    <el-date-picker ref="mbirth" v-model="state.mbirth" type="date" placeholder="날짜선택" 
+                    format="YYYY/MM/DD" value-format="YYYY-MM-DD" />
               </el-form-item>
             </el-form>
 
-            <el-form :inline="true"  >
+            <el-form :inline="true" style="margin-right:150px"  >
                 <el-form-item  label="키" label-width="80px" style="margin-top:-20px">
                     <el-input-number ref="mheight" v-model="state.mheight" size="medium" />
               </el-form-item>
             </el-form>
 
-            <el-form :inline="true"  >
+            <el-form :inline="true" style="margin-right:150px"  >
                 <el-form-item  label="몸무게" label-width="80px" style="margin-top:-20px">
                     <el-input-number ref="mweight" v-model="state.mweight" size="medium" />
               </el-form-item>
             </el-form>
 
-            <el-form :inline="true"  >
+            <el-form :inline="true" style="margin-right:150px"  >
                 <el-form-item  label="연락처" label-width="80px" style="margin-top:-20px">
                     <el-input  size="medium" ref="mphone" v-model="state.mphone" type="text" placeholder="000-0000-0000"/>
               </el-form-item>
             </el-form>
 
-            <el-form :inline="true"  >
+            <el-form :inline="true" style="margin-right:150px"  >
                 <el-form-item  label="권한" label-width="80px" style="margin-top:-20px">
                     <el-select ref="mrole" v-model="state.mrole" size="medium" placeholder="권한">
                         <el-option value="admin" label="관리자"></el-option>
@@ -104,16 +121,17 @@
             <img :src="state.imageUrl" style="width:100px" />
             프로필사진 : <input type="file" @change="handleImage($event)" /><br />
 
-            <el-button type="info" plain  style="margin-left:75px" @click="handleData">회원가입</el-button>
+            <el-button type="info" plain  style="margin-left:-100px" @click="handleData">회원가입</el-button>
             <el-button type="info" plain  @click="hendleHome">홈으로</el-button>
             </div>
         </el-card>
     </div>
+
 </template>
 
 <script>
 import axios from 'axios';
-import { reactive, ref } from 'vue'
+import {reactive, ref } from 'vue'
 import {useRouter} from 'vue-router';
 export default {
     setup () {
@@ -122,6 +140,7 @@ export default {
 
         const state = reactive({
             memail : '',
+            memail1 : '',
             mpw : '',
             mpw1 : '',
             mname : '',
@@ -134,12 +153,16 @@ export default {
             mrole : '',
             mimage : null,
             imageUrl : require('../assets/img/default.png'),
-            usermailcheck : '중복확인',
-            usermidcheck : '중복확인'
-
+            usermailcheck : '"중복확인"',
+            usermidcheck : '"중복확인"',
+            emailoption : ['naver.com','gmail.com','daum.net'],
+            usermail : ''
         });
 
         const memail = ref(null);
+        const memail1 = ref(null);
+        const usermailcheck = ref(null);
+        const usermidcheck = ref(null);
         const mpw = ref(null);
         const mpw1 = ref(null);
         const mname = ref(null);
@@ -155,6 +178,21 @@ export default {
             if(state.memail === ''){
                 alert('이메일을 입력해주세요');
                 memail.value.focus();
+                return false;
+            }
+
+            if(state.memail1 === ''){
+                alert('이메일을 입력해주세요');
+                memail1.value.focus();
+                return false;
+            }
+
+            if(state.usermailcheck === '"중복확인"'){
+                alert('이메일 중복체크를 해주세요');
+                return false;
+            }
+            else if(state.usermailcheck === '"사용불가"'){
+                alert('사용 할 수 없는 이메일입니다.');
                 return false;
             }
 
@@ -182,9 +220,30 @@ export default {
                 return false;
             }
 
+            if(state.mname .length <= 1){
+                alert('이름의 길이가 너무 짧습니다!');
+                mname.value.focus();
+                return false;
+            }
+
             if(state.mid === ''){
-                alert('별명을 입력해주세요');
+                alert('닉네임을 입력해주세요');
                 mid.value.focus();
+                return false;
+            }
+
+            if(state.mid.length <= 1){
+                alert('닉네임의 길이가 너무 짧습니다!');
+                mid.value.focus();
+                return false;
+            }
+
+            if(state.usermidcheck === '"중복확인"'){
+                alert('닉네임 중복체크를 해주세요');
+                return false;
+            }
+            else if(state.usermidcheck === '"사용불가"'){
+                alert('사용 할 수 없는 닉네임입니다.');
                 return false;
             }
 
@@ -227,7 +286,7 @@ export default {
             const url = `/ROOT/api/member/join`;
             const headers = {"Content-Type":"multipart/form-data"};
             const body = new FormData();
-            body.append("memail", state.memail);
+            body.append("memail", state.memail + "@" + state.memail1);
             body.append("mpw", state.mpw);
             body.append("mname", state.mname);
             body.append("mid", state.mid);
@@ -256,22 +315,30 @@ export default {
 
 
         const emailCheck = async() => {
-            if(validEmail(state.memail)){
-                console.log(state.memail);
-                const url = `/ROOT/api/member/emailcheck?memail=${state.memail}`;
+            if(validEmail(state.memail+'@'+state.memail1)){
+                console.log(state.memail +'@'+ state.memail1);
+                const url = `/ROOT/api/member/emailcheck?memail=${state.memail+'@'+ state.memail1}`;
                 const headers = {"Content-Type":"application/json"};
                 const response = await axios.get(url, {headers});
                 console.log(response.data);
                 if(response.data.status === 200){
-                    state.usermailcheck = '사용불가';
+                    state.usermailcheck = '"사용불가"';
                 }
                 else{
-                    state.usermailcheck = '사용가능';
+                    state.usermailcheck = '"사용가능"';
                 }   
             }
             else{
-            state.usermailcheck = '중복확인';
+            state.usermailcheck = '"중복확인"';
             }
+        }
+
+        const handleChk = () => {
+            state.usermailcheck = '"중복확인"';
+        }
+
+        const handleMidChk = () => {
+            state.usermidcheck = '"중복확인"';
         }
 
         const checkMid = async() => {
@@ -281,14 +348,14 @@ export default {
                 const response = await axios.get(url, {headers});
                 console.log(response.data);
                 if(response.data.status === 200){
-                    state.usermidcheck = '사용불가';
+                    state.usermidcheck = '"사용불가"';
                 }
                 else{
-                    state.usermidcheck = '사용가능';
+                    state.usermidcheck = '"사용가능"';
                     }
             }
             else{
-                state.usermidcheck = '중복확인';
+                state.usermidcheck = '"중복확인"';
             }
         }
         
@@ -299,7 +366,6 @@ export default {
                 state.mimage = e.target.files[0];
             }
             else{
-                state.imageUrl = require('../assets/img/default.png');
                 state.mimage = '';
             }
         }
@@ -308,8 +374,13 @@ export default {
             router.push({name :"Home"});
         }
 
+        
+
+        
+
+
     
-        return {state, memail, mpw, mpw1, mname, mid, mgender, mbirth, mheight, mweight, mphone, mrole, checkMid, handleData, handleImage, hendleHome, emailCheck}
+        return {state, handleChk, handleMidChk, usermidcheck, usermailcheck, memail, memail1, mpw, mpw1, mname, mid, mgender, mbirth, mheight, mweight, mphone, mrole, checkMid, handleData, handleImage, hendleHome, emailCheck}
     }
 }
 </script>
@@ -317,6 +388,27 @@ export default {
 <style lang="css" scoped>
 .center{
   text-align: center;
+}
+
+.demo-date-picker {
+  display: flex;
+  width: 100%;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.demo-date-picker .demonstration {
+  display: block;
+  color: var(--el-text-color-secondary);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.demo-date-picker .block {
+  padding: 30px 0;
+  text-align: center;
+  border-right: solid 1px var(--el-border-color);
+  flex: 1;
 }
 
 </style>

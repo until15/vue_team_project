@@ -36,7 +36,7 @@
         <hr />
         <div v-for="tmp in state.reply" :key="tmp">
             <el-descriptions title="답글" :column="1" border>
-            <el-descriptions-item label="작성자" label-align="center" align="center" width="10px">{{tmp.memberchg.memail}}</el-descriptions-item>
+            <el-descriptions-item label="작성자" label-align="center" align="center" width="10px">{{tmp.memberchg.mid}}</el-descriptions-item>
             <el-descriptions-item label="내용" label-align="center" align="center">{{tmp.iqcontent}}</el-descriptions-item>
             <el-descriptions-item label="버튼" label-align="center" align="center">
             <el-button type="info" size="small" plain @click="handleReplyDelete(tmp.iqcmtno)">삭제</el-button>
@@ -55,7 +55,7 @@
 
         <el-form :inline="true" class="center">
                 <el-form-item  label="댓글" label-width="50px">
-                    <el-input  size="medium" ref="memail" v-model="state.reply1.iqcontent" placeholder="댓글"/>
+                    <el-input  size="medium" v-model="state.reply1.iqcontent" placeholder="댓글"/>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="info" size="small" plain @click="handleComment">입력</el-button>

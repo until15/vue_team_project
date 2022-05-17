@@ -20,11 +20,11 @@
 
 <script>
 import { onMounted, reactive, ref } from 'vue';
-import {useRouter} from 'vue-router';
+// import {useRouter} from 'vue-router';
 import axios from 'axios';
 export default {
     setup () {
-        const router = useRouter();
+        // const router = useRouter();
 
         const state = reactive({
             token : sessionStorage.getItem("TOKEN"),
@@ -46,18 +46,18 @@ export default {
         };
         
         const handleDelete = async() => {
-                if(confirm('정말 탈퇴하시겠습니까?')){
-                const url = `/ROOT/api/member/deletemember`;
-                const headers = {"Content-Type":"application/json", "token":state.token};
-                const body = {
-                    mstep : state.mstep = 1,
-                };
-                const response = await axios.put(url, body, {headers});
-                console.log(response.data);
-                if(response.data.status === 200){
-                    alert('탈퇴하였습니다.');
-                    router.push({name : "Logout"});
-                }
+            if(confirm('정말 탈퇴하시겠습니까?')){
+            const url = `/ROOT/api/member/deletemember?mpw=${state.item.mpw}`;
+            const headers = {"Content-Type":"application/json"};
+            const body = {
+                mstep : state.mstep = 1,
+            };
+            const response = await axios.put(url, body, {headers});
+            console.log(response.data);
+            // if(response.data.status === 200){
+            //     alert('탈퇴하였습니다.');
+            //     router.push({name : "Logout"});
+            // }
             }
         }
 

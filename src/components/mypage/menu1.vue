@@ -4,6 +4,7 @@
         <h3>정보수정</h3>
         <hr />
         <div v-if="state.item">
+            {{state.item.mbirth}}
             <el-form :inline="true"  >
                 <el-form-item  label="이름" label-width="80px" style="margin-top:20px">
                     <el-input  size="medium" ref="mname"  v-model="state.item.mname" placeholder="이름" />
@@ -18,10 +19,10 @@
 
             <el-form :inline="true" style="margin-left:90px" >
                 <el-form-item  label="닉네임" label-width="80px" style="margin-top:-20px">
-                    <el-input  size="medium" ref="mid"  v-model="state.item.mid" placeholder="닉네임" @keyup="checkMid" />
+                    <el-input  size="medium" ref="mid"  v-model="state.item.mid" placeholder="닉네임" @keyup="handleMidChk"/>
                 </el-form-item>
                 <el-form-item label-width="80px" style="margin-top:-20px">
-                    <el-button type="info" size="small" plain>{{state.usermidcheck}}</el-button>
+                    <el-button type="info" size="small" plain @click="checkMid">중복확인</el-button> {{state.usermidcheck}}
                 </el-form-item>
             </el-form>
 
@@ -45,9 +46,10 @@
 
             이미지 : <img :src="state.imageUrl" style="width:100px"/><br />
             프로필사진 : <input type="file" @change="handleImage($event)" /><br />
-
+            
             <el-button type="info" size="small" style="margin-top:20px" plain @click="handleUpdate">수정하기</el-button>
             <hr />
+
 
             <!-- 이름 : <input type="text" v-model="state.item.mname" /><br />
             <button @click="handleUpdatePW">암호변경</button><br />
@@ -143,11 +145,15 @@ export default {
             }
         }
 
+        const handleMidChk = () => {
+            state.usermidcheck = '"중복확인"';
+        }
+
         const handleUpdatePW = async() => {
             router.push({name :"UpdatePw"});
         }
         
-        return {state, handleUpdate, handleImage, checkMid, handleUpdatePW}
+        return {state, handleUpdate, handleImage, checkMid, handleMidChk, handleUpdatePW}
     }
 }
 </script>

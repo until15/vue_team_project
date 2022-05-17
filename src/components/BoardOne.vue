@@ -4,7 +4,7 @@
         <div v-if="state.item">
             <el-descriptions direction="horizontal" title="게시물 상세" :column="1" border>
             <el-descriptions-item label="작성자" width="10px" label-align="center" align="center">
-                {{state.item.memail}}</el-descriptions-item>
+                {{state.item.mid}}</el-descriptions-item>
             <el-descriptions-item label="제목"  label-align="center" align="center">
                 {{state.item.btitle}}</el-descriptions-item>
             <el-descriptions-item label="조회수"  label-align="center" align="center">
@@ -27,14 +27,14 @@
 
             <div v-for="tmp in state.reply" :key="tmp" class="center">
                 <el-divider border-style="dotted" />
-                작성자 : <span>{{tmp.memberchg.memail}}</span> //
-                내용 : <span>{{tmp.cmtcontent}}</span>
+                <span>{{tmp.memberchg.mid}}</span> : 
+                 <span>{{tmp.cmtcontent}}</span>
                 <el-button type="info" size="small" style="margin-left:20px" plain @click="handleReplyDelete(tmp.cmtno)">삭제</el-button>
             </div>  
             <hr />
             <el-form :inline="true" class="center">
                 <el-form-item  label="댓글" label-width="50px">
-                    <el-input  size="medium" ref="memail" v-model="state.reply1.cmtcontent" placeholder="댓글"/>
+                    <el-input  size="medium" v-model="state.reply1.cmtcontent" placeholder="댓글"/>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="info" size="small" plain @click="handleComment">입력</el-button>
