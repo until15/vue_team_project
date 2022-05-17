@@ -55,8 +55,8 @@
         <div class="container px-4 px-lg-5 mb-6">
             <div class="list-top">
               <span> 인기 리스트 </span>
-              <button class="seemore" @click="LikeListPage"> 더 보기 </button>
-            </div>
+              <button class="seemore"> 더 보기 </button>
+            </div><!-- @click="LikeListPage"-->
             
             <!-- vueper Slider -->
             <vueper-slides
@@ -100,8 +100,8 @@
         <div class="container px-4 px-lg-5 mb-6">
             <div class="list-top">
               <span> 난이도 별 리스트 </span>
-              <a class="seemore" @click="LevelListPage"> 더 보기 </a>
-            </div>
+              <a class="seemore"> 더 보기 </a>
+            </div> <!-- @click="LevelListPage" -->
 
             <!-- vueper Slider -->
             <vueper-slides
@@ -185,14 +185,14 @@ export default {
     };
 
     // 인기 첼린지 더보기 클릭
-    const LikeListPage = async()=> {
+    /*const LikeListPage = async()=> {
       router.push({name:'ChallengeLikeList'});
-    };
+    };*/
 
     // 난이도 별 첼린지 더보기 클릭
-    const LevelListPage = async()=> {
+    /*const LevelListPage = async()=> {
       router.push({name:'ChallengeLevelList'});
-    };
+    };*/
 
     // 기간 별 첼린지 더보기 클릭
 
@@ -203,16 +203,16 @@ export default {
     };
 
     // 인기 챌린지 상세보기
-    const handleSelectLike = async(chgno)=> {
+    /*const handleSelectLike = async(chgno)=> {
       console.log(chgno);
       router.push({name : 'ChallengeOne', params: {chgno:chgno}});
-    };
+    };*/
 
     // 난이도 챌린지 상세보기
-    const handleSelectLevel = async(chgno)=> {
+    /*const handleSelectLevel = async(chgno)=> {
       console.log(chgno);
       router.push({name : 'ChallengeOne', params: {chgno:chgno}});
-    };
+    };*/
 
     // 인기 첼린지 리스트
     const likeChallengeData = async() => {
@@ -284,11 +284,11 @@ export default {
       state2, // 난이도별 챌린지
       currentDate,
       handleSelectOne,
-      handleSelectLike,
-      handleSelectLevel,
+      //handleSelectLike,
+      //handleSelectLevel,
       JoinListPage,
-      LikeListPage,
-      LevelListPage,
+      //LikeListPage,
+      //LevelListPage,
     }
   }
 }
