@@ -16,10 +16,14 @@
         <el-button type="info" style="margin-left:30px" size="small" plain @click="handleLogin">로그인</el-button> 
         <el-button type="info" size="small" plain @click="handleJoin">회원가입</el-button> 
         </el-card>
-
-
-
-
+        
+        <a id="custom-login-btn" @click="KakaoLogin">
+            <img
+                src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
+                width="222"
+                alt="카카오 로그인 버튼"
+            />
+        </a>
 
 
         <!-- 이메일 : <input type="text" v-model="state.memail" placeholder="이메일" /><br />
@@ -30,12 +34,15 @@
 </template>
 
 <script>
-import { reactive, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import {useRouter} from 'vue-router';
 import axios from 'axios';
 import {useStore} from 'vuex';
+
+
 export default {
     setup () {
+
         const store = useStore();
         const router = useRouter();
         const state = reactive({
@@ -85,9 +92,36 @@ export default {
         const handleJoin = () => {
             router.push({name : "MemberJoin"});
         }
+
+        // const params = {
+        //     redirectUri:'http://localhost:8080/login',
+        // }
+
+        // 카카오 로그인
+        const KakaoLogin = ()=> {
+            console.log("로그인 버튼 클릭 ");
+
+            window.Kakao.Auth.authorize({
+                redirectUri: '${http://127.0.0.1:8080/ROOT/}'
+            });
+
+            // window.Kakao.Auth.login({
+            //     success: function(authObj) {
+            //         alert(JSON.stringify(authObj))
+            //     },
+            //     fail: function(err) {
+            //         alert(JSON.stringify(err))
+            //     },
+            // })
+        }
+
+        onMounted(()=> {
+            // window.Kakao.init('8842fbb8e601a53493654c0aa37fdb9b');
+            // console.log(window.Kakao.isInitialized());
+        })
         
 
-        return {state, memail, mpw, handleLogin, handleJoin}
+        return {state, memail, mpw, handleLogin, handleJoin, KakaoLogin}
     }
 }
 </script>
