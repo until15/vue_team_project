@@ -1,11 +1,32 @@
 <template>
-    <div>
+    <div class="center">
         <h3>암호변경</h3>
-        <div v-if="state.item">
-            기존암호 : <input type="password" v-model="state.item.mpw" placeholder="기존암호" /><br />
+        <div v-if="state.item" >
+            
+            <el-form :inline="true"  >
+                <el-form-item label="기존암호" label-width="80px">
+                    <el-input  size="medium" ref="mpw" v-model="state.item.mpw" type="password" placeholder="기존암호"/>
+                </el-form-item>
+            </el-form>
+
+            <el-form :inline="true"  >
+                <el-form-item label="새암호" label-width="80px" style="margin-top:-20px" >
+                    <el-input  size="medium" ref="mpw" v-model="state.item.mpw1" type="password" placeholder="새암호"/>
+                </el-form-item>
+            </el-form>
+
+            <el-form :inline="true"  >
+                <el-form-item label="암호확인" label-width="80px" style="margin-top:-20px" >
+                    <el-input  size="medium" ref="mpw" v-model="state.item.mpw2" type="password" placeholder="암호확인"/>
+                </el-form-item>
+            </el-form>
+
+            <el-button type="info" size="small" plain @click="handleUpdate">변경하기</el-button>
+
+            <!-- 기존암호 : <input type="password" v-model="state.item.mpw" placeholder="기존암호" /><br />
             새암호 : <input type="password" v-model="state.item.mpw1" placeholder="새암호" /><br />
             암호확인 : <input type="password" v-model="state.item.mpw2" placeholder="암호확인" /><br />
-            <button @click="handleUpdate">변경하기</button>
+            <button @click="handleUpdate">변경하기</button> -->
 
         </div>
     </div>
@@ -70,6 +91,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
+.center{
+  text-align: center;
+}
 
 </style>

@@ -4,20 +4,17 @@
         <h3>정보수정</h3>
         <hr />
         <div v-if="state.item">
-            {{state.item.mbirth}}
-            <el-form :inline="true"  >
+            <el-form :inline="true" style="margin-left:90px" >
                 <el-form-item  label="이름" label-width="80px" style="margin-top:20px">
                     <el-input  size="medium" ref="mname"  v-model="state.item.mname" placeholder="이름" />
                 </el-form-item>
-            </el-form>
 
-            <el-form :inline="true"  style="margin-top:-20px" >
-                <el-form-item label="암호변경" label-width="80px">
+                <el-form-item>
                     <el-button type="info" size="small" style="margin-top:20px" plain @click="handleUpdatePW">암호변경</el-button>
                 </el-form-item>
             </el-form>
 
-            <el-form :inline="true" style="margin-left:90px" >
+            <el-form :inline="true" style="margin-left:150px" >
                 <el-form-item  label="닉네임" label-width="80px" style="margin-top:-20px">
                     <el-input  size="medium" ref="mid"  v-model="state.item.mid" placeholder="닉네임" @keyup="handleMidChk"/>
                 </el-form-item>
