@@ -3,31 +3,18 @@
         <h3>인증하기</h3>
         {{state.jno}}
         <div>
+            <!-- 내용 -->
             내용 : <input type="text" v-model="state.comment" /> <br />
+
+            <!-- 이미지 일괄 추가-->
+            <div v-for="(tmp, idx) in state.imgcount" :key="tmp">
+                <img :src="state.imageUrl[idx]" alt="인증 이미지" style="width:50px">
+                <input type="file" @change="handleImage($event, idx)" />
+                <button @click="handleDelete(idx)">X</button>
+            </div>
+
+            <!-- 인증하기 버튼 -->
             <button @click="handleProve">인증하기</button>
-        </div>
-
-        <!-- 이미지 일괄 추가 테스트 -->
-        <div>
-            <input type="file" @change="handleImage($event)" />
-            <button @click="handleTest">이미지 테스트</button>
-        </div>
-
-        <!-- 파일 여러개 element plus -->
-        <div>
-            <el-upload action="#" list-type="picture-card" :auto-upload="false">
-                
-                <template #file="{ file }">
-                <div>
-                    <img class="el-upload-list__item-thumbnail" :src="file.url" alt="" />
-
-                </div>
-                </template>
-            </el-upload>
-
-            <el-dialog v-model="state.dialogVisible">
-                <img w-full :src="state.dialogImageUrl" />
-            </el-dialog>
         </div>
 
     </div>
@@ -44,13 +31,13 @@ export default {
         const route = useRoute();
 
         const state = reactive({
-            jno : route.params.jno,
-            token : sessionStorage.getItem("TOKEN"),
-            comment : '',
-            cfno : 0,
-            proImg : [],
-            dialogImageUrl : '',
-            dialogVisible : false
+            jno : route.params.jno,     // 참가번호
+            token : sessionStorage.getItem("TOKEN"),    // 토큰
+            comment : '',   // 인증 내용
+            cfno : 0,   // 인증번호
+            imgcount : 1,    // 선택할 파일 갯수
+            proImg : [],    // 이미지 데이터
+            imageUrl : []   // 파일을 URL화 시킨거
         });
 
         // 인증하기
@@ -68,41 +55,46 @@ export default {
             if (response.data.status === 200) {
                 console.log("인증 완료");
                 state.cfno = response.data.result
-                const urlImg = ``;
+
+                const urlImg = `/ROOT/api/confirm/cfimage.insert?cfno=${state.cfno}`;
                 const headersImg = {"Content-Type":"multipart/form-data"};
                 const bodyImg = new FormData();
-                for (let i=0; i<state.file.length; i++) {
-                    bodyImg.append("file", state.file[i]);                    
+                for (let i=0; i<state.proImg.length; i++) {
+                    bodyImg.append("file", state.proImg[i]);                    
                 }
-
                 const responseImg = await axios.post(urlImg, bodyImg, {headers:headersImg});
                 console.log(responseImg.data);
+                if (responseImg.data.status === 200) {
+                    console.log("dkanrjs");
+                }
             }
         };
 
-        // 이미지 불러와서 변수에 담기
-        const handleImage = (e)=> {
-            console.log("e : ", e);
-            console.log("파일 : ", e.target.files[0]);
-            state.proImg = e.target.files[0];
-            console.log(" 파일 2 :", state.proImg);
+        // 이미지 선택 취소
+        const handleDelete = (i)=> {
+            console.log(i);
+            state.imgcount -= 1;
         }
 
-        // 여러개 append 테스트
-        const handleTest = ()=> {
-            const testImage = new FormData();
-            for (let i=0; i<state.proImg.length; i++) {
-                testImage.append("file["+i+"]", state.proImg[i]);                    
+        // 이미지 불러와서 변수에 담기
+        const handleImage = (e, idx)=> {
+            // console.log("e : ", e);
+            if(e.target.files[0]){
+                state.imgcount += 1;
+                state.proImg[idx] = e.target.files[0];
+                state.imageUrl[idx] = URL.createObjectURL(e.target.files[0]);
             }
-            console.log(" 이게 맞나ㅋㅋㅋㅋ : ", testImage);
-        };
-
+            else {
+                state.imageUrl[idx] = require('');
+                state.proImg[idx] = new File([""],"");
+            }
+        }
 
         return {
             state,
             handleProve,
             handleImage,
-            handleTest,
+            handleDelete
         }
     }
 }
