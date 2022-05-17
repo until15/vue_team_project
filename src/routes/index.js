@@ -1,10 +1,14 @@
 import { createWebHashHistory, createRouter } from "vue-router";
 
-import Home from '@/components/Home.vue'; 
+import Home from '@/components/Home.vue';
 
-import Challenge from '@/components/Challenge.vue'; 
-import ChallengeOne from '@/components/ChallengeOne.vue';
-import ChallengeWrite from '@/components/ChallengeWrite.vue';
+/////////////////////////// Challenge ////////////////////////////////
+import Challenge from '@/components/challenge/Challenge.vue'; 
+import ChallengeOne from '@/components/challenge/ChallengeOne.vue';
+import ChallengeWrite from '@/components/challenge/ChallengeWrite.vue';
+import ChallengeLikeList from '@/components/challenge/ChallengeLikeList.vue';
+import ChallengeLevelList from '@/components/challenge/ChallengeLevelList.vue';
+//////////////////////////////////////////////////////////////////////
 import MemberJoin from '@/components/MemberJoin.vue';
 import Login from '@/components/Login.vue';
 import Logout from '@/components/Logout.vue';
@@ -42,9 +46,13 @@ import Navi from '@/components/Navi.vue';
 
 const routes = [
     { path:'/', name:"Home", component:Home },
+    /////////////////////////// Challenge ////////////////////////////////
     { path:'/challenge', name:"Challenge", component:Challenge },
     { path:'/challengeone', name:"ChallengeOne", component:ChallengeOne },
     { path:'/challengewrite', name:"ChallengeWrite", component:ChallengeWrite },
+    { path:'/challengelikelist', name:"ChallengeLikeList", component:ChallengeLikeList },
+    { path:'/challengelevellist', name:"ChallengeLevelList", component:ChallengeLevelList },
+    //////////////////////////////////////////////////////////////////////
     { path:'/memberjoin', name:"MemberJoin", component:MemberJoin },
     { path:'/login', name:"Login", component:Login },
     { path:'/logout', name:"Logout", component:Logout },
