@@ -55,8 +55,8 @@
         <div class="container px-4 px-lg-5 mb-6">
             <div class="list-top">
               <span> 인기 리스트 </span>
-              <a class="seemore"> 더 보기 </a>
-            </div>
+              <button class="seemore"> 더 보기 </button>
+            </div><!-- @click="LikeListPage"-->
             
             <!-- vueper Slider -->
             <vueper-slides
@@ -65,7 +65,7 @@
               :visible-slides="3"
               :slide-ratio="1 / 4"
               :dragging-distance="70">
-              <vueper-slide v-for="i in 9" :key="i">
+              <vueper-slide v-for="(tmp, idx) in state1.items" :key="tmp">
 
                 <!-- card -->
                 <template v-slot:content>
@@ -73,17 +73,17 @@
                     <el-col>
                       <el-card :body-style="{ padding: '0px' }" class="c-m">
                         <img
-                          src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+                          :src="state1.images[idx]"
                           class="image"
                         />
                         <div style="padding: 14px">
-                          <span>Yummy hamburger</span>
-                          <span class="ch-mem">이름</span>
+                          <span>{{tmp.chgtitle}}<br />좋아요{{tmp.chglike}}개</span>
+                          <span class="ch-mem">{{tmp.chgrate}}</span>
                           <div class="bottom">
-                            <time class="time">{{ currentDate }}</time>
+                            <time class="time">{{tmp.chgregdate}}</time>
                           </div>
                           <div class="chg-detail">
-                            <el-button text class="button">상세 보기</el-button>
+                            <el-button text class="button" @click="handleSelectLike(tmp.chgno)">상세 보기</el-button>
                           </div>
                         </div>
                       </el-card>
@@ -99,9 +99,9 @@
         <!-- 난이도 별 리스트 -->
         <div class="container px-4 px-lg-5 mb-6">
             <div class="list-top">
-              <span> 난이도 별 첼린지 </span>
+              <span> 난이도 별 리스트 </span>
               <a class="seemore"> 더 보기 </a>
-            </div>
+            </div> <!-- @click="LevelListPage" -->
 
             <!-- vueper Slider -->
             <vueper-slides
@@ -110,7 +110,7 @@
               :visible-slides="3"
               :slide-ratio="1 / 4"
               :dragging-distance="70">
-              <vueper-slide v-for="i in 9" :key="i">
+              <vueper-slide v-for="(tmp, idx) in state2.items" :key="tmp">
 
                 <!-- card -->
                 <template v-slot:content>
@@ -118,17 +118,17 @@
                     <el-col>
                       <el-card :body-style="{ padding: '0px' }" class="c-m">
                         <img
-                          src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
+                          :src="state1.images[idx]"
                           class="image"
                         />
                         <div style="padding: 14px">
-                          <span>Yummy hamburger</span>
-                          <span class="ch-mem">이름</span>
+                          <span>{{tmp.chgtitle}}<br />난이도{{tmp.chglevel}}단계</span>
+                          <span class="ch-mem">{{tmp.chgrate}}</span>
                           <div class="bottom">
-                            <time class="time">{{ currentDate }}</time>
+                            <time class="time">{{tmp.chgregdate}}</time>
                           </div>
                           <div class="chg-detail">
-                            <el-button text class="button">상세 보기</el-button>
+                            <el-button text class="button" @click="handleSelectLevel(tmp.chgno)">상세 보기</el-button>
                           </div>
                         </div>
                       </el-card>
@@ -170,11 +170,14 @@ export default {
 
     const currentDate = new Date();
 
+    // 진행중인 챌린지
     const state = reactive({
-
       token : sessionStorage.getItem("TOKEN"),
-
     });
+    
+    const state1 = reactive({}); // 인기 챌린지 
+
+    const state2 = reactive({}); // 난이도 챌린지 
 
     // 진행 중인 첼린지 더보기 클릭
     const JoinListPage = async()=> {
@@ -182,21 +185,58 @@ export default {
     };
 
     // 인기 첼린지 더보기 클릭
+    /*const LikeListPage = async()=> {
+      router.push({name:'ChallengeLikeList'});
+    };*/
 
     // 난이도 별 첼린지 더보기 클릭
+    /*const LevelListPage = async()=> {
+      router.push({name:'ChallengeLevelList'});
+    };*/
 
     // 기간 별 첼린지 더보기 클릭
 
-    // 상세 버튼 클릭
+    // 진행중인 챌린지 상세보기
     const handleSelectOne = async(no)=> {
       console.log(no);
       router.push({name : 'JoinOne', params: {jno:no}});
     };
 
+    // 인기 챌린지 상세보기
+    /*const handleSelectLike = async(chgno)=> {
+      console.log(chgno);
+      router.push({name : 'ChallengeOne', params: {chgno:chgno}});
+    };*/
+
+    // 난이도 챌린지 상세보기
+    /*const handleSelectLevel = async(chgno)=> {
+      console.log(chgno);
+      router.push({name : 'ChallengeOne', params: {chgno:chgno}});
+    };*/
+
     // 인기 첼린지 리스트
+    const likeChallengeData = async() => {
+      const url = `/ROOT/api/challenge/selectlikelist`;
+      const headers = {"Content-Type":"application/json"};
+      const response = await axios.get(url, {headers});
+      // console.log("벡엔드에서 불러온 데이터 : ", response.data);
+      if (response.data.status === 200) {
+        state1.items = response.data.result
+        state1.images = response.data.images
+      }
+    };
 
     // 난이도 별 첼린지 리스트
-
+    const levelChallengeData = async() => {
+      const url = `/ROOT/api/challenge/selectlevellist`;
+      const headers = {"Content-Type":"application/json"};
+      const response = await axios.get(url, {headers});
+      // console.log("벡엔드에서 불러온 데이터 : ", response.data);
+      if (response.data.status === 200) {
+        state2.items = response.data.result
+        state2.images = response.data.images
+      }
+    };
     // 기간 별 첼린지 리스트
 
     // 내가 참여한 진행 중인 첼린지 리스트
@@ -227,12 +267,28 @@ export default {
       }
     });
 
+    // 인기 챌린지
+    onMounted(() => {
+      likeChallengeData();
+    });
+
+    // 난이도 챌린지
+    onMounted(() => {
+      levelChallengeData();
+    });
+
     return {
       logged,
-      state,
+      state,  // 진행중인 챌린지
+      state1, // 인기별 챌린지
+      state2, // 난이도별 챌린지
       currentDate,
       handleSelectOne,
+      //handleSelectLike,
+      //handleSelectLevel,
       JoinListPage,
+      //LikeListPage,
+      //LevelListPage,
     }
   }
 }
