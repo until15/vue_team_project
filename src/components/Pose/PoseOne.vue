@@ -15,7 +15,7 @@
             </div>
             <br>
             <router-link to="/pose"><button>목록</button></router-link><br>
-            <div v-if="state.member.memail === memail" >
+            <div v-if="state.member.memail === state.useremail" >
                 <button @click="handleUpdate(state.pose.pno)">수정</button>
                 <button @click="handleDelete">삭제</button>
             </div>
@@ -37,8 +37,8 @@ export default {
 
         const state = reactive({
             no : route.query.pno,
-            token : sessionStorage.getItem("TOKEN")
-
+            token : sessionStorage.getItem("TOKEN"),
+            useremail : sessionStorage.getItem("EMAIL")
         })
 
         onMounted(async() => {
