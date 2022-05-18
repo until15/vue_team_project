@@ -16,7 +16,7 @@
         <el-button type="info" style="margin-left:30px" size="small" plain @click="handleLogin">로그인</el-button> 
         <el-button type="info" size="small" plain @click="handleJoin">회원가입</el-button> <br /><br />
         
-        <a id="custom-login-btn" @click="KakaoLogin" style="margin-left:65px">
+        <a id="custom-login-btn" @click="KakaoLogin"  style="margin-left:65px">
             <img
                 src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
                 width="222"
@@ -84,6 +84,7 @@ export default {
                 store.commit('setLogged', true);
                 store.commit('setMemail', state.memail);
                 router.push({name : "Home"});
+                console.log(state.memail);
             }
             else{
                 alert('아이디 또는 암호가 일치하지 않습니다!');

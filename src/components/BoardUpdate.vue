@@ -70,6 +70,9 @@ export default {
                 alert('삭제되었습니다');
                 handleData(state.bno);
             }
+            else{
+                alert('권한 없음');
+            }
         }
 
         // const handleUpdateImg = async(tmp, idx) => {

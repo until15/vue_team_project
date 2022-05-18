@@ -1,45 +1,51 @@
 <template>
-    <div>
-        <h3>게시물 상세</h3>
-        <div v-if="state.item">
-            <el-descriptions direction="horizontal" title="게시물 상세" :column="1" border>
-            <el-descriptions-item label="작성자" width="10px" label-align="center" align="center">
-                {{state.item.mid}}</el-descriptions-item>
-            <el-descriptions-item label="제목"  label-align="center" align="center">
-                {{state.item.btitle}}</el-descriptions-item>
-            <el-descriptions-item label="조회수"  label-align="center" align="center">
-                {{state.item.bhit}}</el-descriptions-item>
-                <el-descriptions-item label="등록일"  label-align="center" align="center">
-                {{state.item.bregdate}}</el-descriptions-item>
-            <el-descriptions-item label="내용" hight="20px" label-align="center" align="center">
-                {{state.item.bcontent}}</el-descriptions-item>
-            </el-descriptions>
-            <div class="center" v-for="tmp in state.image" :key="tmp">
-                <img :src="tmp" style="width:300px" /><br />
-                <img :src="state.imageUrl" style="width:80px" /><br />
-                <input type="file" @change="handleImage($event)" />
-                <el-button type="info" size="small" plain @click="handleImageInsert">이미지등록</el-button>
-            </div>
-            <hr />
-            <router-link to="/board"><el-button type="info" size="small" plain>목록</el-button></router-link>
-            <el-button type="info" size="small" plain @click="handleUpdate">수정</el-button>
-            <el-button type="info" size="small" plain @click="handleDelete">삭제</el-button>
+    <div >
+        <div align="center">
+            <el-card style="width:1200px" >
+            <h3>게시물 상세</h3>
+                <div v-if="state.item">
+                    <el-descriptions direction="horizontal" title="" :column="1" border>
+                    <el-descriptions-item label="작성자" width="10px" label-align="center" align="center">
+                        {{state.item.mid}}</el-descriptions-item>
+                    <el-descriptions-item label="제목"  label-align="center" align="center">
+                        {{state.item.btitle}}</el-descriptions-item>
+                    <el-descriptions-item label="조회수"  label-align="center" align="center">
+                        {{state.item.bhit}}</el-descriptions-item>
+                        <el-descriptions-item label="등록일"  label-align="center" align="center">
+                        {{state.item.bregdate}}</el-descriptions-item>
+                    <el-descriptions-item label="내용" hight="20px" label-align="center" align="center">
+                        {{state.item.bcontent}}<br />
+                        <div class="center" v-for="tmp in state.image" :key="tmp">
+                        <img :src="tmp" style="width:300px" /><br />
+                    </div></el-descriptions-item>
+                    </el-descriptions>
 
-            <div v-for="tmp in state.reply" :key="tmp" class="center">
-                <el-divider border-style="dotted" />
-                <span>{{tmp.memberchg.mid}}</span> : 
-                 <span>{{tmp.cmtcontent}}</span>
-                <el-button type="info" size="small" style="margin-left:20px" plain @click="handleReplyDelete(tmp.cmtno)">삭제</el-button>
-            </div>  
-            <hr />
-            <el-form :inline="true" class="center">
-                <el-form-item  label="댓글" label-width="50px">
-                    <el-input  size="medium" v-model="state.reply1.cmtcontent" placeholder="댓글"/>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="info" size="small" plain @click="handleComment">입력</el-button>
-                </el-form-item>
-            </el-form>
+                    <img :src="state.imageUrl" style="width:80px" />
+                        <input type="file" @change="handleImage($event)" style="width:200px" />
+                        <el-button type="info" size="small" plain @click="handleImageInsert">이미지등록</el-button>
+                    <hr />
+                    <router-link to="/board"><el-button type="info" size="small" plain>목록</el-button></router-link>
+                    <el-button type="info" size="small" plain @click="handleUpdate">수정</el-button>
+                    <el-button type="info" size="small" plain @click="handleDelete">삭제</el-button>
+
+                    <div v-for="tmp in state.reply" :key="tmp" class="center">
+                        <el-divider border-style="dotted" />
+                        <span>{{tmp.memberchg.mid}}</span> : 
+                        <span>{{tmp.cmtcontent}}</span>
+                        <el-button type="info" size="small" style="margin-left:20px" plain @click="handleReplyDelete(tmp.cmtno)">삭제</el-button>
+                    </div>  
+                    <hr />
+                    <el-form :inline="true" class="center">
+                        <el-form-item  label="댓글" label-width="50px">
+                            <el-input  size="medium" ref="cmtcontent" v-model="state.reply1.cmtcontent" placeholder="댓글"/>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="info" size="small" plain @click="handleComment">입력</el-button>
+                        </el-form-item>
+                    </el-form>
+                </div>
+            </el-card>
+        </div>
 
 
 
@@ -78,31 +84,33 @@
         <button @click="handleComment">입력</button>
         </div>
          -->
-        </div>
     </div>
 </template>
 
 <script>
-import { onMounted, reactive} from 'vue';
+import { onMounted, reactive, ref} from 'vue';
 import {useRoute} from 'vue-router';
 import {useRouter} from 'vue-router';
+
 import axios from 'axios';
 export default {
     setup () {
         const route = useRoute();
         const router = useRouter();
 
+
         const state = reactive({
             bno : Number(route.query.bno),
             reply1 :{
                 cmtcontent : '',
             },
-            mimage : null,
 
             editable : false,
             token : sessionStorage.getItem("TOKEN"),
-            imageUrl : require('../assets/img/default.png'),
+            imageUrl : '',
         });
+
+        const cmtcontent = ref(null);
 
         
         const handleData = async(bno) => {
@@ -118,6 +126,7 @@ export default {
 
         const handleUpdate = async() => {
             router.push({name : "BoardUpdate", query:{bno:state.bno}});
+            
         };
 
         const handleDelete = async() => {
@@ -129,10 +138,18 @@ export default {
                 if(response.data.status === 200){
                     router.push({name:"Board"});
                 }
+                else{
+                    alert('권한 없음');
+                }
             }
         };
 
         const handleComment = async() => {
+            if(state.reply1.cmtcontent === ''){
+                alert('내용을 입력해주세요.');
+                cmtcontent.value.focus();
+                return false;
+            }
             const url = `/ROOT/api/comment/insert`;
             const headers = {"Content-Type":"application/json", "token":state.token};
             const body = {
@@ -144,6 +161,10 @@ export default {
             if(response.data.status === 200){
                 handleData(state.item.bno);
                 handleSelectComment(state.item.bno);
+                state.reply1.cmtcontent = '';
+            }
+            else{
+                alert('로그인이 필요합니다.');
             }
         }
 
@@ -165,6 +186,10 @@ export default {
             if(response.data.status === 200){
                 handleSelectComment(state.item.bno);
             }
+            else{
+                alert('권한 없음');
+            }
+            
         }
 
         const handleSelectImage = async(bno) => {
@@ -196,8 +221,7 @@ export default {
                 state.mimage = e.target.files[0];
             }
             else{
-                state.imageUrl = require('../assets/img/default.png');
-                state.mimage = null;
+                state.mimage = '';
             }
         }
 

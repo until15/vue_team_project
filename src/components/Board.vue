@@ -80,6 +80,7 @@ export default {
             if(response.data.status === 200){
                 state.items = response.data.result;
                 state.total = response.data.total;
+                state.btitle = '';
             }
         }
 
