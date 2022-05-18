@@ -25,7 +25,7 @@
                             </ul>
                         </li>
                     </ul>
-                    <div v-if="logged === true">{{memail}}</div>
+                    <div v-if="logged === true">{{memail}}님 로그인</div>
 
                     <form class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">

@@ -25,9 +25,10 @@
                         <el-button type="info" size="small" plain @click="handleImageInsert">이미지등록</el-button>
                     <hr />
                     <router-link to="/board"><el-button type="info" size="small" plain>목록</el-button></router-link>
-                    <el-button type="info" size="small" plain @click="handleUpdate">수정</el-button>
-                    <el-button type="info" size="small" plain @click="handleDelete">삭제</el-button>
-
+                    <div v-if="state.member.memail === memail">
+                        <el-button type="info" size="small" plain @click="handleUpdate">수정</el-button>
+                        <el-button type="info" size="small" plain @click="handleDelete">삭제</el-button>
+                    </div>
                     <div v-for="tmp in state.reply" :key="tmp" class="center">
                         <el-divider border-style="dotted" />
                         <span>{{tmp.memberchg.mid}}</span> : 
@@ -46,10 +47,6 @@
                 </div>
             </el-card>
         </div>
-
-
-
-
 
 
         <!-- <div v-if="state.item">
@@ -88,16 +85,16 @@
 </template>
 
 <script>
-import { onMounted, reactive, ref} from 'vue';
+import { onMounted, computed, reactive, ref} from 'vue';
 import {useRoute} from 'vue-router';
 import {useRouter} from 'vue-router';
-
+import {useStore} from 'vuex';
 import axios from 'axios';
 export default {
     setup () {
         const route = useRoute();
         const router = useRouter();
-
+        const store = useStore();
 
         const state = reactive({
             bno : Number(route.query.bno),
@@ -121,6 +118,7 @@ export default {
             if(response.data.status === 200){
                 state.item = response.data.result;
                 state.image = response.data.imgurl;
+                state.member = response.data.useremail;
             }
         };
 
@@ -225,6 +223,11 @@ export default {
             }
         }
 
+         // 로그인 유저 이메일 정보 가져오기
+        const memail = computed(() => {
+            return store.getters.getMemail
+        });
+
         onMounted(() => {
             handleData(state.bno);
             handleSelectComment(state.bno); 
@@ -232,7 +235,7 @@ export default {
         });
         
 
-        return {state, handleData, handleUpdate, handleDelete, handleSelectComment, handleComment, handleSelectImage ,handleReplyDelete, handleImageInsert, handleImage}
+        return {state, handleData, memail, handleUpdate, handleDelete, handleSelectComment, handleComment, handleSelectImage ,handleReplyDelete, handleImageInsert, handleImage}
     }
 }
 </script>

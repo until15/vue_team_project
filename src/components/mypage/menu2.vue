@@ -44,6 +44,7 @@ export default {
                 if(response.data.status === 200){
                     alert('탈퇴하였습니다.');
                     sessionStorage.removeItem("TOKEN");
+                    sessionStorage.removeItem("EMAIL");
                     store.commit('setLogged', false);
                     store.commit('ClearMemail');
                     router.push({name : "Home"});
