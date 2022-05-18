@@ -12,8 +12,7 @@
 
         <div v-if="state.item">
             번호 : {{state.item.chgno}} <br />
-            ♥♡ : {{state.item.chglike}} <br />
-            
+            좋아요 : {{state.item.chglike}} <br />
             제목 : {{state.item.chgtitle}} <br />
             소개 : {{state.item.chgintro}} <br />
             내용 : {{state.item.chgcontent}} <br />

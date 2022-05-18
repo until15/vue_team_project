@@ -55,8 +55,8 @@
         <div class="container px-4 px-lg-5 mb-6">
             <div class="list-top">
               <span> 인기 리스트 </span>
-              <button class="seemore"> 더 보기 </button>
-            </div><!-- @click="LikeListPage"-->
+              <button class="seemore" @click="LikeListPage"> 더 보기 </button>
+            </div>
             
             <!-- vueper Slider -->
             <vueper-slides
@@ -100,8 +100,8 @@
         <div class="container px-4 px-lg-5 mb-6">
             <div class="list-top">
               <span> 난이도 별 리스트 </span>
-              <a class="seemore"> 더 보기 </a>
-            </div> <!-- @click="LevelListPage" -->
+              <button class="seemore" @click="LevelListPage"> 더 보기 </button>
+            </div> 
 
             <!-- vueper Slider -->
             <vueper-slides
@@ -118,7 +118,7 @@
                     <el-col>
                       <el-card :body-style="{ padding: '0px' }" class="c-m">
                         <img
-                          :src="state1.images[idx]"
+                          :src="state2.images[idx]"
                           class="image"
                         />
                         <div style="padding: 14px">
@@ -185,14 +185,14 @@ export default {
     };
 
     // 인기 첼린지 더보기 클릭
-    /*const LikeListPage = async()=> {
+    const LikeListPage = async()=> {
       router.push({name:'ChallengeLikeList'});
-    };*/
+    };
 
     // 난이도 별 첼린지 더보기 클릭
-    /*const LevelListPage = async()=> {
+    const LevelListPage = async()=> {
       router.push({name:'ChallengeLevelList'});
-    };*/
+    };
 
     // 기간 별 첼린지 더보기 클릭
 
@@ -203,23 +203,23 @@ export default {
     };
 
     // 인기 챌린지 상세보기
-    /*const handleSelectLike = async(chgno)=> {
+    const handleSelectLike = async(chgno)=> {
       console.log(chgno);
       router.push({name : 'ChallengeOne', params: {chgno:chgno}});
-    };*/
+    };
 
     // 난이도 챌린지 상세보기
-    /*const handleSelectLevel = async(chgno)=> {
+    const handleSelectLevel = async(chgno)=> {
       console.log(chgno);
       router.push({name : 'ChallengeOne', params: {chgno:chgno}});
-    };*/
+    };
 
     // 인기 첼린지 리스트
     const likeChallengeData = async() => {
       const url = `/ROOT/api/challenge/selectlikelist`;
       const headers = {"Content-Type":"application/json"};
       const response = await axios.get(url, {headers});
-      // console.log("벡엔드에서 불러온 데이터 : ", response.data);
+       console.log("인기 챌린지 : ", response.data);
       if (response.data.status === 200) {
         state1.items = response.data.result
         state1.images = response.data.images
@@ -231,7 +231,7 @@ export default {
       const url = `/ROOT/api/challenge/selectlevellist`;
       const headers = {"Content-Type":"application/json"};
       const response = await axios.get(url, {headers});
-      // console.log("벡엔드에서 불러온 데이터 : ", response.data);
+       console.log("난이도별 챌린지 : ", response.data);
       if (response.data.status === 200) {
         state2.items = response.data.result
         state2.images = response.data.images
@@ -241,14 +241,13 @@ export default {
 
     // 내가 참여한 진행 중인 첼린지 리스트
     const joinChallengeData = async() => {
-
       const url = `/ROOT/api/join/inglist`;
       const headers = {
         "Content-Type":"application/json",
         "token" : state.token
       };
       const response = await axios.get(url, {headers});
-      // console.log("벡엔드에서 불러온 데이터 : ", response.data);
+       console.log("참여중인 챌린지 : ", response.data);
       if (response.data.status === 200) {
         state.items = response.data.result
         state.images = response.data.images
@@ -284,11 +283,11 @@ export default {
       state2, // 난이도별 챌린지
       currentDate,
       handleSelectOne,
-      //handleSelectLike,
-      //handleSelectLevel,
+      handleSelectLike,
+      handleSelectLevel,
       JoinListPage,
-      //LikeListPage,
-      //LevelListPage,
+      LikeListPage,
+      LevelListPage,
     }
   }
 }

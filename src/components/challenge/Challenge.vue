@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div align="center">
         <h3>챌린지</h3>
         <router-link to="/challengewrite">생성</router-link>
         <hr />
