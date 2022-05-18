@@ -25,7 +25,7 @@ export default {
         // const router = useRouter();
 
         const state = reactive({
-            token : sessionStorage.getItem("TOKEN"),
+            memail : '',
             mpw : '',
         });
         
