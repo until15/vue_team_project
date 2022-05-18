@@ -1,15 +1,15 @@
 <template>
     <div style="padding : 50px">
         <div v-if="this.pjoinchg">
-        <input type="number" placeholder="결제금액" v-model="this.price" >
+        <input type="number" placeholder="결제금액" v-model="this.price">
         <el-button type="info" plain size="mini" @click="requestPay">참가비 결제하기</el-button>
         </div>
     </div>
 </template>
 
 <script>
-// import axios from 'axios';
-const { IMP } = window;
+const { IMP } =  window;
+import axios from 'axios';
 export default {
     created(){
         this.handleJoinCHG();
@@ -25,15 +25,14 @@ export default {
     },
     methods: {
 
-        // 참여 챌린지 조회 (번호 필요)
-        // 데이터가 안 옴 확인 필요 
+        // 참여중인 챌린지 상세조회 (번호)
         async handleJoinCHG(){
-            const url =`/ROOT/api/join/selectone?jno=${this.jno}`;
+            const url =`/ROOT/api/join/selectone?jno=65`;
             const headers = {"Content-Type":"application/json", "token":this.token};
             const response = await this.axios.get(url, {headers:headers});
             console.log(response.data)
             if(response.data.status === 200){
-                this.joinchg = response.data.result;
+                this.pjoinchg = response.data.result;
             }
         },
 
@@ -45,41 +44,41 @@ export default {
                 pg: "html5_inicis", // PG사
                 pay_method: "card", // 결제수단
                 merchant_uid: "CHG_"+new Date().getTime(), // 결제번호
-                name: "챌린지 참가비", // 결제 시 표시되는 이름
+                name: this.pjoinchg.challengechgChgtitle, // 결제 시 표시되는 이름
                 amount: this.price, // 결제금액
-                buyer_email: "gildong@gmail.com",  // 참여자 이메일
-                buyer_name: "홍길동", // 참여자 이름
+                buyer_email: this.pjoinchg.memberchgMemail,  // 참여자 이메일
             }, rsp => { // callback
             if (rsp.success) {// 결제 성공 시 로직
                 alert("결제가 완료되었습니다.");
                 console.log("결제 성공");
                 location.href = "http://localhost:8080/?#/"; // 결제 완료 시 이동할 페이지
-            // axios로 HTTP 요청
-            // axios({
-            //     url: `/ROOT/api/pay/insert.json`, // 서버의 결제 정보
-            //     method: "post",
-            //     headers: { "Content-Type": "application/json" },
-            //     data: {
-            //         impuid: rsp.imp_uid,
-            //         merchantuid: rsp.merchant_uid,
-            //         price : rsp.amount
-            //         join : this.pjoinchg.
-            //         pmethod : rsp.pay_method
-            //     }
-            // }).then((data) => {
-            //     // 서버 결제 API 성공시 로직
-            // })           
-            } else {// 결제 실패 시 로직
-              console.log("결제 실패");
-              alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
-            
-            }
-          });
+                // axios로 HTTP 요청
+                axios({
+                    url: `/ROOT/api/pay/insert.json`, // 서버의 결제 정보
+                    method: "post",
+                    headers: { "Content-Type": "application/json" },
+                    data: {
+                        impuid: rsp.imp_uid,
+                        merchantuid: rsp.merchant_uid,
+                        price : rsp.amount,
+                        join : this.pjoinchg.jno,
+                        pmethod : rsp.pay_method
+                    }
+                }).then((data) => {
+                    // 서버 결제 API 성공시 로직
+                    console.log(data);
+                })    
+                } else {// 결제 실패 시 로직
+                console.log("결제 실패");
+                alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
+                
+                }
+            });
         }
     }
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 
 </style>
