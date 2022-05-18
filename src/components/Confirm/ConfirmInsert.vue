@@ -84,10 +84,6 @@ export default {
                 state.proImg[idx] = e.target.files[0];
                 state.imageUrl[idx] = URL.createObjectURL(e.target.files[0]);
             }
-            else {
-                state.imageUrl[idx] = require('');
-                state.proImg[idx] = new File([""],"");
-            }
         }
 
         return {
