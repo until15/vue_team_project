@@ -36,8 +36,10 @@ import Pose from '@/components/Pose/Pose.vue';
 import PoseOne from '@/components/Pose/PoseOne.vue';
 import PoseUpdate from '@/components/Pose/PoseUpdate.vue';
 import PoseInsert from '@/components/Pose/PoseInsert.vue';
-////////////////////////////////////////////////////////////////
+///////////////////////// Routine ////////////////////////////////
 import RoutineInsert from '@/components/Routine/RoutineInsert.vue';
+/////////////////////// 결제 /////////////////////////////
+import Pay from '@/components/payment/Pay.vue';
 /////////////////////// 화면 틀 //////////////////////////
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
@@ -80,6 +82,7 @@ const routes = [
     { path:'/joinone', name:"JoinOne", component:JoinOne },
     { path:'/joinlistpage', name:"JoinListPage", component:JoinListPage },
     { path:'/confirminsert', name:"ConfirmInsert", component:ConfirmInsert },
+    { path:'/pay', name:"Pay", component:Pay },
 ];
   
 const router = createRouter({
