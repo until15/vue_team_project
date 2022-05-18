@@ -31,6 +31,7 @@ import JoinOne from '@/components/Join/JoinOne.vue';
 import JoinListPage from '@/components/Join/JoinListPage.vue';
 /////////////////////// Confirm ////////////////////////////////
 import ConfirmInsert from '@/components/Confirm/ConfirmInsert.vue';
+import ConfirmList from '@/components/Confirm/ConfirmList.vue';
 //////////////////////// Pose //////////////////////////////
 import Pose from '@/components/Pose/Pose.vue';
 import PoseOne from '@/components/Pose/PoseOne.vue';
@@ -82,6 +83,7 @@ const routes = [
     { path:'/joinone', name:"JoinOne", component:JoinOne },
     { path:'/joinlistpage', name:"JoinListPage", component:JoinListPage },
     { path:'/confirminsert', name:"ConfirmInsert", component:ConfirmInsert },
+    { path:'/confirmlist', name:"ConfirmList", component:ConfirmList },
     { path:'/pay', name:"Pay", component:Pay },
 ];
   

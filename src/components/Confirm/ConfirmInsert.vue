@@ -2,6 +2,7 @@
     <div>
         <h3>인증하기</h3>
         {{state.jno}}
+        imgcount : {{state.imgcount}}
         <div>
             <!-- 내용 -->
             내용 : <input type="text" v-model="state.comment" /> <br />
@@ -73,12 +74,11 @@ export default {
         // 이미지 선택 취소
         const handleDelete = (i)=> {
             console.log(i);
-            state.imgcount -= 1;
         }
 
         // 이미지 불러와서 변수에 담기
         const handleImage = (e, idx)=> {
-            // console.log("e : ", e);
+            console.log(idx);
             if(e.target.files[0]){
                 state.imgcount += 1;
                 state.proImg[idx] = e.target.files[0];
@@ -90,7 +90,7 @@ export default {
             state,
             handleProve,
             handleImage,
-            handleDelete
+            handleDelete,
         }
     }
 }
