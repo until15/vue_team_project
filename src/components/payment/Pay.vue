@@ -51,7 +51,7 @@ export default {
             if (rsp.success) {// 결제 성공 시 로직
                 alert("결제가 완료되었습니다.");
                 console.log("결제 성공");
-                location.href = "http://localhost:8080/?#/"; // 결제 완료 시 이동할 페이지
+                location.href = "http://localhost:8080/?#/pose"; // 결제 완료 시 이동할 페이지
                 // axios로 HTTP 요청
                 axios({
                     url: `/ROOT/api/pay/insert.json`, // 서버의 결제 정보
@@ -61,8 +61,11 @@ export default {
                         impuid: rsp.imp_uid,
                         merchantuid: rsp.merchant_uid,
                         price : rsp.amount,
-                        join : this.pjoinchg.jno,
-                        pmethod : rsp.pay_method
+                        // join : this.pjoinchg.jno,
+                        // member : this.pjoinchg.memberchgMemail,
+                        pmethod : rsp.pay_method,
+                        imp_key: "7781570850427636", // REST API키
+                        imp_secret: "a35191d9f4e9155919a125a76e56e5c0d3bbdc6fdeea5f65f4fd915ceb35098349d1affc7f760d62" // REST API Secret
                     }
                 }).then((data) => {
                     // 서버 결제 API 성공시 로직
