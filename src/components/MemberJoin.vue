@@ -87,7 +87,7 @@
             <el-form :inline="true" style="margin-right:150px" >
                 <el-form-item  label="생년월일" label-width="80px" style="margin-top:-20px">
                     <el-date-picker ref="mbirth" v-model="state.mbirth" type="date" placeholder="날짜선택" 
-                    format="YYYY/MM/DD" value-format="YYYY-MM-DD" />
+                    format="YYYY/MM/DD" value-format="YYYY-MM-DD" :disabled-date="disabledDate" />
               </el-form-item>
             </el-form>
 
@@ -374,13 +374,17 @@ export default {
             router.push({name :"Home"});
         }
 
+        const disabledDate = (time) => {
+        return time.getTime() > Date.now()
+        }
+
         
 
         
 
 
     
-        return {state, handleChk, handleMidChk, usermidcheck, usermailcheck, memail, memail1, mpw, mpw1, mname, mid, mgender, mbirth, mheight, mweight, mphone, mrole, checkMid, handleData, handleImage, hendleHome, emailCheck}
+        return {state, disabledDate, handleChk, handleMidChk, usermidcheck, usermailcheck, memail, memail1, mpw, mpw1, mname, mid, mgender, mbirth, mheight, mweight, mphone, mrole, checkMid, handleData, handleImage, hendleHome, emailCheck}
     }
 }
 </script>
