@@ -14,26 +14,27 @@
                         <li class="nav-item" v-if="logged === true"><router-link to="/mypage" class="nav-link">마이페이지</router-link></li>
                         <li class="nav-item" v-if="logged === true"><router-link to="/logout" class="nav-link">로그아웃</router-link></li>
 
-                        <!-- 내리는 메뉴 -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">마이페이지</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">정보수정</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" href="#!">1:1 문의</a></li>
-                                <li><a class="dropdown-item" href="#!">회원탈퇴</a></li>
-                            </ul>
-                        </li>
                     </ul>
-                    <div v-if="logged === true">{{memail}}님 로그인</div>
+                    <div class="d-flex" v-if="logged === true">{{memail}}님 로그인</div>
+                    
+                    <!-- 내리는 메뉴 -->
+                    <li class="nav-item dropdown d-flex">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">마이페이지</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#!">정보수정</a></li>
+                            <li><hr class="dropdown-divider" /></li>
+                            <li><a class="dropdown-item" href="#!">1:1 문의</a></li>
+                            <li><a class="dropdown-item" href="#!">회원탈퇴</a></li>
+                        </ul>
+                    </li>
 
-                    <form class="d-flex">
+                    <!-- <form class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">
                             <i class="bi-cart-fill me-1"></i>
                             첼린지찜
                             <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                         </button>
-                    </form>
+                    </form> -->
                 </div>
             </div>
         </nav>
