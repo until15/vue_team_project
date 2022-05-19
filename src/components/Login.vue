@@ -81,15 +81,20 @@ export default {
             if(response.data.status === 200){
                 alert('로그인 되었습니다');
                 sessionStorage.setItem("TOKEN", response.data.token);
-         
                 store.commit('setLogged', true);
                 store.commit('setMemail', state.memail);
-                router.push({name : "Home"});
+                router.go(router.currentRoute);
                 console.log(state.memail);
             }
             else{
                 alert('아이디 또는 암호가 일치하지 않습니다!');
-            } 
+            }
+        }
+
+        const handleHome = () => {
+            if(sessionStorage.getItem("TOKEN") !== null){
+                router.push({name:"Home"});
+            }
         }
 
         const handleJoin = () => {
@@ -121,6 +126,7 @@ export default {
         onMounted(()=> {
             // window.Kakao.init('8842fbb8e601a53493654c0aa37fdb9b');
             // console.log(window.Kakao.isInitialized());
+            handleHome();
         })
         
 

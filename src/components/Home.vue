@@ -255,11 +255,13 @@ export default {
 
     };
 
+
     onMounted(()=> {
       joinChallengeData();
 
       if(sessionStorage.getItem("TOKEN") !== null){
         store.commit('setLogged', true);
+   
       }
       else {
         store.commit('setLogged', false);

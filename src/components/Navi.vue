@@ -50,20 +50,30 @@
 
 import { onMounted, computed, reactive } from 'vue';
 import {useStore} from 'vuex';
+import {useRouter} from 'vue-router';
 import axios from 'axios';
 
 export default {
     setup () {
         const store = useStore();
+        const router = useRouter();
 
         onMounted(() =>{
-        if(sessionStorage.getItem("TOKEN") !== null){
-            store.commit('setLogged', true);
-            handleData();
-        }
-        else {
-            store.commit('setLogged', false);
-        }
+            if(sessionStorage.getItem("TOKEN") !== null){
+                store.commit('setLogged', true);
+                handleData();
+
+            }
+            else {
+                store.commit('setLogged', false);
+                if (self.name != 'reload') {
+                    self.name = 'reload';
+                    self.location.reload(true);
+                }
+                else self.name = ''
+                router.push({name:"Home"});
+            }
+
         });
 
         const menu = computed(() => {
@@ -73,8 +83,10 @@ export default {
         // store 의 logged값 실시간으로 확인
         // 로그인상태(로그인 T, 로그아웃 F)
         const logged = computed(() => {
+    
         return store.getters.getLogged
         });
+
 
         // 아이디 정보(로그인 정보추가, 로그아웃 정보제거)
         const memail = computed(() => {
@@ -84,6 +96,7 @@ export default {
         // 아이디 정보(로그인 정보추가, 로그아웃 정보제거)
         const mname = computed(() => {
         return store.getters.getMname
+
         });
 
         // 아이디 정보(로그인 정보추가, 로그아웃 정보제거)
@@ -95,7 +108,7 @@ export default {
         // store에서 읽은 메뉴값으로 초기값으로 세팅
         const state = reactive({
         activeIndex : menu,
-        token : sessionStorage.getItem("TOKEN")
+        token : sessionStorage.getItem("TOKEN"),
         });
 
         const handleData = async() => {
