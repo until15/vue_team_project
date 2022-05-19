@@ -24,6 +24,12 @@
         </el-card>
 
         <el-form :inline="true" v-if="state.items" >
+            <select>
+                    <option>전체</option>
+                    <option>작성자</option>
+                    <option>인기</option>
+                    <option>난이도</option>
+            </select>
             <el-form-item  label="" label-width="80px">
                 <el-input type="text" size="mini" v-model="state.chgtitle" placeholder="검색어 입력" @keydown.prevent.enter="handleData" />
             </el-form-item>

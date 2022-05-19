@@ -30,7 +30,7 @@
                           class="image"
                         />
                         
-                        <!-- 내용 -->
+                        <!-- 내용1 -->
                         <div style="padding: 14px">
                           <span>{{tmp.chgtitle}}</span>
                           <span class="ch-mem">{{tmp.chgrate}}</span>
