@@ -15,6 +15,7 @@
                         {{state.item.bregdate}}</el-descriptions-item>
                     <el-descriptions-item label="내용" hight="20px" label-align="center" align="center">
                         {{state.item.bcontent}}<br />
+                        {{state.image}}
                         <div class="center" v-for="tmp in state.image" :key="tmp">
                         <img :src="tmp" style="width:300px" /><br />
                     </div></el-descriptions-item>
@@ -24,10 +25,12 @@
                         <input type="file" @change="handleImage($event)" style="width:200px" />
                         <el-button type="info" size="small" plain @click="handleImageInsert">이미지등록</el-button>
                     <hr />
-                    <router-link to="/board"><el-button type="info" size="small" plain>목록</el-button></router-link>
-                    <div v-if="state.member.memail === memail">
-                        <el-button type="info" size="small" plain @click="handleUpdate">수정</el-button>
-                        <el-button type="info" size="small" plain @click="handleDelete">삭제</el-button>
+                    <div style="margin-right:900px">
+                        <router-link to="/board"><el-button type="info" style="margin-right:200px" size="small" plain>목록</el-button></router-link>
+                        <div v-if="state.member.memail === memail" style="margin-top:-32px">
+                            <el-button type="info" size="small" plain @click="handleUpdate">수정</el-button>
+                            <el-button type="info" size="small" plain @click="handleDelete">삭제</el-button>
+                        </div>
                     </div>
                     <div v-for="tmp in state.reply" :key="tmp" class="center">
                         <el-divider border-style="dotted" />

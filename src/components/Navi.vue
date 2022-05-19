@@ -16,6 +16,8 @@
 
                     </ul>
                     <div class="d-flex" v-if="logged === true">{{memail}}님 로그인</div>
+                    <div class="d-flex" v-if="logged === true"><img :src="state.image" style="width:50px; margin-left:10px" /></div>
+                    
                     
                     <!-- 내리는 메뉴 -->
                     <li class="nav-item dropdown d-flex">
@@ -45,6 +47,7 @@
 
 import { onMounted, computed, reactive } from 'vue';
 import {useStore} from 'vuex';
+import axios from 'axios';
 
 export default {
     setup () {
@@ -53,6 +56,7 @@ export default {
         onMounted(() =>{
         if(sessionStorage.getItem("TOKEN") !== null){
             store.commit('setLogged', true);
+            handleData();
         }
         else {
             store.commit('setLogged', false);
@@ -87,8 +91,20 @@ export default {
 
         // store에서 읽은 메뉴값으로 초기값으로 세팅
         const state = reactive({
-        activeIndex : menu
+        activeIndex : menu,
+        token : sessionStorage.getItem("TOKEN")
         });
+
+        const handleData = async() => {
+            const url = `/ROOT/api/member/selectmemberone`;
+            const headers = {"Content-Type":"application/json", "token":state.token};
+            const response = await axios.get(url, {headers});
+            console.log(response.data);
+            if(response.data.status === 200){
+                state.image = response.data.imgurl;
+            }
+        }
+
 
         return {logged, state, mrole, mname, memail}
     }
