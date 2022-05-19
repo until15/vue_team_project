@@ -29,26 +29,27 @@
                 <el-button type="info" plain size="mini" style="margin-left:5px" @click="handleData" >검색</el-button>
             </el-form-item>
         </el-form>
-        <el-button type="info" plain @click="handleBoardWrite">글쓰기</el-button>
+            <el-button type="info" plain @click="handleBoardWrite">글쓰기</el-button>
 
 
-            <!-- <table border="1" >
-                    <tr>
-                        <th>번호</th>
-                        <th>제목</th>
-                        <th>작성자</th>
-                        <th>조회수</th>
-                        <th>날짜</th>
-                    </tr>
-                    <tr v-for="tmp in state.items" :key="tmp">
-                        <td>{{tmp.bno}}</td>
-                        <td @click="handlePage(tmp.bno)" style="cursor:pointer">{{tmp.btitle}}</td>
-                        <td>{{tmp.memail}}</td>
-                        <td>{{tmp.bhit}}</td>
-                        <td>{{tmp.bregdate}}</td>
-                    </tr>
-            </table> -->
+        <!-- <table border="1" >
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>조회수</th>
+                    <th>날짜</th>
+                </tr>
+                <tr v-for="tmp in state.items" :key="tmp">
+                    <td>{{tmp.bno}}</td>
+                    <td @click="handlePage(tmp.bno)" style="cursor:pointer">{{tmp.btitle}}</td>
+                    <td>{{tmp.memail}}</td>
+                    <td>{{tmp.bhit}}</td>
+                    <td>{{tmp.bregdate}}</td>
+                </tr>
+        </table> -->
     </div>
+    <br />
 </template>
 
 <script>
