@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+
 export default createStore({
     // 상태변수
     state : {
@@ -54,6 +55,16 @@ export default createStore({
         }
     },
 
-    // actions 
+    actions : {
+       
+     
+            // mutations의 setUid, setUname을 호출해서 내용변경
+                    
+                   
+                
+                
+        
+    }
+    
         
 })

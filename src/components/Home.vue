@@ -30,7 +30,7 @@
                           class="image"
                         />
                         
-                        <!-- 내용 -->
+                        <!-- 내용1 -->
                         <div style="padding: 14px">
                           <span>{{tmp.chgtitle}}</span>
                           <span class="ch-mem">{{tmp.chgrate}}</span>
@@ -65,7 +65,7 @@
               :visible-slides="3"
               :slide-ratio="1 / 4"
               :dragging-distance="70">
-              <vueper-slide v-for="(tmp, idx) in state1.items" :key="tmp">
+              <vueper-slide v-for="(tmp) in state1.items" :key="tmp">
 
                 <!-- card -->
                 <template v-slot:content>
@@ -73,11 +73,12 @@
                     <el-col>
                       <el-card :body-style="{ padding: '0px' }" class="c-m">
                         <img
-                          :src="state1.images[idx]"
+                          :src="tmp.imgurl"
                           class="image"
                         />
                         <div style="padding: 14px">
-                          <span>{{tmp.chgtitle}}<br />좋아요{{tmp.chglike}}개</span>
+                          <span>{{tmp.chgtitle}}</span><br />
+                          <span>좋아요{{tmp.chglike}}개</span>
                           <span class="ch-mem">{{tmp.chgrate}}</span>
                           <div class="bottom">
                             <time class="time">{{tmp.chgregdate}}</time>
@@ -110,7 +111,7 @@
               :visible-slides="3"
               :slide-ratio="1 / 4"
               :dragging-distance="70">
-              <vueper-slide v-for="(tmp, idx) in state2.items" :key="tmp">
+              <vueper-slide v-for="(tmp) in state2.items" :key="tmp">
 
                 <!-- card -->
                 <template v-slot:content>
@@ -118,10 +119,11 @@
                     <el-col>
                       <el-card :body-style="{ padding: '0px' }" class="c-m">
                         <img
-                          :src="state2.images[idx]"
+                          :src="tmp.imgurl"
                           class="image"
                         />
                         <div style="padding: 14px">
+                          
                           <span>{{tmp.chgtitle}}<br />난이도{{tmp.chglevel}}단계</span>
                           <span class="ch-mem">{{tmp.chgrate}}</span>
                           <div class="bottom">
@@ -175,7 +177,9 @@ export default {
       token : sessionStorage.getItem("TOKEN"),
     });
     
-    const state1 = reactive({}); // 인기 챌린지 
+    const state1 = reactive({
+      like : ''
+    }); // 인기 챌린지 
 
     const state2 = reactive({}); // 난이도 챌린지 
 
@@ -203,9 +207,9 @@ export default {
     };
 
     // 인기 챌린지 상세보기
-    const handleSelectLike = async(chgno)=> {
-      console.log(chgno);
-      router.push({name : 'ChallengeOne', params: {chgno:chgno}});
+    const handleSelectLike = async(no)=> {
+      console.log(no);
+      router.push({name : 'ChallengeOne', params: {chgno:no}});
     };
 
     // 난이도 챌린지 상세보기
@@ -216,7 +220,7 @@ export default {
 
     // 인기 첼린지 리스트
     const likeChallengeData = async() => {
-      const url = `/ROOT/api/challenge/selectlikelist`;
+      const url = `/ROOT/api/challenge/selectlikelist?like=${state1.like}`;
       const headers = {"Content-Type":"application/json"};
       const response = await axios.get(url, {headers});
        console.log("인기 챌린지 : ", response.data);
