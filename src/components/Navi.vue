@@ -11,6 +11,7 @@
                         <li class="nav-item" v-if="logged === false"><router-link to="/memberjoin" class="nav-link">회원가입</router-link></li>
                         <li class="nav-item" v-if="logged === false"><router-link to="/login" class="nav-link">로그인</router-link></li>
                         <li class="nav-item"><router-link to="/board" class="nav-link">자유게시판</router-link></li>
+                        <li class="nav-item"><router-link to="/pose" class="nav-link">자세</router-link></li>
                         <li class="nav-item" v-if="logged === true"><router-link to="/menu1" class="nav-link">마이페이지</router-link></li>
                         <li class="nav-item" v-if="logged === true"><router-link to="/logout" class="nav-link">로그아웃</router-link></li>
 
