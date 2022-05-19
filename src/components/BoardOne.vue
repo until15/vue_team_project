@@ -26,7 +26,7 @@
                         <el-button type="info" size="small" plain @click="handleImageInsert">이미지등록</el-button>
                     <hr />
                     <div style="margin-right:900px">
-                        <router-link to="/board"><el-button type="info" style="margin-right:200px" size="small" plain>목록</el-button></router-link>
+                        <el-button type="info" style="margin-right:200px" size="small" plain @click="handleBoard">목록</el-button>
                         <div v-if="state.member.memail === memail" style="margin-top:-32px">
                             <el-button type="info" size="small" plain @click="handleUpdate">수정</el-button>
                             <el-button type="info" size="small"  plain @click="handleDelete">삭제</el-button>
@@ -141,6 +141,7 @@ export default {
                 console.log(response.data);
                 if(response.data.status === 200){
                     router.push({name:"Board"});
+                    alert('삭제되었습니다');
                 }
                 else{
                     alert('권한 없음');
@@ -234,6 +235,10 @@ export default {
             return store.getters.getMemail
         });
 
+        const handleBoard = () => {
+            router.push({name :"Board"});
+        }
+
         onMounted(() => {
             handleData(state.bno);
             handleSelectComment(state.bno); 
@@ -241,7 +246,7 @@ export default {
         });
         
 
-        return {state, handleData, memail, handleUpdate, handleDelete, handleSelectComment, handleComment, handleSelectImage ,handleReplyDelete, handleImageInsert, handleImage}
+        return {state, handleData, handleBoard, memail, handleUpdate, handleDelete, handleSelectComment, handleComment, handleSelectImage ,handleReplyDelete, handleImageInsert, handleImage}
     }
 }
 </script>
