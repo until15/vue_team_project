@@ -11,25 +11,27 @@
                         <li class="nav-item" v-if="logged === false"><router-link to="/memberjoin" class="nav-link">회원가입</router-link></li>
                         <li class="nav-item" v-if="logged === false"><router-link to="/login" class="nav-link">로그인</router-link></li>
                         <li class="nav-item"><router-link to="/board" class="nav-link">자유게시판</router-link></li>
-                        <li class="nav-item" v-if="logged === true"><router-link to="/mypage" class="nav-link">마이페이지</router-link></li>
+                        <li class="nav-item" v-if="logged === true"><router-link to="/menu1" class="nav-link">마이페이지</router-link></li>
                         <li class="nav-item" v-if="logged === true"><router-link to="/logout" class="nav-link">로그아웃</router-link></li>
 
                     </ul>
-                    <div class="d-flex" v-if="logged === true">{{memail}}님 로그인</div>
-                    <div class="d-flex" v-if="logged === true"><img :src="state.image" style="width:50px; margin-left:10px" /></div>
-                    
-                    
-                    <!-- 내리는 메뉴 -->
-                    <li class="nav-item dropdown d-flex">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">마이페이지</a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#!">정보수정</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="#!">1:1 문의</a></li>
-                            <li><a class="dropdown-item" href="#!">회원탈퇴</a></li>
-                        </ul>
-                    </li>
+                    <div v-if="state.item" style="margin-right:10px">
+                        <div class="d-flex" v-if="logged === true">{{state.item.mid}}</div>
+                    </div>
 
+                    <!-- 내리는 메뉴 -->
+                    <!-- class="nav-link dropdown-toggle" -->
+                    <div class="d-flex" v-if="logged === true">
+                        <li class="nav-item dropdown d-flex">
+                            <a  id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><img :src="state.image" style="width:50px;"/></a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#/menu1">정보수정</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="#/menu3">1:1 문의</a></li>
+                                <li><a class="dropdown-item" href="#/menu2">회원탈퇴</a></li>
+                            </ul>
+                        </li>
+                    </div>
                     <!-- <form class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">
                             <i class="bi-cart-fill me-1"></i>
@@ -102,6 +104,7 @@ export default {
             console.log(response.data);
             if(response.data.status === 200){
                 state.image = response.data.imgurl;
+                state.item = response.data.result;
             }
         }
 
@@ -111,6 +114,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
+
 
 </style>

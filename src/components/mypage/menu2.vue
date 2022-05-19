@@ -1,5 +1,10 @@
 <template>
     <div class="center">
+        <h1>마이페이지</h1>
+            <el-button @click="handleMenu1">정보수정</el-button>
+            <el-button @click="handleMenu3">1:1문의</el-button>
+            <el-button @click="handleMenu2">회원탈퇴</el-button>
+            <br /><br />
         <el-card style="height:600px">
             <h3>회원탈퇴</h3>
             <hr />
@@ -39,7 +44,6 @@ export default {
                 if(response.data.status === 200){
                     alert('탈퇴하였습니다.');
                     sessionStorage.removeItem("TOKEN");
-                    sessionStorage.removeItem("EMAIL");
                     store.commit('setLogged', false);
                     store.commit('ClearMemail');
                     router.push({name : "Home"});
@@ -50,11 +54,23 @@ export default {
             }
         }
 
+        const handleMenu1 = () => {
+            router.push({name : "menu1"});
+        }
+
+         const handleMenu2 = () => {
+            router.push({name : "menu2"});
+        }
+
+         const handleMenu3 = () => {
+            router.push({name : "menu3"});
+        }
+
         onMounted(() => {
          
         });
 
-        return {state,  handleDelete}
+        return {state,  handleDelete, handleMenu1, handleMenu2, handleMenu3}
     }
 }
 </script>

@@ -83,7 +83,7 @@ export default {
         }
 
         const handleBack = () => {
-            router.push({name:"Mypage", query:{menu : 1}})
+            router.push({name:"menu1"})
         }
 
         onMounted(() => {

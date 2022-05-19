@@ -13,7 +13,6 @@ export default {
                 
                 alert("로그아웃 완료");
                 sessionStorage.removeItem("TOKEN");
-                sessionStorage.removeItem("EMAIL");
                 store.commit('setLogged', false);
                 store.commit('ClearMemail');
 

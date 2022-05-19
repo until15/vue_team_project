@@ -81,7 +81,6 @@ export default {
             if(response.data.status === 200){
                 alert('로그인 되었습니다');
                 sessionStorage.setItem("TOKEN", response.data.token);
-                sessionStorage.setItem("EMAIL", state.memail);
          
                 store.commit('setLogged', true);
                 store.commit('setMemail', state.memail);
