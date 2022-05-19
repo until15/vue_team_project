@@ -15,6 +15,7 @@
                         {{state.item.bregdate}}</el-descriptions-item>
                     <el-descriptions-item label="내용" hight="20px" label-align="center" align="center">
                         {{state.item.bcontent}}<br />
+                        {{state.image}}
                         <div class="center" v-for="tmp in state.image" :key="tmp">
                         <img :src="tmp" style="width:300px" /><br />
                     </div></el-descriptions-item>

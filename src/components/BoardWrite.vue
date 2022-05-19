@@ -8,6 +8,7 @@
         <img :src="state.imageUrl" style="width:50px" />
         이미지 : <input type="file" @change="handleImage($event)" /><br />
         <button @click="handleInsert">등록하기</button>
+        <button @click="handleBack">돌아가기</button>
     </div>
 </template>
 
@@ -66,7 +67,11 @@ export default {
             }
         }
 
-        return {state, handleInsert, handleImage}
+        const handleBack = () => {
+            router.push({name : "Board"});
+        }
+
+        return {state, handleInsert, handleImage, handleBack}
     }
 }
 </script>

@@ -28,17 +28,12 @@ export default {
         const state = reactive({
             token : sessionStorage.getItem("TOKEN")
         });
-
         
         const handleDelete = async() => {
             if(confirm('정말 탈퇴하시겠습니까?')){
-                const url = `/ROOT/api/member/deletemember`;
-                const headers = {"Content-Type":"application/json", "token":state.token};
-                const body = {
-                    mstep : state.mstep = 1,
-                    mid : state.mid = "탈퇴한 아이디",
-                    mpw : state.mpw
-                };
+                const url = `/ROOT/api/member/deletemember?mpw=${state.mpw}`;
+                const headers = {"Content-Type":"multipart/form-data", "token":state.token};
+                const body = new FormData();
                 const response = await axios.put(url, body, {headers});
                 console.log(response.data);
                 if(response.data.status === 200){
@@ -48,6 +43,9 @@ export default {
                     store.commit('setLogged', false);
                     store.commit('ClearMemail');
                     router.push({name : "Home"});
+                }
+                else{
+                    alert('암호가 일치하지 않습니다.');
                 }
             }
         }
