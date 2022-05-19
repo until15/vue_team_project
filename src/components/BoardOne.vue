@@ -21,15 +21,15 @@
                     </div></el-descriptions-item>
                     </el-descriptions>
 
-                    <img :src="state.imageUrl" style="width:80px" />
-                        <input type="file" @change="handleImage($event)" style="width:200px" />
+                        <img :src="state.imageUrl" style="width:80px" />
+                        <input type="file" @change="handleImage($event)"  style="width:200px" />
                         <el-button type="info" size="small" plain @click="handleImageInsert">이미지등록</el-button>
                     <hr />
                     <div style="margin-right:900px">
                         <router-link to="/board"><el-button type="info" style="margin-right:200px" size="small" plain>목록</el-button></router-link>
                         <div v-if="state.member.memail === memail" style="margin-top:-32px">
                             <el-button type="info" size="small" plain @click="handleUpdate">수정</el-button>
-                            <el-button type="info" size="small" plain @click="handleDelete">삭제</el-button>
+                            <el-button type="info" size="small"  plain @click="handleDelete">삭제</el-button>
                         </div>
                     </div>
                     <div v-for="tmp in state.reply" :key="tmp" class="center">
@@ -93,11 +93,14 @@ import {useRoute} from 'vue-router';
 import {useRouter} from 'vue-router';
 import {useStore} from 'vuex';
 import axios from 'axios';
+
 export default {
     setup () {
         const route = useRoute();
         const router = useRouter();
         const store = useStore();
+
+      
 
         const state = reactive({
             bno : Number(route.query.bno),

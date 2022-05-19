@@ -19,7 +19,6 @@ export default {
                 router.push({name : 'Navi'}); 
             }
         })
-        
 
         return {}
     }

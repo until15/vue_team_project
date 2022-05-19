@@ -4,7 +4,7 @@ export default createStore({
     state : {
         logged : false,
         menu   : sessionStorage.getItem("TOKEN"), // 선택되는 메뉴
-        memail : sessionStorage.getItem("EMAIL"),         // 로그인한 사용자의 이메일정보
+        memail : sessionStorage.getItem("MEMAIL"),         // 로그인한 사용자의 이메일정보
         mname  : '',         // 로그인한 사용자의 이름
         token  : sessionStorage.getItem("TOKEN"),         // 토큰을 저장소에 보관하지 않고 사용   
         mrole  : '',  
