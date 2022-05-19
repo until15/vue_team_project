@@ -20,6 +20,7 @@
                         <div class="d-flex" v-if="logged === true">{{state.item.mid}}</div>
                     </div>
 
+
                     <!-- 내리는 메뉴 -->
                     <!-- class="nav-link dropdown-toggle" -->
                     <div class="d-flex" v-if="logged === true">

@@ -27,6 +27,13 @@
                     <hr />
                     <div style="margin-right:900px">
                         <el-button type="info" style="margin-right:200px" size="small" plain @click="handleBoard">목록</el-button>
+                        
+                        <el-button type="info" style="margin-right:200px" size="small" plain @click="handlePrev">이전글</el-button>
+                       
+                     
+                        <el-button type="info" style="margin-right:200px" size="small" plain @click="handleNext">다음글</el-button>
+                     
+
                         <div v-if="state.member.memail === memail" style="margin-top:-32px">
                             <el-button type="info" size="small" plain @click="handleUpdate">수정</el-button>
                             <el-button type="info" size="small"  plain @click="handleDelete">삭제</el-button>
@@ -103,7 +110,7 @@ export default {
       
 
         const state = reactive({
-            bno : Number(route.query.bno),
+            bno : route.query.bno,
             reply1 :{
                 cmtcontent : '',
             },
@@ -125,6 +132,10 @@ export default {
                 state.item = response.data.result;
                 state.image = response.data.imgurl;
                 state.member = response.data.useremail;
+                state.iitem = response.data.prev1;
+                state.iitems = response.data.next2;
+
+                console.log("====================", state.iitem);
             }
         };
 
@@ -239,6 +250,22 @@ export default {
             router.push({name :"Board"});
         }
 
+        // const handlePrev = () => {
+        //     router.push({name : "BoardOne", query:{bno : state.iitem}});
+        //     state.bno = state.iitem;
+        //     console.log("======================", state.bno);
+        //     handleSelectComment(state.item.bno);
+        //     handleData(state.bno);
+        // }
+
+        // const handleNext = () => {
+        //     router.push({name : "BoardOne", query:{bno:state.iitems}})
+        //     state.bno = state.iitems;
+        //     console.log("======================", state.bno);
+        //     handleSelectComment(state.item.bno);
+        //     handleData(state.bno);
+        // }
+
         onMounted(() => {
             handleData(state.bno);
             handleSelectComment(state.bno); 
@@ -246,7 +273,7 @@ export default {
         });
         
 
-        return {state, handleData, handleBoard, memail, handleUpdate, handleDelete, handleSelectComment, handleComment, handleSelectImage ,handleReplyDelete, handleImageInsert, handleImage}
+        return {state,  handleData, handleBoard, memail, handleUpdate, handleDelete, handleSelectComment, handleComment, handleSelectImage ,handleReplyDelete, handleImageInsert, handleImage}
     }
 }
 </script>
