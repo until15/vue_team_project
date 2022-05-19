@@ -1,25 +1,28 @@
 <template>
-    <div>
+    <div class="center">
+        <br />
         <h3>상세내용</h3>
-        <div v-if="state.item" class="">
-            <el-descriptions direction="horizontal" title="게시물 상세" :column="1" border>
-            <el-descriptions-item label="등록일"  label-align="center" align="center">
-                {{state.item.qregdate}}</el-descriptions-item>
-            <el-descriptions-item label="작성자" width="10px" label-align="center" align="center">
-                {{state.item.qno}}</el-descriptions-item>
-            <el-descriptions-item label="제목"  label-align="center" align="center">
-                {{state.item.qtitle}}</el-descriptions-item>
-            <el-descriptions-item label="내용" hight="20px" label-align="center" align="center">
-                {{state.item.qcontent}}</el-descriptions-item>
-            </el-descriptions>
-            <div class="center" v-for="tmp in state.image" :key="tmp">
-                <img :src="state.image[0]" style="width:300px" /><br />
-            </div>
-            <hr />
-            <el-button type="info" size="small" plain @click="handleMenu">목록</el-button>
-            <el-button type="info" size="small" plain @click="handleDelete">삭제</el-button>
+        <el-card>
+            <div v-if="state.item" >
+                <el-descriptions direction="horizontal" title="" :column="1" border>
+                <el-descriptions-item label="등록일"  label-align="center" align="center">
+                    {{state.item.qregdate}}</el-descriptions-item>
+                <el-descriptions-item label="작성자" width="10px" label-align="center" align="center">
+                    {{state.item.qno}}</el-descriptions-item>
+                <el-descriptions-item label="제목"  label-align="center" align="center">
+                    {{state.item.qtitle}}</el-descriptions-item>
+                <el-descriptions-item label="내용" hight="20px" label-align="center" align="center">
+                    {{state.item.qcontent}}</el-descriptions-item>
+                </el-descriptions>
+                <div class="center" v-for="tmp in state.image" :key="tmp">
+                    <img :src="state.image[0]" style="width:300px" /><br />
+                </div>
+                <hr />
+                <el-button type="info" size="small" plain @click="handleMenu">목록</el-button>
+                <el-button type="info" size="small" plain @click="handleDelete">삭제</el-button>
 
-        </div>
+            </div>
+        </el-card>
 
 
 
@@ -135,7 +138,7 @@ export default {
         }
 
         const handleMenu = () => {
-            router.push({name : "Mypage", query:{menu:3}})
+            router.push({name : "menu3"})
         };
 
         const handleDelete = async() => {

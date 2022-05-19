@@ -1,9 +1,14 @@
 <template>
     <div class="center">
+            <h1>마이페이지</h1>
+            <el-button @click="handleMenu1">정보수정</el-button>
+            <el-button @click="handleMenu3">1:1문의</el-button>
+            <el-button @click="handleMenu2">회원탈퇴</el-button>
+            <br /><br />
         <el-card>
         <h3>정보수정</h3>
         <hr />
-        <div v-if="state.item">
+        <div v-if="state.item" style="margin-right:60px">
             <el-form :inline="true" style="margin-left:90px" >
                 <el-form-item  label="이름" label-width="80px" style="margin-top:20px">
                     <el-input  size="medium" ref="mname"  v-model="state.item.mname" placeholder="이름" />
@@ -41,11 +46,11 @@
               </el-form-item>
             </el-form>
 
-            이미지 : <img :src="state.imageUrl" style="width:100px"/><br />
-            프로필사진 : <input type="file" @change="handleImage($event)" /><br />
+            <img :src="state.imageUrl" style="width:100px; margin-left:50px"/><br />
+            <input type="file" @change="handleImage($event)" style="margin-left:270px" /><br />
             
-            <el-button type="info" size="small" style="margin-top:20px" plain @click="handleUpdate">수정하기</el-button>
             <hr />
+            <el-button type="info" style="margin-left:50px" plain @click="handleUpdate">수정하기</el-button>
 
 
             <!-- 이름 : <input type="text" v-model="state.item.mname" /><br />
@@ -149,8 +154,20 @@ export default {
         const handleUpdatePW = async() => {
             router.push({name :"UpdatePw"});
         }
+
+        const handleMenu1 = () => {
+            router.push({name : "menu1"});
+        }
+
+         const handleMenu2 = () => {
+            router.push({name : "menu2"});
+        }
+
+         const handleMenu3 = () => {
+            router.push({name : "menu3"});
+        }
         
-        return {state, handleUpdate, handleImage, checkMid, handleMidChk, handleUpdatePW}
+        return {state, handleUpdate, handleImage, checkMid, handleMidChk, handleUpdatePW, handleMenu1, handleMenu2, handleMenu3}
     }
 }
 </script>

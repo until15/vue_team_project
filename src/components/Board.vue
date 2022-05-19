@@ -20,7 +20,7 @@
             <el-pagination layout="prev, pager, next" :total="state.total" @current-change="currentchange">
             </el-pagination>
         </el-card>
-
+        <br />
         <el-form :inline="true" v-if="state.items" >
             <el-form-item  label="" label-width="80px">
                 <el-input type="text" size="mini" v-model="state.btitle" placeholder="검색어 입력" @keydown.prevent.enter="handleData" />
@@ -29,7 +29,10 @@
                 <el-button type="info" plain size="mini" style="margin-left:5px" @click="handleData" >검색</el-button>
             </el-form-item>
         </el-form>
-            <el-button type="info" plain @click="handleBoardWrite">글쓰기</el-button>
+            <div v-if="logged === true">
+                <el-button type="info" plain @click="handleBoardWrite">글쓰기</el-button>
+            </div>
+    </div>
 
 
         <!-- <table border="1" >
@@ -48,18 +51,19 @@
                     <td>{{tmp.bregdate}}</td>
                 </tr>
         </table> -->
-    </div>
     <br />
 </template>
 
 <script>
-import { reactive, onMounted } from 'vue'
+import { reactive, onMounted, computed } from 'vue'
 import axios from 'axios';
 import {useRouter} from 'vue-router';
+import {useStore} from 'vuex';
 export default {
     setup () {
 
         const router = useRouter();
+        const store = useStore();
 
         const state = reactive({
             page : 1,
@@ -104,10 +108,14 @@ export default {
             handleData();
         }
 
+        const logged = computed(() => {
+        return store.getters.getLogged
+        });
+
      
 
 
-        return {state, handlePage, handleData, currentchange,  handleBoardWrite}
+        return {state, logged, handlePage, handleData, currentchange,  handleBoardWrite}
 
 
     }

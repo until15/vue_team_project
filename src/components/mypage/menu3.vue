@@ -1,5 +1,10 @@
 <template>
     <div align="center">
+        <h1>마이페이지</h1>
+            <el-button @click="handleMenu1">정보수정</el-button>
+            <el-button @click="handleMenu3">1:1문의</el-button>
+            <el-button @click="handleMenu2">회원탈퇴</el-button>
+            <br /><br />
         <el-card>
         <h3>1:1문의</h3>
         <hr />
@@ -19,12 +24,12 @@
             <el-pagination layout="prev, pager, next" :total="state.total" @current-change="currentchange">
             </el-pagination>
         </el-card>
-        <el-form :inline="true" v-if="state.items" >
+        <el-form :inline="true" v-if="state.items" style="margin-top:20px;" >
             <el-form-item>
                 <el-input type="text" size="mini" v-model="state.qtitle" placeholder="검색어 입력" @keydown.prevent.enter="handleData" />
             </el-form-item>
             <el-form-item>
-                <el-button type="info" plain size="mini" style="margin-left:5px" @click="handleData" >검색</el-button>
+                <el-button type="info" plain size="mini" style="margin-left:5px;" @click="handleData" >검색</el-button>
             </el-form-item>
         </el-form>
         <el-button type="info" plain @click="handleInquiryWriter">글쓰기</el-button>
@@ -102,10 +107,22 @@ export default {
             router.push({name:"InquiryOne", query:{qno:qno}});
         }
 
+        const handleMenu1 = () => {
+            router.push({name : "menu1"});
+        }
+
+         const handleMenu2 = () => {
+            router.push({name : "menu2"});
+        }
+
+         const handleMenu3 = () => {
+            router.push({name : "menu3"});
+        }
+
 
         
 
-        return {state, handleInquiryWriter, handleData, currentchange, handlePage}
+        return {state, handleInquiryWriter, handleData, currentchange, handlePage, handleMenu1, handleMenu2, handleMenu3}
     }
 }
 </script>
