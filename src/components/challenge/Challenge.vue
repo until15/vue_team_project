@@ -1,73 +1,38 @@
 <template>
     <div align="center">
+        <el-card>
         <h3>챌린지</h3>
-        <router-link to="/challengewrite">생성</router-link>
         <hr />
+            <el-table :data="state.items"  style="width: 100% " >
+                <el-table-column prop="chgno" label="번호" width="60" />
+                <el-table-column prop="chgtitle" label="제목"  width="250" >
+            <template #default="scope">
+                <div @click="handlePage(scope.row.chgno)" style="cursor:pointer;">
+                    {{scope.row.chgtitle}}
+                </div> 
+            </template>
+                </el-table-column>
+                <el-table-column prop="chgfee" label="참가비" width="100" />
+                <el-table-column prop="chgcnt" label="참가인원" width="80" />
+                <el-table-column prop="chglike" label="좋아요" width="80" />
+                <el-table-column prop="chglevel" label="난이도" width="80" />
+                <el-table-column prop="chgregdate" label="작성일" width="250" />
+            </el-table>
+       
+            <el-pagination layout="prev, pager, next" :total="state.total" @current-change="currentChange">
+            </el-pagination>
+        </el-card>
 
-         <!--  // form-data : "chgtitle":"aaa", "chgintro" : "bbb", "chgcontent" : "ccc", "chglevel" : 1,
-    // "chgend" : yyyy-mm-dd 00:00:00, "recruitend" : yyyy-mm-dd 00:00:00, "chfee" : 10000 -->
-        <div v-if="state.items">
-            <input type="text" v-model="state.text">
-            <select name="" id="">
-                <option>전체</option>
-                <option>제목</option>
-                <option>난이도</option>
-                <option>인기순</option>
-                <option>작성자</option>
-            </select>
-            <button @click="handleData(state.page, state.text)">검색</button>          
-            
-            <h3>챌린지</h3>
-            <table border="1">
+        <el-form :inline="true" v-if="state.items" >
+            <el-form-item  label="" label-width="80px">
+                <el-input type="text" size="mini" v-model="state.chgtitle" placeholder="검색어 입력" @keydown.prevent.enter="handleData" />
+            </el-form-item>
+            <el-form-item>
+                <el-button type="info" plain size="mini" style="margin-left:5px" @click="handleData" >검색</el-button>
+            </el-form-item>
+        </el-form>
+        <el-button type="info" plain @click="handleChallenge">챌린지 생성</el-button>
 
-                <tr>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>참가비</th>
-                    <th>참가인원</th>
-                    <th>작성일</th>
-                    <th>좋아요</th>
-                </tr>
-
-                <tr v-for="tmp in state.items" :key="tmp">
-                    <td>{{tmp.chgno}}</td>
-                    <td @click="handlePage(tmp.chgno)" style="cursor:pointer">{{tmp.chgtitle}}</td>
-                    <td>{{tmp.chgfee}}</td>
-                    <td>{{tmp.chgcnt}}</td>
-                    <td>{{tmp.chgregdate}}</td>
-                    <td @click="handleLike(tmp.chgno)" style="cursor:pointer">{{tmp.chglike}}♥</td>
-                </tr>
-
-            </table>
-
-            <hr />
-
-            <h3>인기 챌린지</h3>
-
-            <table border="1">
-                <tr>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>참가비</th>
-                    <th>참가인원</th>
-                    <th>작성일</th>
-                    <th>좋아요</th>
-                </tr>
-
-                <tr v-for="tmp in state.items" :key="tmp">
-                    <td>{{tmp.chgno}}</td>
-                    <td @click="handlePage(tmp.chgno)" style="cursor:pointer">{{tmp.chgtitle}}</td>
-                    <td>{{tmp.chgfee}}</td>
-                    <td>{{tmp.chgcnt}}</td>
-                    <td>{{tmp.chgregdate}}</td>
-                    <td>{{tmp.chglike}}♥</td>
-                </tr>
-
-            </table>
-
-            <hr />
-
-        </div>
 
     </div>
 </template>
@@ -83,40 +48,39 @@ export default {
         const router = useRouter();
 
         const state = reactive({
-            chgtitle : '',
+            page : 1,
+            challenge : '',
+            total : 1
         });
 
 
         const handleData = async() => {
-            const url = `/ROOT/api/challenge/selectlist`;
+            const url = `/ROOT/api/challenge/selectlist?page=${state.page}&challenge=${state.challenge}`;
             const headers = {"Content-Type" : "application/json"};
             const response = await axios.get(url, {headers});
 
             console.log(response.data);
 
             if(response.data.status === 200) {
-                state.items = response.data.result; 
+                state.items = response.data.result;
+                state.total = response.data.total;
+                state.challenge= '';
             }
         }
 
         // 챌린지 상세 조회(1개)
-        const  handlePage = async(chgno) => {
-            console.log(chgno);
-            router.push({name:"ChallengeOne", query:{chgno:chgno}});
+        const  handlePage = async(no) => {
+            console.log(no);
+            router.push({name:"ChallengeOne", query:{chgno:no}});
         }
 
-        // 좋아요
-        const handleLike = async(chgno) => {
-            console.log(chgno);
-            const url = `/ROOT/api/like/insert`;
-            const headers = {"Content-Type" : "application/json"};
-            const response = await axios.get(url, {headers});
+        const currentChange = (page) => {
+            state.page = page
+            handleData();
+        }
 
-            console.log(response.data);
-
-            if(response.data.status === 200) {
-                state.items = response.data.result; 
-            }
+        const handleChallenge = () => {
+            router.push({name : "ChallengeWrite"})
         }
 
 
@@ -128,7 +92,9 @@ export default {
             state, 
             handleData,
             handlePage, 
-            handleLike,
+            currentChange,
+            handleChallenge
+
         }
     }
 }
