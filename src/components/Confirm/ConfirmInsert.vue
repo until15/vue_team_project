@@ -43,6 +43,13 @@ export default {
 
         // 인증하기
         const handleProve = async()=> {
+
+            // 이미지 유효성 검사
+            if (state.proImg.length <= 0) {
+                alert("이미지 없음");
+                return false;
+            }
+
             const url = `/ROOT/api/confirm/insert.json?jno=${state.jno}`;
             const headers = {
                 "Content-Type":"application/json",
