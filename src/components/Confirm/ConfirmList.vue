@@ -24,7 +24,7 @@
                     <td>
                         <div v-for="(tmp1, idx) in state.imageUrl" :key="tmp1">
                             <span>sdf</span>
-                            <img :src="state.imageUrl[idx]" />
+                            <img :src="state.imageUrl[idx]" style="width:50px" />
                         </div>
                     </td>
                     <td>{{tmp.memail}}</td>
@@ -59,13 +59,14 @@ export default {
             page : 1,
             pages : 1,
             text : "",
+            imageUrl : []
         });
 
         const handleData = async(tmp, text)=> {
             const url = `/ROOT/api/confirm/provelist.json?page=${tmp}&email=${text}`;
             const headers = {"Content-Type":"application/json"};
             const response = await axios.get(url, {headers});
-            console.log(response.data);
+            // console.log(response.data);
             if (response.data.status === 200) {
                 state.items = response.data.result
                 state.pages = response.data.pages
@@ -79,9 +80,11 @@ export default {
                     const response1 = await axios.get(url1, {headers:headers1});
                     console.log(response1.data);
                     if (response1.data.status === 200) {
-                        state.imageUrl = response1.data.images
+                        state.imageUrl.push(response1.data.images[i]);
+                        
                     }
                 }
+                console.log("이미지 url : ", state.imageUrl);
 
             }
         };
