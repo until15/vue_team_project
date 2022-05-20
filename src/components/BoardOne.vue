@@ -5,6 +5,8 @@
             <h3>게시물 상세</h3>
                 <div v-if="state.item">
                     <el-descriptions direction="horizontal" title="" :column="1" border>
+                    <el-descriptions-item label="글번호" width="10px" label-align="center" align="center">
+                        {{state.item.bno}}</el-descriptions-item>
                     <el-descriptions-item label="작성자" width="10px" label-align="center" align="center">
                         {{state.item.mid}}</el-descriptions-item>
                     <el-descriptions-item label="제목"  label-align="center" align="center">
@@ -25,20 +27,27 @@
                         <input type="file" @change="handleImage($event)"  style="width:200px" />
                         <el-button type="info" size="small" plain @click="handleImageInsert">이미지등록</el-button>
                     <hr />
-                    <div style="margin-right:900px">
-                        <el-button type="info" style="margin-right:200px" size="small" plain @click="handleBoard">목록</el-button>
-                        
-                        <el-button type="info" style="margin-right:200px" size="small" plain @click="handlePrev">이전글</el-button>
-                       
+                    <div style="margin-right:900px;" >
+                        <div class="float">
+                            <el-button type="info" size="small" plain @click="handleBoard">목록</el-button>
+                        </div>
+                        <div v-if="state.iitems !== 0" class="float" style="margin-left:5px">
+                         <el-button type="info"  size="small"  plain @click="handleNext">다음글</el-button>
+                        </div>
+                        <div v-if="state.iitem !== 0" class="float" style="margin-left:5px">
+                            <el-button type="info"  size="small"  plain @click="handlePrev">이전글</el-button>
+                        </div>
+                    </div>
                      
-                        <el-button type="info" style="margin-right:200px" size="small" plain @click="handleNext">다음글</el-button>
-                     
-
-                        <div v-if="state.member.memail === memail" style="margin-top:-32px">
-                            <el-button type="info" size="small" plain @click="handleUpdate">수정</el-button>
+                    <div v-if="state.member.memail === memail" style="margin-left:1040px">
+                        <div class="float">
+                            <el-button type="info" size="small" style="margin-right:5px" plain @click="handleUpdate">수정</el-button>
+                        </div>
+                        <div class="float">
                             <el-button type="info" size="small"  plain @click="handleDelete">삭제</el-button>
                         </div>
                     </div>
+                    <br />
                     <div v-for="tmp in state.reply" :key="tmp" class="center">
                         <el-divider border-style="dotted" />
                         <span>{{tmp.memberchg.mid}}</span> : 
@@ -46,7 +55,7 @@
                         <el-button type="info" size="small" style="margin-left:20px" plain @click="handleReplyDelete(tmp.cmtno)">삭제</el-button>
                     </div>  
                     <hr />
-                    <el-form :inline="true" class="center">
+                    <el-form :inline="true" al="center">
                         <el-form-item  label="댓글" label-width="50px">
                             <el-input  size="medium" ref="cmtcontent" v-model="state.reply1.cmtcontent" placeholder="댓글"/>
                         </el-form-item>
@@ -114,8 +123,6 @@ export default {
             reply1 :{
                 cmtcontent : '',
             },
-
-            editable : false,
             token : sessionStorage.getItem("TOKEN"),
             imageUrl : '',
         });
@@ -251,16 +258,16 @@ export default {
         }
 
         const handlePrev = () => {
-            router.push({name : "BoardOne", query:{bno : state.iitem}});
-            state.bno = state.iitem;
+            router.push({name : "BoardOne", query :{bno : state.iitem.bno}});
+            state.bno = state.iitem.bno;
             console.log("======================", state.bno);
             handleSelectComment(state.item.bno);
             handleData(state.bno);
         }
 
         const handleNext = () => {
-            router.push({name : "BoardOne", query:{bno:state.iitems}})
-            state.bno = state.iitems;
+            router.push({name : "BoardOne", query:{bno:state.iitems.bno}})
+            state.bno = state.iitems.bno;
             console.log("======================", state.bno);
             handleSelectComment(state.item.bno);
             handleData(state.bno);
@@ -281,5 +288,9 @@ export default {
 <style lang="css" scoped>
 .center{
   text-align: center;
+}
+.float{
+    float: left;
+
 }
 </style>

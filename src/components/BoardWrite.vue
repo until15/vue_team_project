@@ -2,8 +2,8 @@
 <template>
     <div>
         <h3>게시판 글쓰기</h3>
-        제목 : <input type="text" v-model="state.btitle" /><br />
-        내용 : <textarea rows="10" v-model="state.bcontent"></textarea><br />
+        제목 : <input type="text" ref="btitle" v-model="state.btitle" /><br />
+        내용 : <textarea rows="10" ref="bcontent" v-model="state.bcontent"></textarea><br />
         <hr />
         <img :src="state.imageUrl" style="width:50px" />
         이미지 : <input type="file" @change="handleImage($event)" /><br />
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import axios from 'axios';
 import {useRouter} from 'vue-router';
 export default {
@@ -29,7 +29,23 @@ export default {
             token : sessionStorage.getItem("TOKEN")
         });
 
+        const btitle = ref(null);
+        const bcontent = ref(null);
+
         const handleInsert = async() => {
+            if(state.btitle === ''){
+                alert('제목을 입력해주세요.');
+                btitle.value.focus();
+                return false;
+            }
+
+            if(state.bcontent === ''){
+                alert('내용을 입력해주세요.');
+                bcontent.value.focus();
+                return false;
+            }
+
+
             if(state.token !== null){
                 const url = `/ROOT/api/community/insert`;
                 const headers = {"Content-Type":"application/json", "token":state.token};
@@ -71,7 +87,7 @@ export default {
             router.push({name : "Board"});
         }
 
-        return {state, handleInsert, handleImage, handleBack}
+        return {state, btitle, bcontent, handleInsert, handleImage, handleBack}
     }
 }
 </script>
