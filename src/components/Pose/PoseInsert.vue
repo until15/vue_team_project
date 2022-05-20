@@ -6,7 +6,7 @@
         자세 부위 : <input type="text" v-model="state.part"><br>
         자세 내용 : <textarea rows="3" v-model="state.content"></textarea><br>
         자세 난이도 : <input type="number" min="1" max="5" v-model="state.level"><br>
-        자세 동영상 : <input type="file" @change="handleVideo"><br><br>
+        자세 동영상 : <input type="file" accept="video/*" @change="handleVideo"><br><br>
         <button @click="handlePoseInsert">등록</button>
         <router-link to="/pose"><button>목록</button></router-link><br>
     </div>

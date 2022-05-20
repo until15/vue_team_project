@@ -38,7 +38,7 @@ export default {
         const state = reactive({
             no : route.query.pno,
             token : sessionStorage.getItem("TOKEN"),
-            useremail : sessionStorage.getItem("EMAIL")
+            useremail : sessionStorage.getItem("MEMAIL")
         })
 
         onMounted(async() => {
