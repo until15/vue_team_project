@@ -24,8 +24,8 @@
                         <th>버튼</th>
                     </tr>
                     <tr v-for="tmp in state.items" :key="tmp">
-                        <td>{{tmp.jno}}</td>
-                        <td @click="handleDetail(tmp.jno)" style="cursor:pointer">{{tmp.challengechgChgtitle}}</td>
+                        <td>{{tmp.challengechgChgno}}</td>
+                        <td @click="handleDetail(tmp.jno, tmp.challengechgChgno)" style="cursor:pointer">{{tmp.challengechgChgtitle}}</td>
                         <td>{{tmp.chgstate}}</td>
                         <td>{{tmp.jregdate}}</td>
                         <td>{{tmp.chgrate}}</td>
@@ -62,15 +62,15 @@ export default {
         });
 
         // 제목을 클릭하면 상세 페이지로
-        const handleDetail = async(no)=> {
-            console.log("상세 페이지로 : ", no);
-            router.push({name:'JoinOne', params:{jno:no}});
+        const handleDetail = async(jno, chgno)=> {
+            console.log("상세 페이지로 : ", chgno);
+            router.push({name:'JoinOne', query:{jno: jno, chgno:chgno}});
         };
 
         // 인증하기 버튼 클릭
-        const handleProve = async(no)=> {
-            console.log("인증버튼 클릭 : ", no);
-            router.push({name:'ConfirmInsert', params:{jno:no}});
+        const handleProve = async(jno)=> {
+            console.log("인증버튼 클릭 : ", jno);
+            router.push({name:'ConfirmInsert', query:{jno:jno}});
         };
 
         // 진행 상태에 따른 리스트 조회

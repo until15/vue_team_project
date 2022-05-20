@@ -1,22 +1,65 @@
 <template>
 <div>
-    <h3>내가 참가한 첼린지 상세 내용</h3>
-    <div v-if="state.item">
-        첼린지 번호: {{state.item.challengechgChgno}} <br />
-        첼린지 제목: {{state.item.challengechgChgtitle}}<br />
-        참여자 수 : {{state.item.chgcnt}}<br />
-        첼린지 시작일 : {{state.item.chgstart}}<br />
-        첼린지 종료일 : {{state.item.chgend}}<br />
-        첼린지 참가비 : {{state.item.chgfee}}<br />
-        내가 참가한 날 : {{state.item.jregdate}}<br />
-        첼린지 레벨 : {{state.item.chglevel}}<br />
-        좋아요 개수 : {{state.item.chglike}}<br />
-        달성률 : {{state.item.chgrate}}<br />
-        진행 상황 : {{state.item.chgstate}}<br />
-    </div>
     <div>
-        <button> 채팅하기 </button>
-        <button @click="handleConfirm(state.jno)"> 인증하기 </button>
+        <h3>내가 참가한 첼린지 상세 내용</h3>
+        <div v-if="state.item">
+            첼린지 번호: {{state.item.challengechgChgno}} <br />
+            첼린지 제목: {{state.item.challengechgChgtitle}}<br />
+            참여자 수 : {{state.item.chgcnt}}<br />
+            첼린지 시작일 : {{state.item.chgstart}}<br />
+            첼린지 종료일 : {{state.item.chgend}}<br />
+            첼린지 참가비 : {{state.item.chgfee}}<br />
+            내가 참가한 날 : {{state.item.jregdate}}<br />
+            첼린지 레벨 : {{state.item.chglevel}}<br />
+            좋아요 개수 : {{state.item.chglike}}<br />
+            달성률 : {{state.item.chgrate}}<br />
+            진행 상황 : {{state.item.chgstate}}<br />
+        </div>
+        <div>
+            <button> 채팅하기 </button>
+            <button @click="handleConfirm(state.jno)"> 인증하기 </button>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- 첼린지 내 인증 리스트 -->
+    <div>
+        <h3>인증 글</h3>
+
+        <div>
+            <table>
+                <tr>
+                    <th>이미지</th>
+                    <th>참가 번호</th>
+                    <th>작성자</th>
+                    <th>인증내용</th>
+                    <th>성공 유무</th>
+                    <th>인증일</th>
+                </tr>
+                <tr v-for="(tmp, i) in state.cfitems" :key="tmp">
+                    <td>
+                        <div v-for="(tmp1, j) in state.imageUrl[i]" :key="tmp1">
+                            <!-- <span>{{state.imageUrl[i][j]}}</span> -->
+                            <img :src="state.imageUrl[i][j]" style="width:50px" />
+                        </div>
+                    </td>
+                    <td>{{tmp.jno}}</td>
+                    <td>{{tmp.memail}}</td>
+                    <td>{{tmp.cfcomment}}</td>
+                    <td>{{tmp.cfsuccess}}</td>
+                    <td>{{tmp.ccregdate}}</td>
+                    <td>버튼</td>
+                </tr>
+            </table>
+        </div>
+        <!-- 페이지네이션 -->
+        <div>
+            <label v-for="tmp in state.pages" :key="tmp">
+                <button @click="handlePage(state.chgno, tmp)" >{{ tmp }}</button>
+            </label>
+        </div>
+
     </div>
 </div>
 </template>
@@ -33,8 +76,13 @@ export default {
         const router = useRouter();
 
         const state = reactive({
-            jno : route.params.jno,
-            token : sessionStorage.getItem("TOKEN")
+            jno : route.query.jno,
+            chgno : route.query.chgno,
+            token : sessionStorage.getItem("TOKEN"),
+            mId : sessionStorage.getItem("MEMAIL"),
+            page : 1,
+            pages : 1,
+            imageUrl : [],
         });
 
         // 내가 참여한 진행 중인 첼린지 상세 내용
@@ -59,13 +107,58 @@ export default {
             router.push({name:'ConfirmInsert', params:{jno:no}});
         };
 
+        // 인증글 조회
+        const handleCfmData = async(chgno, page)=> {
+            console.log("첼린지 번호 : ", chgno);
+            console.log("페이지 : ", page);
+            const url = `/ROOT/api/confirm/chgcfmlist.json?chgno=${chgno}&page=${page}`;
+            const headers = {"Content-Type":"application/json"};
+            const response = await axios.get(url, {headers});
+            console.log("인증글 조회 : ", response.data);
+            if (response.data.status === 200) {
+                state.cfitems = response.data.result
+                state.pages = response.data.pages
+
+                // 인증 이미지 조회
+                // imageUrl 배열 초기화
+                state.imageUrl.splice(0, state.cfitems.length);   //idx 0부터 요소의 갯수만큼
+
+                for( let i=0;i<state.cfitems.length;i++){
+                    state.imageNo = state.cfitems[i].cfno
+                    console.log(state.imageNo);
+
+                    // 인증 이미지
+                    const url1 = `/ROOT/api/confirm/selectimages?cfno=${state.imageNo}`;
+                    const headers1 = {"Content-Type":"application/json"};
+                    const response1 = await axios.get(url1, {headers:headers1});
+                    console.log("이미지 데이터 : ", response1.data);
+
+                    if (response1.data.status === 200) {
+                            
+                        state.imageUrl.push(response1.data.images);
+                        
+                    }
+                }
+                console.log("이미지 url : ", state.imageUrl);
+            }
+
+        };
+
+        // 페이지네이션
+        const handlePage = async(chgno, tmp)=> {
+
+            handleData(chgno, tmp);
+        }
+
         onMounted(()=> {
             handleData(state.jno);
+            handleCfmData(state.chgno, state.page);
         });
 
         return {
             state,
             handleConfirm,
+            handlePage,
         }
     }
 }

@@ -25,6 +25,7 @@
             <button>참여하기</button>
             <router-link to="/challenge"><button>뒤로가기</button></router-link>
         </div>
+
     </div>
 
 </template>
@@ -39,7 +40,7 @@ export default {
         const route = useRoute();
 
         const state = reactive({
-            chgno : route.params.chgno,     
+            chgno : route.params.chgno,
         });
         
         const handleData = async(no) => {
@@ -48,6 +49,7 @@ export default {
             const headers = {"Content-Type":"application/json"};
             const response = await axios.get(url, {headers});
             console.log(response.data);
+
             if(response.data.status === 200){
                 state.item = response.data.result;
             }
