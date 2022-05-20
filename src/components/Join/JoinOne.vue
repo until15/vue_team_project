@@ -50,9 +50,9 @@
                     <td>{{tmp.cfsuccess}}</td>
                     <td>{{tmp.ccregdate}}</td>
                     <td v-if="state.item.cid === state.mId">
-                        <div @click="handleSuccess(tmp.cfno)">
-                            <button>성공</button>
-                            <button>실패</button>
+                        <div v-if="tmp.cfsuccess === 0">
+                            <button @click="handleSuccess(1, tmp.cfno)">성공</button>
+                            <button @click="handleSuccess(2, tmp.cfno)">실패</button>
                         </div>
                     </td>
                 </tr>
@@ -65,6 +65,8 @@
             </label>
         </div>
 
+        <!-- 상황별 인증 조회 -->
+        <!-- 성공, 실패, 인증 대기중 -->
     </div>
 </div>
 </template>
@@ -87,7 +89,8 @@ export default {
             mId : sessionStorage.getItem("MEMAIL"),
             page : 1,
             pages : 1,
-            imageUrl : [],
+            imageUrl : [],      // 이미지url
+            jconfirm : "",      // 성공/실패
         });
 
         // 내가 참여한 진행 중인 첼린지 상세 내용
@@ -136,7 +139,7 @@ export default {
                     const url1 = `/ROOT/api/confirm/selectimages?cfno=${state.imageNo}`;
                     const headers1 = {"Content-Type":"application/json"};
                     const response1 = await axios.get(url1, {headers:headers1});
-                    console.log("이미지 데이터 : ", response1.data);
+                    // console.log("이미지 데이터 : ", response1.data);
 
                     if (response1.data.status === 200) {
                             
@@ -144,23 +147,41 @@ export default {
                         
                     }
                 }
-                console.log("이미지 url : ", state.imageUrl);
+                // console.log("이미지 url : ", state.imageUrl);
             }
 
         };
 
         // 페이지네이션
         const handlePage = async(chgno, page)=> {
-            // console.log("첼린지 번호 : ", chgno);
-            // console.log("페이지 : ", page);
             handleCfmData(chgno, page);
         };
 
         // 인증글 성공 유무 판별
-        const handleSuccess = async(no)=> {
-            console.log("성공유무 판별/인증번호 : ", no);
+        const handleSuccess = async(e, cfno)=> {
+            if (e === 1) {
+                state.jconfirm = "성공";
+            } else if (e === 2) {
+                state.jconfirm = "실패";
+            }
+
+            if (confirm( state.jconfirm+" 확정하시겠습니까?")) {
+                console.log("인증 번호 : ", cfno);
+                console.log("성공 여부 : ", e);
+                const url = `/ROOT/api/confirm/whethercfm.json?cfno=${cfno}`;
+                const headers = {"Content-Type":"application/json"};
+                const body = {cfsuccess : e};
+                const response = await axios.put(url, body, {headers});
+                console.log(response.data);
+                if (response.data.status === 200) {
+                    console.log("완료");
+                    handleCfmData(state.chgno, state.page);
+                }
+            }
             
-        }
+        };
+
+        // cfsuccess 값을 문자로
 
         onMounted(()=> {
             handleData(state.jno);
