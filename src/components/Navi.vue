@@ -66,13 +66,13 @@
 
 import { onMounted, computed, reactive } from 'vue';
 import {useStore} from 'vuex';
-import {useRouter} from 'vue-router';
+//import {useRouter} from 'vue-router';
 import axios from 'axios';
 
 export default {
     setup () {
         const store = useStore();
-        const router = useRouter();
+        //const router = useRouter();
 
         onMounted(() =>{
             if(sessionStorage.getItem("TOKEN") !== null){
@@ -82,12 +82,12 @@ export default {
             }
             else {
                 store.commit('setLogged', false);
-                if (self.name != 'reload') {
-                    self.name = 'reload';
-                    self.location.reload(true);
-                }
-                else self.name = ''
-                router.push({name:"Home"});
+                // if (self.name != 'reload') {
+                //     self.name = 'reload';
+                //     self.location.reload(true);
+                // }
+                // else self.name = ''
+                
             }
 
         });
