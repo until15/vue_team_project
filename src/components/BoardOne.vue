@@ -250,21 +250,21 @@ export default {
             router.push({name :"Board"});
         }
 
-        // const handlePrev = () => {
-        //     router.push({name : "BoardOne", query:{bno : state.iitem}});
-        //     state.bno = state.iitem;
-        //     console.log("======================", state.bno);
-        //     handleSelectComment(state.item.bno);
-        //     handleData(state.bno);
-        // }
+        const handlePrev = () => {
+            router.push({name : "BoardOne", query:{bno : state.iitem}});
+            state.bno = state.iitem;
+            console.log("======================", state.bno);
+            handleSelectComment(state.item.bno);
+            handleData(state.bno);
+        }
 
-        // const handleNext = () => {
-        //     router.push({name : "BoardOne", query:{bno:state.iitems}})
-        //     state.bno = state.iitems;
-        //     console.log("======================", state.bno);
-        //     handleSelectComment(state.item.bno);
-        //     handleData(state.bno);
-        // }
+        const handleNext = () => {
+            router.push({name : "BoardOne", query:{bno:state.iitems}})
+            state.bno = state.iitems;
+            console.log("======================", state.bno);
+            handleSelectComment(state.item.bno);
+            handleData(state.bno);
+        }
 
         onMounted(() => {
             handleData(state.bno);
@@ -273,7 +273,7 @@ export default {
         });
         
 
-        return {state,  handleData, handleBoard, memail, handleUpdate, handleDelete, handleSelectComment, handleComment, handleSelectImage ,handleReplyDelete, handleImageInsert, handleImage}
+        return {state,handlePrev, handleNext,  handleData, handleBoard, memail, handleUpdate, handleDelete, handleSelectComment, handleComment, handleSelectImage ,handleReplyDelete, handleImageInsert, handleImage}
     }
 }
 </script>
