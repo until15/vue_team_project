@@ -44,7 +44,7 @@ export default {
         });
         
         const handleData = async(no) => {
-            console.log("챌린지번호 : " + no);
+            console.log("챌린지 번호 : " + no);
             const url = `/ROOT/api/challenge/selectone?chgno=${no}`;
             const headers = {"Content-Type":"application/json"};
             const response = await axios.get(url, {headers});
