@@ -3,6 +3,8 @@
     <div>
         <h3>내가 참가한 첼린지 상세 내용</h3>
         <div v-if="state.item">
+            
+            <img :src="state.thumnail" style="width:70px;" /> <br />
             첼린지 번호: {{state.item.chgno}} <br />
             첼린지 제목: {{state.item.chgtitle}}<br />
             참여자 수 : {{state.item.chgcnt}}<br />
@@ -15,7 +17,9 @@
             달성률 : {{state.item.chgrate}}<br />
             진행 상황 : {{state.item.recstate}}<br />
         </div>
+        
         <div>
+            <button> 포기하기 </button>
             <button> 채팅하기 </button>
             <button @click="handleConfirm(state.jno)"> 인증하기 </button>
         </div>
@@ -31,7 +35,7 @@
             <table>
                 <tr>
                     <th>이미지</th>
-                    <th>참가 번호</th>
+                    <th>인증 번호</th>
                     <th>작성자</th>
                     <th>인증내용</th>
                     <th>성공 유무</th>
@@ -44,10 +48,14 @@
                             <img :src="state.imageUrl[i][j]" style="width:50px" />
                         </div>
                     </td>
-                    <td>{{tmp.jno}}</td>
+                    <td>{{tmp.cfno}}</td>
                     <td>{{tmp.memail}}</td>
                     <td>{{tmp.cfcomment}}</td>
-                    <td>{{tmp.cfsuccess}}</td>
+                    <td>
+                        <span v-if="tmp.cfsuccess === 0"> 대기중</span>
+                        <span v-if="tmp.cfsuccess === 1"> 성공</span>
+                        <span v-if="tmp.cfsuccess === 2"> 실패</span>
+                    </td>
                     <td>{{tmp.ccregdate}}</td>
                     <td v-if="state.item.cid === state.mId">
                         <div v-if="tmp.cfsuccess === 0">
@@ -102,9 +110,10 @@ export default {
                 "token" : state.token
             }
             const response = await axios.get(url, {headers});
-            // console.log(response.data);
+            console.log(response.data);
             if (response.data.status === 200) {
                 state.item = response.data.result
+                state.thumnail = response.data.image
             }
 
         };
@@ -180,8 +189,6 @@ export default {
             }
             
         };
-
-        // cfsuccess 값을 문자로
 
         onMounted(()=> {
             handleData(state.jno);
