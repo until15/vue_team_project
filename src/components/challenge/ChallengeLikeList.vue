@@ -25,7 +25,7 @@
 
         <el-form :inline="true" v-if="state.items" >
             <el-form-item  label="" label-width="80px">
-                <el-input type="text" size="mini" v-model="state.chgtitle" placeholder="검색어 입력" @keydown.prevent.enter="handleData" />
+                <el-input type="text" size="mini" v-model="state.like" placeholder="검색어 입력" @keydown.prevent.enter="handleData" />
             </el-form-item>
             <el-form-item>
                 <el-button type="info" plain size="mini" style="margin-left:5px" @click="handleData" >검색</el-button>
@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { onMounted, reactive } from 'vue';
+import { reactive, onMounted} from 'vue'
 import axios from 'axios';
 import {useRouter} from 'vue-router';
 
@@ -55,7 +55,7 @@ export default {
 
 
         const handleData = async() => {
-            const url = `/ROOT/api/challenge/likeselctlist?page=${state.page}&like=${state.like}`;
+            const url = `/ROOT/api/challenge/likeselectlist?page=${state.page}&like=${state.like}`;
             const headers = {"Content-Type" : "application/json"};
             const response = await axios.get(url, {headers});
 
@@ -70,7 +70,7 @@ export default {
 
         // 챌린지 상세 조회(1개)
         const  handlePage = async(no) => {
-            console.log(no);
+            console.log("챌린지 번호 : " + no);
             router.push({name:"ChallengeOne", query:{chgno:no}});
         }
 
@@ -82,7 +82,6 @@ export default {
         const handleMain = () => {
             router.push({name : "Home"})
         }
-
 
         onMounted(() => {
             handleData();

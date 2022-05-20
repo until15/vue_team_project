@@ -1,26 +1,26 @@
 <template>
     <div align="center">
         <el-card>
-        <h3>챌린지</h3>
-        <hr />
-            <el-table :data="state.items"  style="width: 100% " >
-                <el-table-column prop="chgno" label="번호" width="60" />
-                <el-table-column prop="chgtitle" label="제목"  width="250" >
-            <template #default="scope">
-                <div @click="handlePage(scope.row.chgno)" style="cursor:pointer;">
-                    {{scope.row.chgtitle}}
-                </div> 
-            </template>
-                </el-table-column>
-                <el-table-column prop="chgfee" label="참가비" width="100" />
-                <el-table-column prop="chgcnt" label="참가인원" width="80" />
-                <el-table-column prop="chglike" label="좋아요" width="80" />
-                <el-table-column prop="chglevel" label="난이도" width="80" />
-                <el-table-column prop="chgregdate" label="작성일" width="250" />
-            </el-table>
-       
-            <el-pagination layout="prev, pager, next" :total="state.total" @current-change="currentChange">
-            </el-pagination>
+            <h3>챌린지</h3>
+            <hr />
+                <el-table :data="state.items"  style="width: 100% " >
+                    <el-table-column prop="chgno" label="번호" width="60" />
+                    <el-table-column prop="chgtitle" label="제목"  width="250" >
+                <template #default="scope">
+                    <div @click="handlePage(scope.row.chgno)" style="cursor:pointer;">
+                        {{scope.row.chgtitle}}
+                    </div> 
+                </template>
+                    </el-table-column>
+                    <el-table-column prop="chgfee" label="참가비" width="100" />
+                    <el-table-column prop="chgcnt" label="참가인원" width="80" />
+                    <el-table-column prop="chglike" label="좋아요" width="80" />
+                    <el-table-column prop="chglevel" label="난이도" width="80" />
+                    <el-table-column prop="chgregdate" label="작성일" width="250" />
+                </el-table>
+        
+                <el-pagination layout="prev, pager, next" :total="state.total" @current-change="currentChange">
+                </el-pagination>
         </el-card>
 
         <el-form :inline="true" v-if="state.items" >
