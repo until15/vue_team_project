@@ -20,11 +20,12 @@
                     <th>성공 유무</th>
                     <th>달성률</th>
                 </tr>
-                <tr v-for="tmp in state.items" :key="tmp">
+
+                <tr v-for="(tmp, i) in state.items" :key="tmp">
                     <td>
-                        <div v-for="(tmp1, idx) in state.imageUrl" :key="tmp1">
-                            <span>sdf</span>
-                            <img :src="state.imageUrl[idx]" />
+                        <div v-for="(tmp1, j) in state.imageUrl[i]" :key="tmp1">
+                            <!-- <span>{{state.imageUrl[i][j]}}</span> -->
+                            <img :src="state.imageUrl[i][j]" style="width:50px" />
                         </div>
                     </td>
                     <td>{{tmp.memail}}</td>
@@ -59,30 +60,39 @@ export default {
             page : 1,
             pages : 1,
             text : "",
+            imageUrl : [],
+            
         });
 
         const handleData = async(tmp, text)=> {
             const url = `/ROOT/api/confirm/provelist.json?page=${tmp}&email=${text}`;
             const headers = {"Content-Type":"application/json"};
             const response = await axios.get(url, {headers});
-            console.log(response.data);
+            // console.log(response.data);
             if (response.data.status === 200) {
                 state.items = response.data.result
                 state.pages = response.data.pages
+
+                // imageUrl 배열 초기화
+                state.imageUrl.splice(0, state.items.length);   //idx 0부터 요소의 갯수만큼
 
                 for( let i=0;i<state.items.length;i++){
                     state.imageNo = state.items[i].cfno
                     console.log(state.imageNo);
 
+                    // 인증 이미지
                     const url1 = `/ROOT/api/confirm/selectimages?cfno=${state.imageNo}`;
                     const headers1 = {"Content-Type":"application/json"};
                     const response1 = await axios.get(url1, {headers:headers1});
-                    console.log(response1.data);
+                    console.log("이미지 데이터 : ", response1.data);
+
                     if (response1.data.status === 200) {
-                        state.imageUrl = response1.data.images
+                            
+                        state.imageUrl.push(response1.data.images);
+                        
                     }
                 }
-
+                console.log("이미지 url : ", state.imageUrl);
             }
         };
 

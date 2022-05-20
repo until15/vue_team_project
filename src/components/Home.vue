@@ -30,7 +30,7 @@
                           class="image"
                         />
                         
-                        <!-- 내용 -->
+                        <!-- 내용1 -->
                         <div style="padding: 14px">
                           <span>{{tmp.chgtitle}}</span>
                           <span class="ch-mem">{{tmp.chgrate}}</span>
@@ -38,7 +38,7 @@
                             <time>{{ tmp.jregdate }}</time>
                           </div>
                           <div class="chg-detail">
-                            <el-button text class="button" @click="handleSelectOne(tmp.jno)">상세 보기</el-button>
+                            <el-button text class="button" @click="handleSelectOne(tmp.jno, tmp.chgno)">상세 보기</el-button>
                           </div>
                         </div>
                       </el-card>
@@ -201,9 +201,9 @@ export default {
     // 기간 별 첼린지 더보기 클릭
 
     // 진행중인 챌린지 상세보기
-    const handleSelectOne = async(no)=> {
-      console.log(no);
-      router.push({name : 'JoinOne', params: {jno:no}});
+    const handleSelectOne = async(jno, chgno)=> {
+      console.log(jno);
+      router.push({name : 'JoinOne', query: {jno:jno, chgno:chgno}});
     };
 
     // 인기 챌린지 상세보기

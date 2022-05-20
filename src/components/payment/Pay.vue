@@ -1,8 +1,8 @@
 <template>
     <div style="padding : 50px">
         <div v-if="this.pjoinchg">
-        <input type="number" placeholder="결제금액" v-model="this.price">
-        <el-button type="info" plain size="mini" @click="requestPay">참가비 결제하기</el-button>
+            <input type="number" placeholder="결제금액" v-model="this.price">
+            <el-button type="info" plain size="mini" @click="requestPay">참가비 결제하기</el-button>
         </div>
     </div>
 </template>
@@ -19,15 +19,16 @@ export default {
         return{
             jno : 65,
             token : sessionStorage.getItem("TOKEN"),
-            pjoinchg : [],
+            pjoinchg : '',
             price: 0
         }
     },
+
     methods: {
 
         // 참여중인 챌린지 상세조회 (번호)
-        async handleJoinCHG(){
-            const url =`/ROOT/api/join/selectone?jno=65`;
+        async handleJoinCHG (){
+            const url =`/ROOT/api/join/selectone?jno=${this.jno}`;
             const headers = {"Content-Type":"application/json", "token":this.token};
             const response = await this.axios.get(url, {headers:headers});
             console.log(response.data)
@@ -37,7 +38,7 @@ export default {
         },
 
         // 결제
-        requestPay: function () {
+        requestPay:  function () {
             // IMP.request_pay(param, callback) 결제창 호출
             IMP.init('imp20187774'); // 발급받은 가맹점 식별코드 사용
             IMP.request_pay({ // param
@@ -47,11 +48,9 @@ export default {
                 name: this.pjoinchg.challengechgChgtitle, // 결제 시 표시되는 이름
                 amount: this.price, // 결제금액
                 buyer_email: this.pjoinchg.memberchgMemail,  // 참여자 이메일
+                buyer_tel : this.pjoinchg.memberchgMphone // 참여자 번호
             }, rsp => { // callback
             if (rsp.success) {// 결제 성공 시 로직
-                alert("결제가 완료되었습니다.");
-                console.log("결제 성공");
-                location.href = "http://localhost:8080/?#/pose"; // 결제 완료 시 이동할 페이지
                 // axios로 HTTP 요청
                 axios({
                     url: `/ROOT/api/pay/insert.json`, // 서버의 결제 정보
@@ -60,17 +59,16 @@ export default {
                     data: {
                         impuid: rsp.imp_uid,
                         merchantuid: rsp.merchant_uid,
-                        price : rsp.amount,
-                        // join : this.pjoinchg.jno,
-                        // member : this.pjoinchg.memberchgMemail,
+                        pprice : rsp.paid_amount,
+                        join : {jno:this.pjoinchg.jno},
                         pmethod : rsp.pay_method,
-                        imp_key: "7781570850427636", // REST API키
-                        imp_secret: "a35191d9f4e9155919a125a76e56e5c0d3bbdc6fdeea5f65f4fd915ceb35098349d1affc7f760d62" // REST API Secret
                     }
-                }).then((data) => {
-                    // 서버 결제 API 성공시 로직
+                })
+                .then((data) => {// 응답 처리
                     console.log(data);
-                })    
+                    location.href = "http://localhost:8080/?#/"; // 결제 성공 시 이동할 페이지
+                    alert("결제가 완료되었습니다.");
+                })
                 } else {// 결제 실패 시 로직
                 console.log("결제 실패");
                 alert("결제에 실패하였습니다. 에러 내용: " +  rsp.error_msg);
