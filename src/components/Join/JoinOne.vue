@@ -3,8 +3,8 @@
     <div>
         <h3>내가 참가한 첼린지 상세 내용</h3>
         <div v-if="state.item">
-            첼린지 번호: {{state.item.challengechgChgno}} <br />
-            첼린지 제목: {{state.item.challengechgChgtitle}}<br />
+            첼린지 번호: {{state.item.chgno}} <br />
+            첼린지 제목: {{state.item.chgtitle}}<br />
             참여자 수 : {{state.item.chgcnt}}<br />
             첼린지 시작일 : {{state.item.chgstart}}<br />
             첼린지 종료일 : {{state.item.chgend}}<br />
@@ -13,7 +13,7 @@
             첼린지 레벨 : {{state.item.chglevel}}<br />
             좋아요 개수 : {{state.item.chglike}}<br />
             달성률 : {{state.item.chgrate}}<br />
-            진행 상황 : {{state.item.chgstate}}<br />
+            진행 상황 : {{state.item.recstate}}<br />
         </div>
         <div>
             <button> 채팅하기 </button>
@@ -49,7 +49,12 @@
                     <td>{{tmp.cfcomment}}</td>
                     <td>{{tmp.cfsuccess}}</td>
                     <td>{{tmp.ccregdate}}</td>
-                    <td>버튼</td>
+                    <td v-if="state.item.cid === state.mId">
+                        <div @click="handleSuccess(tmp.cfno)">
+                            <button>성공</button>
+                            <button>실패</button>
+                        </div>
+                    </td>
                 </tr>
             </table>
         </div>
@@ -94,7 +99,7 @@ export default {
                 "token" : state.token
             }
             const response = await axios.get(url, {headers});
-            console.log(response.data);
+            // console.log(response.data);
             if (response.data.status === 200) {
                 state.item = response.data.result
             }
@@ -103,18 +108,18 @@ export default {
 
         // 인증하기
         const handleConfirm = async(no)=> {
-            console.log("인증하기");
+            // console.log("인증하기");
             router.push({name:'ConfirmInsert', params:{jno:no}});
         };
 
         // 인증글 조회
         const handleCfmData = async(chgno, page)=> {
-            console.log("첼린지 번호 : ", chgno);
-            console.log("페이지 : ", page);
+            // console.log("첼린지 번호 : ", chgno);
+            // console.log("페이지 : ", page);
             const url = `/ROOT/api/confirm/chgcfmlist.json?chgno=${chgno}&page=${page}`;
             const headers = {"Content-Type":"application/json"};
             const response = await axios.get(url, {headers});
-            console.log("인증글 조회 : ", response.data);
+            // console.log("인증글 조회 : ", response.data);
             if (response.data.status === 200) {
                 state.cfitems = response.data.result
                 state.pages = response.data.pages
@@ -125,7 +130,7 @@ export default {
 
                 for( let i=0;i<state.cfitems.length;i++){
                     state.imageNo = state.cfitems[i].cfno
-                    console.log(state.imageNo);
+                    // console.log(state.imageNo);
 
                     // 인증 이미지
                     const url1 = `/ROOT/api/confirm/selectimages?cfno=${state.imageNo}`;
@@ -145,9 +150,16 @@ export default {
         };
 
         // 페이지네이션
-        const handlePage = async(chgno, tmp)=> {
+        const handlePage = async(chgno, page)=> {
+            // console.log("첼린지 번호 : ", chgno);
+            // console.log("페이지 : ", page);
+            handleCfmData(chgno, page);
+        };
 
-            handleData(chgno, tmp);
+        // 인증글 성공 유무 판별
+        const handleSuccess = async(no)=> {
+            console.log("성공유무 판별/인증번호 : ", no);
+            
         }
 
         onMounted(()=> {
@@ -159,6 +171,7 @@ export default {
             state,
             handleConfirm,
             handlePage,
+            handleSuccess
         }
     }
 }
