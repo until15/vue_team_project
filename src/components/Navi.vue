@@ -82,11 +82,7 @@ export default {
             }
             else {
                 store.commit('setLogged', false);
-                // if (self.name != 'reload') {
-                //     self.name = 'reload';
-                //     self.location.reload(true);
-                // }
-                // else self.name = ''
+                
                 
             }
 

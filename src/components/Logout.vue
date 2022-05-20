@@ -17,7 +17,7 @@ export default {
                 store.commit('setLogged', false);
                 store.commit('ClearMemail');
         
-                router.push({name : 'Home'}); 
+                router.push({name : 'Logout1'}); 
             }
         })
 
