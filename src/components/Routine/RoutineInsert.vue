@@ -52,8 +52,8 @@
         <el-button type="info" plain size="small" @click="handleRoutineInsert">생성</el-button>
         <el-button type="info" plain size="small" @click="handleRoutineData">불러오기</el-button>
         <div v-if="state.rtn">
-        {{state.rtn[0].rtnname}}
         <div v-for="rtn,i in state.rtn" :key="i">
+        {{state.rtn[i].rtnname}}
         {{state.rtn[i].rtnday}}
         횟수 : {{state.rtn[i].rtncnt}}
         세트 : {{state.rtn[i].rtnset}}
@@ -142,7 +142,7 @@ export default {
 
         // 루틴 불러오기 확인용
         const handleRoutineData = async() => {
-            const url = `/ROOT/api/routine/selectlist.json?no=${state.rtnseq}`;
+            const url = `/ROOT/api/routine/selectlist.json`;
             const headers = {"Content-Type":"application/json", "token":state.token};
             const response = await axios.get(url, {headers:headers});
             console.log(response.data);

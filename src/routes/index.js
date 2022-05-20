@@ -40,6 +40,7 @@ import PoseUpdate from '@/components/Pose/PoseUpdate.vue';
 import PoseInsert from '@/components/Pose/PoseInsert.vue';
 ///////////////////////// Routine ////////////////////////////////
 import RoutineInsert from '@/components/Routine/RoutineInsert.vue';
+import RoutineSelect from '@/components/Routine/RoutineSelect.vue';
 /////////////////////// 결제 /////////////////////////////
 import Pay from '@/components/payment/Pay.vue';
 /////////////////////// 화면 틀 //////////////////////////
@@ -87,6 +88,7 @@ const routes = [
     { path:'/confirminsert', name:"ConfirmInsert", component:ConfirmInsert },
     { path:'/confirmlist', name:"ConfirmList", component:ConfirmList },
     { path:'/pay', name:"Pay", component:Pay },
+    { path:'/routineselect', name:"RoutineSelect", component:RoutineSelect },
 ];
   
 const router = createRouter({
