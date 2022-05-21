@@ -84,17 +84,11 @@ export default {
                 sessionStorage.setItem("MEMAIL", state.memail);
                 store.commit('setLogged', true);
                 store.commit('setMemail', state.memail);
-                router.go(router.currentRoute);
                 console.log(state.memail);
+                router.push({name:"Login1"});
             }
             else{
                 alert('아이디 또는 암호가 일치하지 않습니다!');
-            }
-        }
-
-        const handleHome = () => {
-            if(sessionStorage.getItem("TOKEN") !== null){
-                router.push({name:"Home"});
             }
         }
 
@@ -127,7 +121,6 @@ export default {
         onMounted(()=> {
             // window.Kakao.init('8842fbb8e601a53493654c0aa37fdb9b');
             // console.log(window.Kakao.isInitialized());
-            handleHome();
         })
         
 

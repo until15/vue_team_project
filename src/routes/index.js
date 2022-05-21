@@ -11,6 +11,7 @@ import ChallengeLevelList from '@/components/challenge/ChallengeLevelList.vue';
 //////////////////////////////////////////////////////////////////////
 import MemberJoin from '@/components/MemberJoin.vue';
 import Login from '@/components/Login.vue';
+import Login1 from '@/components/Login1.vue';
 import Logout from '@/components/Logout.vue';
 import Logout1 from '@/components/Logout1.vue';
 import Board from '@/components/Board.vue';
@@ -60,6 +61,7 @@ const routes = [
     //////////////////////////////////////////////////////////////////////
     { path:'/memberjoin', name:"MemberJoin", component:MemberJoin },
     { path:'/login', name:"Login", component:Login },
+    { path:'/login1', name:"Login1", component:Login1 },
     { path:'/logout', name:"Logout", component:Logout },
     { path:'/logout1', name:"Logout1", component:Logout1 },
     { path:'/board', name:"Board", component:Board },

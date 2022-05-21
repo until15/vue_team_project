@@ -79,7 +79,7 @@ export default {
         const state = reactive({
             token : sessionStorage.getItem("TOKEN"),
             mimage : null,
-            usermidcheck : '중복확인'
+            usermidcheck : '"중복확인"'
         });
 
         const handleData = async() => {
@@ -95,6 +95,11 @@ export default {
         };
 
         const handleUpdate = async() => {
+
+            if(state.usermidcheck === '"사용불가"'){
+                alert('사용할수없는 닉네임입니다.');
+                return false;
+            }
             if(state.token !== null){
                 const url = `/ROOT/api/member/updatemember`;
                 const headers = {"Content-Type":"multipart/form-data", "token":state.token};
@@ -130,21 +135,24 @@ export default {
         }
 
         const checkMid = async() => {
-            if(state.item.mid){
-                const url = `/ROOT/api/member/checkmid?mid=${state.item.mid}`;
-                const headers = {"Content-Type":"application/json"};
-                const response = await axios.get(url, {headers});
-                console.log(response.data);
-                if(response.data.status === 200){
-                    state.usermidcheck = '사용불가';
-                }
-                else{
-                    state.usermidcheck = '사용가능';
-                }
+            const url = `/ROOT/api/member/checkmidone?mid=${state.item.mid}`;
+            const headers = {"Content-Type":"application/json", "token":state.token};
+            const response = await axios.get(url, {headers});
+            console.log(response.data);
+            if(response.data.status === 1){
+                state.usermidcheck = '"사용불가"';
+            }
+            else if(response.data.status === 200){
+                state.usermidcheck = '"중복확인"';
+               
+              
             }
             else{
-                state.usermidcheck = '중복확인';
+                state.usermidcheck = '"사용가능"';
+
             }
+            
+           
         }
 
         const handleMidChk = () => {
