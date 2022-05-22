@@ -19,29 +19,32 @@
                 </el-form-item>
             </el-form>
 
-            <el-form :inline="true" style="margin-left:150px" >
-                <el-form-item  label="닉네임" label-width="80px" style="margin-top:-20px">
+            <el-form :inline="true" style="margin-left:90px" >
+                <el-form-item  label="닉네임" label-width="80px" style="margin-top:-15px">
                     <el-input  size="medium" ref="mid"  v-model="state.item.mid" placeholder="닉네임" @keyup="handleMidChk"/>
                 </el-form-item>
-                <el-form-item label-width="80px" style="margin-top:-20px">
-                    <el-button type="info" size="small" plain @click="checkMid">중복확인</el-button> {{state.usermidcheck}}
+                <el-form-item label-width="80px" style="margin-top:-15px">
+                    <el-button type="info" size="small" plain @click="checkMid">중복확인</el-button>
+                </el-form-item><br />
+                <el-form-item label-width="80px" style="margin-top:-40px">
+                    <div style="font-size:10px">{{state.usermidcheck}}</div>
                 </el-form-item>
             </el-form>
 
             <el-form :inline="true"  >
-                <el-form-item  label="연락처" label-width="80px" style="margin-top:-20px">
+                <el-form-item  label="연락처" label-width="80px" style="margin-top:-40px">
                     <el-input  size="medium" ref="mphone" v-model="state.item.mphone" type="text" placeholder="000-0000-0000"/>
               </el-form-item>
             </el-form>
 
             <el-form :inline="true"  >
-                <el-form-item  label="키" label-width="80px" style="margin-top:-20px">
+                <el-form-item  label="키" label-width="80px" style="margin-top:-15px">
                     <el-input-number ref="mheight" v-model="state.item.mheight" size="medium" />
               </el-form-item>
             </el-form>
 
             <el-form :inline="true"  >
-                <el-form-item  label="몸무게" label-width="80px" style="margin-top:-20px">
+                <el-form-item  label="몸무게" label-width="80px" style="margin-top:-15px">
                     <el-input-number ref="mweight" v-model="state.item.mweight" size="medium" />
               </el-form-item>
             </el-form>
@@ -69,7 +72,7 @@
 </template>
 
 <script>
-import { onMounted, reactive } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import {useRouter} from 'vue-router';
 import axios from 'axios';
 export default {
@@ -79,8 +82,10 @@ export default {
         const state = reactive({
             token : sessionStorage.getItem("TOKEN"),
             mimage : null,
-            usermidcheck : '"중복확인"'
+            usermidcheck : '',
         });
+
+        const mid = ref(null);
 
         const handleData = async() => {
             const url = `/ROOT/api/member/selectmemberone`;
@@ -89,17 +94,25 @@ export default {
             console.log(response.data);
             if(response.data.status === 200){
                 state.item = response.data.result;
+                state.mmid = response.data.result1;
                 state.image = response.data.imgurl;
                 state.imageUrl = state.image;
             }
         };
 
         const handleUpdate = async() => {
-
-            if(state.usermidcheck === '"사용불가"'){
-                alert('사용할수없는 닉네임입니다.');
+            if(state.usermidcheck === '"중복확인"'){
+                alert('닉네임 중복확인을 해주세요.');
+                mid.value.focus();
                 return false;
             }
+    
+            if(state.usermidcheck === '"사용불가"'){
+                alert('사용중인 닉네임입니다.');
+                mid.value.focus();
+                return false;
+            }
+
             if(state.token !== null){
                 const url = `/ROOT/api/member/updatemember`;
                 const headers = {"Content-Type":"multipart/form-data", "token":state.token};
@@ -115,6 +128,7 @@ export default {
                 if(response.data.status === 200){
                     alert('수정되었습니다.');
                     handleData();
+                    router.push({name:"menu11"});
                 }
                 
             }
@@ -143,13 +157,11 @@ export default {
                 state.usermidcheck = '"사용불가"';
             }
             else if(response.data.status === 200){
-                state.usermidcheck = '"중복확인"';
-               
+                state.usermidcheck = '';
               
             }
             else{
                 state.usermidcheck = '"사용가능"';
-
             }
             
            
@@ -175,7 +187,7 @@ export default {
             router.push({name : "menu3"});
         }
         
-        return {state, handleUpdate, handleImage, checkMid, handleMidChk, handleUpdatePW, handleMenu1, handleMenu2, handleMenu3}
+        return {state, mid, handleUpdate, handleImage, checkMid, handleMidChk, handleUpdatePW, handleMenu1, handleMenu2, handleMenu3}
     }
 }
 </script>

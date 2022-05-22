@@ -24,6 +24,7 @@ import UpdatePw from '@/components/mypage/UpdatePw.vue';
 import Inquiry from '@/components/mypage/Inquiry.vue';
 import InquiryOne from '@/components/mypage/InquiryOne.vue';
 import menu1 from '@/components/mypage/menu1.vue';
+import menu11 from '@/components/mypage/menu11.vue';
 import menu2 from '@/components/mypage/menu2.vue';
 import menu3 from '@/components/mypage/menu3.vue';
 /////////////////////////// JOIN ////////////////////////////////
@@ -72,6 +73,7 @@ const routes = [
     { path:'/updatepw', name:"UpdatePw", component:UpdatePw },
     { path:'/inquiry', name:"Inquiry", component:Inquiry },
     { path:'/menu1', name:"menu1", component:menu1 },
+    { path:'/menu11', name:"menu11", component:menu11 },
     { path:'/menu2', name:"menu2", component:menu2 },
     { path:'/menu3', name:"menu3", component:menu3 },
     { path:'/inquiryone', name:"InquiryOne", component:InquiryOne },
