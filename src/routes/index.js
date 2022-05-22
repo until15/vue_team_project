@@ -19,7 +19,6 @@ import BoardWrite from '@/components/BoardWrite.vue';
 import BoardOne from '@/components/BoardOne.vue';
 import BoardUpdate from '@/components/BoardUpdate.vue';
 ////////////////////////////////////////////////////////////////
-import Mypage from '@/components/Mypage.vue';
 import UpdatePw from '@/components/mypage/UpdatePw.vue';
 import Inquiry from '@/components/mypage/Inquiry.vue';
 import InquiryOne from '@/components/mypage/InquiryOne.vue';
@@ -69,7 +68,6 @@ const routes = [
     { path:'/boardwrite', name:"BoardWrite", component:BoardWrite },
     { path:'/boardone', name:"BoardOne", component:BoardOne },
     { path:'/boardupdate', name:"BoardUpdate", component:BoardUpdate },
-    { path:'/mypage', name:"Mypage", component:Mypage },
     { path:'/updatepw', name:"UpdatePw", component:UpdatePw },
     { path:'/inquiry', name:"Inquiry", component:Inquiry },
     { path:'/menu1', name:"menu1", component:menu1 },

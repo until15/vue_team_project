@@ -17,15 +17,16 @@
                         {{state.item.bregdate}}</el-descriptions-item>
                     <el-descriptions-item label="내용" hight="20px" label-align="center" align="center">
                         {{state.item.bcontent}}<br />
-                        {{state.image}}
                         <div class="center" v-for="tmp in state.image" :key="tmp">
                         <img :src="tmp" style="width:300px" /><br />
                     </div></el-descriptions-item>
                     </el-descriptions>
 
                         <img :src="state.imageUrl" style="width:80px" />
-                        <input type="file" @change="handleImage($event)"  style="width:200px" />
-                        <el-button type="info" size="small" plain @click="handleImageInsert">이미지등록</el-button>
+                        <div v-if="state.member.memail === memail">
+                            <input type="file" @change="handleImage($event)"  style="width:200px" />
+                            <el-button type="info" size="small" plain @click="handleImageInsert">이미지등록</el-button>
+                        </div>
                     <hr />
                     <div style="margin-right:900px;" >
                         <div class="float">
@@ -141,8 +142,6 @@ export default {
                 state.member = response.data.useremail;
                 state.iitem = response.data.prev1;
                 state.iitems = response.data.next2;
-
-                console.log("====================", state.iitem);
             }
         };
 
@@ -276,7 +275,7 @@ export default {
         }
 
         const handleNext = () => {
-            router.push({name : "BoardOne", query:{bno:state.iitems.bno}})
+            router.push({name : "BoardOne", query :{bno : state.iitems.bno}})
             state.bno = state.iitems.bno;
             console.log("======================", state.bno);
             handleSelectComment(state.item.bno);
