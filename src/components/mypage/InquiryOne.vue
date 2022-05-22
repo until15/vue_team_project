@@ -12,11 +12,12 @@
                 <el-descriptions-item label="제목"  label-align="center" align="center">
                     {{state.item.qtitle}}</el-descriptions-item>
                 <el-descriptions-item label="내용" hight="20px" label-align="center" align="center">
-                    {{state.item.qcontent}}</el-descriptions-item>
-                </el-descriptions>
+                    {{state.item.qcontent}}
                 <div class="center" v-for="tmp in state.image" :key="tmp">
                     <img :src="state.image[0]" style="width:300px" /><br />
                 </div>
+                    </el-descriptions-item>
+                </el-descriptions>
                 <hr />
                 <el-button type="info" size="small" plain @click="handleMenu">목록</el-button>
                 <el-button type="info" size="small" plain @click="handleDelete">삭제</el-button>
@@ -142,12 +143,14 @@ export default {
         };
 
         const handleDelete = async() => {
-            const url = `/ROOT/api/Inquiry/delete?qno=${state.qno}`;
-            const headers = {"Content-Type":"application/json", "token":state.token};
-            const response = await axios.delete(url, {headers});
-            console.log(response.data);
-            if(response.data.status === 200){
-                router.push({name : "Mypage", query:{menu:3}})
+            if(confirm('정말 삭제하시겠습니까?')){
+                const url = `/ROOT/api/Inquiry/delete?qno=${state.qno}`;
+                const headers = {"Content-Type":"application/json", "token":state.token};
+                const response = await axios.delete(url, {headers});
+                console.log(response.data);
+                if(response.data.status === 200){
+                    router.push({name : "Mypage", query:{menu:3}})
+                }
             }
         };
 

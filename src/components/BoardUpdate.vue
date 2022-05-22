@@ -3,6 +3,7 @@
     <div>
         <h3>게시물 수정</h3>
         <div v-if="state.item">
+        {{state.item.bno}}<br />
         제목 : <input type="text" v-model="state.item.btitle" /><br />
         내용 : <input type="text" v-model="state.item.bcontent" /><br />
         <div v-for="(tmp, idx) in state.image" :key="tmp">
@@ -75,7 +76,7 @@ export default {
             }
         }
         const handleBack = () => {
-
+            router.push({name : "BoardOne", query:{bno:state.bno}});
         }
 
         // const handleUpdateImg = async(tmp, idx) => {

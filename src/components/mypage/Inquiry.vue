@@ -50,7 +50,7 @@ export default {
                     console.log(response1.data);
                     if(response1.data.status === 200){
                         alert('등록되었습니다!');
-                        router.push({name:"Mypage", query:{menu:3}});
+                        router.push({name:"menu3"});
                     }
                 }
             } 

@@ -113,6 +113,12 @@ export default {
                 return false;
             }
 
+            if(state.item.mid === ''){
+                alert('닉네임을 입력해주세요.');
+                mid.value.focus();
+                return false;
+            }
+
             if(state.token !== null){
                 const url = `/ROOT/api/member/updatemember`;
                 const headers = {"Content-Type":"multipart/form-data", "token":state.token};
@@ -159,6 +165,9 @@ export default {
             else if(response.data.status === 200){
                 state.usermidcheck = '';
               
+            }
+            else if(state.item.mid === ''){
+                state.usermidcheck = '"닉네임을 입력하세요"';
             }
             else{
                 state.usermidcheck = '"사용가능"';
