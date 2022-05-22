@@ -31,10 +31,16 @@ export default {
         const store = useStore();
 
         const state = reactive({
-            token : sessionStorage.getItem("TOKEN")
+            token : sessionStorage.getItem("TOKEN"),
+            mpw : ''
         });
         
         const handleDelete = async() => {
+            if(state.mpw === ''){
+                alert('암호를 입력해주세요.');
+                return false;
+            }
+
             if(confirm('정말 탈퇴하시겠습니까?')){
                 const url = `/ROOT/api/member/deletemember?mpw=${state.mpw}`;
                 const headers = {"Content-Type":"multipart/form-data", "token":state.token};

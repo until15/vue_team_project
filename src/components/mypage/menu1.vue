@@ -49,8 +49,8 @@
               </el-form-item>
             </el-form>
 
-            <img :src="state.imageUrl" style="width:100px; margin-left:50px"/><br />
-            <input type="file" @change="handleImage($event)" style="margin-left:270px" /><br />
+            <img :src="state.imageUrl" style="width:100px; margin-left:60px"/><br />
+            <input type="file" @change="handleImage($event)" style="margin-left:220px; font-size:12px; margin-top:10px" /><br />
             
             <hr />
             <el-button type="info" style="margin-left:50px" plain @click="handleUpdate">수정하기</el-button>
