@@ -223,6 +223,16 @@ export default {
         };
 
         const handleImageInsert = async() => {
+            if( state.imageUrl === require('../assets/img/default.png')){
+                alert('이미지가 없습니다.');
+                return false;
+            }
+
+            if( state.imageUrl.length === 0){
+                alert('이미지가 없습니다.');
+                return false;
+            }
+
             const url = `/ROOT/api/bimg/insert`;
             const headers = {"Content-Type":"multipart/form-data","token":state.token};
             const body = new FormData();
@@ -232,8 +242,7 @@ export default {
             console.log(response.data);
             if(response.data.status === 200){
                 alert('등록되었습니다');
-                handleData(state.item.bno);
-                
+                handleData(state.item.bno); 
             }
 
         };
@@ -244,6 +253,7 @@ export default {
                 state.mimage = e.target.files[0];
             }
             else{
+                state.imageUrl = require('../assets/img/default.png');
                 state.mimage = '';
             }
         }

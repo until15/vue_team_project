@@ -7,11 +7,12 @@
         내용 : <input type="text" v-model="state.item.bcontent" /><br />
         <div v-for="(tmp, idx) in state.image" :key="tmp">
             <img :src="state.image[idx]" style="width:200px" />
-        <button @click="handleDeleteImg(tmp)">삭제</button><br />
-        <!-- <input type="file" @change="handleImage($event, idx)" /> -->
-        <!-- <button @click="handleUpdateImg(tmp)">수정</button> -->
+            <!-- <input type="file" @change="handleImage($event, idx)"/>
+        <button @click="handleUpdateImg(tmp)">수정</button> -->
+        <button @click="handleDeleteImg(tmp)">삭제</button>
         </div>
         <button @click="handleUpdate">수정하기</button>
+        <button @click="handleBack">돌아가기</button>
         </div>
         
     </div>
@@ -31,7 +32,6 @@ export default {
         const state = reactive({
             bno : route.query.bno,
             token : sessionStorage.getItem("TOKEN"),
-            mimage : [new File([""],"")],
         });
 
         const handleData = async(bno) => {
@@ -74,6 +74,9 @@ export default {
                 alert('권한 없음');
             }
         }
+        const handleBack = () => {
+
+        }
 
         // const handleUpdateImg = async(tmp, idx) => {
         //     const no = tmp.split('=');
@@ -94,7 +97,8 @@ export default {
         //         state.mimage[idx] = e.target.files[0];
         //     }
         //     else{
-        //         state.mimage[idx] = new File([""],"");
+        //         state.image[idx] = URL.createObjectURL(e.target.files[0]);
+        //         state.mimage[idx] = e.target.files[0];
         //     }
         // }
        
@@ -103,7 +107,7 @@ export default {
         });
         
 
-        return {state, handleData, handleUpdate,  handleDeleteImg}
+        return {state, handleData, handleUpdate, handleBack, handleDeleteImg}
     }
 }
 </script>
