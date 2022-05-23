@@ -1,14 +1,31 @@
 @@ -1,51 +0,0 @@
 <template>
-    <div>
-        <h3>게시판 글쓰기</h3>
-        제목 : <input type="text" ref="btitle" v-model="state.btitle" /><br />
+    <div align="center">
+        <br />
+        <el-card  style="width:1200px">
+            <h3>게시판 글쓰기</h3>
+            <hr />
+            <el-input  size="medium" ref="memail" v-model="state.btitle" style="margin-bottom:10px" placeholder="글제목"/>
+            <ckeditor :editor="editor.editor" :config="editor.editorConfig" v-model="state.bcontent" ></ckeditor>
+            
+            <img :src="state.imageUrl" style="width:50px" />
+            <input type="file" @change="handleImage($event)" /><br />
+        </el-card><br />
+        <el-button type="info" size="small" plain @click="handleInsert">등록하기</el-button> 
+        <el-button type="info" size="small" plain @click="handleBack">돌아가기</el-button><br /><br />
+
+        <!-- <button @click="handleInsert">등록하기</button>
+        <button @click="handleBack">돌아가기</button> -->
+        
+        
+        
+        <!-- 제목 : <input type="text" ref="btitle" v-model="state.btitle" /><br />
         내용 : <textarea rows="10" ref="bcontent" v-model="state.bcontent"></textarea><br />
         <hr />
         <img :src="state.imageUrl" style="width:50px" />
         이미지 : <input type="file" @change="handleImage($event)" /><br />
         <button @click="handleInsert">등록하기</button>
-        <button @click="handleBack">돌아가기</button>
+        <button @click="handleBack">돌아가기</button> -->
     </div>
 </template>
 
@@ -16,10 +33,18 @@
 import { reactive, ref } from 'vue'
 import axios from 'axios';
 import {useRouter} from 'vue-router';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
 export default {
     setup () {
 
         const router = useRouter();
+
+        const editor = {
+            editor          : ClassicEditor,
+            editorData      : '',
+            editorConfig    : {}
+        }
 
         const state = reactive({
             btitle : '',
@@ -87,11 +112,20 @@ export default {
             router.push({name : "Board"});
         }
 
-        return {state, btitle, bcontent, handleInsert, handleImage, handleBack}
+        return {state, editor, btitle, bcontent, handleInsert, handleImage, handleBack}
     }
+
+    
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
+.ck-editor__editable {
+        min-height: 500px;
+    }
+
+.center{
+  text-align: center;
+}
 
 </style>

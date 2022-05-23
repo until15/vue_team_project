@@ -14,6 +14,9 @@ require('vue-video-player/src/custom-theme.css')
 import ElementPlus from 'element-plus';
 import 'element-plus/theme-chalk/index.css';
 
+// CKEditor
+import CKEditor from '@ckeditor/ckeditor5-vue';
+
 
 const app = createApp(App);
 app.use(router);  
@@ -21,5 +24,6 @@ app.use(ElementPlus);
 app.use(stores);
 app.use(VideoPlayer);
 app.config.globalProperties.axios = axios;
+app.use(CKEditor);
 
 app.mount('#app');
