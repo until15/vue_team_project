@@ -6,28 +6,33 @@
       <el-table :data="state.rtn">
         <el-table-column width="80">
           <template #default="scope">
-            <el-checkbox v-model="state.rtn[scope.$index].chk" size="small" />
+            <!-- {{state.chk}} -->
+            <el-checkbox
+            :label="state.rtn[scope.$index].rtnseq"
+            v-model="state.chk"
+            size="small" />
           </template>
         </el-table-column>
-        <el-table-column property="rtnno" label="번호" width="150" />
-        <el-table-column property="rtnseq" label="SEQ" width="150" />
+        <el-table-column v-if="false" property="rtnno" label="번호" width="150" />
+        <el-table-column v-if="false" property="rtnseq" label="SEQ" width="150" />
         <el-table-column property="rtnname" label="이름" width="220" />
         <el-table-column property="rtnday" label="요일" width="170" />
         <el-table-column property="pname" label="자세" width="170" />
         <el-table-column property="ppart" label="부위" width="170" />
         <el-table-column property="rtncnt" label="횟수" width="170" />
         <el-table-column property="rtnset" label="세트" width="170" />
-        <el-table-column label="편집">
+        <el-table-column label="편집" width="170">
           <template #default="scope">
             <el-button
               size="small"
               text
               @click="
-                (dialogTableVisible2 = true),
+                (state.dialogTableVisible2 = true),
                   handleRoutineOneData(scope.row.rtnno)
               "
               >수정</el-button
             >
+            <el-button size="small" type="danger" @click="handleRoutineDelete(scope.row.rtnno)">삭제</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -39,12 +44,14 @@
       >
       </el-pagination>
       <el-button size="small" @click="handleInsert()">등록</el-button>
-      <el-button size="small" type="danger" @click="handleDelete()"
-        >삭제</el-button
-      >
+      <el-popconfirm title="정말 삭제하시겠습니까?" @confirm="handleDelete()">
+        <template #reference>
+          <el-button size="small" type="danger">삭제</el-button>
+        </template>
+      </el-popconfirm>
     </el-dialog>
     <div v-if="state.routine">
-      <el-dialog v-model="dialogTableVisible2" title="루틴 수정">
+      <el-dialog v-model="state.dialogTableVisible2" title="루틴 수정">
         <el-form :model="state.routine">
           <el-form-item label="요일 :" :label-width="formLabelWidth">
             <el-row :gutter="20">
@@ -69,11 +76,13 @@
           <el-form-item label="자세 : " :label-width="formLabelWidth">
             <!-- <input type="hidden" v-model="state.routine.pno"> -->
             <el-row :gutter="20">
-              <el-col :span="20"
+              <el-col :span="17"
                 ><el-input v-model="state.routine.pname" autocomplete="off"
-              /></el-col>
-              <el-col :span="4"
-                ><el-button text @click="dialogTableVisible3 = true"
+              />
+              </el-col>
+              <el-col :span="2"><el-tag>{{state.routine.pno}}</el-tag></el-col>
+              <el-col :span="5"
+                ><el-button text @click="state.dialogTableVisible3 = true"
                   >변경</el-button
                 ></el-col
               >
@@ -107,7 +116,7 @@
         >
       </el-dialog>
     </div>
-    <el-dialog v-model="dialogTableVisible3" title="자세">
+    <el-dialog v-model="state.dialogTableVisible3" title="자세">
       <el-table :data="state.pose">
         <!-- chk : true 된 것 번호 저장-->
         <el-table-column>
@@ -145,17 +154,71 @@ export default {
     });
 
     const dialogTableVisible = ref(false);
-    const dialogTableVisible2 = ref(false);
-    const dialogTableVisible3 = ref(false);
 
     const state = reactive({
       token: sessionStorage.getItem("TOKEN"),
-      no: 78,
       page: 1,
       page2: 1,
       title: "",
       step: 1, // 자세, 삭제되지 않은 것만
+      dialogTableVisible2: false,
+      dialogTableVisible3: false,
+      chk : [] // 루틴 선택 보관
     });
+
+    // 루틴 등록 : 챌린지 등록할 때 같이 등록 되어야 함.
+    const handleInsert = () => {
+      
+      alert('챌린지 등록할 때 연결하기')
+    }
+
+    // 루틴 개별 삭제
+    const handleRoutineDelete = async(no) => {
+      if(confirm('삭제하시겠습니까?')){
+        const url =`/ROOT/api/routine/delete.json?no=${no}`;
+        const headers = {
+          "Content-Type": "application/json",
+          token: state.token,
+        };
+        const response = await axios.delete(url, {headers:headers})
+        console.log(response);
+        if(response.data.status === 200){
+          alert('루틴이 삭제되었습니다.');
+          handleRoutineData();
+        }
+      }
+    }
+
+    // 루틴 삭제
+    const handleDelete = async() => {
+      let chked = [];
+      let cnt = 0;
+      for (let tmp of state.rtn) {
+        if (tmp.chk === true) {
+          chked.push(tmp.rtnno);
+          cnt++;
+        }
+      }
+      if(cnt === 0 || cnt === 1){
+        alert('삭제할 루틴을 선택하세요.')
+        return false;
+      }
+      console.log(chked)
+      const url =`/ROOT/api/routine/deletebatch.json?no=${chked}`;
+      const headers = {
+        "Content-Type": "application/json",
+        token: state.token,
+      };
+      const response = await axios.delete(url, {headers:headers})
+      console.log(response);
+      if(response.data.status === 200){
+        alert('루틴이 삭제되었습니다.');
+        handleRoutineData();
+        for (let tmp of state.rtn) {
+          tmp.chk =false
+        }
+      }
+    }
 
     // 자세 체크
     const handleChk = () => {
@@ -166,7 +229,11 @@ export default {
           chked = tmp.pno;
         }
       }
-      console.log("체크된번호" + chked);
+      state.routine.pno = chked
+      state.dialogTableVisible3 = false
+      for (let tmp of state.pose) {
+        tmp.chk = false
+      }
     };
 
     // 루틴
@@ -215,7 +282,7 @@ export default {
       console.log(response.data);
       if (response.data.status === 200) {
         alert("수정되었습니다.");
-        dialogTableVisible2();
+        state.dialogTableVisible2 = false;
         handleRoutineData();
       }
     };
@@ -253,8 +320,6 @@ export default {
     return {
       state,
       dialogTableVisible,
-      dialogTableVisible2,
-      dialogTableVisible3,
       currentChange,
       handleRoutineData,
       handleRoutineUpdate,
@@ -262,6 +327,9 @@ export default {
       handlePoseData,
       currentChange2,
       handleChk,
+      handleDelete,
+      handleRoutineDelete,
+      handleInsert,
     };
   },
 };
