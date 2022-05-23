@@ -43,8 +43,8 @@
             <el-descriptions-item label="작성자" label-align="center" align="center" width="10px">{{tmp.memberchg.mid}}</el-descriptions-item>
             <el-descriptions-item label="내용" label-align="center" align="center">{{tmp.iqcontent}}</el-descriptions-item>
             <el-descriptions-item label="버튼" label-align="center" align="center">
-            <el-button type="info" size="small" plain @click="handleReplyDelete(tmp.iqcmtno)">삭제</el-button>
-            </el-descriptions-item>
+                <el-button type="info" size="small" plain @click="handleReplyDelete(tmp.iqcmtno)">삭제</el-button>
+                </el-descriptions-item>
             </el-descriptions>
         <hr />
         </div>
@@ -112,6 +112,16 @@ export default {
             const response = await axios.post(url, body, {headers});
             console.log(response.data);
             if(response.data.status === 200){
+                const url1 = `/ROOT/api/community/updatecom`;
+                const headers1 = {"Content-Type":"application/json", "token":state.token};
+                const body1 = {
+                    com : state.com + 1,
+                    qno : state.qno
+                }
+                const response1 = await axios.put(url1, body1, {headers:headers1});
+                console.log(response1.data);
+
+
                 state.reply = response.data.result;
                 handleData(state.item.qno);
                 handleSelectComment(state.item.qno);
@@ -149,7 +159,7 @@ export default {
                 const response = await axios.delete(url, {headers});
                 console.log(response.data);
                 if(response.data.status === 200){
-                    router.push({name : "Mypage", query:{menu:3}})
+                    router.push({name : "menu3"})
                 }
             }
         };

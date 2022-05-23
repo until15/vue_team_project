@@ -14,7 +14,7 @@
                 </el-table-column>
                 <el-table-column prop="mid" label="작성자" width="100" />
                 <el-table-column prop="bhit" label="조회수" width="80" />
-                <el-table-column prop="bregdate" label="날짜" width="250" />
+                <el-table-column prop="bregdate" label="날짜" width="100" />
             </el-table>
        
             <el-pagination layout="prev, pager, next" :total="state.total" @current-change="currentchange">

@@ -282,7 +282,6 @@ export default {
                 mrole.value.focus();
                 return false;
             }
-
             const url = `/ROOT/api/member/join`;
             const headers = {"Content-Type":"multipart/form-data"};
             const body = new FormData();
@@ -304,6 +303,7 @@ export default {
                 alert('가입되었습니다!');
                 router.push({name : "Login"});
             }
+            
         }
 
         //정확한 이메일 주소인지 확인
@@ -312,6 +312,16 @@ export default {
             var re = /[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]*$/i;
             return re.test(memail);
         }
+        // const validPhone = (mphone) => {
+        // var Phone = /^01([0])-?([0-9]{4})-?([0-9]{4})$/;
+        // return Phone.test(mphone);
+        // }
+        // var Phone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+        // 핸드폰번호 첫/두번째 자리는 01로 시작하며 세번째 자리는 01+0/1/6/7/8/9 가 될 수 있다.
+        // 번호 사이사이 대쉬('-')는 사용자가 작성하든 안하든 무시한다.
+        // 번호 두번째 마디는 3-4자리가 가능하며 숫자는 0-9까지 들어올 수 있다.
+        // 마지막 마디는 마찬가지로 0-9까지 가능하며 4자리만 가능하다.
+  
 
 
         const emailCheck = async() => {

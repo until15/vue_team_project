@@ -8,8 +8,8 @@
         내용 : <input type="text" v-model="state.item.bcontent" /><br />
         <div v-for="(tmp, idx) in state.image" :key="tmp">
             <img :src="state.image[idx]" style="width:200px" />
-            <!-- <input type="file" @change="handleImage($event, idx)"/>
-        <button @click="handleUpdateImg(tmp)">수정</button> -->
+            <input type="file" @change="handleImage($event, idx)"/>
+        <button @click="handleUpdateImg(tmp)">수정</button>
         <button @click="handleDeleteImg(tmp)">삭제</button>
         </div>
         <button @click="handleUpdate">수정하기</button>
@@ -33,6 +33,7 @@ export default {
         const state = reactive({
             bno : route.query.bno,
             token : sessionStorage.getItem("TOKEN"),
+            mimage : [new File([""],"")],
         });
 
         const handleData = async(bno) => {
@@ -79,36 +80,38 @@ export default {
             router.push({name : "BoardOne", query:{bno:state.bno}});
         }
 
-        // const handleUpdateImg = async(tmp, idx) => {
-        //     const no = tmp.split('=');
-        //     console.log("==no==", Number(no[1]));
-        //     const url = `/ROOT/api/bimg/update?bimgno=${Number(no[1])}`;
-        //     const headers = {"Content-Type":"application/json", "token":state.token};
-        //     const body = new FormData();
-        //     body.append("mimage", state.image[idx]);
+        const handleUpdateImg = async(tmp) => {
+            const no = tmp.split('=');
+            console.log("==no==", Number(no[1]));
+            const url = `/ROOT/api/bimg/updatebatch?bimgno=${Number(no[1])}`;
+            const headers = {"Content-Type":"application/json", "token":state.token};
+            const body = new FormData();
+            for(let i=0; state.mimage < i; i++){
+                body.append("mimage", state.image[i]);
+            }
    
-        //     const response = await axios.put(url, {headers});
-        //     console.log(response.data);
+            const response = await axios.put(url, body, {headers});
+            console.log(response.data);
 
-        // }
+        }
 
-        // const handleImage = (e, idx) => {
-        //     if(e.target.files[0]){
-        //         state.image[idx] = URL.createObjectURL(e.target.files[0]);
-        //         state.mimage[idx] = e.target.files[0];
-        //     }
-        //     else{
-        //         state.image[idx] = URL.createObjectURL(e.target.files[0]);
-        //         state.mimage[idx] = e.target.files[0];
-        //     }
-        // }
+        const handleImage = (e, idx) => {
+            if(e.target.files[0]){
+                state.image[idx] = URL.createObjectURL(e.target.files[0]);
+                state.mimage[idx] = e.target.files[0];
+            }
+            else{
+                state.image[idx] = URL.createObjectURL(e.target.files[0]);
+                state.mimage[idx] = e.target.files[0];
+            }
+        }
        
         onMounted(() =>{
             handleData(state.bno);
         });
         
 
-        return {state, handleData, handleUpdate, handleBack, handleDeleteImg}
+        return {state, handleData, handleUpdateImg, handleImage, handleUpdate, handleBack, handleDeleteImg}
     }
 }
 </script>
