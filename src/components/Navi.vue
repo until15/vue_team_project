@@ -7,19 +7,20 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <!-- <li class="nav-item"><router-link to="/" class="nav-link active" aria-current="page">Home</router-link></li> -->
-                        <li class="nav-item" v-if="logged === false"><router-link to="/memberjoin" class="nav-link">회원가입</router-link></li>
-                        <li class="nav-item" v-if="logged === false"><router-link to="/login" class="nav-link">로그인</router-link></li>
+                        
                         <li class="nav-item"><router-link to="/challenge" class="nav-link">첼린지</router-link></li>
                         <li class="nav-item"><router-link to="/confirmlist" class="nav-link">인증</router-link></li>
                         <li class="nav-item"><router-link to="/board" class="nav-link">커뮤니티</router-link></li>
                         <li class="nav-item"><router-link to="/pose" class="nav-link">자세</router-link></li>
-                        <!-- <li class="nav-item" v-if="logged === true"><router-link to="/menu1" class="nav-link">마이페이지</router-link></li> -->
-                        <!-- <li class="nav-item" v-if="logged === true"><router-link to="/logout" class="nav-link">로그아웃</router-link></li> -->
 
                     </ul>
 
-
+                    <!-- 회원가입/로그인 -->
+                    <div class="nav-item navbar-nav" v-if="logged === false">
+                        <router-link to="/memberjoin" class="nav-link">회원가입</router-link>  
+                        <router-link to="/login" class="nav-link">로그인</router-link>
+                    </div>
+                    
 
                     <!-- 로그인한 사용자의 이메일 -->
                     <div v-if="state.item" style="margin-right:10px">

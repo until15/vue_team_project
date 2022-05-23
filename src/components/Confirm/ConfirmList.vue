@@ -39,7 +39,7 @@
                             </td>
                             <td>{{tmp.memail}}</td>
                             <td>{{tmp.chgtitle}}</td>
-                            <td @click="handleProveOne(i)" style="cursor:pointer" >{{tmp.cfcomment}}</td>
+                            <td>{{tmp.cfcomment}}</td>
                             <td>{{tmp.ccregdate}}</td>
                             <td>{{tmp.chgstate}}</td>
                             <td>{{tmp.cfsuccess}}</td>
@@ -64,13 +64,10 @@
 <script>
 import { reactive } from '@vue/reactivity'
 import { onMounted } from '@vue/runtime-core';
-import { useRouter } from 'vue-router';
 import axios from 'axios';
 
 export default {
     setup () {
-        const router = useRouter();
-
         const state = reactive({
             page : 1,
             pages : 1,
@@ -79,6 +76,7 @@ export default {
             
         });
 
+        // 전체 인증 리스트
         const handleData = async(tmp, text)=> {
             const url = `/ROOT/api/confirm/provelist.json?page=${tmp}&email=${text}`;
             const headers = {"Content-Type":"application/json"};
@@ -111,22 +109,17 @@ export default {
             }
         };
 
+        // 페이지 네이션
         const handlePage = async(tmp, text)=> {
 
             handleData(tmp, text);
-        }
-
-        const handleProveOne = async(i)=> {
-            // console.log(i);
-            // console.log(state.items[i].cfno);
-            router.push({name:'ConfirmOne', query:{cfno:state.items[i].cfno}});
         }
 
         onMounted(()=> {
             handleData(state.page, state.text);
         });
 
-        return {state, handleData, handlePage, handleProveOne}
+        return {state, handleData, handlePage}
     }
 }
 </script>
