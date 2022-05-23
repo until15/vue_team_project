@@ -1,28 +1,30 @@
 <template>
     <div class="center">
         <el-card style="height:600px">
-            <h3 style="margin-left:60px">로그인</h3>
-            <el-form :inline="true">
-                    <el-form-item  label="이메일" label-width="80px">
-                        <el-input  size="medium" ref="memail" v-model="state.memail" placeholder="이메일" />
-                    </el-form-item>
-            </el-form>
-            
-            <el-form :inline="true"  >
-                <el-form-item label="암호" label-width="80px" style="margin-top:-20px" >
-                    <el-input  size="medium" ref="mpw" v-model="state.mpw" type="password" placeholder="암호" @keydown.prevent.enter="handleLogin"/>
-                </el-form-item>
-            </el-form>
-        <el-button type="info" style="margin-left:60px" size="small" plain @click="handleLogin">로그인</el-button> 
-        <el-button type="info" size="small" plain @click="handleJoin">회원가입</el-button> <br /><br />
-        
-        <a id="custom-login-btn" @click="KakaoLogin"  style="margin-left:65px">
-            <img
-                src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
-                width="222"
-                alt="카카오 로그인 버튼"
-            />
-        </a>
+            <div style="margin-right:70px">
+                    <h3 style="margin-left:60px">로그인</h3>
+                    <el-form :inline="true">
+                            <el-form-item  label="이메일" label-width="80px">
+                                <el-input  size="medium" ref="memail" v-model="state.memail" placeholder="이메일" />
+                            </el-form-item>
+                    </el-form>
+                    
+                    <el-form :inline="true"  >
+                        <el-form-item label="암호" label-width="80px" style="margin-top:-20px" >
+                            <el-input  size="medium" ref="mpw" v-model="state.mpw" type="password" placeholder="암호" @keydown.prevent.enter="handleLogin"/>
+                        </el-form-item>
+                    </el-form>
+                <el-button type="info" style="margin-left:60px" size="small" plain @click="handleLogin">로그인</el-button> 
+                <el-button type="info" size="small" plain @click="handleJoin">회원가입</el-button> <br /><br />
+                
+                <a id="custom-login-btn" @click="KakaoLogin"  style="margin-left:65px">
+                    <img
+                        src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
+                        width="222"
+                        alt="카카오 로그인 버튼"
+                    />
+                </a>
+            </div>
         </el-card>
         
 

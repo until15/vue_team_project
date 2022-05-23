@@ -4,7 +4,6 @@
         <br />
         <el-card  style="width:1200px">
             <h3>게시판 글쓰기</h3>
-            <hr />
             <el-input  size="medium" ref="memail" v-model="state.btitle" style="margin-bottom:10px" placeholder="글제목"/>
             <ckeditor :editor="editor.editor" :config="editor.editorConfig" v-model="state.bcontent" ></ckeditor>
             

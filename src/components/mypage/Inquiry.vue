@@ -1,14 +1,15 @@
 <template>
-    <div>
-        <h3>게시판 글쓰기</h3>
-        제목 : <input type="text" v-model="state.qtitle" /><br />
-        내용 : <textarea rows="10" v-model="state.qcontent" ></textarea><br />
-        <hr />
-        <img :src="state.imageUrl" style="width:100px" />
-        이미지 : <input type="file" @change="handleImage($event)" /><br />
-        <button @click="handleInsert">등록하기</button>
-        <button @click="handleBack">돌아가기</button>
-
+    <div align="center">
+        <el-card  style="width:1200px">
+            <h3>게시판 글쓰기</h3>
+            <el-input  size="medium" ref="memail" v-model="state.qtitle" style="margin-bottom:10px" placeholder="글제목"/>
+            <ckeditor :editor="editor.editor" :config="editor.editorConfig" v-model="state.qcontent" ></ckeditor>
+            
+            <img :src="state.imageUrl" style="width:50px" />
+            <input type="file" @change="handleImage($event)" /><br />
+        </el-card><br />
+        <el-button type="info" size="small" plain @click="handleInsert">등록하기</el-button> 
+        <el-button type="info" size="small" plain @click="handleBack">돌아가기</el-button><br /><br />
     </div>
 </template>
 
@@ -16,9 +17,16 @@
 import { reactive } from 'vue';
 import axios from 'axios';
 import {useRouter} from 'vue-router';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 export default {
     setup () {
         const router = useRouter();
+
+        const editor = {
+            editor          : ClassicEditor,
+            editorData      : '',
+            editorConfig    : {}
+        }
 
         const state = reactive({
             qtitle : '',
@@ -74,7 +82,7 @@ export default {
         
         
 
-        return {state, handleInsert, handleBack, handleImage}
+        return {state, editor, handleInsert, handleBack, handleImage}
     }
 }
 </script>
