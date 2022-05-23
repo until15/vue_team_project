@@ -4028,7 +4028,7 @@ textarea.form-control-lg {
 }
 
 .navbar {
-  position: fixed;
+  /* position: fixed; */
   top: 0;
   left: 0;
   right: 0;
@@ -7499,7 +7499,7 @@ textarea.form-control-lg {
 }
 
 .py-5 {
-  padding-top: 8rem !important;
+  padding-top: 3rem !important;
   padding-bottom: 3rem !important;
 }
 
