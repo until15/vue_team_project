@@ -10,7 +10,7 @@
                         <!-- <li class="nav-item"><router-link to="/" class="nav-link active" aria-current="page">Home</router-link></li> -->
                         <li class="nav-item" v-if="logged === false"><router-link to="/memberjoin" class="nav-link">회원가입</router-link></li>
                         <li class="nav-item" v-if="logged === false"><router-link to="/login" class="nav-link">로그인</router-link></li>
-                        <li class="nav-item"><router-link to="/" class="nav-link">첼린지</router-link></li>
+                        <li class="nav-item"><router-link to="/challenge" class="nav-link">첼린지</router-link></li>
                         <li class="nav-item"><router-link to="/confirmlist" class="nav-link">인증</router-link></li>
                         <li class="nav-item"><router-link to="/board" class="nav-link">커뮤니티</router-link></li>
                         <li class="nav-item"><router-link to="/pose" class="nav-link">자세</router-link></li>
