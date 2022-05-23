@@ -222,7 +222,7 @@ export default {
         };
 
         const handleImageInsert = async() => {
-            if( state.imageUrl === require('../assets/img/default.png')){
+            if( state.imageUrl === require('@/assets/img/default.png')){
                 alert('이미지가 없습니다.');
                 return false;
             }
@@ -252,7 +252,7 @@ export default {
                 state.mimage = e.target.files[0];
             }
             else{
-                state.imageUrl = require('../assets/img/default.png');
+                state.imageUrl = require('@/assets/img/default.png');
                 state.mimage = '';
             }
         }

@@ -50,7 +50,7 @@ export default {
             btitle : '',
             bcontent : '',
             mimage : null,
-            imageUrl : require('../assets/img/default.png'),
+            imageUrl : require('@/assets/img/default.png'),
             token : sessionStorage.getItem("TOKEN")
         });
 
@@ -103,7 +103,7 @@ export default {
                 state.mimage = e.target.files[0];
             }
             else{
-                state.imageUrl = require('../assets/img/default.png');
+                state.imageUrl = require('@/assets/img/default.png');
                 state.mimage = null;
             }
         }

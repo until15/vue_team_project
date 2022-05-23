@@ -14,10 +14,10 @@ import Login from '@/components/Login.vue';
 import Login1 from '@/components/Login1.vue';
 import Logout from '@/components/Logout.vue';
 import Logout1 from '@/components/Logout1.vue';
-import Board from '@/components/Board.vue';
-import BoardWrite from '@/components/BoardWrite.vue';
-import BoardOne from '@/components/BoardOne.vue';
-import BoardUpdate from '@/components/BoardUpdate.vue';
+import Board from '@/components/board/Board.vue';
+import BoardWrite from '@/components/board/BoardWrite.vue';
+import BoardOne from '@/components/board/BoardOne.vue';
+import BoardUpdate from '@/components/board/BoardUpdate.vue';
 ////////////////////////////////////////////////////////////////
 import UpdatePw from '@/components/mypage/UpdatePw.vue';
 import Inquiry from '@/components/mypage/Inquiry.vue';
