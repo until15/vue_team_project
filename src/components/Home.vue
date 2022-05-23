@@ -209,13 +209,13 @@ export default {
     // 인기 챌린지 상세보기
     const handleSelectLike = async(no)=> {
       console.log(no);
-      router.push({name : 'ChallengeOne', params: {chgno:no}});
+      router.push({name : 'ChallengeOne', query: {chgno:no}});
     };
 
     // 난이도 챌린지 상세보기
     const handleSelectLevel = async(chgno)=> {
       console.log(chgno);
-      router.push({name : 'ChallengeOne', params: {chgno:chgno}});
+      router.push({name : 'ChallengeOne', query: {chgno:chgno}});
     };
 
     // 인기 첼린지 리스트

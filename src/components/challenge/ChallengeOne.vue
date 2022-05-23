@@ -40,7 +40,7 @@ export default {
         const route = useRoute();
 
         const state = reactive({
-            chgno : route.params.chgno,
+            chgno : route.query.chgno,
         });
         
         const handleData = async(no) => {
