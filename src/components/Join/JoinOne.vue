@@ -121,7 +121,7 @@ export default {
         // 인증하기
         const handleConfirm = async(no)=> {
             // console.log("인증하기");
-            router.push({name:'ConfirmInsert', params:{jno:no}});
+            router.push({name:'ConfirmInsert', query:{jno:no}});
         };
 
         // 인증글 조회
@@ -184,6 +184,15 @@ export default {
                 console.log(response.data);
                 if (response.data.status === 200) {
                     console.log("완료");
+
+                    if (e === 1) {
+                        const url1 = `/ROOT/api/confirm/successrate.json?chgno=${state.chgno}&jno=${state.jno}`;
+                        const headers1 = {"Content-Type":"application/json"};
+                        const body1 = {};
+                        const response1 = await axios.put(url1, body1, {headers:headers1});
+                        console.log("달성률 결과 : ", response1.data);
+                    }
+
                     handleCfmData(state.chgno, state.page);
                 }
             }

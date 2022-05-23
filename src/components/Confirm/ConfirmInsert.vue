@@ -32,7 +32,7 @@ export default {
         const route = useRoute();
 
         const state = reactive({
-            jno : route.params.jno,     // 참가번호
+            jno : route.query.jno,     // 참가번호
             token : sessionStorage.getItem("TOKEN"),    // 토큰
             comment : '',   // 인증 내용
             cfno : 0,   // 인증번호
