@@ -27,7 +27,9 @@
                     <el-button type="info" size="small" plain @click="checkMid">중복확인</el-button>
                 </el-form-item><br />
                 <el-form-item label-width="80px" style="margin-top:-40px">
+                
                     <div style="font-size:10px">{{state.usermidcheck}}</div>
+          
                 </el-form-item>
             </el-form>
 
