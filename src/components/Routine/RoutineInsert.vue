@@ -50,7 +50,7 @@
         <br>
         <!-- {{state.routines}} -->
         <el-button type="info" plain size="small" @click="handleRoutineInsert">생성</el-button>
-        <el-button type="info" plain size="small" @click="handleRoutineData">불러오기</el-button>
+        <!-- <el-button type="info" plain size="small" @click="handleRoutineData">불러오기</el-button>
         <div v-if="state.rtn">
         <div v-for="rtn,i in state.rtn" :key="i">
         {{state.rtn[i].rtnname}}
@@ -58,7 +58,7 @@
         횟수 : {{state.rtn[i].rtncnt}}
         세트 : {{state.rtn[i].rtnset}}
         </div>
-        </div>
+        </div> -->
         </el-card>
     </div>
 </template>
@@ -82,7 +82,7 @@ export default {
             title : '',
 
             // 루틴
-            rtnseq : 38
+            rtnseq : 38,
         })
 
         const handlePlus = ()=> {
