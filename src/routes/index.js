@@ -10,10 +10,10 @@ import ChallengeLikeList from '@/components/challenge/ChallengeLikeList.vue';
 import ChallengeLevelList from '@/components/challenge/ChallengeLevelList.vue';
 //////////////////////////////////////////////////////////////////////
 import MemberJoin from '@/components/MemberJoin.vue';
-import Login from '@/components/Login.vue';
-import Login1 from '@/components/Login1.vue';
-import Logout from '@/components/Logout.vue';
-import Logout1 from '@/components/Logout1.vue';
+import Login from '@/components/login/Login.vue';
+import Login1 from '@/components/login/Login1.vue';
+import Logout from '@/components/login/Logout.vue';
+import Logout1 from '@/components/login/Logout1.vue';
 import Board from '@/components/board/Board.vue';
 import BoardWrite from '@/components/board/BoardWrite.vue';
 import BoardOne from '@/components/board/BoardOne.vue';

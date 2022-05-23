@@ -1,3 +1,9 @@
+<template>
+    <div>
+
+    </div>
+</template>
+
 
 <script>
 import { onMounted } from 'vue';

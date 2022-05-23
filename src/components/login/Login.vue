@@ -1,10 +1,10 @@
 <template>
     <div class="center">
         <el-card style="height:600px">
-            <h3>로그인</h3>
+            <h3 style="margin-left:60px">로그인</h3>
             <el-form :inline="true">
                     <el-form-item  label="이메일" label-width="80px">
-                        <el-input  size="medium" ref="memail" v-model="state.memail" placeholder="이메일"/>
+                        <el-input  size="medium" ref="memail" v-model="state.memail" placeholder="이메일" />
                     </el-form-item>
             </el-form>
             
@@ -13,7 +13,7 @@
                     <el-input  size="medium" ref="mpw" v-model="state.mpw" type="password" placeholder="암호" @keydown.prevent.enter="handleLogin"/>
                 </el-form-item>
             </el-form>
-        <el-button type="info" style="margin-left:30px" size="small" plain @click="handleLogin">로그인</el-button> 
+        <el-button type="info" style="margin-left:60px" size="small" plain @click="handleLogin">로그인</el-button> 
         <el-button type="info" size="small" plain @click="handleJoin">회원가입</el-button> <br /><br />
         
         <a id="custom-login-btn" @click="KakaoLogin"  style="margin-left:65px">
