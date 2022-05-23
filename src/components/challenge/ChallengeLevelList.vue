@@ -1,7 +1,11 @@
 <template>
     <div align="center">
         <el-card>
-            <h3>챌린지 난이도순 목록</h3>
+            <h3>챌린지 난이도순</h3><br />
+            <el-button @click="handleMenu1">최신순</el-button>
+            <el-button @click="handleMenu2">인기순</el-button>
+            <el-button @click="handleMenu3">난이도순</el-button>
+            <br /><br />
             <hr />
             <el-table :data="state.items"  style="width: 100% " >
                 <el-table-column prop="chglevel" label="난이도" width="80" />
@@ -78,6 +82,18 @@ export default {
             router.push({name : "Home"})
         }
 
+        const handleMenu1 = () => {
+            router.push({name : "Challenge"});
+        }
+
+        const handleMenu2 = () => {
+            router.push({name : "ChallengeLikeList"});
+        }
+
+        const handleMenu3 = () => {
+            router.push({name : "ChallengeLevelList"});
+        }
+
         onMounted(() => {
             handleData();
         });
@@ -87,7 +103,10 @@ export default {
             handleData,
             handlePage, 
             currentChange,
-            handleMain
+            handleMain,
+            handleMenu1,
+            handleMenu2,
+            handleMenu3
 
         }
     }

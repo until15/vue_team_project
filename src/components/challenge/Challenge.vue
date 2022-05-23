@@ -1,7 +1,11 @@
 <template>
     <div align="center">
         <el-card>
-            <h3>챌린지</h3>
+            <h3>챌린지 최신순</h3><br/>
+            <el-button @click="handleMenu1">최신순</el-button>
+            <el-button @click="handleMenu2">인기순</el-button>
+            <el-button @click="handleMenu3">난이도순</el-button>
+            <br /><br />
             <hr />
                 <el-table :data="state.items"  style="width: 100% " >
                     <el-table-column prop="chgno" label="번호" width="60" />
@@ -24,19 +28,32 @@
         </el-card>
 
         <el-form :inline="true" v-if="state.items" >
-            <select>
+            <!-- <select>
                     <option>전체</option>
                     <option>작성자</option>
                     <option>인기</option>
                     <option>난이도</option>
-            </select>
+            </select> -->
+            <el-select v-model="value" class="m-2" placeholder="Select">
+                <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+                size="mini"
+                />
+            </el-select>
+
             <el-form-item  label="" label-width="80px">
-                <el-input type="text" size="mini" v-model="state.chgtitle" placeholder="검색어 입력" @keydown.prevent.enter="handleData" />
+                <el-input type="text" size="mini" v-model="state.challenge" placeholder="검색어 입력" @keydown.prevent.enter="handleData" />
             </el-form-item>
+
             <el-form-item>
                 <el-button type="info" plain size="mini" style="margin-left:5px" @click="handleData" >검색</el-button>
             </el-form-item>
+
         </el-form>
+
         <el-button type="info" plain @click="handleChallenge">챌린지 생성</el-button>
 
 
@@ -56,10 +73,11 @@ export default {
         const state = reactive({
             page : 1,
             challenge : '',
+            like : '',
             total : 1
         });
 
-
+        // 최신순 목록
         const handleData = async() => {
             const url = `/ROOT/api/challenge/selectlist?page=${state.page}&challenge=${state.challenge}`;
             const headers = {"Content-Type" : "application/json"};
@@ -72,6 +90,18 @@ export default {
                 state.total = response.data.total;
                 state.challenge= '';
             }
+        }
+
+        const handleMenu1 = () => {
+            router.push({name : "Challenge"});
+        }
+
+        const handleMenu2 = () => {
+            router.push({name : "ChallengeLikeList"});
+        }
+
+        const handleMenu3 = () => {
+            router.push({name : "ChallengeLevelList"});
         }
 
         // 챌린지 상세 조회(1개)
@@ -99,7 +129,10 @@ export default {
             handleData,
             handlePage, 
             currentChange,
-            handleChallenge
+            handleChallenge,
+            handleMenu1,
+            handleMenu2,
+            handleMenu3
 
         }
     }

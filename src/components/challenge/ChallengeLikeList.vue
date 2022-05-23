@@ -1,24 +1,26 @@
 <template>
     <div align="center">
         <el-card>
-        <h3>챌린지 인기목록</h3>
-        <hr />
+            <h3>챌린지 인기순</h3><br />
+            <el-button @click="handleMenu1">최신순</el-button>
+            <el-button @click="handleMenu2">인기순</el-button>
+            <el-button @click="handleMenu3">난이도순</el-button>
+            <br /><br />
+            <hr />
             <el-table :data="state.items"  style="width: 100% " >
-                <el-table-column prop="chgno" label="번호" width="60" />
+                <el-table-column prop="chglike" label="좋아요" width="80" />
                 <el-table-column prop="chgtitle" label="제목"  width="250" >
-            <template #default="scope">
-                <div @click="handlePage(scope.row.chgno)" style="cursor:pointer;">
-                    {{scope.row.chgtitle}}
-                </div> 
-            </template>
+                    <template #default="scope">
+                        <div @click="handlePage(scope.row.chgno)" style="cursor:pointer;">
+                            {{scope.row.chgtitle}}
+                        </div> 
+                    </template>
                 </el-table-column>
                 <el-table-column prop="chgfee" label="참가비" width="100" />
                 <el-table-column prop="chgcnt" label="참가인원" width="80" />
-                <el-table-column prop="chglike" label="좋아요" width="80" />
                 <el-table-column prop="chglevel" label="난이도" width="80" />
                 <el-table-column prop="chgregdate" label="작성일" width="250" />
             </el-table>
-       
             <el-pagination layout="prev, pager, next" :total="state.total" @current-change="currentChange">
             </el-pagination>
         </el-card>
@@ -83,6 +85,18 @@ export default {
             router.push({name : "Home"})
         }
 
+        const handleMenu1 = () => {
+            router.push({name : "Challenge"});
+        }
+
+        const handleMenu2 = () => {
+            router.push({name : "ChallengeLikeList"});
+        }
+
+        const handleMenu3 = () => {
+            router.push({name : "ChallengeLevelList"});
+        }
+
         onMounted(() => {
             handleData();
         });
@@ -92,7 +106,10 @@ export default {
             handleData,
             handlePage, 
             currentChange,
-            handleMain
+            handleMain,
+            handleMenu1,
+            handleMenu2,
+            handleMenu3
 
         }
     }
