@@ -45,7 +45,8 @@ export default {
         const state = reactive({
             step : 1, // 삭제 되지 않은 것만
             page : 1,
-            title : ''
+            title : '',
+            total : 1
 
         });
 
