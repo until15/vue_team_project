@@ -16,7 +16,7 @@
                     <button @click="handleData(state.page, state.text)">검색</button>
                 </div>
 
-                <div class="center">
+                <div class="center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
                     <!-- 리스트 -->
                     <table border="1">
                         <tr>
