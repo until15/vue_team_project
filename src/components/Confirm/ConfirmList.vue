@@ -11,9 +11,19 @@
             <div v-if="state.items" >
                 
                 <!-- 검색기능 -->
-                <div class="center">
+                <!-- <div class="center">
                     <input type="text" v-model="state.text">
                     <button @click="handleData(state.page, state.text)">검색</button>
+                </div> -->
+                <div class="center">
+                    <el-form :inline="true">
+                        <el-form-item  label="" label-width="80px">
+                            <el-input type="text" v-model="state.text" placeholder="참가자 검색" @keydown.prevent.enter="handleData(state.page, state.text)" />
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="info" plain style="margin-left:5px" @click="handleData(state.page, state.text)" >검색</el-button>
+                        </el-form-item>
+                    </el-form>
                 </div>
 
                 <div class="center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
@@ -54,6 +64,10 @@
                         <button @click="handlePage(tmp, state.text)" >{{ tmp }}</button>
                     </label>
                 </div>
+                <div class="center">
+                    <el-pagination layout="prev, pager, next" :total="15" @current-change="handlepage" />
+                </div>
+                
 
             </div>
 
