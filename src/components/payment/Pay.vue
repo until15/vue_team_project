@@ -17,7 +17,7 @@ export default {
 
     data(){
         return{
-            jno : 65,
+            jno : 88,
             token : sessionStorage.getItem("TOKEN"),
             pjoinchg : '',
             price: 0
@@ -45,9 +45,9 @@ export default {
                 pg: "html5_inicis", // PG사
                 pay_method: "card", // 결제수단
                 merchant_uid: "CHG_"+new Date().getTime(), // 결제번호
-                name: this.pjoinchg.challengechgChgtitle, // 결제 시 표시되는 이름
+                name: this.pjoinchg.chgtitle, // 결제 시 표시되는 이름
                 amount: this.price, // 결제금액
-                buyer_email: this.pjoinchg.memberchgMemail,  // 참여자 이메일
+                buyer_email: this.pjoinchg.memail,  // 참여자 이메일
                 buyer_tel : this.pjoinchg.memberchgMphone // 참여자 번호
             }, rsp => { // callback
             if (rsp.success) {// 결제 성공 시 로직

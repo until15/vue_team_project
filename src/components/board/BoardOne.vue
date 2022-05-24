@@ -81,8 +81,6 @@
        </div>
         </div> -->
        
-        
-
         <!-- <router-link to="/board"><button>목록으로</button></router-link>
         <button @click="handleUpdate">수정</button>
         <button @click="handleDelete">삭제</button> -->
@@ -117,8 +115,6 @@ export default {
         const router = useRouter();
         const store = useStore();
 
-      
-
         const state = reactive({
             bno : route.query.bno,
             reply1 :{
@@ -129,7 +125,6 @@ export default {
         });
 
         const cmtcontent = ref(null);
-
         
         const handleData = async(bno) => {
             const url = `/ROOT/api/community/selectone?bno=${bno}`;
@@ -243,7 +238,6 @@ export default {
                 alert('등록되었습니다');
                 handleData(state.item.bno); 
             }
-
         };
 
         const handleImage = (e) => {
@@ -255,7 +249,7 @@ export default {
                 state.imageUrl = require('@/assets/img/default.png');
                 state.mimage = '';
             }
-        }
+        };
 
          // 로그인 유저 이메일 정보 가져오기
         const memail = computed(() => {
@@ -264,7 +258,7 @@ export default {
 
         const handleBoard = () => {
             router.push({name :"Board"});
-        }
+        };
 
         const handlePrev = () => {
             router.push({name : "BoardOne", query :{bno : state.iitem.bno}});
@@ -272,7 +266,7 @@ export default {
             console.log("======================", state.bno);
             handleSelectComment(state.item.bno);
             handleData(state.bno);
-        }
+        };
 
         const handleNext = () => {
             router.push({name : "BoardOne", query :{bno : state.iitems.bno}})
@@ -280,14 +274,13 @@ export default {
             console.log("======================", state.bno);
             handleSelectComment(state.item.bno);
             handleData(state.bno);
-        }
+        };
 
         onMounted(() => {
             handleData(state.bno);
             handleSelectComment(state.bno); 
             
         });
-        
 
         return {state,handlePrev, handleNext,  handleData, handleBoard, memail, handleUpdate, handleDelete, handleSelectComment, handleComment, handleSelectImage ,handleReplyDelete, handleImageInsert, handleImage}
     }

@@ -24,7 +24,7 @@
     
         <el-card shadow="always">
             <div class="center">
-            <el-form :inline="true" style="margin-left:250px; display:block">
+            <el-form :inline="true" style="margin-left:192px; display:block">
                 <el-form-item label="이메일" label-width="80px">
                     <el-input v-model="state.memail" size="medium" ref="memail" placeholder="이메일" @keyup="handleChk" />
                 </el-form-item>
@@ -66,7 +66,7 @@
                 </el-form-item>
             </el-form>
 
-            <el-form :inline="true" style="margin-left:12px;margin-top:-20px" >
+            <el-form :inline="true" style="margin-left:-15px;margin-top:-20px" >
                 <el-form-item  label="닉네임" label-width="80px">
                     <el-input  size="medium" ref="mid"  v-model="state.mid" placeholder="닉네임" @keyup="handleMidChk" />
                 </el-form-item>
@@ -93,15 +93,37 @@
 
             <el-form :inline="true" style="margin-right:150px"  >
                 <el-form-item  label="키" label-width="80px" style="margin-top:-20px">
-                    <el-input-number ref="mheight" v-model="state.mheight" size="medium" />
+                    <el-select ref="mrole" v-model="state.mheight" size="medium" placeholder="키">
+                        <el-option v-for="no in 250" :key="no" :label="no" :value="no">
+                            {{no}}
+                        </el-option>
+                    </el-select>
+                    cm
               </el-form-item>
             </el-form>
 
+            <!-- <el-form :inline="true" style="margin-right:150px"  >
+                <el-form-item  label="키" label-width="80px" style="margin-top:-20px">
+                    <el-input-number ref="mheight" v-model="state.mheight" size="medium" />
+              </el-form-item>
+            </el-form> -->
+
             <el-form :inline="true" style="margin-right:150px"  >
+                <el-form-item  label="몸무게" label-width="80px" style="margin-top:-20px">
+                    <el-select ref="mrole" v-model="state.mweight" size="medium" placeholder="몸무게">
+                        <el-option v-for="no in 250" :key="no" :label="no" :value="no">
+                            {{no}}
+                        </el-option>
+                    </el-select>
+                    kg
+              </el-form-item>
+            </el-form>
+
+            <!-- <el-form :inline="true" style="margin-right:150px"  >
                 <el-form-item  label="몸무게" label-width="80px" style="margin-top:-20px">
                     <el-input-number ref="mweight" v-model="state.mweight" size="medium" />
               </el-form-item>
-            </el-form>
+            </el-form> -->
 
             <el-form :inline="true" style="margin-right:150px"  >
                 <el-form-item  label="연락처" label-width="80px" style="margin-top:-20px">
@@ -147,8 +169,8 @@ export default {
             mid : '',
             mgender : '',
             mbirth : '',
-            mheight : 1,
-            mweight : 1,
+            mheight : 140,
+            mweight : 30,
             mphone : '',
             mrole : '',
             mimage : null,
@@ -277,34 +299,48 @@ export default {
                 return false;
             }
 
-             if(state.mrole === ''){
+            if(state.mrole === ''){
                 alert('권한을 선택해주세요');
                 mrole.value.focus();
                 return false;
             }
-            const url = `/ROOT/api/member/join`;
-            const headers = {"Content-Type":"multipart/form-data"};
-            const body = new FormData();
-            body.append("memail", state.memail + "@" + state.memail1);
-            body.append("mpw", state.mpw);
-            body.append("mname", state.mname);
-            body.append("mid", state.mid);
-            body.append("mgender", state.mgender);
-            body.append("mbirth", state.mbirth);
-            body.append("mheight", state.mheight);
-            body.append("mweight", state.mweight);
-            body.append("mphone", state.mphone);
-            body.append("mrole", state.mrole);
-            body.append("mimage", state.mimage);
 
-            const response = await axios.post(url, body, {headers});
-            console.log(response.data);
-            if(response.data.status === 200){
-                alert('가입되었습니다!');
-                router.push({name : "Login"});
+            if(validname(state.mname)){
+                if(validPhone(state.mphone)){
+                    const mphone = state.mphone;
+                    const newmphone = mphone.replace(/-/g, '');
+                    const url = `/ROOT/api/member/join`;
+                    const headers = {"Content-Type":"multipart/form-data"};
+                    const body = new FormData();
+                    body.append("memail", state.memail + "@" + state.memail1);
+                    body.append("mpw", state.mpw);
+                    body.append("mname", state.mname);
+                    body.append("mid", state.mid);
+                    body.append("mgender", state.mgender);
+                    body.append("mbirth", state.mbirth);
+                    body.append("mheight", state.mheight);
+                    body.append("mweight", state.mweight);
+                    body.append("mphone", state.mphone = newmphone);
+                    body.append("mrole", state.mrole);
+                    body.append("mimage", state.mimage);
+
+                    const response = await axios.post(url, body, {headers});
+                    console.log(response.data);
+                    if(response.data.status === 200){
+                        alert('가입되었습니다!');
+                        router.push({name : "Login"});
+                    }
+                }
+                else{
+                    alert('잘못된 연락처 형식입니다');
+                    state.mphone = '';
+                }
             }
-            
-        }
+            else{
+                alert('잘못된 이름형식 입니다.');
+                state.mname = '';
+            }
+        };
 
         //정확한 이메일 주소인지 확인
         const validEmail = (memail) => {
@@ -312,17 +348,21 @@ export default {
             var re = /[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]*$/i;
             return re.test(memail);
         }
-        // const validPhone = (mphone) => {
-        // var Phone = /^01([0])-?([0-9]{4})-?([0-9]{4})$/;
-        // return Phone.test(mphone);
-        // }
+
+        const validname = (mname) => {
+            // 정규표현식
+            var re = /(^[가-힣a-zA-Z]{2,15})+$/;
+            return re.test(mname);
+        }
+        const validPhone = (mphone) => {
+            var Phone = /^01([0])-?([0-9]{4})-?([0-9]{4})$/;
+            return Phone.test(mphone);
+        }
         // var Phone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
         // 핸드폰번호 첫/두번째 자리는 01로 시작하며 세번째 자리는 01+0/1/6/7/8/9 가 될 수 있다.
         // 번호 사이사이 대쉬('-')는 사용자가 작성하든 안하든 무시한다.
         // 번호 두번째 마디는 3-4자리가 가능하며 숫자는 0-9까지 들어올 수 있다.
         // 마지막 마디는 마찬가지로 0-9까지 가능하며 4자리만 가능하다.
-  
-
 
         const emailCheck = async() => {
             if(validEmail(state.memail+'@'+state.memail1)){

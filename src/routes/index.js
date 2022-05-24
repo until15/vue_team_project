@@ -49,6 +49,7 @@ import Pay from '@/components/payment/Pay.vue';
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
 import Navi from '@/components/Navi.vue';
+import Testttt from '@/components/Testttt.vue';
 
 
 const routes = [
@@ -93,6 +94,7 @@ const routes = [
     { path:'/confirmone', name:"ConfirmOne", component:ConfirmOne },
     { path:'/pay', name:"Pay", component:Pay },
     { path:'/routineselect', name:"RoutineSelect", component:RoutineSelect },
+    { path:'/testttt', name:"Testttt", component:Testttt },
 ];
   
 const router = createRouter({
