@@ -6,7 +6,6 @@
       <el-table :data="state.rtn">
         <el-table-column width="80">
           <template #default="scope">
-            <!-- {{state.chk}} 등록할 때 @(scope.$index . rtnno로 줘야 저장될 듯)-->
             <el-checkbox
             :label="state.rtn[scope.$index].rtnseq"
             v-model="state.chk"
@@ -14,7 +13,7 @@
             @click="handleRtnno(scope.row.rtnno)" />
           </template>
         </el-table-column>
-        <el-table-column  property="rtnno" label="번호" width="150" />
+        <el-table-column v-if="false" property="rtnno" label="번호" width="150" />
         <el-table-column v-if="false" property="rtnseq" label="SEQ" width="150" />
         <el-table-column property="rtnname" label="이름" width="220" />
         <el-table-column property="rtnday" label="요일" width="170" />
@@ -165,7 +164,7 @@ export default {
       dialogTableVisible2: false,
       dialogTableVisible3: false,
       chk : [], // 루틴 선택 보관
-      rtnno : 1
+      rtnno : 1 // 루틴 등록할 때 저장될 하나의 번호 
     });
 
     // 루틴 번호 받기

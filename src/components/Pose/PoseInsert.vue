@@ -77,6 +77,10 @@ export default {
                     router.push({name:"Pose"});
                 }
             }
+            else{// 동영상 첨부 하지 않을 시
+                alert('등록되었습니다.');
+                router.push({name:"Pose"});
+            }
 
         }
         return {state, handlePoseInsert, handleVideo}
