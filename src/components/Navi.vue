@@ -35,7 +35,7 @@
                             <!-- 프로필 이미지 -->
                             <a  id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div style="border-radius: 70%; width:50px; height:50px;overflow: hidden; border: 1px solid red;">
-                                    <img :src="state.image" style="width:100%; height:100% object-fit: cover;" />
+                                    <img :src="state.image" style="width:100%; height:100% object-fit: cover;margin-top:5px" />
                                 </div>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -128,7 +128,6 @@ export default {
             const url = `/ROOT/api/member/selectmemberone`;
             const headers = {"Content-Type":"application/json", "token":state.token};
             const response = await axios.get(url, {headers});
-            console.log(response.data);
             if(response.data.status === 200){
                 state.image = response.data.imgurl;
                 state.item = response.data.result;
