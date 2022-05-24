@@ -34,14 +34,15 @@
                     <option>인기</option>
                     <option>난이도</option>
             </select> -->
-            <el-select v-model="value" class="m-2" placeholder="Select">
+            <el-select v-model="state.options" size="mini" placeholder="Select">
                 <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                v-for="item in state.selectoptions"
+                :key="item"
+                :label="item"
+                :value="item"
                 size="mini"
-                />
+                ></el-option>
+                
             </el-select>
 
             <el-form-item  label="" label-width="80px">
@@ -74,7 +75,8 @@ export default {
             page : 1,
             challenge : '',
             like : '',
-            total : 1
+            total : 1,
+            selectoptions : ['전체', '작성자', '제목', '난이도'],
         });
 
         // 최신순 목록
