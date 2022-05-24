@@ -15,8 +15,12 @@
                 </el-form-item>
 
                 <el-form-item>
-                    <el-button type="info" size="small" style="margin-top:20px" plain @click="handleUpdatePW">암호변경</el-button>
+                    <el-button type="info" size="small" style="margin-top:20px" plain @click="table = true">암호변경</el-button>
                 </el-form-item>
+
+                <!-- <el-form-item>
+                    <el-button type="info" size="small" style="margin-top:20px" plain @click="handleUpdatePW">암호변경</el-button>
+                </el-form-item> -->
             </el-form>
 
             <el-form :inline="true" style="margin-left:80px" >
@@ -71,6 +75,45 @@
          -->
         </div>
         </el-card>
+
+        <el-drawer v-model="table" title="" size="30%">
+            <div class="center">
+                <h3>암호변경</h3>
+                <el-card style="height:500px">
+                    <div v-if="state.item" >
+                        <el-form :inline="true"  >
+                            <el-form-item label="기존암호" label-width="80px">
+                                <el-input  size="medium" ref="mpw" v-model="state.item.mpw" type="password" placeholder="기존암호"/>
+                            </el-form-item>
+                        </el-form>
+
+                        <el-form :inline="true"  >
+                            <el-form-item label="새암호" label-width="80px" style="margin-top:-20px" >
+                                <el-input  size="medium" ref="mpw" v-model="state.item.mpw1" type="password" placeholder="새암호"/>
+                            </el-form-item>
+                        </el-form>
+
+                        <el-form :inline="true"  >
+                            <el-form-item label="암호확인" label-width="80px" style="margin-top:-20px" >
+                                <el-input  size="medium" ref="mpw" v-model="state.item.mpw2" type="password" placeholder="암호확인"/>
+                            </el-form-item>
+                        </el-form>
+
+                        <el-button type="info" size="small" style="margin-left:65px" plain @click="handleUpdatePw1">변경하기</el-button>
+                        <el-button type="info" size="small" plain @click="handleBack">돌아가기</el-button>
+
+                        <!-- 기존암호 : <input type="password" v-model="state.item.mpw" placeholder="기존암호" /><br />
+                        새암호 : <input type="password" v-model="state.item.mpw1" placeholder="새암호" /><br />
+                        암호확인 : <input type="password" v-model="state.item.mpw2" placeholder="암호확인" /><br />
+                        <button @click="handleUpdate">변경하기</button> -->
+                    </div>
+                </el-card>
+                <br /><br />
+            </div>
+        </el-drawer>
+
+
+
     </div>
 </template>
 
@@ -89,6 +132,19 @@ export default {
         });
 
         const mid = ref(null);
+
+        const table = ref(false);
+
+        const validname = (mname) => {
+            // 정규표현식
+            var re = /(^[가-힣a-zA-Z]{2,15})+$/;
+            return re.test(mname);
+        };
+
+        const validPhone = (mphone) => {
+            var Phone = /^01([0])-?([0-9]{4})-?([0-9]{4})$/;
+            return Phone.test(mphone);
+        };
 
         const handleData = async() => {
             const url = `/ROOT/api/member/selectmemberone`;
@@ -113,7 +169,10 @@ export default {
             if(state.usermidcheck === '"사용불가"'){
                 alert('사용중인 닉네임입니다.');
                 mid.value.focus();
+                handleData();
+                state.usermidcheck = '';
                 return false;
+                
             }
 
             if(state.item.mid === ''){
@@ -123,21 +182,35 @@ export default {
             }
 
             if(state.token !== null){
-                const url = `/ROOT/api/member/updatemember`;
-                const headers = {"Content-Type":"multipart/form-data", "token":state.token};
-                const body = new FormData();
-                body.append("mname", state.item.mname);
-                body.append("mid", state.item.mid);
-                body.append("mphone", state.item.mphone);
-                body.append("mheight", state.item.mheight);
-                body.append("mweight", state.item.mweight);
-                body.append("mimage", state.item.mimage);
-                const response = await axios.put(url, body, {headers});
-                console.log(response.data);
-                if(response.data.status === 200){
-                    alert('수정되었습니다.');
+                if(validname(state.item.mname)){
+                    if(validPhone(state.item.mphone)){
+                        const mphone = state.item.mphone;
+                        const newmphone = mphone.replace(/-/g, '');
+                        const url = `/ROOT/api/member/updatemember`;
+                        const headers = {"Content-Type":"multipart/form-data", "token":state.token};
+                        const body = new FormData();
+                        body.append("mname", state.item.mname);
+                        body.append("mid", state.item.mid);
+                        body.append("mphone", state.item.mphone = newmphone);
+                        body.append("mheight", state.item.mheight);
+                        body.append("mweight", state.item.mweight);
+                        body.append("mimage", state.item.mimage);
+                        const response = await axios.put(url, body, {headers});
+                        console.log(response.data);
+                        if(response.data.status === 200){
+                            alert('수정되었습니다.');
+                            handleData();
+                            router.push({name:"menu11"});
+                        }
+                    }
+                    else{
+                        alert('잘못된 연락처입니다.');
+                        handleData();
+                    }
+                }
+                else{
+                    alert('잘못된 이름의 형식입니다.');
                     handleData();
-                    router.push({name:"menu11"});
                 }
                 
             }
@@ -164,6 +237,7 @@ export default {
             console.log(response.data);
             if(response.data.status === 1){
                 state.usermidcheck = '"사용불가"';
+
             }
             else if(response.data.status === 200){
                 state.usermidcheck = '';
@@ -175,8 +249,27 @@ export default {
             else{
                 state.usermidcheck = '"사용가능"';
             }
-            
-           
+        }
+
+        const handleUpdatePw1 = async() => {
+            if(state.token !== null){
+                const url = `/ROOT/api/member/updatepw`;
+                const headers = {"Content-Type":"application/json","token":state.token};
+                const body = {
+                    mpw : state.item.mpw,
+                    mpw1 : state.item.mpw1
+                };
+                const response = await axios.put(url, body, {headers});
+                console.log(response.data);
+                if(response.data.status === 200){
+                    alert('변경되었습니다');
+                    // router.push({name:"Mypage", query:{menu:1}});
+                }
+                else{
+                    alert('기존암호 또는 새암호가 일치하지 않습니다.');
+                }
+                
+            }
         }
 
         const handleMidChk = () => {
@@ -199,7 +292,7 @@ export default {
             router.push({name : "menu3"});
         }
         
-        return {state, mid, handleUpdate, handleImage, checkMid, handleMidChk, handleUpdatePW, handleMenu1, handleMenu2, handleMenu3}
+        return {state, table, mid, handleUpdate, handleImage, checkMid, handleUpdatePw1, handleMidChk, handleUpdatePW, handleMenu1, handleMenu2, handleMenu3}
     }
 }
 </script>

@@ -24,8 +24,7 @@
 
             </div>
         </el-card>
-
-
+        <br />
 
             <!-- 번호 : {{state.item.qno}}<br /><br />
             제목 : {{state.item.qtitle}}<br /><br />
@@ -36,8 +35,7 @@
         <button @click="handleMenu">목록으로</button>
         <button @click="handleDelete">삭제</button> -->
         
-
-        <hr />
+        <el-card style="width:1200px">
         <div v-for="tmp in state.reply" :key="tmp">
             <el-descriptions title="답글" :column="1" border>
             <el-descriptions-item label="작성자" label-align="center" align="center" width="10px">{{tmp.memberchg.mid}}</el-descriptions-item>
@@ -48,6 +46,7 @@
             </el-descriptions>
         <hr />
         </div>
+        </el-card>
                 <!-- <tr>
                     <th>작성자</th>
                     <td>{{tmp.memberchg.memail}}</td>
@@ -57,7 +56,7 @@
                 </tr> -->
 
 
-        <el-form :inline="true" class="center">
+            <el-form :inline="true" class="center">
                 <el-form-item  label="댓글" label-width="50px">
                     <el-input  size="medium" v-model="state.reply1.iqcontent" placeholder="댓글"/>
                 </el-form-item>
