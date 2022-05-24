@@ -1,7 +1,7 @@
 <template>
     <div align="center">
         <br>
-        <h3><mark>자세 페이지</mark></h3><br>
+        <h3><mark>자세</mark></h3><br>
         <el-form :inline="true" v-if="state.pose" align="center" label-width="100px">
             <el-form-item>
                 <el-input v-model="state.title" placeholder="검색어를 입력하세요" size="small" v-on:keydown.enter.prevent='handleLoadData()'/>
@@ -29,7 +29,7 @@
             :current-page="state.page"
             :total="state.total">
         </el-pagination>
-        <el-button type="info" plain @click="handlePoseInsert" size="small" style="margin-left: 35%;">글쓰기</el-button><br><br>
+        <el-button type="info" plain @click="handlePoseInsert" size="small" style="margin-left: 35%;">등록</el-button><br><br>
     </div>
 </template>
 
@@ -62,12 +62,9 @@ export default {
         }
 
         const handleLoadData = async () => {
-            const url = `/ROOT/api/pose/selectlist.json?page=${state.page}&title=${state.title}`;
+            const url = `/ROOT/api/pose/selectlist.json?step=${state.step}&page=${state.page}&title=${state.title}`;
             const headers = {"Content-Type":"application/json"};
-            const body = {
-                pstep : state.step
-            }
-            const response = await axios.post(url, body, {headers});
+            const response = await axios.get(url, { headers: headers });
             console.log(response.data);
             if(response.data.status === 200){
                 state.pose = response.data.result;
