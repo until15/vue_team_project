@@ -24,11 +24,12 @@
 <script>
 import { reactive } from '@vue/reactivity';
 import { useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
 import axios from 'axios';
 
 export default {
     setup () {
-
+        const router = useRouter();
         const route = useRoute();
 
         const state = reactive({
@@ -63,7 +64,7 @@ export default {
             if (response.data.status === 200) {
                 console.log("인증 완료");
                 state.cfno = response.data.result
-
+                // 이미지 등록
                 const urlImg = `/ROOT/api/confirm/cfimage.insert?cfno=${state.cfno}`;
                 const headersImg = {"Content-Type":"multipart/form-data"};
                 const bodyImg = new FormData();
@@ -73,8 +74,12 @@ export default {
                 const responseImg = await axios.post(urlImg, bodyImg, {headers:headersImg});
                 console.log(responseImg.data);
                 if (responseImg.data.status === 200) {
-                    console.log("dkanrjs");
+                    // 뒤로가기
+                    router.go(-1);
                 }
+            
+            } else {
+                alert("이미 인증을 했습니다");
             }
         };
 

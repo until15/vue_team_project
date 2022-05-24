@@ -2,13 +2,13 @@
     <div class="padding-tb">
         <div class="container px-4 px-lg-5 mt-5 mb-6">
             
-            <div class="text-center fonts">
+            <div class="text-center">
                 <!-- 페이지 이름 -->
                 <h3 class="display-4 fw-bolder text-tb">PROVE LIST</h3>
             </div>
 
             <!-- 인증 전체 리스트 -->
-            <div v-if="state.items"  >
+            <div v-if="state.items" >
                 
                 <!-- 검색기능 -->
                 <div class="center">
@@ -91,13 +91,13 @@ export default {
 
                 for( let i=0;i<state.items.length;i++){
                     state.imageNo = state.items[i].cfno
-                    console.log(state.imageNo);
+                    // console.log(state.imageNo);
 
                     // 인증 이미지
                     const url1 = `/ROOT/api/confirm/selectimages?cfno=${state.imageNo}`;
                     const headers1 = {"Content-Type":"application/json"};
                     const response1 = await axios.get(url1, {headers:headers1});
-                    console.log("이미지 데이터 : ", response1.data);
+                    // console.log("이미지 데이터 : ", response1.data);
 
                     if (response1.data.status === 200) {
                             
@@ -105,7 +105,7 @@ export default {
                         
                     }
                 }
-                console.log("이미지 url : ", state.imageUrl);
+                // console.log("이미지 url : ", state.imageUrl);
             }
         };
 

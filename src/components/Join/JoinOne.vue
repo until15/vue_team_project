@@ -1,10 +1,16 @@
 <template>
-<div>
-    <div>
-        <h3>내가 참가한 첼린지 상세 내용</h3>
-        <div v-if="state.item">
-            
-            <img :src="state.thumnail" style="width:70px;" /> <br />
+<div class="padding-tb container px-4 px-lg-5 mt-5 mb-6" >
+    <div >
+        <!-- 페이지 제목 -->
+        <div>
+            <h3>내가 참가한 첼린지 상세 내용</h3>
+        </div>
+        <!-- 썸네일 이미지 -->
+        <div style="margin-top:1rem; margin-bottom:1rem;">
+            <img :src="state.thumnail" style="width:300px;" /> <br />
+        </div>
+        <!-- 참여 정보 -->
+        <div v-if="state.item">    
             첼린지 번호: {{state.item.chgno}} <br />
             첼린지 제목: {{state.item.chgtitle}}<br />
             참여자 수 : {{state.item.chgcnt}}<br />
@@ -19,7 +25,7 @@
         </div>
         
         <div>
-            <button> 포기하기 </button>
+            <button @click="handleGiveup"> 포기하기 </button>
             <button> 채팅하기 </button>
             <button @click="handleConfirm(state.jno)"> 인증하기 </button>
         </div>
@@ -28,7 +34,7 @@
     <hr>
 
     <!-- 첼린지 내 인증 리스트 -->
-    <div>
+    <div class="text-center">
         <h3>인증 글</h3>
 
         <div>
@@ -100,6 +106,11 @@ export default {
             imageUrl : [],      // 이미지url
             jconfirm : "",      // 성공/실패
         });
+
+        const handleGiveup = async()=> {
+            console.log("포기하기");
+            console.log(state.chgno);
+        };
 
         // 내가 참여한 진행 중인 첼린지 상세 내용
         const handleData = async(no)=> {
@@ -194,6 +205,9 @@ export default {
                         const body1 = {};
                         const response1 = await axios.put(url1, body1, {headers:headers1});
                         console.log("달성률 결과 : ", response1.data);
+                        if (response1.data.status === 200) {
+                            handleData(state.jno);
+                        }
                     }
 
                     handleCfmData(state.chgno, state.page);
@@ -211,8 +225,16 @@ export default {
             state,
             handleConfirm,
             handlePage,
-            handleSuccess
+            handleSuccess,
+            handleGiveup
         }
     }
 }
 </script>
+
+<style lang="css" scoped>
+.padding-tb {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+</style>

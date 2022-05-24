@@ -1,48 +1,51 @@
 <template>
-    <div>
-        <h3>진행 상태 별 조회</h3>
-        <div v-if="state.items">
-            <div>
-                <!-- 진행 상태 -->
-                <select @change="handleState($event)">
-                    <option value="1">대기중</option>
-                    <option value="2">포기</option>
-                    <option value="3">진행중</option>
-                    <option value="4">달성</option>
-                </select>
-            </div>
-
-            <div>
-                <!-- 리스트 -->
-                <table border="1">
-                    <tr>
-                        <th>첼린지 번호</th>
-                        <th>첼린지 제목</th>
-                        <th>첼린지 진행상태</th>
-                        <th>첼린지 가입날짜</th>
-                        <th>첼린지 달성률</th>
-                        <th>버튼</th>
-                    </tr>
-                    <tr v-for="tmp in state.items" :key="tmp">
-                        <td>{{tmp.challengechgChgno}}</td>
-                        <td @click="handleDetail(tmp.jno, tmp.challengechgChgno)" style="cursor:pointer">{{tmp.challengechgChgtitle}}</td>
-                        <td>{{tmp.chgstate}}</td>
-                        <td>{{tmp.jregdate}}</td>
-                        <td>{{tmp.chgrate}}</td>
-                        <td>
-                            <button @click="handleProve(tmp.jno)">인증하기</button>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-            <!-- 페이지네이션 -->
-            <div>
-                <label v-for="tmp in state.pages" :key="tmp">
-                    <button @click="handlePage(tmp)" >{{ tmp }}</button>
-                </label>
-            </div>
+    <div class="padding-tb container px-4 px-lg-5 mt-5 mb-6">
+        
+        <div class="text-center">
+            <h3>진행 상태 별 조회</h3>
         </div>
+        
+        <div>
+            <!-- 진행 상태 -->
+            <select @change="handleState($event)" >
+                <option value="1">대기중</option>
+                <option value="2">포기</option>
+                <option value="3">진행중</option>
+                <option value="4">달성</option>
+            </select>
+        </div>
+
+        <div v-if="state.items" class="text-center">
+            <!-- 리스트 -->
+            <table border="1">
+                <tr>
+                    <th>첼린지 번호</th>
+                    <th>첼린지 제목</th>
+                    <th>첼린지 진행상태</th>
+                    <th>첼린지 가입날짜</th>
+                    <th>첼린지 달성률</th>
+                    <th>버튼</th>
+                </tr>
+                <tr v-for="tmp in state.items" :key="tmp">
+                    <td>{{tmp.challengechgChgno}}</td>
+                    <td @click="handleDetail(tmp.jno, tmp.challengechgChgno)" style="cursor:pointer">{{tmp.challengechgChgtitle}}</td>
+                    <td>{{tmp.chgstate}}</td>
+                    <td>{{tmp.jregdate}}</td>
+                    <td>{{tmp.chgrate}}</td>
+                    <td>
+                        <button @click="handleProve(tmp.jno)">인증하기</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- 페이지네이션 -->
+        <div>
+            <label v-for="tmp in state.pages" :key="tmp">
+                <button @click="handlePage(tmp)" >{{ tmp }}</button>
+            </label>
+        </div>
+        
     </div>
 </template>
 
@@ -124,6 +127,11 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
+
+.padding-tb {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
 
 </style>
