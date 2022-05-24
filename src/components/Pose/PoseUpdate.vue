@@ -1,28 +1,38 @@
 <template>
-    <div>
+    <div style="padding: 80px">
         <div v-if="state.pose">
-            <h3>자세 수정 페이지</h3>
-            자세 이름 : <input type="text" v-model="state.pose.pname"><br>
-            자세 부위 : <input type="text" v-model="state.pose.ppart"><br>
-            자세 내용 : <textarea rows="3" v-model="state.pose.pcontent"></textarea><br>
+            <h3>자세 수정 페이지</h3><br>
+            <el-row :gutter="20">
+            <el-col :span="2">자세 이름 :</el-col> 
+            <el-col :span="5"><el-input v-model="state.pose.pname" clearable></el-input></el-col><br>
+            </el-row><br>
+            <el-row :gutter="20">
+            <el-col :span="2">자세 부위 :</el-col> 
+            <el-col :span="5"><el-input v-model="state.pose.ppart" clearable></el-input></el-col><br>
+            </el-row><br>
+            <el-row :gutter="20">
+            <el-col :span="2">자세 내용 :</el-col> 
+            <el-col :span="5"><el-input type="textarea" :rows="2" v-model="state.pose.pcontent"></el-input></el-col><br>
+            </el-row><br>
             자세 난이도 : <input type="number" min="1" max="5" v-model="state.pose.plevel"><br>
             <br>
             <!-- 동영상이 없는 경우 Insert -->
             <div v-if="!state.video">
                 <input type="file" @change="handleVideo"><br>
-                <button @click="handleUpdateAction(state.no), handleVideoInsertAction()">수정</button>
+                <el-button round @click="handleUpdateAction(state.no), handleVideoInsertAction()">수정</el-button>
             </div>
             <!-- 동영상이 있는 경우 Update, Delete -->
             <div v-if="state.video">
-                    <button @click="handleVideoDelete(state.no)">동영상 삭제</button><br>
+                    <el-button type="info" plain @click="handleVideoDelete(state.no)">동영상 삭제</el-button><br>
                 <video width='400' controls>
                     <source :src="state.video">
                 </video>
                 <br>
+                <img :src="state.video" style="width:400px"/><br>
                 <input type="file" @change="handleVideo"><br><br>
-                <button @click="handleUpdateAction(state.no), handleVideoUpdateAction()">수정</button>
+                <el-button round @click="handleUpdateAction(state.no), handleVideoUpdateAction()">수정</el-button>
             </div>
-            <router-link to="/pose"><button>목록</button></router-link><br>
+            <router-link to="/pose"><el-button round>목록</el-button></router-link><br>
         </div>
     </div>
 </template>
@@ -64,13 +74,13 @@ export default {
         }
         const handleVideoDelete = async(no) => {
             if(confirm('삭제하시겠습니까?')){
-                const url = `/ROOT/api/pose/deletevideo.json?no=${state.vno}&pno=${state.no}`;
+                const url = `/ROOT/api/pose/deletevideo.json?no=${state.vno}&pno=${no}`;
                 const headers = {"Content-Type":"application/json", "token":state.token};
                 const response = await axios.delete(url, {headers:headers, data:{}});
                 console.log(response.data);
                 if(response.data.status === 200){
                     alert('삭제되었습니다.');
-                    router.push({name:"PoseOne", query:{pno:no}})
+                    handleLoadData(no);
                 }
             }
 
@@ -88,6 +98,18 @@ export default {
         }
 
         const handleUpdateAction = async(no) => {
+            if(state.pose.pname === ''){
+                alert('자세 이름을 입력하세요')
+                return false;
+            }
+            if(state.pose.ppart === ''){
+                alert('자세 부위를 입력하세요')
+                return false;
+            }
+            if(state.pose.pcontent === ''){
+                alert('자세 내용을 입력하세요')
+                return false;
+            }
             const url = `/ROOT/api/pose/update.json`;
             const body = {
                 pname : state.pose.pname,

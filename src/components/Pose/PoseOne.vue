@@ -1,23 +1,26 @@
 <template>
-    <div>
-        <div v-if="state.pose">
-            <h3>자세 상세내용 페이지</h3>
-            자세 이름 : {{state.pose.pname}} <br>
-            자세 부위 : {{state.pose.ppart}} <br>
-            자세 내용 : {{state.pose.pcontent}} <br>
-            자세 난이도 : {{state.pose.plevel}} <br>
-            자세 등록일 : {{state.pose.pregdate}} <br><br>
-            자세 동영상<br>
+    <div v-if="state.pose">
+        <div style="padding: 80px">
+            <h2>{{state.pose.pname}}</h2>
+            부위 : {{state.pose.ppart}} <br>
+            내용 : {{state.pose.pcontent}} <br>
+            난이도 : {{state.pose.plevel}} <br>
+            등록일 : {{state.pose.pregdate}} <br><br>
             <div v-if="state.video">
-                <video width='400' controls>
+                <video width='400' controls style="margin-left: 30%;">
                     <source :src="state.video">
-                </video>
+                </video><br>
+                    
+                <img :src="state.video" style="width:400px; margin-left: 30%;"/>
+                    
             </div>
             <br>
-            <router-link to="/pose"><button>목록</button></router-link><br>
-            <div v-if="state.member.memail === state.useremail" >
-                <button @click="handleUpdate(state.pose.pno)">수정</button>
-                <button @click="handleDelete">삭제</button>
+            <div align="center">
+                <router-link to="/pose"><el-button round>목록</el-button></router-link><br>
+                <div v-if="state.member.memail === state.useremail" >
+                    <el-button round @click="handleUpdate(state.pose.pno)">수정</el-button>
+                    <el-button round @click="handleDelete" style="margin-left: 35%;">삭제</el-button>
+                </div>
             </div>
         </div>
     </div>
