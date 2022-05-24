@@ -3,18 +3,21 @@
         <div v-if="state.pose">
             <h3>자세 수정 페이지</h3><br>
             <el-row :gutter="20">
-            <el-col :span="2">자세 이름 :</el-col> 
+            <el-col :span="2">이름 :</el-col> 
             <el-col :span="5"><el-input v-model="state.pose.pname" clearable></el-input></el-col><br>
             </el-row><br>
             <el-row :gutter="20">
-            <el-col :span="2">자세 부위 :</el-col> 
+            <el-col :span="2">부위 :</el-col> 
             <el-col :span="5"><el-input v-model="state.pose.ppart" clearable></el-input></el-col><br>
             </el-row><br>
             <el-row :gutter="20">
-            <el-col :span="2">자세 내용 :</el-col> 
+            <el-col :span="2">내용 :</el-col> 
             <el-col :span="5"><el-input type="textarea" :rows="2" v-model="state.pose.pcontent"></el-input></el-col><br>
             </el-row><br>
-            자세 난이도 : <input type="number" min="1" max="5" v-model="state.pose.plevel"><br>
+            <el-row :gutter="20">
+            <el-col :span="2">난이도 :</el-col> 
+            <el-col :span="5"><el-input type="number" min="1" max="5" v-model="state.pose.plevel"></el-input></el-col><br>
+            </el-row>
             <br>
             <!-- 동영상이 없는 경우 Insert -->
             <div v-if="!state.video">
