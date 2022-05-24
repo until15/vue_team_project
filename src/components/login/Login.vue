@@ -14,7 +14,12 @@
                             <el-input  size="medium" ref="mpw" v-model="state.mpw" type="password" placeholder="암호" @keydown.prevent.enter="handleLogin"/>
                         </el-form-item>
                     </el-form>
-                <el-button type="info" style="margin-left:60px" size="small" plain @click="handleLogin">로그인</el-button> 
+                    <div style="margin-top:-20px;margin-left:65px">
+                        <el-link @click="dialogmemail = true">아이디찾기</el-link>
+                        <el-link style="margin-left:30px" @click="dialogTableVisible1 = true">암호찾기</el-link>
+                    </div>
+                    
+                <el-button type="info" style="margin-left:60px;margin-top:10px" size="small" plain @click="handleLogin">로그인</el-button> 
                 <el-button type="info" size="small" plain @click="handleJoin">회원가입</el-button> <br /><br />
                 
                 <a id="custom-login-btn" @click="KakaoLogin"  style="margin-left:65px">
@@ -27,6 +32,26 @@
             </div>
         </el-card>
         
+        <el-dialog v-model="dialogmemail" title="이메일(아이디)찾기" :before-close="handleClose">
+            <div v-if="state.item">
+               당신의 아이디는 {{state.item.memail}} 입니다.
+            </div>
+            <br />        
+            <div style="margin-right:40px">
+                <el-form :inline="true"  >
+                    <el-form-item label="이름" label-width="80px">
+                        <el-input  size="medium" v-model="state.mname" placeholder="이름" />
+                    </el-form-item>
+                </el-form>
+                <el-form :inline="true" style="margin-top:-20px" >
+                    <el-form-item label="생일" label-width="80px">
+                        <el-input  size="medium" v-model="state.mbirth" placeholder="생일" />
+                    </el-form-item>
+                </el-form>
+            </div>
+            <el-button type="info" style="margin-top:-20px" size="small" plain @click="handleMemail">찾기</el-button>
+        </el-dialog>
+
 
 
         <!-- 이메일 : <input type="text" v-model="state.memail" placeholder="이메일" /><br />
@@ -50,11 +75,16 @@ export default {
         const router = useRouter();
         const state = reactive({
             memail : '',
-            mpw : ''
+            mpw : '',
+            mname : '',
+            mbirth : '',
+            dialogmemail : ref(false),
         });
 
         const memail = ref(null);
         const mpw = ref(null);
+
+        const dialogmemail = ref(false);
 
         const handleLogin = async() => {
 
@@ -94,6 +124,22 @@ export default {
             }
         }
 
+        const handleMemail = async() => {
+            const url = `/ROOT/api/member/findmemail?mname=${state.mname}&mbirth=${state.mbirth}`;
+            const headers = {"Content-Type":"application/json"};
+            const response = await axios.get(url, {headers});
+            console.log(response.data);
+            if(response.data.status === 200){
+                state.item = response.data.result;
+               
+            }
+
+        };
+
+        const handleClose = () => {
+            router.push({name : "Login2"});
+        }
+
         const handleJoin = () => {
             router.push({name : "MemberJoin"});
         }
@@ -126,7 +172,7 @@ export default {
         })
         
 
-        return {state, memail, mpw, handleLogin, handleJoin, KakaoLogin}
+        return {state, dialogmemail, handleClose, memail, mpw, handleLogin, handleJoin, KakaoLogin, handleMemail}
     }
 }
 </script>
@@ -135,5 +181,6 @@ export default {
 .center{
   text-align: center;
 }
+
 
 </style>
