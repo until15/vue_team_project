@@ -1,10 +1,16 @@
 <template>
-<div>
+<div class="padding-tb container px-4 px-lg-5 mt-5 mb-6" >
     <div>
-        <h3>내가 참가한 첼린지 상세 내용</h3>
-        <div v-if="state.item">
-            
-            <img :src="state.thumnail" style="width:70px;" /> <br />
+        <!-- 페이지 제목 -->
+        <div  class="center">
+            <h3>내가 참가한 첼린지 상세 내용</h3>
+        </div>
+        <!-- 썸네일 이미지 -->
+        <div style="margin-top:1rem; margin-bottom:1rem;"  class="center">
+            <img :src="state.thumnail" style="width:300px;" /> <br />
+        </div>
+        <!-- 참여 정보 -->
+        <div v-if="state.item" class="center">    
             첼린지 번호: {{state.item.chgno}} <br />
             첼린지 제목: {{state.item.chgtitle}}<br />
             참여자 수 : {{state.item.chgcnt}}<br />
@@ -15,11 +21,11 @@
             첼린지 레벨 : {{state.item.chglevel}}<br />
             좋아요 개수 : {{state.item.chglike}}<br />
             달성률 : {{state.item.chgrate}}<br />
-            진행 상황 : {{state.item.recstate}}<br />
+            진행 상황 : {{state.item.chgstate}}<br />
         </div>
         
-        <div>
-            <button> 포기하기 </button>
+        <div class="center" v-if="state.chgstate === 3">
+            <button @click="handleGiveup"> 포기하기 </button>
             <button> 채팅하기 </button>
             <button @click="handleConfirm(state.jno)"> 인증하기 </button>
         </div>
@@ -28,10 +34,12 @@
     <hr>
 
     <!-- 첼린지 내 인증 리스트 -->
-    <div>
-        <h3>인증 글</h3>
-
+    <div class="text-center">
         <div>
+            <h3>인증 글</h3>
+        </div>
+
+        <div class="text-center center">
             <table>
                 <tr>
                     <th>이미지</th>
@@ -101,9 +109,30 @@ export default {
             jconfirm : "",      // 성공/실패
         });
 
+        // 첼린지 포기
+        const handleGiveup = async()=> {
+            // console.log("포기하기");
+            // console.log(state.chgno);
+
+            if (confirm("포기하시겠습니까?")) {
+                const url = `/ROOT/api/join/giveup?chgno=${state.chgno}`;
+                const headers = {
+                    "Content-Type":"application/json",
+                    "token" : state.token
+                }
+                const body = {};
+                const response = await axios.put(url, body, {headers});
+                // console.log("첼린지 포기 : ", response.data);
+                if (response.data.status === 200) {
+                    console.log("포기");
+                    router.push({name:'JoinState'});
+                }
+            }
+        };
+
         // 내가 참여한 진행 중인 첼린지 상세 내용
         const handleData = async(no)=> {
-            console.log(no);
+            // console.log(no);
             const url = `/ROOT/api/join/selectone?jno=${no}`;
             const headers = {
                 "Content-Type":"application/json",
@@ -178,22 +207,25 @@ export default {
             }
 
             if (confirm( state.jconfirm+" 확정하시겠습니까?")) {
-                console.log("인증 번호 : ", cfno);
-                console.log("성공 여부 : ", e);
+                // console.log("인증 번호 : ", cfno);
+                // console.log("성공 여부 : ", e);
                 const url = `/ROOT/api/confirm/whethercfm.json?cfno=${cfno}`;
                 const headers = {"Content-Type":"application/json"};
                 const body = {cfsuccess : e};
                 const response = await axios.put(url, body, {headers});
-                console.log(response.data);
+                // console.log(response.data);
                 if (response.data.status === 200) {
-                    console.log("완료");
+                    // console.log("완료");
 
                     if (e === 1) {
                         const url1 = `/ROOT/api/confirm/successrate.json?chgno=${state.chgno}&jno=${state.jno}`;
                         const headers1 = {"Content-Type":"application/json"};
                         const body1 = {};
                         const response1 = await axios.put(url1, body1, {headers:headers1});
-                        console.log("달성률 결과 : ", response1.data);
+                        // console.log("달성률 결과 : ", response1.data);
+                        if (response1.data.status === 200) {
+                            handleData(state.jno);
+                        }
                     }
 
                     handleCfmData(state.chgno, state.page);
@@ -211,8 +243,22 @@ export default {
             state,
             handleConfirm,
             handlePage,
-            handleSuccess
+            handleSuccess,
+            handleGiveup
         }
     }
 }
 </script>
+
+<style lang="css" scoped>
+.padding-tb {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+</style>

@@ -1,48 +1,47 @@
 <template>
-    <div>
-        <h3>진행 상태 별 조회</h3>
-        <div v-if="state.items">
-            <div>
-                <!-- 진행 상태 -->
-                <select @change="handleState($event)">
-                    <option value="1">대기중</option>
-                    <option value="2">포기</option>
-                    <option value="3">진행중</option>
-                    <option value="4">달성</option>
-                </select>
-            </div>
-
-            <div>
-                <!-- 리스트 -->
-                <table border="1">
-                    <tr>
-                        <th>첼린지 번호</th>
-                        <th>첼린지 제목</th>
-                        <th>첼린지 진행상태</th>
-                        <th>첼린지 가입날짜</th>
-                        <th>첼린지 달성률</th>
-                        <th>버튼</th>
-                    </tr>
-                    <tr v-for="tmp in state.items" :key="tmp">
-                        <td>{{tmp.challengechgChgno}}</td>
-                        <td @click="handleDetail(tmp.jno, tmp.challengechgChgno)" style="cursor:pointer">{{tmp.challengechgChgtitle}}</td>
-                        <td>{{tmp.chgstate}}</td>
-                        <td>{{tmp.jregdate}}</td>
-                        <td>{{tmp.chgrate}}</td>
-                        <td>
-                            <button @click="handleProve(tmp.jno)">인증하기</button>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-            <!-- 페이지네이션 -->
-            <div>
-                <label v-for="tmp in state.pages" :key="tmp">
-                    <button @click="handlePage(tmp)" >{{ tmp }}</button>
-                </label>
-            </div>
+    <div class="padding-tb container px-4 px-lg-5 mt-5 mb-6">
+        
+        <div class="text-center" style="margin-bottom:1.5rem;">
+            <h3>진행 상태 별 조회</h3>
         </div>
+        
+        <div class="text-center center">
+            <!-- 진행 상태 -->
+            <select @change="handleState($event)" >
+                <option value="1">대기중</option>
+                <option value="2">포기</option>
+                <option value="3">진행중</option>
+                <option value="4">달성</option>
+            </select>
+        </div>
+
+        <div v-if="state.items" class="text-center center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
+            <!-- 리스트 -->
+            <table border="1">
+                <tr>
+                    <th>첼린지 번호</th>
+                    <th>첼린지 제목</th>
+                    <th>첼린지 진행상태</th>
+                    <th>첼린지 가입날짜</th>
+                    <th>첼린지 달성률</th>
+                </tr>
+                <tr v-for="tmp in state.items" :key="tmp">
+                    <td>{{tmp.challengechgChgno}}</td>
+                    <td @click="handleDetail(tmp.jno, tmp.challengechgChgno)" style="cursor:pointer">{{tmp.challengechgChgtitle}}</td>
+                    <td>{{tmp.chgstate}}</td>
+                    <td>{{tmp.jregdate}}</td>
+                    <td>{{tmp.chgrate}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- 페이지네이션 -->
+        <div class="text-center center">
+            <label v-for="tmp in state.pages" :key="tmp">
+                <button @click="handlePage(tmp)" >{{ tmp }}</button>
+            </label>
+        </div>
+        
     </div>
 </template>
 
@@ -67,12 +66,6 @@ export default {
             router.push({name:'JoinOne', query:{jno: jno, chgno:chgno}});
         };
 
-        // 인증하기 버튼 클릭
-        const handleProve = async(jno)=> {
-            console.log("인증버튼 클릭 : ", jno);
-            router.push({name:'ConfirmInsert', query:{jno:jno}});
-        };
-
         // 진행 상태에 따른 리스트 조회
         const handleData = async(chgs)=> {
             // console.log("넘어오는 상태값 : ", chgs);
@@ -88,6 +81,15 @@ export default {
             if (response.data.status === 200) {
                 state.items = response.data.result
                 state.pages = response.data.pages
+
+                let chgrate = []; 
+                for(let tmp of response.data.result){
+                   chgrate.push(tmp.chgrate);
+
+                   if(tmp.chgrate <= 0){
+                       tmp.chgrate = '0%';
+                   }
+                }
             }
             else{
                 alert("찾는 첼린지 없음");
@@ -117,13 +119,23 @@ export default {
             handleState,
             handleData,
             handlePage,
-            handleProve,
             handleDetail,
         }
     }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
+
+.padding-tb {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 </style>

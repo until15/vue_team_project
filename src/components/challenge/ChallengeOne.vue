@@ -22,7 +22,7 @@
             인원수 : {{state.item.chgcnt}} <br />
             난이도 : {{state.item.chglevel}} <br />
             <hr />
-            <button>참여하기</button>
+            <button @click="handleJoin">참여하기</button>
             <router-link to="/challenge"><button>뒤로가기</button></router-link>
         </div>
 
@@ -33,16 +33,20 @@
 <script>
 import { onMounted, reactive} from 'vue';
 import {useRoute} from 'vue-router';
+import {useRouter} from 'vue-router';
 import axios from 'axios';
 
 export default {
     setup () {
         const route = useRoute();
+        const router = useRouter();
 
         const state = reactive({
             chgno : route.query.chgno,
+            token : sessionStorage.getItem("TOKEN"),
         });
         
+        // 첼린지 조회
         const handleData = async(no) => {
             console.log("챌린지 번호 : " + no);
             const url = `/ROOT/api/challenge/selectone?chgno=${no}`;
@@ -55,11 +59,31 @@ export default {
             }
         };
 
+        // 첼린지 참가하기
+        const handleJoin = async()=> {
+            // console.log("참가하기");
+            // console.log("첼린지 번호 : ", state.chgno);
+            // console.log("토큰 : ", state.token);
+            const url = `/ROOT/api/join/insert?chgno=${state.chgno}`;
+            const headers = {
+                "Content-Type":"application/json",
+                "token":state.token
+            }
+            const body ={};
+            const response = await axios.post(url, body, {headers});
+            console.log("참가하기 결과 : ", response.data);
+            if (response.data.status === 200) {
+                alert("참가 완료");
+                router.push({name:'Pay', query:{ jno:response.data.result}});
+            }
+        }
+
         onMounted(() => {
             handleData(state.chgno);
         });
         return {
-            state
+            state,
+            handleJoin
         }
     }
 }

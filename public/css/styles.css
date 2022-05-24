@@ -11293,4 +11293,9 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+  .padding-tb {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
 }
