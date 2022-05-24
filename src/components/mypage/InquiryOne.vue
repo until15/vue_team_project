@@ -135,16 +135,16 @@ export default {
         }
 
         const handleReplyDelete = async(iqcmtno) => {
-            const url = `/ROOT/api/Iqcomment/delete?iqcmtno=${iqcmtno}`;
-            const headers = {"Content-Type":"application/json","token":state.token};
-            const response = await axios.delete(url, {headers});
-            console.log(response.data);
-            if(response.data.status === 200){
-                const url1 = `/ROOT/api/Inquiry/updatetwo?qno=${state.qno}`;
+            const url1 = `/ROOT/api/Inquiry/updatetwo?qno=${state.qno}`;
                 const headers1 = {"Content-Type":"application/json"};
                 const response1 = await axios.put(url1, {headers:headers1});
                 console.log(response1.data);
+            if(response1.data.status === 200){
 
+                const url = `/ROOT/api/Iqcomment/delete?iqcmtno=${iqcmtno}`;
+                const headers = {"Content-Type":"application/json","token":state.token};
+                const response = await axios.delete(url, {headers});
+                console.log(response.data);
                 handleSelectComment(state.item.qno);
             }
         }
