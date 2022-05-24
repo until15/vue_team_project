@@ -6,14 +6,15 @@
       <el-table :data="state.rtn">
         <el-table-column width="80">
           <template #default="scope">
-            <!-- {{state.chk}} -->
+            <!-- {{state.chk}} 등록할 때 @(scope.$index . rtnno로 줘야 저장될 듯)-->
             <el-checkbox
             :label="state.rtn[scope.$index].rtnseq"
             v-model="state.chk"
-            size="small" />
+            size="small"
+            @click="handleRtnno(scope.row.rtnno)" />
           </template>
         </el-table-column>
-        <el-table-column v-if="false" property="rtnno" label="번호" width="150" />
+        <el-table-column  property="rtnno" label="번호" width="150" />
         <el-table-column v-if="false" property="rtnseq" label="SEQ" width="150" />
         <el-table-column property="rtnname" label="이름" width="220" />
         <el-table-column property="rtnday" label="요일" width="170" />
@@ -43,7 +44,7 @@
         :total="state.total"
       >
       </el-pagination>
-      <el-button size="small" @click="handleInsert()">등록</el-button>
+      <el-button size="small" @click="handleInsert">등록</el-button>
       <el-popconfirm title="정말 삭제하시겠습니까?" @confirm="handleDelete()">
         <template #reference>
           <el-button size="small" type="danger">삭제</el-button>
@@ -163,11 +164,18 @@ export default {
       step: 1, // 자세, 삭제되지 않은 것만
       dialogTableVisible2: false,
       dialogTableVisible3: false,
-      chk : [] // 루틴 선택 보관
+      chk : [], // 루틴 선택 보관
+      rtnno : 1
     });
+
+    // 루틴 번호 받기
+    const handleRtnno = (no) => {
+      state.rtnno = no;
+    }
 
     // 루틴 등록 : 챌린지 등록할 때 같이 등록 되어야 함.
     const handleInsert = () => {
+      console.log("루틴등록=================="+state.rtnno);
       
       alert('챌린지 등록할 때 연결하기')
     }
@@ -330,6 +338,7 @@ export default {
       handleDelete,
       handleRoutineDelete,
       handleInsert,
+      handleRtnno
     };
   },
 };
