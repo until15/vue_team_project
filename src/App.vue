@@ -1,9 +1,7 @@
 <template>
-  <div>
+  <div class="fonts">
 
     <Navi></Navi>
-
-    <Header></Header>
 
     <router-view></router-view>
 
@@ -13,14 +11,14 @@
 </template>
 
 <script>
-import Header from './components/Header.vue';
+
 import Footer from './components/Footer.vue';
 import Navi from './components/Navi.vue';
 
 export default {
 
   components : {
-    Header, Footer, Navi
+    Footer, Navi
   },
 
   setup () {
@@ -32,5 +30,7 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
+.fonts {
+    font-family: 'Do Hyeon', sans-serif;
+}
 </style>
