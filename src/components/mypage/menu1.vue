@@ -15,7 +15,7 @@
                 </el-form-item>
 
                 <el-form-item>
-                    <el-button type="info" size="small" style="margin-top:20px" plain @click="table = true">암호변경</el-button>
+                    <el-button type="info" size="small" style="margin-top:20px" plain @click="state.table = true">암호변경</el-button>
                 </el-form-item>
 
                 <!-- <el-form-item>
@@ -43,7 +43,29 @@
               </el-form-item>
             </el-form>
 
-            <el-form :inline="true"  >
+            <el-form :inline="true" style="margin-right:-36px"  >
+                <el-form-item  label="키" label-width="80px" style="margin-top:-20px">
+                    <el-select ref="mrole" v-model="state.item.mheight" size="medium" placeholder="키">
+                        <el-option v-for="no in 250" :key="no" :label="no" :value="no">
+                            {{no}}
+                        </el-option>
+                    </el-select>
+                    cm
+              </el-form-item>
+            </el-form>
+
+            <el-form :inline="true" style="margin-right:-32px"  >
+                <el-form-item  label="몸무게" label-width="80px" style="margin-top:-20px">
+                    <el-select ref="mrole" v-model="state.item.mweight" size="medium" placeholder="몸무게">
+                        <el-option v-for="no in 250" :key="no" :label="no" :value="no">
+                            {{no}}
+                        </el-option>
+                    </el-select>
+                    kg
+              </el-form-item>
+            </el-form>
+
+            <!-- <el-form :inline="true"  >
                 <el-form-item  label="키" label-width="80px" style="margin-top:-15px">
                     <el-input-number ref="mheight" v-model="state.item.mheight" size="medium" />
               </el-form-item>
@@ -53,7 +75,7 @@
                 <el-form-item  label="몸무게" label-width="80px" style="margin-top:-15px">
                     <el-input-number ref="mweight" v-model="state.item.mweight" size="medium" />
               </el-form-item>
-            </el-form>
+            </el-form> -->
 
             <img :src="state.imageUrl" style="width:100px; margin-left:60px"/><br />
             <input type="file" @change="handleImage($event)" style="margin-left:220px; font-size:12px; margin-top:10px" /><br />
@@ -76,11 +98,11 @@
         </div>
         </el-card>
 
-        <el-drawer v-model="table" title="" size="30%">
+        <el-drawer v-model="state.table" title="" size="30%">
             <div class="center">
                 <h3>암호변경</h3>
                 <el-card style="height:500px">
-                    <div v-if="state.item" >
+                    <div v-if="state.item" style="margin-right:50px">
                         <el-form :inline="true"  >
                             <el-form-item label="기존암호" label-width="80px">
                                 <el-input  size="medium" ref="mpw" v-model="state.item.mpw" type="password" placeholder="기존암호"/>
@@ -100,7 +122,8 @@
                         </el-form>
 
                         <el-button type="info" size="small" style="margin-left:65px" plain @click="handleUpdatePw1">변경하기</el-button>
-                        <el-button type="info" size="small" plain @click="handleBack">돌아가기</el-button>
+                        
+                        <!-- <el-button type="info" size="small" plain @click="handleBack">돌아가기</el-button> -->
 
                         <!-- 기존암호 : <input type="password" v-model="state.item.mpw" placeholder="기존암호" /><br />
                         새암호 : <input type="password" v-model="state.item.mpw1" placeholder="새암호" /><br />
@@ -129,11 +152,10 @@ export default {
             token : sessionStorage.getItem("TOKEN"),
             mimage : null,
             usermidcheck : '',
+            table : ref(false),
         });
 
         const mid = ref(null);
-
-        const table = ref(false);
 
         const validname = (mname) => {
             // 정규표현식
@@ -172,7 +194,6 @@ export default {
                 handleData();
                 state.usermidcheck = '';
                 return false;
-                
             }
 
             if(state.item.mid === ''){
@@ -263,10 +284,14 @@ export default {
                 console.log(response.data);
                 if(response.data.status === 200){
                     alert('변경되었습니다');
-                    // router.push({name:"Mypage", query:{menu:1}});
+                    handleData();
+                    state.table = ref(false);
+                    
+
                 }
                 else{
                     alert('기존암호 또는 새암호가 일치하지 않습니다.');
+                    handleData();
                 }
                 
             }
@@ -292,7 +317,7 @@ export default {
             router.push({name : "menu3"});
         }
         
-        return {state, table, mid, handleUpdate, handleImage, checkMid, handleUpdatePw1, handleMidChk, handleUpdatePW, handleMenu1, handleMenu2, handleMenu3}
+        return {state, mid, handleUpdate, handleImage, checkMid, handleUpdatePw1, handleMidChk, handleUpdatePW, handleMenu1, handleMenu2, handleMenu3}
     }
 }
 </script>

@@ -109,8 +109,8 @@
             </el-form> -->
 
             <el-form :inline="true" style="margin-right:150px"  >
-                <el-form-item  label="키" label-width="80px" style="margin-top:-20px">
-                    <el-select ref="mrole" v-model="state.mweight" size="medium" placeholder="키">
+                <el-form-item  label="몸무게" label-width="80px" style="margin-top:-20px">
+                    <el-select ref="mrole" v-model="state.mweight" size="medium" placeholder="몸무게">
                         <el-option v-for="no in 250" :key="no" :label="no" :value="no">
                             {{no}}
                         </el-option>
