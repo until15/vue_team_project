@@ -155,12 +155,9 @@ export default {
         }
 
         const handleLoadData = async () => {
-            const url = `/ROOT/api/pose/selectlist.json?title=${state.title}&page=${state.page}`;
+            const url = `/ROOT/api/pose/selectlist.json?step=${state.step}&page=${state.page}&title=${state.title}`;
             const headers = {"Content-Type":"application/json"};
-            const body = {
-                pstep : state.step
-            }
-            const response = await axios.post(url, body, {headers});
+            const response = await axios.get(url, { headers: headers });
             console.log(response.data);
             if(response.data.status === 200){
                 state.pose = response.data.result;

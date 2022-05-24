@@ -32,7 +32,7 @@
               "
               >수정</el-button
             >
-            <el-button size="small" type="danger" @click="handleRoutineDelete(scope.row.rtnno)">삭제</el-button>
+            <el-button size="small" type="danger" @click="handleRoutineDelete()">삭제</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -198,20 +198,7 @@ export default {
 
     // 루틴 삭제
     const handleDelete = async() => {
-      let chked = [];
-      let cnt = 0;
-      for (let tmp of state.rtn) {
-        if (tmp.chk === true) {
-          chked.push(tmp.rtnno);
-          cnt++;
-        }
-      }
-      if(cnt === 0 || cnt === 1){
-        alert('삭제할 루틴을 선택하세요.')
-        return false;
-      }
-      console.log(chked)
-      const url =`/ROOT/api/routine/deletebatch.json?no=${chked}`;
+      const url =`/ROOT/api/routine/deleteseq.json?no=${state.chk}`;
       const headers = {
         "Content-Type": "application/json",
         token: state.token,
@@ -221,9 +208,6 @@ export default {
       if(response.data.status === 200){
         alert('루틴이 삭제되었습니다.');
         handleRoutineData();
-        for (let tmp of state.rtn) {
-          tmp.chk =false
-        }
       }
     }
 
@@ -259,12 +243,9 @@ export default {
 
     // 자세 불러오기
     const handlePoseData = async () => {
-      const url = `/ROOT/api/pose/selectlist.json?title=${state.title}&page=${state.page2}`;
-      const headers = { "Content-Type": "application/json" };
-      const body = {
-        pstep: state.step,
-      };
-      const response = await axios.post(url, body, { headers });
+            const url = `/ROOT/api/pose/selectlist.json?step=${state.step}&page=${state.page2}&title=${state.title}`;
+            const headers = {"Content-Type":"application/json"};
+            const response = await axios.get(url, { headers: headers });
       console.log(response.data);
       if (response.data.status === 200) {
         state.pose = response.data.result;
