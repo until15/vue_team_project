@@ -112,13 +112,9 @@ export default {
             const response = await axios.post(url, body, {headers});
             console.log(response.data);
             if(response.data.status === 200){
-                const url1 = `/ROOT/api/community/updatecom`;
-                const headers1 = {"Content-Type":"application/json", "token":state.token};
-                const body1 = {
-                    com : state.com + 1,
-                    qno : state.qno
-                }
-                const response1 = await axios.put(url1, body1, {headers:headers1});
+                const url1 = `/ROOT/api/Inquiry/updatecom?qno=${state.qno}`;
+                const headers1 = {"Content-Type":"application/json"};
+                const response1 = await axios.put(url1, {headers:headers1});
                 console.log(response1.data);
 
 
@@ -144,6 +140,11 @@ export default {
             const response = await axios.delete(url, {headers});
             console.log(response.data);
             if(response.data.status === 200){
+                const url1 = `/ROOT/api/Inquiry/updatetwo?qno=${state.qno}`;
+                const headers1 = {"Content-Type":"application/json"};
+                const response1 = await axios.put(url1, {headers:headers1});
+                console.log(response1.data);
+
                 handleSelectComment(state.item.qno);
             }
         }
