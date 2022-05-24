@@ -5,7 +5,7 @@
             <el-button @click="handleMenu3">1:1문의</el-button>
             <el-button @click="handleMenu2">회원탈퇴</el-button>
             <br /><br />
-        <el-card>
+        <el-card style="height:550px">
         <h3>1:1문의</h3>
         <hr /> 
             <el-table :data="state.items">
@@ -17,7 +17,7 @@
                 </div> 
             </template>
                 </el-table-column>
-                <el-table-column prop="memberchg.memail" label="작성자" width="100" />
+                <el-table-column prop="memail" label="작성자" width="100" />
                 <el-table-column prop="qregdate" label="날짜" width="100" />
                 <el-table-column prop="com" label="처리현황" width="100" />
             </el-table>
@@ -33,7 +33,7 @@
                 <el-button type="info" plain size="mini" style="margin-left:5px;" @click="handleData" >검색</el-button>
             </el-form-item>
         </el-form>
-        <el-button type="info" plain @click="handleInquiryWriter">글쓰기</el-button>
+        <el-button type="info" plain @click="handleInquiryWriter">글쓰기</el-button><br /><br />
 
     </div>
 

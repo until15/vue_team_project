@@ -5,7 +5,7 @@
             <el-button @click="handleMenu3">1:1문의</el-button>
             <el-button @click="handleMenu2">회원탈퇴</el-button>
             <br /><br />
-        <el-card>
+        <el-card >
         <h3>정보수정</h3>
         <hr />
         <div v-if="state.item" style="margin-right:60px">
@@ -55,7 +55,8 @@
             <input type="file" @change="handleImage($event)" style="margin-left:220px; font-size:12px; margin-top:10px" /><br />
             
             <hr />
-            <el-button type="info" style="margin-left:50px" plain @click="handleUpdate">수정하기</el-button>
+            <el-button type="info" style="margin-left:50px;margin-top:10px" plain @click="handleUpdate">수정하기</el-button>
+            <br /><br /><br /><br /><br />
 
 
             <!-- 이름 : <input type="text" v-model="state.item.mname" /><br />

@@ -20,7 +20,7 @@
                     <el-table-column prop="chgcnt" label="참가인원" width="80" />
                     <el-table-column prop="chglike" label="좋아요" width="80" />
                     <el-table-column prop="chglevel" label="난이도" width="80" />
-                    <el-table-column prop="chgregdate" label="작성일" width="250" />
+                    <el-table-column prop="chgregdate" label="작성일" width="100" />
                 </el-table>
         
                 <el-pagination layout="prev, pager, next" :total="state.total" @current-change="currentChange">

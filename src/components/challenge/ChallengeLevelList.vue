@@ -26,7 +26,7 @@
 
         <el-form :inline="true" v-if="state.items" >
             <el-form-item  label="" label-width="80px">
-                <el-input type="text" size="mini" v-model="state.chglevel" placeholder="검색어 입력" @keydown.prevent.enter="handleData" />
+                <el-input type="text" size="mini" v-model="state.level" placeholder="검색어 입력" @keydown.prevent.enter="handleData" />
             </el-form-item>
             <el-form-item>
                 <el-button type="info" plain size="mini" style="margin-left:5px" @click="handleData" >검색</el-button>
@@ -54,7 +54,7 @@ export default {
         });
 
         const handleData = async() => {
-            const url = `/ROOT/api/challenge/levelselectlist?page=${state.page}&like=${state.level}`;
+            const url = `/ROOT/api/challenge/levelselectlist?page=${state.page}&level=${state.level}`;
             const headers = {"Content-Type" : "application/json"};
             const response = await axios.get(url, {headers});
 

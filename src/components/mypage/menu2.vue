@@ -8,7 +8,7 @@
         <el-card style="height:600px">
             <h3>회원탈퇴</h3>
             <hr />
-            <el-form :inline="true"  >
+            <el-form :inline="true" style="margin-top:50px" >
                 <el-form-item label="암호">
                     <el-input  size="medium" v-model="state.mpw" type="password" placeholder="암호"/>
                 </el-form-item>
