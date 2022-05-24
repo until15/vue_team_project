@@ -111,13 +111,13 @@
 
                         <el-form :inline="true"  >
                             <el-form-item label="새암호" label-width="80px" style="margin-top:-20px" >
-                                <el-input  size="medium" ref="mpw" v-model="state.item.mpw1" type="password" placeholder="새암호"/>
+                                <el-input  size="medium" ref="mpw1" v-model="state.item.mpw1" type="password" placeholder="새암호"/>
                             </el-form-item>
                         </el-form>
 
                         <el-form :inline="true"  >
                             <el-form-item label="암호확인" label-width="80px" style="margin-top:-20px" >
-                                <el-input  size="medium" ref="mpw" v-model="state.item.mpw2" type="password" placeholder="암호확인"/>
+                                <el-input  size="medium" ref="mpw2" v-model="state.item.mpw2" type="password" placeholder="암호확인"/>
                             </el-form-item>
                         </el-form>
 
@@ -156,6 +156,8 @@ export default {
         });
 
         const mid = ref(null);
+        const mpw1 = ref(null);
+        const mpw2 = ref(null);
 
         const validname = (mname) => {
             // 정규표현식
@@ -273,6 +275,18 @@ export default {
         }
 
         const handleUpdatePw1 = async() => {
+            if(state.item.mpw === state.item.mpw1){
+                alert('기존 암호와 동일한 암호입니다.');
+                mpw1.value.focus();
+                return false;
+            }
+
+            if(state.item.mpw1 !== state.item.mpw2){
+                alert('새암호와 암호확인이 일치하지 않습니다.');
+                mpw2.value.focus();
+                return false;
+            }
+
             if(state.token !== null){
                 const url = `/ROOT/api/member/updatepw`;
                 const headers = {"Content-Type":"application/json","token":state.token};
@@ -317,7 +331,7 @@ export default {
             router.push({name : "menu3"});
         }
         
-        return {state, mid, handleUpdate, handleImage, checkMid, handleUpdatePw1, handleMidChk, handleUpdatePW, handleMenu1, handleMenu2, handleMenu3}
+        return {state, mid, mpw1, mpw2, handleUpdate, handleImage, checkMid, handleUpdatePw1, handleMidChk, handleUpdatePW, handleMenu1, handleMenu2, handleMenu3}
     }
 }
 </script>
