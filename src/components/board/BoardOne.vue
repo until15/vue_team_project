@@ -18,7 +18,7 @@
                     <el-descriptions-item label="내용" hight="20px" label-align="center" align="center">
                         {{state.item.bcontent}}<br />
                         <div class="center" v-for="tmp in state.image" :key="tmp">
-                        <img :src="tmp" style="width:300px" /><br />
+                        <img :src="tmp" style="width:300px;margin-top:20px" /><br />
                     </div></el-descriptions-item>
                     </el-descriptions>
 

@@ -1,21 +1,48 @@
 @@ -1,65 +0,0 @@
 <template>
-    <div>
-        <h3>게시물 수정</h3>
-        <div v-if="state.item">
-        {{state.item.bno}}<br />
-        제목 : <input type="text" v-model="state.item.btitle" /><br />
-        내용 : <input type="text" v-model="state.item.bcontent" /><br />
-        <div v-for="(tmp, idx) in state.image" :key="tmp">
-            <img :src="state.image[idx]" style="width:200px" />
-            <input type="file" @change="handleImage($event, idx)"/>
-        <button @click="handleUpdateImg(tmp)">수정</button>
-        <button @click="handleDeleteImg(tmp)">삭제</button>
-        </div>
-        <button @click="handleUpdate">수정하기</button>
-        <button @click="handleBack">돌아가기</button>
-        </div>
-        
+    <div align="center">
+        <el-card style="width:1200px">
+            <h3>게시물 수정</h3>
+            <div v-if="state.item" class="center">
+            <el-form >
+                <el-form-item  label="제목" label-width="40px">
+                    <el-input  size="medium" ref="memail" v-model="state.item.btitle" />
+                </el-form-item>
+            </el-form>
+            
+            <el-form >
+                <el-form-item  label="내용" label-width="40px">
+                    <el-input v-model="state.item.bcontent" :rows="10" type="textarea" />
+                    <div v-for="(tmp, idx) in state.image" :key="tmp">
+                        <img :src="state.image[idx]" style="width:200px;margin-top:20px" /><br />
+                        <div style="margin-left:290px;margin-top:-40px">
+                            <el-button type="info" plain @click="handleDeleteImg(tmp)">삭제</el-button> 
+                        </div>
+                    </div>
+                </el-form-item>
+            </el-form>
+            </div>
+
+            <el-button type="info" plain @click="handleUpdate">수정하기</el-button> 
+            <el-button type="info" plain @click="handleBack">돌아가기</el-button> <br /><br />
+
+
+            <!-- <div v-if="state.item">
+            {{state.item.bno}}<br />
+            제목 : <input type="text" v-model="state.item.btitle" /><br />
+            내용 : <input type="text" v-model="state.item.bcontent" /><br />
+            <div v-for="(tmp, idx) in state.image" :key="tmp">
+                <img :src="state.image[idx]" style="width:200px" />
+                <input type="file" @change="handleImage($event, idx)"/>
+                <button @click="handleUpdateImg(tmp)">수정</button>
+                <button @click="handleDeleteImg(tmp)">삭제</button>
+            </div>
+
+            <button @click="handleUpdate">수정하기</button>
+            <button @click="handleBack">돌아가기</button>
+            </div> -->
+        </el-card>
+        <br />
     </div>
 </template>
 
@@ -33,7 +60,6 @@ export default {
         const state = reactive({
             bno : route.query.bno,
             token : sessionStorage.getItem("TOKEN"),
-            mimage : [new File([""],"")],
         });
 
         const handleData = async(bno) => {
@@ -80,42 +106,20 @@ export default {
             router.push({name : "BoardOne", query:{bno:state.bno}});
         }
 
-        const handleUpdateImg = async(tmp) => {
-            const no = tmp.split('=');
-            console.log("==no==", Number(no[1]));
-            const url = `/ROOT/api/bimg/updatebatch?bimgno=${Number(no[1])}`;
-            const headers = {"Content-Type":"application/json", "token":state.token};
-            const body = new FormData();
-            for(let i=0; state.mimage < i; i++){
-                body.append("mimage", state.image[i]);
-            }
-   
-            const response = await axios.put(url, body, {headers});
-            console.log(response.data);
-
-        }
-
-        const handleImage = (e, idx) => {
-            if(e.target.files[0]){
-                state.image[idx] = URL.createObjectURL(e.target.files[0]);
-                state.mimage[idx] = e.target.files[0];
-            }
-            else{
-                state.image[idx] = URL.createObjectURL(e.target.files[0]);
-                state.mimage[idx] = e.target.files[0];
-            }
-        }
        
         onMounted(() =>{
             handleData(state.bno);
         });
         
 
-        return {state, handleData, handleUpdateImg, handleImage, handleUpdate, handleBack, handleDeleteImg}
+        return {state, handleData, handleUpdate, handleBack, handleDeleteImg}
     }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
+.center{
+  text-align: center;
+}
 
 </style>
