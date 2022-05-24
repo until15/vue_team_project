@@ -1,8 +1,8 @@
 <template>
-    <div class="center">
+    <div align="center">
         <br />
         <h3>상세내용</h3>
-        <el-card>
+        <el-card style="width:1200px">
             <div v-if="state.item" >
                 <el-descriptions direction="horizontal" title="" :column="1" border>
                 <el-descriptions-item label="등록일"  label-align="center" align="center">

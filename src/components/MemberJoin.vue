@@ -24,7 +24,7 @@
     
         <el-card shadow="always">
             <div class="center">
-            <el-form :inline="true" style="margin-left:250px; display:block">
+            <el-form :inline="true" style="margin-left:192px; display:block">
                 <el-form-item label="이메일" label-width="80px">
                     <el-input v-model="state.memail" size="medium" ref="memail" placeholder="이메일" @keyup="handleChk" />
                 </el-form-item>
@@ -66,7 +66,7 @@
                 </el-form-item>
             </el-form>
 
-            <el-form :inline="true" style="margin-left:12px;margin-top:-20px" >
+            <el-form :inline="true" style="margin-left:-15px;margin-top:-20px" >
                 <el-form-item  label="닉네임" label-width="80px">
                     <el-input  size="medium" ref="mid"  v-model="state.mid" placeholder="닉네임" @keyup="handleMidChk" />
                 </el-form-item>
