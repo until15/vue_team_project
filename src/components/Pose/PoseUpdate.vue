@@ -1,7 +1,7 @@
 <template>
     <div style="padding: 80px">
         <div v-if="state.pose">
-            <h3>자세 수정 페이지</h3><br>
+            <h3>자세 수정</h3><br>
             <el-row :gutter="20">
             <el-col :span="2">이름 :</el-col> 
             <el-col :span="5"><el-input v-model="state.pose.pname" clearable></el-input></el-col><br>
