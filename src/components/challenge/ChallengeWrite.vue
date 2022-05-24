@@ -1,18 +1,92 @@
 <template>
     <div align="center">
-        <h3>챌린지 생성</h3>
-        제목 : <input type="text" ref="chgtitle" v-model="state.chgtitle" /><br />
+
+        <el-card>
+            <h3>챌린지 생성</h3>
+            <div style="display:none">
+                {{currentTime()}} :D
+            </div>
+            <el-form :inline="true" style="margin:50px auto;" >
+                
+                <!-- 제목 -->
+                <el-form-item label="제목" label-width="80px">
+                    <el-input type="text" style="width:350px" ref="chgtitle" v-model="state.chgtitle" placeholder="제목을 입력하세요." />
+                </el-form-item><br />
+
+                <!-- 소개 -->
+                <el-form-item  label="소개" label-width="80px">
+                    <el-input type="text" style="width:350px" ref="chgintro" v-model="state.chgintro" placeholder="소개를 입력하세요." />
+                </el-form-item><br />
+
+                <!-- 내용 -->
+                <el-form-item  label="내용" label-width="80px">
+                    <el-input type="textarea" style="width:350px" ref="chgcontent" v-model="state.chgcontent" placeholder="내용 입력하세요." />
+                </el-form-item><br />   
+
+                <!-- 모집 기간 -->
+                <el-form-item  label="모집 기간" label-width="80px">
+                    <el-input type="text" style="width:152px" v-model="state.currenttime" readonly />
+                </el-form-item>
+                <el-form-item  label="부터" label-width="37px">
+                    <el-date-picker style="width:152px" ref="recruitend" v-model="state.recruitend" type="date" placeholder="모집 마감일" />     
+                </el-form-item><br />
+                
+                <!-- 챌린지 기간 -->
+                <el-form-item  label="챌린지 기간" label-width="80px">
+                    <el-input type="text" style="width:152px" v-model="state.recruitend" readonly />
+                </el-form-item>
+                <el-form-item  label="부터" label-width="37px">
+                    <el-date-picker style="width:152px" ref="chgend" v-model="state.chgend" type="date" placeholder="챌린지 종료일" />     
+                </el-form-item><br />
+                
+                <!-- 참가비 -->
+                <el-form-item  label="참가비" label-width="80px">
+                    <el-input type="number" style="width:152px" ref="chgfee" v-model="state.chgfee" placeholder="참가비를 설정해주세요." />
+                </el-form-item>
+
+                <!-- 참가인원 -->
+                <el-form-item  label="참가인원" label-width="60px">
+                    <el-input type="number" style="width:130px" ref="chgcnt" v-model="state.chgcnt" placeholder="참가인원을 설정해주세요." />
+                </el-form-item><br />
+
+                <!-- 루틴 설정 다이어로그 -->
+                <el-form-item style="margin-left:80px;">
+                    <el-button type="info" plain @click="handleRoutine = true" style="width:350px">루틴 설정</el-button>
+                    <el-dialog v-model="handleRoutine" :show-close="false">
+
+                    </el-dialog>
+                </el-form-item><br />
+
+                <!-- 챌린지 등록 -->
+                <el-form-item style="margin-left:80px;">
+                    <el-button type="info" plain @click="handleInsert" style="width:350px">챌린지 등록</el-button>
+                </el-form-item><br />
+
+                <!-- 이미지 -->
+                <img :src="state.imageUrl" style="width:300px" /><br />
+        이미지 : <input type="file" @change="handleImage($event)" /><br />
+
+                <!-- 목록으로 -->
+                <el-form-item style="margin-left:80px;">
+                    <el-button @click="handleBack" style="width:350px">목록으로</el-button>
+                </el-form-item><br />
+
+            </el-form>
+        </el-card>
+        <!-- 제목 : <input type="text" ref="chgtitle" v-model="state.chgtitle" /><br />
         소개 : <input type="text" ref="chgintro" v-model="state.chgintro" /><br />
         내용 : <textarea rows="10" ref="chgcontent" v-model="state.chgcontent"></textarea><br />
         모집 마감일 : <input type="date" ref="recruitend" v-model="state.recruitend" /><br />
         챌린지 종료일 : <input type="date" ref="chgend" v-model="state.chgend" /><br />
         참가비 : <input type="number" ref="chgfee" v-model="state.chgfee" /><br />
         참가인원 : <input type="number" ref="chgcnt" v-model="state.chgcnt" /><br />
+        <button @click="handleRoutine">루틴 추가</button> 
+
         <hr />
-        <img :src="state.imageUrl" style="width:50px" />
+        <img :src="state.imageUrl" style="width:300px" /><br />
         이미지 : <input type="file" @change="handleImage($event)" /><br />
         <button @click="handleInsert">등록하기</button>
-        <button @click="handleBack">돌아가기</button>
+        <button @click="handleBack">돌아가기</button> -->
     </div>
 </template>
 
@@ -33,6 +107,7 @@ export default {
             chgfee     : 1000,
             chgcnt     : 1,
             cimage     : null,
+            currenttime : '',
             //imageUrl   : require('../assets/img/default.png'),
             token      : sessionStorage.getItem("TOKEN")
         });
@@ -123,6 +198,16 @@ export default {
             }
         }
 
+        // 실시간 시간 : 챌린지 생성일 = 모집 시작일
+        const currentTime = () => {
+            const current = new Date();
+            const date = current.getFullYear()+'-'+(current.getMonth()+1)+'-'+current.getDate();
+            //const time = current.getHours() + ":" + current.getMinutes() + ":" + current.getSeconds();
+            //const dateTime = date;
+            state.currenttime = date; //+' '+ time;
+            return date;
+        }
+
         const handleBack = () => {
             router.push({name : "Challenge"});
         }
@@ -138,7 +223,8 @@ export default {
             chgcnt,
             handleInsert,
             handleImage,
-            handleBack
+            handleBack,
+            currentTime
         }
     }
 }
