@@ -1,14 +1,31 @@
 <template>
-    <div>
-        <h3>자세 등록 페이지</h3>
+    <div align="center" style="padding: 80px">
+        <el-card shadow="never">
+        <h3>자세 등록</h3>
         <br>
-        자세 이름 : <input type="text" v-model="state.name"><br>
-        자세 부위 : <input type="text" v-model="state.part"><br>
-        자세 내용 : <textarea rows="3" v-model="state.content"></textarea><br>
-        자세 난이도 : <input type="number" min="1" max="5" v-model="state.level"><br>
-        자세 동영상 : <input type="file" accept="video/*" @change="handleVideo"><br><br>
-        <button @click="handlePoseInsert">등록</button>
-        <router-link to="/pose"><button>목록</button></router-link><br>
+        <el-row :gutter="20">
+        <el-col :span="2" :offset="8">이름 :</el-col> 
+        <el-col :span="5"><el-input v-model="state.name"></el-input></el-col><br>
+        </el-row>
+        <el-row :gutter="20">
+        <el-col :span="2" :offset="8">부위 :</el-col> 
+        <el-col :span="5"><el-input v-model="state.part"></el-input></el-col><br>
+        </el-row>
+        <el-row :gutter="20">
+        <el-col :span="2" :offset="8">내용 :</el-col> 
+        <el-col :span="5"><el-input type="textarea" :rows="2" v-model="state.content"></el-input></el-col><br>
+        </el-row>
+        <el-row :gutter="20">
+        <el-col :span="2" :offset="8">난이도 :</el-col> 
+        <el-col :span="5"><el-input type="number" min="1" max="5" v-model="state.level"></el-input></el-col><br>
+        </el-row>
+        <el-row :gutter="20">
+        <el-col :span="2" :offset="8">동영상 :</el-col> 
+        <el-col :span="5"><input type="file" accept="video/*" @change="handleVideo"><br><br></el-col>
+        </el-row>
+        <el-button round @click="handlePoseInsert">등록</el-button>
+        <router-link to="/pose"><el-button round>목록</el-button></router-link><br>
+        </el-card>
     </div>
 </template>
 
