@@ -66,6 +66,15 @@ export default {
             if (response.data.status === 200) {
                 state.items = response.data.result
                 state.pages = response.data.pages
+
+                let chgrate = []; 
+                for(let tmp of response.data.result){
+                   chgrate.push(tmp.chgrate);
+                   if(tmp.chgrate <= 0){
+                       tmp.chgrate = '0%';
+                   }
+
+               }
             }
 
         };
