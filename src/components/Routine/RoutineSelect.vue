@@ -6,7 +6,7 @@
       <el-table :data="state.rtn">
         <el-table-column width="80">
           <template #default="scope">
-            <!-- {{state.chk}} -->
+            <!-- {{state.chk}} 등록할 때 @(scope.$index . rtnno로 줘야 저장될 듯)-->
             <el-checkbox
             :label="state.rtn[scope.$index].rtnseq"
             v-model="state.chk"
