@@ -9,7 +9,7 @@
         <h3>정보수정</h3>
         <hr />
         <div v-if="state.item" style="margin-right:60px">
-            <el-form :inline="true" style="margin-left:90px" >
+            <el-form :inline="true" style="margin-left:80px" >
                 <el-form-item  label="이름" label-width="80px" style="margin-top:20px">
                     <el-input  size="medium" ref="mname"  v-model="state.item.mname" placeholder="이름" />
                 </el-form-item>
@@ -19,7 +19,7 @@
                 </el-form-item>
             </el-form>
 
-            <el-form :inline="true" style="margin-left:90px" >
+            <el-form :inline="true" style="margin-left:80px" >
                 <el-form-item  label="닉네임" label-width="80px" style="margin-top:-15px">
                     <el-input  size="medium" ref="mid"  v-model="state.item.mid" placeholder="닉네임" @keyup="handleMidChk"/>
                 </el-form-item>
