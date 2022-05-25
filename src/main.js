@@ -27,3 +27,5 @@ app.config.globalProperties.axios = axios;
 app.use(CKEditor);
 
 app.mount('#app');
+
+window.Kakao.init("26ecb018985c57f36deafd34b1cf59e5");

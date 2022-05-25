@@ -1,37 +1,34 @@
 <template>
     <div>
-        <input type="text" v-model="state.mphone"  placeholder="000-0000-0000" />
-        <button @click="handletest">등록</button>
+        <input type="text" v-model="state.memail"   />
+        <button @click="handleUpdate">등록</button>
     </div>
 </template>
 
 <script>
 import { reactive } from '@vue/reactivity';
+import axios from 'axios';
 export default {
     setup () {
         const state = reactive({
-            mphone : '',
+            memail : '',
+            mpw : '',
         })
-        const validPhone = (mphone) => {
-        var Phone = /^01([0])-?([0-9]{4})-?([0-9]{4})$/;
-        return Phone.test(mphone);
-        }
 
-        const handletest = () => {
-            if(validPhone(state.mphone)){
-                const mphone = state.mphone;
-                const mmphone = mphone.replace(/-/g, '');
-                console.log(mmphone);
-                alert('연락처가 맞음!! 잘했음');
-                state.mphone = '';
-            }
-            else{
-                alert('못했음');
-                state.mphone = '';
-            }
+    const handleUpdate = async() => {
+        const url = `/ROOT/api/member/updatepw3?memail=${state.memail}`;
+        const headers = {"Content-Type":"application/json"};
+        const body = {
+            mpw : state.mpw = "2gfda34"
         }
+        const response = await axios.put(url, body, {headers});
+        console.log(response.data);
 
-        return {state, validPhone, handletest}
+    }
+        
+        
+
+        return {state, handleUpdate }
     }
 }
 </script>

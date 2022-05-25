@@ -22,7 +22,7 @@
                 <el-button type="info" style="margin-left:60px;margin-top:10px" size="small" plain @click="handleLogin">로그인</el-button> 
                 <el-button type="info" size="small" plain @click="handleJoin">회원가입</el-button> <br /><br />
                 
-                <a id="custom-login-btn" @click="KakaoLogin"  style="margin-left:65px">
+                <a id="custom-login-btn" @click="kakao" style="margin-left:65px">
                     <img
                         src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
                         width="222"
@@ -45,13 +45,12 @@
                 </el-form>
                 <el-form :inline="true" style="margin-top:-20px" >
                     <el-form-item label="생일" label-width="80px">
-                        <el-input  size="medium" v-model="state.mbirth" placeholder="생일" />
+                        <el-input  size="medium" v-model="state.mbirth" placeholder="yyyy-mm-dd" />
                     </el-form-item>
                 </el-form>
             </div>
             <el-button type="info" style="margin-top:-20px" size="small" plain @click="handleMemail">찾기</el-button>
         </el-dialog>
-
 
 
         <!-- 이메일 : <input type="text" v-model="state.memail" placeholder="이메일" /><br />
@@ -166,13 +165,57 @@ export default {
             // })
         }
 
+        // 카카오 로그인
+       const kakao = async() => {
+            window.Kakao.Auth.login({
+                scope : 'account_email, profile_nickname, gender',
+                success : function(response){
+                    console.log(response);
+                    window.Kakao.API.request({
+                        url: '/v2/user/me',
+                        success : res => {
+                            const kakao_account = res.kakao_account;
+                            console.log(kakao_account);
+                            state.memail = kakao_account.email;
+                        }
+                    });
+                },
+                fail : function(error) {
+                    console.log(error);
+                }
+            });
+
+            if(state.memail){
+                const url = `/ROOT/api/member/login`;
+                const headers = {"Content-Type":"application/json"};
+                const body = {
+                    memail : state.memail,
+                    mpw : state.mpw
+                }
+                const response = await axios.post(url, body, {headers});
+                console.log(response.data);
+            }
+
+        }
+
+        
+
+        // Logout = () => {
+        //     window.kakao.Auth.logout(res => {
+        //         if(Ires) return LogoutFailure();
+        //         social_logout();
+        //     })
+        // }
+
+        
+
+
         onMounted(()=> {
             // window.Kakao.init('8842fbb8e601a53493654c0aa37fdb9b');
             // console.log(window.Kakao.isInitialized());
-        })
-        
+        }) 
 
-        return {state, dialogmemail, handleClose, memail, mpw, handleLogin, handleJoin, KakaoLogin, handleMemail}
+        return {state, dialogmemail, kakao, handleClose, memail, mpw, handleLogin, handleJoin, KakaoLogin, handleMemail}
     }
 }
 </script>
