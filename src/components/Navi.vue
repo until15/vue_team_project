@@ -40,6 +40,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li>
+                                    <router-link to="/myconfirm" class="dropdown-item">내 인증</router-link>
                                     <router-link to="/logout" class="dropdown-item">로그아웃</router-link>
                                     <hr class="dropdown-divider" />
                                 </li>
