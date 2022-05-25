@@ -28,7 +28,10 @@
                     <el-input type="text" style="width:152px" v-model="state.currenttime" readonly />
                 </el-form-item>
                 <el-form-item  label="부터" label-width="37px">
-                    <el-date-picker style="width:152px" ref="recruitend" v-model="state.recruitend" type="date" placeholder="모집 마감일" />     
+                    <el-date-picker 
+                        style="width:152px" ref="recruitend" 
+                        format="YYYY-MM-DD" value-format="YYYY-MM-DD"
+                        v-model="state.recruitend" type="date" placeholder="모집 마감일" />     
                 </el-form-item><br />
                 
                 <!-- 챌린지 기간 -->
@@ -36,7 +39,10 @@
                     <el-input type="text" style="width:152px" v-model="state.recruitend" readonly />
                 </el-form-item>
                 <el-form-item  label="부터" label-width="37px">
-                    <el-date-picker style="width:152px" ref="chgend" v-model="state.chgend" type="date" placeholder="챌린지 종료일" />     
+                    <el-date-picker 
+                    style="width:152px" ref="chgend" 
+                    format="YYYY-MM-DD" value-format="YYYY-MM-DD"
+                    v-model="state.chgend" type="date" placeholder="챌린지 종료일" />     
                 </el-form-item><br />
                 
                 <!-- 참가비 -->
@@ -51,10 +57,21 @@
 
                 <!-- 루틴 설정 다이어로그 -->
                 <el-form-item style="margin-left:80px;">
-                    <el-button type="info" plain @click="handleRoutine = true" style="width:350px">루틴 설정</el-button>
-                    <el-dialog v-model="handleRoutine" :show-close="false">
+                    <el-button type="info" plain @click="dialogTableVisible = true" style="width:350px">루틴 생성</el-button>
+                    <el-dialog v-model="dialogTableVisible" title="루틴 생성" fullscreen center>
+                        <RoutineInsert></RoutineInsert>
+                    </el-dialog>    
+                </el-form-item><br />
 
-                    </el-dialog>
+                <!-- 루틴 불러오기 다이어로그 -->
+                <el-form-item  label="루틴불러오기" label-width="80px">
+                    <el-input type="number" style="width:150px" ref="chgroutine" v-model="state.chgroutine" placeholder="루틴번호." readonly />
+                </el-form-item>
+                <el-form-item  label="" label-width="70px">
+                    <el-button type="info" plain @click="dialogTableVisible1 = true" style="width:190px">루틴 불러오기</el-button>
+                    <el-dialog v-model="dialogTableVisible1" title="루틴 불러오기" fullscreen center>
+                        <RoutineSelect></RoutineSelect>
+                    </el-dialog>     
                 </el-form-item><br />
 
                 <!-- 챌린지 등록 -->
@@ -65,6 +82,8 @@
                 <!-- 이미지 -->
                 <img :src="state.imageUrl" style="width:300px" /><br />
         이미지 : <input type="file" @change="handleImage($event)" /><br />
+
+
 
                 <!-- 목록으로 -->
                 <el-form-item style="margin-left:80px;">
@@ -91,12 +110,27 @@
 </template>
 
 <script>
-import { reactive, ref } from 'vue'
+import RoutineInsert from '@/components/Routine/RoutineInsert.vue';
+import RoutineSelect from '@/components/Routine/RoutineSelect.vue';
+
+import { useStore } from "vuex";
+import { computed, reactive, ref } from 'vue'
 import axios from 'axios';
 import {useRouter} from 'vue-router';
+
 export default {
+
+    components : {
+        RoutineInsert,
+        RoutineSelect
+    },
+
     setup () {
+
+        const store = useStore();
         const router = useRouter();
+
+        const routine = computed(() => store.getters.getRoutine);
 
         const state = reactive({
             chgtitle   : '',
@@ -106,6 +140,7 @@ export default {
             chgend     : '',
             chgfee     : 1000,
             chgcnt     : 1,
+            chgroutine : '',
             cimage     : null,
             currenttime : '',
             //imageUrl   : require('../assets/img/default.png'),
@@ -119,6 +154,9 @@ export default {
         const chgend     = ref(null);
         const chgfee     = ref(null);
         const chgcnt     = ref(null);
+        const chgroutine = ref(null);
+        const dialogTableVisible = ref(false);
+        const dialogTableVisible1 = ref(false);
 
         const handleInsert = async() => {
             if(state.chgtitle === ''){
@@ -163,6 +201,12 @@ export default {
                 return false;
             }
 
+            if(state.chgroutine === ''){
+                alert('루틴을 불러와주세요.');
+                chgcnt.value.focus();
+                return false;
+            }
+
             if(state.token !== null){
                 const url = `/ROOT/api/challenge/insert`;
                 const headers = {"Content-Type":"multipart/form-data", "token":state.token};
@@ -175,6 +219,7 @@ export default {
                 body.append("chgend1", state.chgend);
                 body.append("chgfee", state.chgfee);
                 body.append("chgcnt", state.chgcnt);
+                body.append("chgroutine", state.chgroutine);
                 body.append("cimage", state.cimage);
 
                 console.log(typeof state.recruitend);
@@ -221,10 +266,15 @@ export default {
             chgend,
             chgfee,
             chgcnt,
+            chgroutine,
             handleInsert,
             handleImage,
             handleBack,
-            currentTime
+            currentTime,
+            dialogTableVisible,
+            dialogTableVisible1,
+            routine
+            
         }
     }
 }
