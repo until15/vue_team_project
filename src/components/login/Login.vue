@@ -16,7 +16,7 @@
                     </el-form>
                     <div style="margin-top:-20px;margin-left:65px">
                         <el-link @click="dialogmemail = true">아이디찾기</el-link>
-                        <el-link style="margin-left:30px" @click="dialogTableVisible1 = true">암호찾기</el-link>
+                        <el-link style="margin-left:30px" @click="dialogmpw = true">암호찾기</el-link>
                     </div>
                     
                 <el-button type="info" style="margin-left:60px;margin-top:10px" size="small" plain @click="handleLogin">로그인</el-button> 
@@ -52,6 +52,20 @@
             <el-button type="info" style="margin-top:-20px" size="small" plain @click="handleMemail">찾기</el-button>
         </el-dialog>
 
+        <el-dialog v-model="dialogmpw" title="암호찾기" :before-close="handleClose">
+            <div v-if="state.newmpw" style="margin-top:-20px;margin-left:20px">
+               임시 암호는 {{state.newmpw}} 입니다.
+            </div>       
+            <div style="margin-right:60px;margin-top:10px">
+                <el-form :inline="true"  >
+                    <el-form-item label="이메일(아이디)" label-width="100px">
+                        <el-input  size="medium" v-model="state.memail" placeholder="이메일" />
+                    </el-form-item>
+                </el-form>
+            </div>
+            <el-button type="info" style="margin-top:-20px;margin-left:30px" size="small" plain @click="handleMpw">찾기</el-button>
+        </el-dialog>
+
 
         <!-- 이메일 : <input type="text" v-model="state.memail" placeholder="이메일" /><br />
         암호 : <input type="password" v-model="state.mpw" placeholder="암호" /><br />
@@ -77,13 +91,14 @@ export default {
             mpw : '',
             mname : '',
             mbirth : '',
-            dialogmemail : ref(false),
+            newpw : '',
         });
 
         const memail = ref(null);
         const mpw = ref(null);
 
         const dialogmemail = ref(false);
+        const dialogmpw = ref(false);
 
         const handleLogin = async() => {
 
@@ -133,6 +148,17 @@ export default {
                
             }
 
+        };
+
+        const handleMpw = async() => {
+            const url = `/ROOT/api/member/updatepw3?memail=${state.memail}`;
+            const headers = {"Content-Type":"application/json"};
+            const response = await axios.put(url, {headers});
+            console.log(response.data);
+            if(response.data.status === 200){
+                state.newmpw = response.data.result;
+                console.log(state.newmpw);
+            }
         };
 
         const handleClose = () => {
@@ -215,7 +241,7 @@ export default {
             // console.log(window.Kakao.isInitialized());
         }) 
 
-        return {state, dialogmemail, kakao, handleClose, memail, mpw, handleLogin, handleJoin, KakaoLogin, handleMemail}
+        return {state, dialogmemail, dialogmpw, handleMpw, kakao, handleClose, memail, mpw, handleLogin, handleJoin, KakaoLogin, handleMemail}
     }
 }
 </script>
