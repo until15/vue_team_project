@@ -31,7 +31,11 @@
         </div>
     </div>
 
-    <hr>
+    <hr />
+
+
+
+    <hr />
 
     <!-- 첼린지 내 인증 리스트 -->
     <div class="text-center">
@@ -108,6 +112,8 @@ export default {
             imageUrl : [],      // 이미지url
             jconfirm : "",      // 성공/실패
         });
+
+        // 루틴 불러오기
 
         // 첼린지 포기
         const handleGiveup = async()=> {

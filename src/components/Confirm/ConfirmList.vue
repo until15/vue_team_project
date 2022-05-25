@@ -48,7 +48,7 @@
                                 </div>
                             </td>
                             <td>{{tmp.memail}}</td>
-                            <td>{{tmp.chgtitle}}</td>
+                            <td @click="handlePushCHG">{{tmp.chgtitle}}</td>
                             <td>{{tmp.cfcomment}}</td>
                             <td>{{tmp.ccregdate}}</td>
                             <td>{{tmp.chgstate}}</td>
@@ -89,6 +89,11 @@ export default {
             imageUrl : [],
             
         });
+
+        // 첼린지로 이동
+        const handlePushCHG = async()=> {
+            console.log("첼린지로 이동");
+        };
 
         // 전체 인증 리스트
         const handleData = async(tmp, text)=> {
@@ -133,7 +138,7 @@ export default {
             handleData(state.page, state.text);
         });
 
-        return {state, handleData, handlePage}
+        return {state, handleData, handlePage, handlePushCHG}
     }
 }
 </script>
