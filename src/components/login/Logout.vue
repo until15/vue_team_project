@@ -4,7 +4,6 @@
     </div>
 </template>
 
-
 <script>
 import { onMounted } from 'vue';
 import {useRouter} from 'vue-router';
@@ -22,7 +21,6 @@ export default {
                 sessionStorage.removeItem("MEMAIL");
                 store.commit('setLogged', false);
                 store.commit('ClearMemail');
-        
                 router.push({name : 'Logout1'}); 
             }
         })

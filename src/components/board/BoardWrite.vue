@@ -2,6 +2,7 @@
 <template>
     <div align="center">
         <br />
+        <!-- 글쓰기 ckeditor -->
         <el-card  style="width:1200px">
             <h3>게시판 글쓰기</h3>
             <el-input  size="medium" ref="memail" v-model="state.btitle" style="margin-bottom:10px" placeholder="글제목"/>
@@ -13,18 +14,19 @@
         <el-button type="info" size="small" plain @click="handleInsert">등록하기</el-button> 
         <el-button type="info" size="small" plain @click="handleBack">돌아가기</el-button><br /><br />
 
-        <!-- <button @click="handleInsert">등록하기</button>
-        <button @click="handleBack">돌아가기</button> -->
-        
-        
-        
-        <!-- 제목 : <input type="text" ref="btitle" v-model="state.btitle" /><br />
-        내용 : <textarea rows="10" ref="bcontent" v-model="state.bcontent"></textarea><br />
-        <hr />
-        <img :src="state.imageUrl" style="width:50px" />
-        이미지 : <input type="file" @change="handleImage($event)" /><br />
-        <button @click="handleInsert">등록하기</button>
-        <button @click="handleBack">돌아가기</button> -->
+        <!-- 옛날꺼 -->
+        <!-- <div>
+            <button @click="handleInsert">등록하기</button>
+            <button @click="handleBack">돌아가기</button>
+            
+            제목 : <input type="text" ref="btitle" v-model="state.btitle" /><br />
+            내용 : <textarea rows="10" ref="bcontent" v-model="state.bcontent"></textarea><br />
+            <hr />
+            <img :src="state.imageUrl" style="width:50px" />
+            이미지 : <input type="file" @change="handleImage($event)" /><br />
+            <button @click="handleInsert">등록하기</button>
+            <button @click="handleBack">돌아가기</button>
+        </div> -->
     </div>
 </template>
 
@@ -56,6 +58,7 @@ export default {
         const btitle = ref(null);
         const bcontent = ref(null);
 
+        // 글쓰기
         const handleInsert = async() => {
             if(state.btitle === ''){
                 alert('제목을 입력해주세요.');
@@ -96,6 +99,7 @@ export default {
             } 
         };
 
+        // 이미지 전환
         const handleImage = (e) => {
             if(e.target.files[0]){
                 state.imageUrl = URL.createObjectURL(e.target.files[0]);
@@ -107,6 +111,7 @@ export default {
             }
         }
 
+        // 뒤로가기
         const handleBack = () => {
             router.push({name : "Board"});
         }

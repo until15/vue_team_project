@@ -1,6 +1,7 @@
 @@ -1,65 +0,0 @@
 <template>
     <div align="center">
+        <!-- 게시물 수정화면 -->
         <el-card style="width:1200px">
             <h3>게시물 수정</h3>
             <div v-if="state.item" class="center">
@@ -26,21 +27,23 @@
             <el-button type="info" plain @click="handleUpdate">수정하기</el-button> 
             <el-button type="info" plain @click="handleBack">돌아가기</el-button> <br /><br />
 
+            <!-- 옛날꺼 -->
+            <div>
+                <!-- <div v-if="state.item">
+                {{state.item.bno}}<br />
+                제목 : <input type="text" v-model="state.item.btitle" /><br />
+                내용 : <input type="text" v-model="state.item.bcontent" /><br />
+                <div v-for="(tmp, idx) in state.image" :key="tmp">
+                    <img :src="state.image[idx]" style="width:200px" />
+                    <input type="file" @change="handleImage($event, idx)"/>
+                    <button @click="handleUpdateImg(tmp)">수정</button>
+                    <button @click="handleDeleteImg(tmp)">삭제</button>
+                </div>
 
-            <!-- <div v-if="state.item">
-            {{state.item.bno}}<br />
-            제목 : <input type="text" v-model="state.item.btitle" /><br />
-            내용 : <input type="text" v-model="state.item.bcontent" /><br />
-            <div v-for="(tmp, idx) in state.image" :key="tmp">
-                <img :src="state.image[idx]" style="width:200px" />
-                <input type="file" @change="handleImage($event, idx)"/>
-                <button @click="handleUpdateImg(tmp)">수정</button>
-                <button @click="handleDeleteImg(tmp)">삭제</button>
+                <button @click="handleUpdate">수정하기</button>
+                <button @click="handleBack">돌아가기</button>
+                </div> -->
             </div>
-
-            <button @click="handleUpdate">수정하기</button>
-            <button @click="handleBack">돌아가기</button>
-            </div> -->
         </el-card>
         <br />
     </div>
@@ -62,6 +65,7 @@ export default {
             token : sessionStorage.getItem("TOKEN"),
         });
 
+        // 데이터 불러오기
         const handleData = async(bno) => {
             const url = `/ROOT/api/community/selectone?bno=${bno}`;
             const headers = {"Content-Type":"application/json"};
@@ -73,6 +77,7 @@ export default {
             }
         };
 
+        // 수정버튼
         const handleUpdate = async() => {
             const url = `/ROOT/api/community/update?bno=${state.bno}`;
             const headers = {"Content-Type":"application/json", "token":state.token};
@@ -87,6 +92,7 @@ export default {
             }
         };
 
+        // 이미지 삭제
         const handleDeleteImg = async(tmp) => {
             const no = tmp.split('=');
             console.log("==no==", Number(no[1]));
@@ -102,16 +108,16 @@ export default {
                 alert('권한 없음');
             }
         }
+
+        // 뒤로가기
         const handleBack = () => {
             router.push({name : "BoardOne", query:{bno:state.bno}});
         }
 
-       
         onMounted(() =>{
             handleData(state.bno);
         });
         
-
         return {state, handleData, handleUpdate, handleBack, handleDeleteImg}
     }
 }

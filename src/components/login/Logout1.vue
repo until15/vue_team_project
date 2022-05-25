@@ -12,7 +12,6 @@ export default {
 
         const router = useRouter();
 
-        
         onMounted(() =>{
             if (self.name != 'reload') {
                     self.name = 'reload';

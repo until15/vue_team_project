@@ -1,27 +1,31 @@
 @@ -1,95 +0,0 @@
 <template>
     <div >
-        <!-- 이메일 : <input type="text" v-model="state.memail" placeholder="이메일" /><br />
-        암호 : <input type="password" v-model="state.mpw" placeholder="암호" /><br />
-        암호확인 : <input type="password" v-model="state.mpw1" placeholder="암호확인" /><br />
-        이름 : <input type="text" v-model="state.mname" placeholder="이름" /><br />
-        별명(닉네임) : <input type="text" v-model="state.mid" placeholder="닉네임" /><br />
-        성별 : <select v-model="state.mgender">
-            <option value="1">남</option>
-            <option value="2">여</option>
-        </select><br />
-        생년월일 : <input type="number" v-model="state.mbirth" placeholder="생년월일" /><br />
-        키 : <input type="number" v-model="state.mheight" placeholder="키" /><br />
-        몸무게 : <input type="number" v-model="state.mweight" placeholder="몸무게" /><br />
-        연락처 : <input type="number" v-model="state.mphone" placeholder="연락처" /><br />
-        권한 : <select v-model="state.mrole">
-            <option value="admin">관리자</option>
-            <option value="member">회원</option>
-        </select><br />
-        <img :src="state.imageUrl" style="width:100px" />
-        프로필사진 : <input type="file" @change="handleImage($event)" /><br />
-        <button @click="handleData">화원가입</button> -->
-    
+        <!-- 옛날꺼 -->
+        <!-- <div>
+            이메일 : <input type="text" v-model="state.memail" placeholder="이메일" /><br />
+            암호 : <input type="password" v-model="state.mpw" placeholder="암호" /><br />
+            암호확인 : <input type="password" v-model="state.mpw1" placeholder="암호확인" /><br />
+            이름 : <input type="text" v-model="state.mname" placeholder="이름" /><br />
+            별명(닉네임) : <input type="text" v-model="state.mid" placeholder="닉네임" /><br />
+            성별 : <select v-model="state.mgender">
+                <option value="1">남</option>
+                <option value="2">여</option>
+            </select><br />
+            생년월일 : <input type="number" v-model="state.mbirth" placeholder="생년월일" /><br />
+            키 : <input type="number" v-model="state.mheight" placeholder="키" /><br />
+            몸무게 : <input type="number" v-model="state.mweight" placeholder="몸무게" /><br />
+            연락처 : <input type="number" v-model="state.mphone" placeholder="연락처" /><br />
+            권한 : <select v-model="state.mrole">
+                <option value="admin">관리자</option>
+                <option value="member">회원</option>
+            </select><br />
+            <img :src="state.imageUrl" style="width:100px" />
+            프로필사진 : <input type="file" @change="handleImage($event)" /><br />
+            <button @click="handleData">화원가입</button>
+        </div> -->
+        
+        <!-- 회원가입 -->
         <el-card shadow="always">
             <div class="center">
             <el-form :inline="true" style="margin-left:192px; display:block">
@@ -39,7 +43,7 @@
                     <el-button type="info" size="small" plain @click="emailCheck">중복확인</el-button>{{state.usermailcheck}}
                 </el-form-item>
             </el-form>
-
+            <!-- 옛날꺼 -->
             <!-- <el-form :inline="true" style="margin-left:90px" >
                 <el-form-item  label="이메일" label-width="80px">
                     <el-input  size="medium" ref="memail" v-model="state.memail" placeholder="이메일" @keyup="emailCheck"/>
@@ -101,7 +105,7 @@
                     cm
               </el-form-item>
             </el-form>
-
+            <!-- 옛날꺼 -->
             <!-- <el-form :inline="true" style="margin-right:150px"  >
                 <el-form-item  label="키" label-width="80px" style="margin-top:-20px">
                     <el-input-number ref="mheight" v-model="state.mheight" size="medium" />
@@ -118,7 +122,7 @@
                     kg
               </el-form-item>
             </el-form>
-
+            <!-- 옛날꺼 -->
             <!-- <el-form :inline="true" style="margin-right:150px"  >
                 <el-form-item  label="몸무게" label-width="80px" style="margin-top:-20px">
                     <el-input-number ref="mweight" v-model="state.mweight" size="medium" />
@@ -159,7 +163,7 @@ export default {
     setup () {
 
         const router = useRouter();
-
+        // state 목록
         const state = reactive({
             memail : '',
             memail1 : '',
@@ -196,6 +200,7 @@ export default {
         const mphone = ref(null);
         const mrole = ref(null);
 
+        // 회원가입
         const handleData = async() => {
             if(state.memail === ''){
                 alert('이메일을 입력해주세요');
@@ -342,28 +347,32 @@ export default {
             }
         };
 
-        //정확한 이메일 주소인지 확인
+        // 이메일 정규식
         const validEmail = (memail) => {
-            // 정규표현식
             var re = /[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]*$/i;
             return re.test(memail);
         }
 
+        // 이름 정규식
         const validname = (mname) => {
-            // 정규표현식
             var re = /(^[가-힣a-zA-Z]{2,15})+$/;
             return re.test(mname);
         }
+
+        //연락처 정규식
         const validPhone = (mphone) => {
             var Phone = /^01([0])-?([0-9]{4})-?([0-9]{4})$/;
             return Phone.test(mphone);
         }
+
+        // 정규식 설명
         // var Phone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
         // 핸드폰번호 첫/두번째 자리는 01로 시작하며 세번째 자리는 01+0/1/6/7/8/9 가 될 수 있다.
         // 번호 사이사이 대쉬('-')는 사용자가 작성하든 안하든 무시한다.
         // 번호 두번째 마디는 3-4자리가 가능하며 숫자는 0-9까지 들어올 수 있다.
         // 마지막 마디는 마찬가지로 0-9까지 가능하며 4자리만 가능하다.
 
+        // 이메일 체크
         const emailCheck = async() => {
             if(validEmail(state.memail+'@'+state.memail1)){
                 console.log(state.memail +'@'+ state.memail1);
@@ -391,6 +400,7 @@ export default {
             state.usermidcheck = '"중복확인"';
         }
 
+        // 닉네임 체크
         const checkMid = async() => {
             if(state.mid){
                 const url = `/ROOT/api/member/checkmid?mid=${state.mid}`;
@@ -409,7 +419,7 @@ export default {
             }
         }
         
-
+        // 이미지 전환
         const handleImage = (e) => {
             if(e.target.files[0]){
                 state.imageUrl = URL.createObjectURL(e.target.files[0]);
@@ -420,20 +430,16 @@ export default {
             }
         }
 
+        // 홈으로 이동
         const hendleHome = () => {
             router.push({name :"Home"});
         }
-
+        
+        // 생년월일 오늘 넘지않기 element plus
         const disabledDate = (time) => {
         return time.getTime() > Date.now()
         }
 
-        
-
-        
-
-
-    
         return {state, disabledDate, handleChk, handleMidChk, usermidcheck, usermailcheck, memail, memail1, mpw, mpw1, mname, mid, mgender, mbirth, mheight, mweight, mphone, mrole, checkMid, handleData, handleImage, hendleHome, emailCheck}
     }
 }

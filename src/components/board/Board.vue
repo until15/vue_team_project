@@ -1,5 +1,6 @@
 <template >
     <div align="center" >
+        <!-- 게시판 테이블 -->
         <el-card>
         <h3>자유게시판</h3>
         <hr />
@@ -21,6 +22,7 @@
             </el-pagination>
         </el-card>
         <br />
+        <!-- 검색 -->
         <el-form :inline="true" v-if="state.items" >
             <el-form-item  label="" label-width="80px">
                 <el-input type="text" size="mini" v-model="state.btitle" placeholder="검색어 입력" @keydown.prevent.enter="handleData" />
@@ -33,8 +35,7 @@
                 <el-button type="info" plain @click="handleBoardWrite">글쓰기</el-button>
             </div>
     </div>
-
-
+        <!-- 옛날꺼 -->
         <!-- <table border="1" >
                 <tr>
                     <th>번호</th>
@@ -69,14 +70,13 @@ export default {
             page : 1,
             btitle : '',
             total : 1
-
-
         });
         
         onMounted(() => {
             handleData();
         });
-
+        
+        // 테이블 데이터 불러오기
         const handleData = async() => {
             const url = `/ROOT/api/community/selectlist?page=${state.page}&btitle=${state.btitle}`;
             const headers = {"Content-Type":"application/json"};
@@ -89,6 +89,7 @@ export default {
             }
         }
 
+        // 조회수 오르면서 상세페이지로 이동
         const handlePage = async(bno) => {
             const url = `/ROOT/api/community/updatehit?bno=${bno}`;
             const headers = {"Content-Type":"application/json"};
@@ -99,6 +100,7 @@ export default {
             }
         }
 
+        // 글쓰기 이동
         const handleBoardWrite = () => {
             router.push({name : "BoardWrite"})
         }
@@ -112,12 +114,7 @@ export default {
         return store.getters.getLogged
         });
 
-     
-
-
         return {state, logged, handlePage, handleData, currentchange,  handleBoardWrite}
-
-
     }
 }
 </script>

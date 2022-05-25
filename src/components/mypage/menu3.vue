@@ -5,6 +5,7 @@
             <el-button @click="handleMenu3">1:1문의</el-button>
             <el-button @click="handleMenu2">회원탈퇴</el-button>
             <br /><br />
+        <!-- 문의목록 -->
         <el-card style="height:550px">
         <h3>1:1문의</h3>
         <hr /> 
@@ -25,6 +26,7 @@
             <el-pagination layout="prev, pager, next" :total="state.total" @current-change="currentchange">
             </el-pagination>
         </el-card>
+        <!-- 검색창 -->
         <el-form :inline="true" v-if="state.items" style="margin-top:20px;" >
             <el-form-item>
                 <el-input type="text" size="mini" v-model="state.qtitle" placeholder="검색어 입력" @keydown.prevent.enter="handleData" />
@@ -34,9 +36,9 @@
             </el-form-item>
         </el-form>
         <el-button type="info" plain @click="handleInquiryWriter">글쓰기</el-button><br /><br />
-
     </div>
 
+        <!-- 옛날꺼 -->
         <!-- <div v-if="state.items">
             <input type="text" v-model="state.items.title" @keyup.enter="handleData" placeholder="검색어" />
             <button @click="handleData">검색</button>
@@ -56,7 +58,7 @@
                         <td>처리중</td>
                     </tr>
             </table>
-        <button @click="handleInquiryWriter">글쓰기</button>
+            <button @click="handleInquiryWriter">글쓰기</button>
         </div> -->
         
 
@@ -82,6 +84,7 @@ export default {
             ]
         });
 
+        // 데이터 불러오기(목록)
         const handleData = async() => {
             const url = `/ROOT/api/Inquiry/selectlist??page=${state.page}&qtitle=${state.qtitle}`;
             const headers = {"Content-Type":"application/json", "token":state.token};
@@ -105,7 +108,6 @@ export default {
             }
         }
 
-
         const currentchange = (page) => {
             state.page = page;
             handleData();
@@ -116,6 +118,7 @@ export default {
 
         });
 
+        // 글쓰기 이동
         const handleInquiryWriter = () => {
             router.push({name : "Inquiry"});
         }
@@ -135,9 +138,6 @@ export default {
          const handleMenu3 = () => {
             router.push({name : "menu3"});
         }
-
-
-        
 
         return {state, handleInquiryWriter, handleData, currentchange, handlePage, handleMenu1, handleMenu2, handleMenu3}
     }

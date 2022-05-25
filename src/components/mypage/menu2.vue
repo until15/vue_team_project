@@ -5,6 +5,7 @@
             <el-button @click="handleMenu3">1:1문의</el-button>
             <el-button @click="handleMenu2">회원탈퇴</el-button>
             <br /><br />
+        <!-- 회원탈퇴 -->
         <el-card style="height:600px">
             <h3>회원탈퇴</h3>
             <hr />
@@ -15,8 +16,12 @@
             </el-form>
             <el-button type="info" size="small" plain @click="handleDelete">회원탈퇴</el-button> 
         </el-card>
-        <!-- 암호 : <input type="password" v-model="state.item.mpw" /><br />
-        <button @click="handleDelete">회원탈퇴</button> -->
+        
+        <!-- 옛날꺼 -->
+        <!-- <div>
+            암호 : <input type="password" v-model="state.item.mpw" /><br />
+            <button @click="handleDelete">회원탈퇴</button>
+        </div> -->
     </div>
 </template>
 
@@ -35,6 +40,7 @@ export default {
             mpw : ''
         });
         
+        // 회원탈퇴
         const handleDelete = async() => {
             if(state.mpw === ''){
                 alert('암호를 입력해주세요.');

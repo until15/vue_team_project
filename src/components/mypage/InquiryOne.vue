@@ -2,6 +2,7 @@
     <div align="center">
         <br />
         <h3>상세내용</h3>
+        <!-- 상세내용 -->
         <el-card style="width:1200px">
             <div v-if="state.item" >
                 <el-descriptions direction="horizontal" title="" :column="1" border>
@@ -25,16 +26,19 @@
             </div>
         </el-card>
         <br />
+            <!-- 옛날꺼 -->
+            <!-- <div>
+                번호 : {{state.item.qno}}<br /><br />
+                제목 : {{state.item.qtitle}}<br /><br />
+                내용 : {{state.item.qcontent}}<br /><br />
+                작성자 : {{state.item.memberchgMemail}}<br /><br />
+                이미지 : <img :src="state.image[0]" style="width:200px" />
+                <hr />
+                <button @click="handleMenu">목록으로</button>
+                <button @click="handleDelete">삭제</button>
+            </div> -->
 
-            <!-- 번호 : {{state.item.qno}}<br /><br />
-            제목 : {{state.item.qtitle}}<br /><br />
-            내용 : {{state.item.qcontent}}<br /><br />
-            작성자 : {{state.item.memberchgMemail}}<br /><br />
-            이미지 : <img :src="state.image[0]" style="width:200px" />
-        <hr />
-        <button @click="handleMenu">목록으로</button>
-        <button @click="handleDelete">삭제</button> -->
-
+        <!-- 답글 보이기 -->
         <div v-for="tmp in state.reply" :key="tmp">
         <el-collapse style="width:100">
             <el-collapse-item style="margin-left:100px;" title="답글" name="1">
@@ -46,7 +50,9 @@
         </el-collapse>
         </div>
         
-        <!-- <el-card style="width:1200px">
+        <!-- 옛날꺼 -->
+        <!-- <div>
+        <el-card style="width:1200px">
         <div v-for="tmp in state.reply" :key="tmp">
             <el-descriptions title="답글" :column="1" border>
             <el-descriptions-item label="작성자" label-align="center" align="center" width="10px">{{tmp.memberchg.mid}}</el-descriptions-item>
@@ -57,16 +63,16 @@
             </el-descriptions>
         <hr />
         </div>
-        </el-card> -->
-                <!-- <tr>
+        </el-card>
+                <tr>
                     <th>작성자</th>
                     <td>{{tmp.memberchg.memail}}</td>
                     <th>내용</th>
                     <td>{{tmp.iqcontent}}</td>
                     <td><button @click="handleReplyDelete(tmp.iqcmtno)">삭제</button></td>
-                </tr> -->
-
-
+                </tr>
+        </div> -->
+            <!-- 댓글 등록 -->
             <el-form :inline="true" class="center">
                 <el-form-item  label="댓글" label-width="50px">
                     <el-input  size="medium" v-model="state.reply1.iqcontent" placeholder="댓글"/>
@@ -75,6 +81,7 @@
                     <el-button type="info" size="small" plain @click="handleComment">입력</el-button>
                 </el-form-item>
             </el-form>
+        <!-- 옛날꺼 -->
         <!-- 댓글 : <input type="text" v-model="state.reply1.iqcontent" />
         <button @click="handleComment">입력</button> -->
 
@@ -101,6 +108,7 @@ export default {
             editable : false,
         });
 
+        // 데이터 불러오기
         const handleData = async(qno) => {
             const url = `/ROOT/api/Inquiry/selectone?qno=${qno}`;
             const headers = {"Content-Type":"application/json", "token":state.token};
@@ -112,6 +120,7 @@ export default {
             }
         }
 
+        // 댓글 쓰기(댓글 등록시 com 숫자 +1)
         const handleComment = async() => {
             const url = `/ROOT/api/Iqcomment/insert`;
             const headers = {"Content-Type":"application/json", "token":state.token};
@@ -134,6 +143,7 @@ export default {
             }
         }
 
+        // 댓글 불러오기
         const handleSelectComment = async(qno) => {
             const url = `/ROOT/api/Iqcomment/selectone?qno=${qno}`;
             const headers = {"Content-Type":"application/json","token":state.token};
@@ -144,6 +154,7 @@ export default {
             }
         }
 
+        // 댓글 삭제(댓글 삭제시 com 숫자 -1)
         const handleReplyDelete = async(iqcmtno) => {
             const url1 = `/ROOT/api/Inquiry/updatetwo?qno=${state.qno}`;
                 const headers1 = {"Content-Type":"application/json"};
@@ -159,10 +170,12 @@ export default {
             }
         }
 
+        // 뒤로가기
         const handleMenu = () => {
             router.push({name : "menu3"})
         };
 
+        // 상세글 삭제
         const handleDelete = async() => {
             if(confirm('정말 삭제하시겠습니까?')){
                 const url = `/ROOT/api/Inquiry/delete?qno=${state.qno}`;
@@ -180,11 +193,6 @@ export default {
             handleSelectComment(state.qno);
          
         });
-
-        
-
-        
-        
 
         return {state, handleComment, handleReplyDelete, handleMenu, handleDelete}
     }

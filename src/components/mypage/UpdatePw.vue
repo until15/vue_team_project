@@ -1,5 +1,6 @@
 <template>
     <div class="center">
+        <!-- 회원정보수정으로 합치고 암호수정 페이지는 사용 안합니다 -->
         <h3>암호변경</h3>
         <el-card>
             <div v-if="state.item" >
@@ -49,6 +50,7 @@ export default {
 
         });
 
+        // 데이터 불러오기
         const handleData = async() => {
             const url = `/ROOT/api/member/selectmemberone`;
             const headers = {"Content-Type":"application/json","token":state.token};
@@ -57,10 +59,9 @@ export default {
             if(response.data.status === 200){
                 state.item = response.data.result;
             }
-           
-            
         };
 
+        // 암호 수정하기
         const handleUpdate = async() => {
             if(state.token !== null){
                 const url = `/ROOT/api/member/updatepw`;
@@ -82,6 +83,7 @@ export default {
             }
         }
 
+        // 뒤로가기
         const handleBack = () => {
             router.push({name:"menu1"})
         }
@@ -89,8 +91,6 @@ export default {
         onMounted(() => {
             handleData();
         });
-        
-        
 
         return {state, handleUpdate, handleBack}
     }

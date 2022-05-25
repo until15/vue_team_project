@@ -1,5 +1,6 @@
 <template>
     <div align="center">
+        <!-- 글쓰기 ckeditor -->
         <el-card  style="width:1200px">
             <h3>게시판 글쓰기</h3>
             <el-input  size="medium" ref="memail" v-model="state.qtitle" style="margin-bottom:10px" placeholder="글제목"/>
@@ -37,6 +38,7 @@ export default {
 
         });
 
+        // 글쓰기
         const handleInsert = async() => {
             if(state.token !== null){
                 const url = `/ROOT/api/Inquiry/insert`;
@@ -64,6 +66,7 @@ export default {
             } 
         };
 
+        // 이미지 화면전환
         const handleImage = (e) => {
             if(e.target.files[0]){
                 state.imageUrl = URL.createObjectURL(e.target.files[0]);
@@ -75,12 +78,10 @@ export default {
             }
         }
 
-         const handleBack = () => {
+        // 뒤로가기
+        const handleBack = () => {
             router.push({name:"menu3"})
         }
-
-        
-        
 
         return {state, editor, handleInsert, handleBack, handleImage}
     }

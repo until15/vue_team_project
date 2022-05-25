@@ -5,6 +5,7 @@
             <el-button @click="handleMenu3">1:1문의</el-button>
             <el-button @click="handleMenu2">회원탈퇴</el-button>
             <br /><br />
+        <!-- 회원정보 수정 -->
         <el-card >
         <h3>정보수정</h3>
         <hr />
@@ -84,20 +85,23 @@
             <el-button type="info" style="margin-left:50px;margin-top:10px" plain @click="handleUpdate">수정하기</el-button>
             <br /><br /><br /><br /><br />
 
-
-            <!-- 이름 : <input type="text" v-model="state.item.mname" /><br />
-            <button @click="handleUpdatePW">암호변경</button><br />
-            닉네임 : <input type="text" v-model="state.item.mid" /><br />
-            연락처 : <input type="text" v-model="state.item.mphone" /><br />
-            키 : <input type="text" v-model="state.item.mheight" /><br />
-            몸무게 : <input type="text" v-model="state.item.mweight" /><br />
-            이미지 : <img :src="state.imageUrl" style="width:100px"/><br />
-            프로필사진 : <input type="file" @change="handleImage($event)" /><br />
-            <button @click="handleUpdate">수정하기</button>
-         -->
+            <!-- 옛날꺼 -->
+            <!-- <div>
+                이름 : <input type="text" v-model="state.item.mname" /><br />
+                <button @click="handleUpdatePW">암호변경</button><br />
+                닉네임 : <input type="text" v-model="state.item.mid" /><br />
+                연락처 : <input type="text" v-model="state.item.mphone" /><br />
+                키 : <input type="text" v-model="state.item.mheight" /><br />
+                몸무게 : <input type="text" v-model="state.item.mweight" /><br />
+                이미지 : <img :src="state.imageUrl" style="width:100px"/><br />
+                프로필사진 : <input type="file" @change="handleImage($event)" /><br />
+                <button @click="handleUpdate">수정하기</button>
+            </div> -->
+        
         </div>
         </el-card>
 
+        <!-- 암호변경 -->
         <el-drawer v-model="state.table" title="" size="30%">
             <div class="center">
                 <h3>암호변경</h3>
@@ -122,20 +126,21 @@
                         </el-form>
 
                         <el-button type="info" size="small" style="margin-left:65px" plain @click="handleUpdatePw1">변경하기</el-button>
-                        
-                        <!-- <el-button type="info" size="small" plain @click="handleBack">돌아가기</el-button> -->
 
-                        <!-- 기존암호 : <input type="password" v-model="state.item.mpw" placeholder="기존암호" /><br />
-                        새암호 : <input type="password" v-model="state.item.mpw1" placeholder="새암호" /><br />
-                        암호확인 : <input type="password" v-model="state.item.mpw2" placeholder="암호확인" /><br />
-                        <button @click="handleUpdate">변경하기</button> -->
+                       <!-- 옛날꺼  -->
+                        <!-- <div>
+                            <el-button type="info" size="small" plain @click="handleBack">돌아가기</el-button>
+
+                            기존암호 : <input type="password" v-model="state.item.mpw" placeholder="기존암호" /><br />
+                            새암호 : <input type="password" v-model="state.item.mpw1" placeholder="새암호" /><br />
+                            암호확인 : <input type="password" v-model="state.item.mpw2" placeholder="암호확인" /><br />
+                            <button @click="handleUpdate">변경하기</button>
+                        </div> -->
                     </div>
                 </el-card>
                 <br /><br />
             </div>
         </el-drawer>
-
-
 
     </div>
 </template>
@@ -159,17 +164,20 @@ export default {
         const mpw1 = ref(null);
         const mpw2 = ref(null);
 
+        // 이름 정규식
         const validname = (mname) => {
             // 정규표현식
             var re = /(^[가-힣a-zA-Z]{2,15})+$/;
             return re.test(mname);
         };
 
+        // 연락처 정규식
         const validPhone = (mphone) => {
             var Phone = /^01([0])-?([0-9]{4})-?([0-9]{4})$/;
             return Phone.test(mphone);
         };
 
+        // 데이터 불러오기(회원)
         const handleData = async() => {
             const url = `/ROOT/api/member/selectmemberone`;
             const headers = {"Content-Type":"application/json","token":state.token};
@@ -183,6 +191,7 @@ export default {
             }
         };
 
+        // 회원정보 수정하기
         const handleUpdate = async() => {
             if(state.usermidcheck === '"중복확인"'){
                 alert('닉네임 중복확인을 해주세요.');
@@ -243,6 +252,7 @@ export default {
             handleData();
         });
 
+        // 이미지 전환
         const handleImage = (e) => {
             if(e.target.files[0]){
                 state.imageUrl = URL.createObjectURL(e.target.files[0]);
@@ -253,6 +263,7 @@ export default {
             }
         }
 
+        // 닉네임 체크
         const checkMid = async() => {
             const url = `/ROOT/api/member/checkmidone?mid=${state.item.mid}`;
             const headers = {"Content-Type":"application/json", "token":state.token};
@@ -274,6 +285,7 @@ export default {
             }
         }
 
+        //암호 변경
         const handleUpdatePw1 = async() => {
             if(state.item.mpw === state.item.mpw1){
                 alert('기존 암호와 동일한 암호입니다.');
@@ -300,14 +312,11 @@ export default {
                     alert('변경되었습니다');
                     handleData();
                     state.table = ref(false);
-                    
-
                 }
                 else{
                     alert('기존암호 또는 새암호가 일치하지 않습니다.');
                     handleData();
-                }
-                
+                }   
             }
         }
 

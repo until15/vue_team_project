@@ -1,5 +1,6 @@
 <template>
     <div class="center">
+        <!-- 로그인 -->
         <el-card style="height:600px">
             <div style="margin-right:70px">
                     <h3 style="margin-left:60px">로그인</h3>
@@ -31,8 +32,8 @@
                 </a>
             </div>
         </el-card>
-        
-        <el-dialog v-model="dialogmemail" title="이메일(아이디)찾기" :before-close="handleClose">
+        <!-- 아이디 찾기 다이얼로그 -->
+        <el-dialog v-model="dialogmemail" width="30%" title="이메일(아이디)찾기" :before-close="handleClose">
             <div v-if="state.item">
                당신의 아이디는 {{state.item.memail}} 입니다.
             </div>
@@ -51,22 +52,22 @@
             </div>
             <el-button type="info" style="margin-top:-20px" size="small" plain @click="handleMemail">찾기</el-button>
         </el-dialog>
-
-        <el-dialog v-model="dialogmpw" title="암호찾기" :before-close="handleClose">
+        <!-- 암호 찾기 다이얼로그 -->
+        <el-dialog v-model="dialogmpw" width="30%" title="암호찾기" :before-close="handleClose">
             <div v-if="state.newmpw" style="margin-top:-20px;margin-left:20px">
-               임시 암호는 {{state.newmpw}} 입니다.
+               임시 암호는 {{state.newmpw}}입니다.
             </div>       
             <div style="margin-right:60px;margin-top:10px">
                 <el-form :inline="true"  >
                     <el-form-item label="이메일(아이디)" label-width="100px">
-                        <el-input  size="medium" v-model="state.memail" placeholder="이메일" />
+                        <el-input  size="medium" ref="memail" v-model="state.memail" placeholder="이메일" />
                     </el-form-item>
                 </el-form>
             </div>
             <el-button type="info" style="margin-top:-20px;margin-left:30px" size="small" plain @click="handleMpw">찾기</el-button>
         </el-dialog>
 
-
+        <!-- 옛날꺼 -->
         <!-- 이메일 : <input type="text" v-model="state.memail" placeholder="이메일" /><br />
         암호 : <input type="password" v-model="state.mpw" placeholder="암호" /><br />
         <button @click="handleLogin">로그인</button> -->
@@ -79,8 +80,6 @@ import { onMounted, reactive, ref } from 'vue';
 import {useRouter} from 'vue-router';
 import axios from 'axios';
 import {useStore} from 'vuex';
-
-
 export default {
     setup () {
 
@@ -100,6 +99,7 @@ export default {
         const dialogmemail = ref(false);
         const dialogmpw = ref(false);
 
+        // 로그인
         const handleLogin = async() => {
 
             // 아이디 유효성 검사
@@ -138,6 +138,7 @@ export default {
             }
         }
 
+        // 아이디 찾기
         const handleMemail = async() => {
             const url = `/ROOT/api/member/findmemail?mname=${state.mname}&mbirth=${state.mbirth}`;
             const headers = {"Content-Type":"application/json"};
@@ -150,7 +151,14 @@ export default {
 
         };
 
+        // 암호 찾기
         const handleMpw = async() => {
+            if(state.memail === ''){
+                alert('이메일(아이디)을 입력해주세요.');
+                memail.value.focus();
+                return false;
+            }
+
             const url = `/ROOT/api/member/updatepw3?memail=${state.memail}`;
             const headers = {"Content-Type":"application/json"};
             const response = await axios.put(url, {headers});
@@ -159,12 +167,17 @@ export default {
                 state.newmpw = response.data.result;
                 console.log(state.newmpw);
             }
+            else if(response.data.status === 1){
+                alert('존재하지 않는 이메일(아이디)입니다.');
+            }
         };
 
+        // 다이얼로그 닫을때 새로고침
         const handleClose = () => {
             router.push({name : "Login2"});
         }
-
+        
+        // 회원가입으로 가기
         const handleJoin = () => {
             router.push({name : "MemberJoin"});
         }
@@ -191,7 +204,7 @@ export default {
             // })
         }
 
-        // 카카오 로그인
+        // 카카오 로그인1
        const kakao = async() => {
             window.Kakao.Auth.login({
                 scope : 'account_email, profile_nickname, gender',
@@ -224,7 +237,6 @@ export default {
 
         }
 
-        
 
         // Logout = () => {
         //     window.kakao.Auth.logout(res => {
@@ -232,9 +244,6 @@ export default {
         //         social_logout();
         //     })
         // }
-
-        
-
 
         onMounted(()=> {
             // window.Kakao.init('8842fbb8e601a53493654c0aa37fdb9b');
@@ -250,6 +259,4 @@ export default {
 .center{
   text-align: center;
 }
-
-
 </style>
