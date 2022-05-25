@@ -1,7 +1,7 @@
 <template>
     <div style="padding : 50px">
         <div v-if="this.pjoinchg">
-            <input type="number" placeholder="결제금액" v-model="this.price">
+            <input type="number" placeholder="결제금액" v-model="this.pjoinchg.chgfee" readonly>
             <el-button type="info" plain size="mini" @click="requestPay">참가비 결제하기</el-button>
         </div>
     </div>
@@ -46,9 +46,9 @@ export default {
                 pay_method: "card", // 결제수단
                 merchant_uid: "CHG_"+new Date().getTime(), // 결제번호
                 name: this.pjoinchg.chgtitle, // 결제 시 표시되는 이름
-                amount: this.price, // 결제금액
+                amount: this.pjoinchg.chgfee, // 결제금액
                 buyer_email: this.pjoinchg.memail,  // 참여자 이메일
-                buyer_tel : this.pjoinchg.memberchgMphone // 참여자 번호
+                buyer_tel : this.pjoinchg.mphone // 참여자 번호
             }, rsp => { // callback
             if (rsp.success) {// 결제 성공 시 로직
                 // axios로 HTTP 요청
@@ -60,13 +60,13 @@ export default {
                         impuid: rsp.imp_uid,
                         merchantuid: rsp.merchant_uid,
                         pprice : rsp.paid_amount,
-                        join : {jno:this.pjoinchg.jno},
+                        joinchg : {jno:this.pjoinchg.jno},
                         pmethod : rsp.pay_method,
                     }
                 })
                 .then((data) => {// 응답 처리
                     console.log(data);
-                    location.href = "http://localhost:8080/?#/"; // 결제 성공 시 이동할 페이지
+                    location.href = "http://localhost:8080/?#/challengeone?chgno=" + this.pjoinchg.chgno; // 결제 성공 시 이동할 페이지
                     alert("결제가 완료되었습니다.");
                 })
                 } else {// 결제 실패 시 로직
