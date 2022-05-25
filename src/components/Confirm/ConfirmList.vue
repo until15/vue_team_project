@@ -64,9 +64,9 @@
                         <button @click="handlePage(tmp, state.text)" >{{ tmp }}</button>
                     </label>
                 </div>
-                <div class="center">
+                <!-- <div class="center">
                     <el-pagination layout="prev, pager, next" :total="15" @current-change="handlepage" />
-                </div>
+                </div> -->
                 
 
             </div>
