@@ -9,6 +9,9 @@ export default createStore({
         mname  : '',         // 로그인한 사용자의 이름
         token  : sessionStorage.getItem("TOKEN"),         // 토큰을 저장소에 보관하지 않고 사용   
         mrole  : '',  
+
+        // routine
+        routine : '',
                // 로그인한 사용자의 권한을 저장  
     },
 
@@ -30,6 +33,11 @@ export default createStore({
         getMenu(state){
             return state.menu;
         },
+
+        // routine
+        getRoutine(state){
+            return state.routine
+        }
     },
 
     // mutations => Login.vue, Logout.vue
@@ -52,6 +60,11 @@ export default createStore({
         },
         ClearMemail(state){
             state.memail = '';
+        },
+
+        // routine
+        setRoutine(state, value) {
+            state.routine = value;
         }
     },
 

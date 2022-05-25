@@ -66,10 +66,10 @@
 <script>
 import { onMounted, reactive } from 'vue';
 import axios from 'axios';
-import { useRouter } from 'vue-router';
+//import { useRouter } from 'vue-router';
 export default {
     setup () {
-        const router = useRouter(); // 이동하기
+        //const router = useRouter(); // 이동하기
         const state = reactive({
             token : sessionStorage.getItem("TOKEN"),
             rtnname : '',
@@ -139,7 +139,8 @@ export default {
             console.log(response);
             if(response.data.status === 200){
                 alert('새 루틴이 생성되었습니다.');
-                router.go(-1);
+                //router.go(-1);
+                //router.push({name:"RoutineSelect"})
             }
         }
 
