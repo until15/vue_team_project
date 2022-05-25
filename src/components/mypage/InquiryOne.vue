@@ -34,8 +34,19 @@
         <hr />
         <button @click="handleMenu">목록으로</button>
         <button @click="handleDelete">삭제</button> -->
+
+        <div v-for="tmp in state.reply" :key="tmp">
+        <el-collapse style="width:100">
+            <el-collapse-item style="margin-left:100px;" title="답글" name="1">
+                <div>
+                {{tmp.iqcontent}}
+                </div>
+                <el-button type="info" size="small" plain @click="handleReplyDelete(tmp.iqcmtno)">삭제</el-button>
+            </el-collapse-item>
+        </el-collapse>
+        </div>
         
-        <el-card style="width:1200px">
+        <!-- <el-card style="width:1200px">
         <div v-for="tmp in state.reply" :key="tmp">
             <el-descriptions title="답글" :column="1" border>
             <el-descriptions-item label="작성자" label-align="center" align="center" width="10px">{{tmp.memberchg.mid}}</el-descriptions-item>
@@ -46,7 +57,7 @@
             </el-descriptions>
         <hr />
         </div>
-        </el-card>
+        </el-card> -->
                 <!-- <tr>
                     <th>작성자</th>
                     <td>{{tmp.memberchg.memail}}</td>
@@ -116,7 +127,7 @@ export default {
                 const response1 = await axios.put(url1, {headers:headers1});
                 console.log(response1.data);
 
-
+                state.reply1.iqcontent = '';
                 state.reply = response.data.result;
                 handleData(state.item.qno);
                 handleSelectComment(state.item.qno);
