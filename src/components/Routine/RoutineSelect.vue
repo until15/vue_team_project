@@ -145,6 +145,7 @@
 
 <script>
 import axios from "axios";
+//import { useStore } from "vuex";
 import { reactive, onMounted, ref } from "vue";
 export default {
   setup() {
@@ -153,6 +154,7 @@ export default {
       await handlePoseData();
     });
 
+    //const store = useStore();
     const dialogTableVisible = ref(false);
 
     const state = reactive({
@@ -175,7 +177,7 @@ export default {
     // 루틴 등록 : 챌린지 등록할 때 같이 등록 되어야 함.
     const handleInsert = () => {
       console.log("루틴등록=================="+state.rtnno);
-      
+      //store.commit("setRoutine", '');
       alert('챌린지 등록할 때 연결하기')
     }
 
