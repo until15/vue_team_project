@@ -20,7 +20,7 @@
             내가 참가한 날 : {{state.item.jregdate}}<br />
             첼린지 레벨 : {{state.item.chglevel}}<br />
             좋아요 개수 : {{state.item.chglike}}<br />
-            달성률 : {{state.item.chgrate}}<br />
+            달성률 : {{state.item.chgrate}}%<br />
             진행 상황 : {{state.item.chgstate}}<br />
         </div>
         
@@ -144,7 +144,7 @@ export default {
                 state.item = response.data.result
                 state.thumnail = response.data.image
                 if(state.item.chgrate <= 0){
-                    state.item.chgrate = '0%';
+                    state.item.chgrate = '0';
                 }
             }
 

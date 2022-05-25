@@ -46,6 +46,7 @@ import RoutineInsert from '@/components/Routine/RoutineInsert.vue';
 import RoutineSelect from '@/components/Routine/RoutineSelect.vue';
 /////////////////////// 결제 /////////////////////////////
 import Pay from '@/components/payment/Pay.vue';
+import PayRefund from '@/components/payment/PayRefund.vue';
 /////////////////////// 화면 틀 //////////////////////////
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
@@ -95,6 +96,7 @@ const routes = [
     { path:'/confirmlist', name:"ConfirmList", component:ConfirmList },
     { path:'/confirmone', name:"ConfirmOne", component:ConfirmOne },
     { path:'/pay', name:"Pay", component:Pay },
+    { path:'/payrefund', name:"PayRefund", component:PayRefund },
     { path:'/routineselect', name:"RoutineSelect", component:RoutineSelect },
     { path:'/testttt', name:"Testttt", component:Testttt },
 ];

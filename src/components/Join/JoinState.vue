@@ -30,7 +30,7 @@
                     <td @click="handleDetail(tmp.jno, tmp.challengechgChgno)" style="cursor:pointer">{{tmp.challengechgChgtitle}}</td>
                     <td>{{tmp.chgstate}}</td>
                     <td>{{tmp.jregdate}}</td>
-                    <td>{{tmp.chgrate}}</td>
+                    <td>{{tmp.chgrate}}%</td>
                 </tr>
             </table>
         </div>
@@ -76,7 +76,7 @@ export default {
                 "token" : state.token
                 };
             const response = await axios.get(url, {headers});
-            // console.log(response.data);
+            console.log(response.data);
 
             if (response.data.status === 200) {
                 state.items = response.data.result
@@ -87,7 +87,7 @@ export default {
                    chgrate.push(tmp.chgrate);
 
                    if(tmp.chgrate <= 0){
-                       tmp.chgrate = '0%';
+                       tmp.chgrate = '0';
                    }
                 }
             }
