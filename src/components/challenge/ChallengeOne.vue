@@ -9,7 +9,6 @@
             CHGISIZE, CHGITYPE MEMAIL 
         -->
         <h3>챌린지 상세보기</h3>
-
         <div v-if="state.item">
             번호 : {{state.item.chgno}} <br />
             좋아요 : {{state.item.chglike}} <br />
@@ -21,6 +20,15 @@
             참가비 : {{state.item.chgfee}} <br />
             인원수 : {{state.item.chgcnt}} <br />
             난이도 : {{state.item.chglevel}} <br />
+            루틴 : 
+            <div v-if="state.routines">
+                {{state.routines[0].rtnname}}
+                <div v-for="rtn,i in state.routines" :key="i">
+                요일 : {{state.routines[i].rtnday}}
+                횟수 : {{state.routines[i].rtncnt}}
+                세트 : {{state.routines[i].rtnset}}
+                </div>
+            </div>
             <hr />
             <button @click="handleJoin">참여하기</button>
             <router-link to="/challenge"><button>뒤로가기</button></router-link>
@@ -53,9 +61,22 @@ export default {
             const headers = {"Content-Type":"application/json"};
             const response = await axios.get(url, {headers});
             console.log(response.data);
-
             if(response.data.status === 200){
                 state.item = response.data.result;
+                const url2 = `/ROOT/api/routine/chgselectone.json?no=${state.item.chgroutine}`;
+                const headers2 = {"Content-Type":"application/json"};
+                const response2 = await axios.get(url2, { headers: headers2 });
+                console.log(response2.data);
+                if(response2.data.status === 200){
+                    state.routineseq = response2.data.result;
+                    const url1 = `/ROOT/api/routine/chgselectseq.json?no=${state.routineseq.rtnseq}`;
+                    const headers1 = {"Content-Type":"application/json"};
+                    const response1 = await axios.get(url1, { headers: headers1 });
+                    console.log(response1.data);
+                    if(response1.data.status === 200){
+                        state.routines = response1.data.result;
+                    }
+                }
             }
         };
 
@@ -81,9 +102,12 @@ export default {
         onMounted(() => {
             handleData(state.chgno);
         });
+
         return {
             state,
-            handleJoin
+            handleData,
+            handleJoin,
+            
         }
     }
 }
