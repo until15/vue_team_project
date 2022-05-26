@@ -24,9 +24,11 @@
             <div v-if="state.routines">
                 {{state.routines[0].rtnname}}
                 <div v-for="rtn,i in state.routines" :key="i">
-                요일 : {{state.routines[i].rtnday}}
-                횟수 : {{state.routines[i].rtncnt}}
-                세트 : {{state.routines[i].rtnset}}
+                요일 : {{state.routines[i].rtnday}} /
+                횟수 : {{state.routines[i].rtncnt}} /
+                세트 : {{state.routines[i].rtnset}} /
+                자세 : {{state.routines[i].pname}} /
+                부위 : {{state.routines[i].ppart}}
                 </div>
             </div>
             <hr />
