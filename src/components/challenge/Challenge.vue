@@ -10,18 +10,28 @@
                 <el-table :data="state.items"  style="width: 100% " >
                     <el-table-column prop="chgno" label="번호" width="60" />
                     <el-table-column prop="chgtitle" label="제목"  width="250" >
-                <template #default="scope">
-                    <div @click="handlePage(scope.row.chgno)" style="cursor:pointer;">
-                        {{scope.row.chgtitle}}
-                    </div> 
-                </template>
+                    <template #default="scope">
+                        <div @click="handlePage(scope.row.chgno)" style="cursor:pointer;">
+                            {{scope.row.chgtitle}}
+                        </div> 
+                    </template>
                     </el-table-column>
                     <el-table-column prop="chgfee" label="참가비" width="100" />
                     <el-table-column prop="chgcnt" label="참가인원" width="80" />
                     <el-table-column prop="chglike" label="좋아요" width="80" />
                     <el-table-column prop="chglevel" label="난이도" width="80" />
                     <el-table-column prop="chgregdate" label="작성일" width="100" />
-                </el-table>
+                    <el-table-column label="버튼" width="170">
+                        <template #default="scope">
+                            <el-button 
+                            size="small"
+                            text
+                            @click="handleLike(scope.row.chgno)">좋아요</el-button>
+                            <span>좋아요 {{state.items.chglike}}개</span>
+                        </template>
+                        </el-table-column>
+                    </el-table>
+                
         
                 <el-pagination layout="prev, pager, next" :total="state.total" @current-change="currentChange">
                 </el-pagination>
@@ -72,6 +82,8 @@ export default {
         const router = useRouter();
 
         const state = reactive({
+            token      : sessionStorage.getItem("TOKEN"),
+            chgno : '',
             page : 1,
             challenge : '',
             like : '',
@@ -91,6 +103,22 @@ export default {
                 state.items = response.data.result;
                 state.total = response.data.total;
                 state.challenge= '';
+            }
+        }
+
+        const handleLike = async() => {
+            if(state.token !== null){
+                const url = `/ROOT/api/like/insert?chgno=${state.chgno}`;
+                const headers = {
+                    "Content-Type" : "application/json",
+                    "token":state.token
+                };
+                const response = await axios.post(url, {headers});
+                console.log(response.data);
+                if(response.data.status === 200) {
+                    state.chgno= '';
+                    console.log(state.chgno);
+                }
             }
         }
 
@@ -134,7 +162,8 @@ export default {
             handleChallenge,
             handleMenu1,
             handleMenu2,
-            handleMenu3
+            handleMenu3,
+            handleLike
 
         }
     }
