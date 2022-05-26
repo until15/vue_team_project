@@ -2,6 +2,9 @@ import { createWebHashHistory, createRouter } from "vue-router";
 
 import Home from '@/components/Home.vue';
 
+import Admin from '@/components/admin/Admin.vue'; 
+import InquiryAdmin from '@/components/admin/InquiryAdmin.vue'; 
+import MemberList from '@/components/admin/MemberList.vue'; 
 /////////////////////////// Challenge ////////////////////////////////
 import Challenge from '@/components/challenge/Challenge.vue'; 
 import ChallengeOne from '@/components/challenge/ChallengeOne.vue';
@@ -56,6 +59,9 @@ import Testttt from '@/components/Testttt.vue';
 
 const routes = [
     { path:'/', name:"Home", component:Home },
+    { path:'/admin', name:"Admin", component:Admin },
+    { path:'/inquiryadmin', name:"InquiryAdmin", component:InquiryAdmin },
+    { path:'/memberlist', name:"MemberList", component:MemberList },
     /////////////////////////// Challenge ////////////////////////////////
     { path:'/challenge', name:"Challenge", component:Challenge },
     { path:'/challengeone', name:"ChallengeOne", component:ChallengeOne },

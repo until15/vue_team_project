@@ -6,7 +6,7 @@
         <el-card  style="width:1200px">
             <h3>게시판 글쓰기</h3>
             <el-input  size="medium" ref="memail" v-model="state.btitle" style="margin-bottom:10px" placeholder="글제목"/>
-            <ckeditor :editor="editor.editor" :config="editor.editorConfig" v-model="state.bcontent" ></ckeditor>
+            <ckeditor :editor="state.editor" v-model="state.bcontent" @ready="onReady"></ckeditor>
             
             <img :src="state.imageUrl" style="width:50px" />
             <input type="file" @change="handleImage($event)" /><br />
@@ -35,28 +35,39 @@ import { reactive, ref } from 'vue'
 import axios from 'axios';
 import {useRouter} from 'vue-router';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import UploadAdapter from '../UploadAdapter.js';
+import CKEditor from '@ckeditor/ckeditor5-vue'
 
 export default {
+    components: { ckeditor: CKEditor.component },
     setup () {
 
         const router = useRouter();
-
-        const editor = {
-            editor          : ClassicEditor,
-            editorData      : '',
-            editorConfig    : {}
-        }
 
         const state = reactive({
             btitle : '',
             bcontent : '',
             mimage : null,
             imageUrl : require('@/assets/img/default.png'),
-            token : sessionStorage.getItem("TOKEN")
+            token : sessionStorage.getItem("TOKEN"),
+            editor       : ClassicEditor, 
+            editorData   : '',
         });
 
         const btitle = ref(null);
         const bcontent = ref(null);
+
+        const onReady = ( editor ) => {
+            console.log(editor);
+            editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader ) => {
+                return new UploadAdapter( loader );
+            };
+          
+          
+            editor.editing.view.change( writer => {
+                writer.setStyle( 'height', '600px', editor.editing.view.document.getRoot() );
+            });
+        }
 
         // 글쓰기
         const handleInsert = async() => {
@@ -116,7 +127,7 @@ export default {
             router.push({name : "Board"});
         }
 
-        return {state, editor, btitle, bcontent, handleInsert, handleImage, handleBack}
+        return {state, onReady, btitle, bcontent, handleInsert, handleImage, handleBack}
     }
 
     
@@ -125,7 +136,7 @@ export default {
 
 <style lang="css" scoped>
 .ck-editor__editable {
-        min-height: 500px;
+        min-height: 400px;
     }
 
 .center{

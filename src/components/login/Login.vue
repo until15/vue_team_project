@@ -3,11 +3,10 @@
         <!-- 로그인 -->
         <el-card style="height:600px">
             <div style="margin-right:70px">
-        {{state.memail1}}
                     <h3 style="margin-left:60px">로그인</h3>
                     <el-form :inline="true">
                             <el-form-item  label="이메일" label-width="80px">
-                                <el-input  size="medium" ref="memail" v-model="state.memail" placeholder="이메일" />
+                                <el-input  size="medium" ref="memail" v-model="state.memail" placeholder="이메일" @keypress="handleEmail"/>
                             </el-form-item>
                     </el-form>
                     
@@ -47,7 +46,7 @@
                 </el-form>
                 <el-form :inline="true" style="margin-top:-20px" >
                     <el-form-item label="생일" label-width="80px">
-                        <el-input  size="medium" ref="mbirth" v-model="state.mbirth" placeholder="yyyy-mm-dd" />
+                        <el-input  size="medium" ref="mbirth" v-model="state.mbirth" placeholder="yyyy-mm-dd"  />
                     </el-form-item>
                 </el-form>
             </div>
@@ -197,6 +196,10 @@ export default {
             }
         };
 
+        const handleEmail = () => {
+            
+        }
+
         // 다이얼로그 닫을때 새로고침
         const handleClose = () => {
             router.push({name : "Login2"});
@@ -275,7 +278,7 @@ export default {
             // console.log(window.Kakao.isInitialized());
         }) 
 
-        return {state, dialogmemail, mname, mbirth, dialogmpw, handleMpw, kakao, handleClose, memail, mpw, handleLogin, handleJoin, KakaoLogin, handleMemail}
+        return {state, dialogmemail,  handleEmail, mname, mbirth, dialogmpw, handleMpw, kakao, handleClose, memail, mpw, handleLogin, handleJoin, KakaoLogin, handleMemail}
     }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
     <div>
         <input type="text" v-model="state.memail1"   />
-        <button @click="handleUpdate">등록</button>
+        <button @keyup="validPhone">등록</button>
     </div>
 </template>
 
@@ -14,14 +14,15 @@ export default {
             mpw : '',
         })
 
-    const handleUpdate = async() => {
-
-
-    }
+     //연락처 정규식
+        const validPhone = (mphone) => {
+            var Phone = /^01([0])-?([0-9]{4})-?([0-9]{4})$/;
+            return Phone.test(mphone);
+        }
         
         
 
-        return {state, handleUpdate }
+        return {state, validPhone }
     }
 }
 </script>

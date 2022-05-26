@@ -4,6 +4,7 @@ import router from './routes';
 import stores from './stores/index';
 import VideoPlayer from 'vue-video-player';
 
+
 // axios restful 호출
 import axios from 'axios';
 

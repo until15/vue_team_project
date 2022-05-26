@@ -12,7 +12,11 @@
                         <li class="nav-item"><router-link to="/confirmlist" class="nav-link">인증</router-link></li>
                         <li class="nav-item"><router-link to="/board" class="nav-link">커뮤니티</router-link></li>
                         <li class="nav-item"><router-link to="/pose" class="nav-link">자세</router-link></li>
-
+                        <div v-if="state.item">
+                            <div v-if="state.item.mrole === 'admin'">
+                            <li class="nav-item"><router-link to="/admin" class="nav-link">관리자 페이지</router-link></li>
+                            </div>
+                        </div>
                     </ul>
 
                     <!-- 회원가입/로그인 -->
@@ -126,14 +130,17 @@ export default {
         });
 
         const handleData = async() => {
+
             const url = `/ROOT/api/member/selectmemberone`;
             const headers = {"Content-Type":"application/json", "token":state.token};
             const response = await axios.get(url, {headers});
+            console.log(response.data);
             if(response.data.status === 200){
                 state.image = response.data.imgurl;
                 state.item = response.data.result;
             }
         }
+        
 
 
         return {logged, state, mrole, mname, memail}

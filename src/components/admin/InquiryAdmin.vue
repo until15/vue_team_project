@@ -1,10 +1,5 @@
 <template>
     <div align="center">
-        <h1>마이페이지</h1>
-            <el-button @click="handleMenu1">정보수정</el-button>
-            <el-button @click="handleMenu3">1:1문의</el-button>
-            <el-button @click="handleMenu2">회원탈퇴</el-button>
-            <br /><br />
         <!-- 문의목록 -->
         <el-card style="height:550px">
         <h3>1:1문의</h3>
@@ -39,31 +34,6 @@
         <el-button type="info" plain @click="handleInquiryWriter">글쓰기</el-button><br /><br />
     </div>
 
-        <!-- 옛날꺼 -->
-        <!-- <div v-if="state.items">
-            <input type="text" v-model="state.items.title" @keyup.enter="handleData" placeholder="검색어" />
-            <button @click="handleData">검색</button>
-            <table border="1">
-                    <tr>
-                        <th>번호</th>
-                        <th>제목</th>
-                        <th>작성자</th>
-                        <th>날짜</th>
-                        <th>처리현황</th>
-                    </tr>
-                    <tr v-for="tmp in state.items" :key="tmp">
-                        <td>{{tmp.qno}}</td>
-                        <td @click="handlePage(tmp.qno)" style="cursor:pointer">{{tmp.qtitle}}</td>
-                        <td>{{tmp.memberchgMemail}}</td>
-                        <td>{{tmp.qregdate}}</td>
-                        <td>처리중</td>
-                    </tr>
-            </table>
-            <button @click="handleInquiryWriter">글쓰기</button>
-        </div> -->
-   
-
-
 </template>
 
 <script>
@@ -88,7 +58,7 @@ export default {
 
         // 데이터 불러오기(목록)
         const handleData = async() => {
-            const url = `/ROOT/api/Inquiry/selectlist??page=${state.page}&qtitle=${state.qtitle}`;
+            const url = `/ROOT/api/Inquiry/selectlist2??page=${state.page}&qtitle=${state.qtitle}`;
             const headers = {"Content-Type":"application/json", "token":state.token};
             const response = await axios.get(url, {headers});
             console.log(response.data);
