@@ -8,6 +8,8 @@ import ChallengeOne from '@/components/challenge/ChallengeOne.vue';
 import ChallengeWrite from '@/components/challenge/ChallengeWrite.vue';
 import ChallengeLikeList from '@/components/challenge/ChallengeLikeList.vue';
 import ChallengeLevelList from '@/components/challenge/ChallengeLevelList.vue';
+import MyChallenge from '@/components/challenge/MyChallenge.vue';
+import MyChallengeOne from '@/components/challenge/MyChallengeOne.vue';
 //////////////////////////////////////////////////////////////////////
 import MemberJoin from '@/components/MemberJoin.vue';
 import Login from '@/components/login/Login.vue';
@@ -36,6 +38,7 @@ import JoinListPage from '@/components/Join/JoinListPage.vue';
 import ConfirmInsert from '@/components/Confirm/ConfirmInsert.vue';
 import ConfirmList from '@/components/Confirm/ConfirmList.vue';
 import MyConfirm from '@/components/Confirm/MyConfirm.vue';
+import SuccessCfm from '@/components/Confirm/SuccessCfm.vue';
 //////////////////////// Pose //////////////////////////////
 import Pose from '@/components/Pose/Pose.vue';
 import PoseOne from '@/components/Pose/PoseOne.vue';
@@ -95,6 +98,9 @@ const routes = [
     { path:'/confirminsert', name:"ConfirmInsert", component:ConfirmInsert },
     { path:'/confirmlist', name:"ConfirmList", component:ConfirmList },
     { path:'/myconfirm', name:"MyConfirm", component:MyConfirm },
+    { path:'/successcfm', name:"SuccessCfm", component:SuccessCfm },
+    { path:'/mychallenge', name:"MyChallenge", component:MyChallenge },
+    { path:'/mychallengeone', name:"MyChallengeOne", component:MyChallengeOne },
     { path:'/pay', name:"Pay", component:Pay },
     { path:'/payrefund', name:"PayRefund", component:PayRefund },
     { path:'/routineselect', name:"RoutineSelect", component:RoutineSelect },
