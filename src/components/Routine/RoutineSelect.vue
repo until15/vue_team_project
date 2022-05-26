@@ -145,8 +145,9 @@
 
 <script>
 import axios from "axios";
-//import { useStore } from "vuex";
+import { useStore } from "vuex";
 import { reactive, onMounted, ref } from "vue";
+//import { useRouter} from 'vue-router';
 export default {
   setup() {
     onMounted(async () => {
@@ -154,7 +155,9 @@ export default {
       await handlePoseData();
     });
 
-    //const store = useStore();
+    const store = useStore();
+    //const router = useRouter();
+
     const dialogTableVisible = ref(false);
 
     const state = reactive({
@@ -176,9 +179,10 @@ export default {
 
     // 루틴 등록 : 챌린지 등록할 때 같이 등록 되어야 함.
     const handleInsert = () => {
-      console.log("루틴등록=================="+state.rtnno);
-      //store.commit("setRoutine", '');
-      alert('챌린지 등록할 때 연결하기')
+      console.log("rtnno", state.rtnno);
+      store.commit("setRoutine", state.rtnno); // inde.js => state.routine으로 전달
+      console.log(store.commit);
+      //alert('챌린지 등록할 때 연결하기');
     }
 
     // 루틴 개별 삭제

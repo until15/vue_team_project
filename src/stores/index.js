@@ -64,6 +64,7 @@ export default createStore({
 
         // routine
         setRoutine(state, value) {
+            console.log("setRoutine", value);
             state.routine = value;
         }
     },
