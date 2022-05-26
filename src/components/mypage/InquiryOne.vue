@@ -9,7 +9,7 @@
                 <el-descriptions-item label="등록일"  label-align="center" align="center">
                     {{state.item.qregdate}}</el-descriptions-item>
                 <el-descriptions-item label="작성자" width="10px" label-align="center" align="center">
-                    {{state.item.qno}}</el-descriptions-item>
+                    {{state.item.mid}}</el-descriptions-item>
                 <el-descriptions-item label="제목"  label-align="center" align="center">
                     {{state.item.qtitle}}</el-descriptions-item>
                 <el-descriptions-item label="내용" hight="20px" label-align="center" align="center">
@@ -43,9 +43,11 @@
         <el-collapse style="width:100">
             <el-collapse-item style="margin-left:100px;" title="답글" name="1">
                 <div>
-                {{tmp.iqcontent}}
+                    {{tmp.iqcontent}}
                 </div>
-                <el-button type="info" size="small" plain @click="handleReplyDelete(tmp.iqcmtno)">삭제</el-button>
+                <div style="margin-left:1000px;" v-if="tmp.memberchg.mrole === 'admin'">
+                    <el-button type="info" size="small" plain @click="handleReplyDelete(tmp.iqcmtno)">삭제</el-button>
+                </div>           
             </el-collapse-item>
         </el-collapse>
         </div>
@@ -73,14 +75,16 @@
                 </tr>
         </div> -->
             <!-- 댓글 등록 -->
-            <el-form :inline="true" class="center">
-                <el-form-item  label="댓글" label-width="50px">
-                    <el-input  size="medium" v-model="state.reply1.iqcontent" placeholder="댓글"/>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="info" size="small" plain @click="handleComment">입력</el-button>
-                </el-form-item>
-            </el-form>
+            <div v-if="state.item">
+                <el-form :inline="true" class="center" v-if="state.item.mrole === 'admin'">
+                    <el-form-item  label="댓글" label-width="50px">
+                        <el-input  size="medium" v-model="state.reply1.iqcontent" placeholder="댓글"/>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="info" size="small" plain @click="handleComment">입력</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
         <!-- 옛날꺼 -->
         <!-- 댓글 : <input type="text" v-model="state.reply1.iqcontent" />
         <button @click="handleComment">입력</button> -->

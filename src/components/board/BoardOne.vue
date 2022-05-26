@@ -58,7 +58,9 @@
                             <el-divider border-style="dotted" />
                             <span>{{tmp.memberchg.mid}}</span> : 
                             <span>{{tmp.cmtcontent}}</span>
-                            <el-button type="info" size="small" style="margin-left:20px" plain @click="handleReplyDelete(tmp.cmtno)">삭제</el-button>
+                            <div style="margin-left:150px; margin-top:-28px" v-if="tmp.memberchg.memail === memail">
+                                <el-button type="info" size="small" plain @click="handleReplyDelete(tmp.cmtno)">삭제</el-button>
+                            </div>
                         </div>  
                         <hr />
                         <el-form :inline="true" al="center">
@@ -124,7 +126,7 @@ export default {
         const store = useStore();
 
         const state = reactive({
-            bno : route.query.bno,
+            bno : Number(route.query.bno),
             reply1 :{
                 cmtcontent : '',
             },
@@ -283,7 +285,7 @@ export default {
             router.push({name : "BoardOne", query :{bno : state.iitem.bno}});
             state.bno = state.iitem.bno;
             console.log("======================", state.bno);
-            handleSelectComment(state.item.bno);
+            handleSelectComment(state.bno);
             handleData(state.bno);
         };
 
@@ -292,7 +294,7 @@ export default {
             router.push({name : "BoardOne", query :{bno : state.iitems.bno}})
             state.bno = state.iitems.bno;
             console.log("======================", state.bno);
-            handleSelectComment(state.item.bno);
+            handleSelectComment(state.bno);
             handleData(state.bno);
         };
 
