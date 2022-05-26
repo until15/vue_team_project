@@ -81,6 +81,8 @@ export default {
             };
             const response = await axios.post(url, body, {headers});
             console.log(response.data);
+            alert('등록되었습니다.');
+            router.push({name:"Pose"});
             if(response.data.status === 200){
                 const url1 = `/ROOT/api/pose/insertvideo.json`;
                 const headers1 = {"Content-Type":"multipart/form-data", "token":state.token};
@@ -93,10 +95,6 @@ export default {
                     alert('등록되었습니다.');
                     router.push({name:"Pose"});
                 }
-            }
-            else{// 동영상 첨부 하지 않을 시
-                alert('등록되었습니다.');
-                router.push({name:"Pose"});
             }
 
         }

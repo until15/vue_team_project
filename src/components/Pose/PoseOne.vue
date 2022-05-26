@@ -2,10 +2,10 @@
     <div v-if="state.pose">
         <div style="padding: 80px">
             <h2>{{state.pose.pname}}</h2>
-            부위 : {{state.pose.ppart}} <br>
-            내용 : {{state.pose.pcontent}} <br>
-            난이도 : {{state.pose.plevel}} <br>
-            등록일 : {{state.pose.pregdate}} <br><br>
+            | {{state.pose.pregdate}}<br><br>
+            부위 : {{state.pose.ppart}}<br><br>
+            난이도 : {{state.pose.plevel}} <br><br>
+            <el-card shadow="never">{{state.pose.pcontent}} </el-card><br>
             <div v-if="state.video">
                 <video width='400' controls style="margin-left: 30%;">
                     <source :src="state.video">
