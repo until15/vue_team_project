@@ -31,7 +31,6 @@
                 <el-button type="info" plain size="mini" style="margin-left:5px;" @click="handleData" >검색</el-button>
             </el-form-item>
         </el-form>
-        <el-button type="info" plain @click="handleInquiryWriter">글쓰기</el-button><br /><br />
     </div>
 
 </template>
@@ -93,28 +92,12 @@ export default {
 
         });
 
-        // 글쓰기 이동
-        const handleInquiryWriter = () => {
-            router.push({name : "Inquiry"});
-        }
-
         const handlePage = (qno) => {
-            router.push({name:"InquiryOne", query:{qno:qno}});
+            router.push({name:"Admin2", query:{qno:qno}});
         }
 
-        const handleMenu1 = () => {
-            router.push({name : "menu1"});
-        }
 
-         const handleMenu2 = () => {
-            router.push({name : "menu2"});
-        }
-
-         const handleMenu3 = () => {
-            router.push({name : "menu3"});
-        }
-
-        return {state, handleInquiryWriter, handleData, currentchange, handlePage, handleMenu1, handleMenu2, handleMenu3}
+        return {state,  handleData, currentchange, handlePage}
     }
 }
 </script>

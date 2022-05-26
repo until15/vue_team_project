@@ -1,39 +1,52 @@
 <template>
     <div>
-        <br />
-        <h2 style="padding:30px">관리자 페이지</h2>
-        <el-button type="primary" size="mini" round plain @click="state.menu === 1">문의</el-button>     
-        <el-button type="primary" size="mini" round plain @click="state.menu === 2">회원관리</el-button>     
+        <h2 style="padding:20px">관리자 페이지</h2>
+        <el-button type="primary" size="mini" round plain @click="handleMenu(1)">문의</el-button>     
+        <el-button type="primary" size="mini" round plain @click="handleMenu(2)">회원관리</el-button>     
        
          
 
-        <inquiry-admin v-if="state.menu = 1"></inquiry-admin>
-        <member-list v-if="state.menu = 2"></member-list>
+        <admin-1 v-if="state.menu === 1"></admin-1>
+        <member-list v-if="state.menu === 2"></member-list>
 
     </div>
 </template>
 
 <script>
-import { reactive } from 'vue';
-import InquiryAdmin from './InquiryAdmin.vue';
-import MemberList from './MemberList.vue';
+import { reactive, onMounted } from 'vue';
+import Admin1 from '../admin/Admin1.vue'
+import MemberList from '../admin/MemberList.vue';
+
+import { useRoute } from 'vue-router'
+import { useRouter } from 'vue-router'
 export default {
     components : {
-        InquiryAdmin, MemberList
+        Admin1, MemberList
     },
 
     setup () {
+        const route = useRoute();
+        const router = useRouter();
 
-        
-      
         const state = reactive({
-            
-            menu : 0,
+            menu : Number(route.query.menu),
             
         });
+
+        onMounted( () =>{
+            if(typeof route.query.menu === 'undefined'){
+                state.menu = 1
+            }
+            
+        });
+
+        const handleMenu = (idx) => {
+            router.push({name:'Admin', query:{menu:idx}});
+            state.menu = idx;
+        }
         
     
-        return {state}
+        return {state, handleMenu}
     }
 }
 </script>
