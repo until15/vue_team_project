@@ -17,7 +17,8 @@
             소개 : {{state.item.chgintro}} <br />
             내용 : {{state.item.chgcontent}} <br />
             모집기간 : {{state.item.recruitstart}} ~ {{state.item.recruitend}} <br />
-            챌린지 시작 : {{state.item.chgstart}} <br />
+            챌린지 기간 : {{state.item.chgstart}} ~ {{state.item.chgend}} <br />
+            루틴 : {{state.item.chgroutine}}<br />
             참가비 : {{state.item.chgfee}} <br />
             인원수 : {{state.item.chgcnt}} <br />
             난이도 : {{state.item.chglevel}} <br />

@@ -169,7 +169,13 @@ export default {
       dialogTableVisible2: false,
       dialogTableVisible3: false,
       chk : [], // 루틴 선택 보관
-      rtnno : 1 // 루틴 등록할 때 저장될 하나의 번호 
+      rtnno : 1, // 루틴 등록할 때 저장될 하나의 번호 
+      // rtnname : '',
+      // rtnday : '',
+      // pname : '',
+      // ppart : '',
+      // rtncnt : '',
+      // rtnset : '',
     });
 
     // 루틴 번호 받기
@@ -180,7 +186,19 @@ export default {
     // 루틴 등록 : 챌린지 등록할 때 같이 등록 되어야 함.
     const handleInsert = () => {
       console.log("rtnno", state.rtnno);
+      // console.log("rtnname", state.rtnname);
+      // console.log("rtnday", state.rtnday);
+      // console.log("pname", state.pname);
+      // console.log("ppart", state.ppart);
+      // console.log("rtncnt", state.rtncnt);
+      // console.log("rtnset", state.rtnset);
       store.commit("setRoutine", state.rtnno); // inde.js => state.routine으로 전달
+      // store.commit("setRtnname", state.rtnname);
+      // store.commit("setRtnday", state.rtnday);
+      // store.commit("setPname", state.pname);
+      // store.commit("setPpart", state.ppart);
+      // store.commit("setRtncnt", state.rtncnt);
+      // store.commit("setRtnset", state.rtnset);
       console.log(store.commit);
       //alert('챌린지 등록할 때 연결하기');
     }

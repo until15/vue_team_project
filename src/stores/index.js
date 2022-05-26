@@ -12,7 +12,14 @@ export default createStore({
 
         // routine
         routine : '',
-               // 로그인한 사용자의 권한을 저장  
+        rtnname : '',
+        rtnday  : '',
+        pname   : '',
+        ppart   : '',
+        rtncnt  : '',
+        rtnset  : '',
+
+        // 로그인한 사용자의 권한을 저장  
     },
 
     // getters => App.vue
@@ -37,6 +44,24 @@ export default createStore({
         // routine
         getRoutine(state){
             return state.routine
+        },
+        getRtnname(state){
+            return state.rtnname
+        },
+        getRtnday(state){
+            return state.rtnday
+        },
+        getPname(state){
+            return state.pname
+        },
+        getPpart(state){
+            return state.ppart
+        },
+        getRtncnt(state){
+            return state.rtncnt
+        },
+        getRtnset(state){
+            return state.rtnset
         }
     },
 
@@ -66,6 +91,30 @@ export default createStore({
         setRoutine(state, value) {
             console.log("setRoutine", value);
             state.routine = value;
+        },
+        setRtnname(state, value) {
+            console.log("setRtnname", value);
+            state.rtnname = value;
+        },
+        setRtnday(state, value) {
+            console.log("setRtnday", value);
+            state.rtnday = value;
+        },
+        setPname(state, value) {
+            console.log("setPname", value);
+            state.pname = value;
+        },
+        setPpart(state, value) {
+            console.log("setPpart", value);
+            state.ppart = value;
+        },
+        setRtncnt(state, value) {
+            console.log("setRtncnt", value);
+            state.routine = value;
+        },
+        setRtnset(state, value) {
+            console.log("setRtnset", value);
+            state.rtnset = value;
         }
     },
 

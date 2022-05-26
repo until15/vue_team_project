@@ -27,6 +27,8 @@ import menu1 from '@/components/mypage/menu1.vue';
 import menu11 from '@/components/mypage/menu11.vue';
 import menu2 from '@/components/mypage/menu2.vue';
 import menu3 from '@/components/mypage/menu3.vue';
+import MyLikeList from '@/components/mypage/MyLikeList.vue';
+import MyBookmarkList from '@/components/mypage/MyBookmarkList.vue';
 /////////////////////////// JOIN ////////////////////////////////
 import JoinList from '@/components/Join/JoinList.vue';
 import JoinState from '@/components/Join/JoinState.vue';
@@ -62,6 +64,8 @@ const routes = [
     { path:'/challengewrite', name:"ChallengeWrite", component:ChallengeWrite },
     { path:'/challengelikelist', name:"ChallengeLikeList", component:ChallengeLikeList },
     { path:'/challengelevellist', name:"ChallengeLevelList", component:ChallengeLevelList },
+    { path:'/mylikelist', name:"MyLikeList", component:MyLikeList },
+    { path:'/mybookmarklist', name:"MyBookmarkList", component:MyBookmarkList },
     //////////////////////////////////////////////////////////////////////
     { path:'/memberjoin', name:"MemberJoin", component:MemberJoin },
     { path:'/login', name:"Login", component:Login },
