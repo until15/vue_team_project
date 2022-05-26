@@ -1,6 +1,6 @@
 <template>
     <div align="center">
-
+        {{state.no}}
         <el-card>
             <h3>챌린지 생성</h3>
             <div style="display:none">
@@ -117,6 +117,7 @@ import { useStore } from "vuex";
 import { computed, reactive, ref } from 'vue'
 import axios from 'axios';
 import {useRouter} from 'vue-router';
+import {useRoute} from 'vue-router';
 
 export default {
 
@@ -129,10 +130,14 @@ export default {
 
         const store = useStore();
         const router = useRouter();
+        const route = useRoute();
 
+        // index.js/state.routine 값 가져오기
         const routine = computed(() => store.getters.getRoutine);
+        console.log(routine);
 
         const state = reactive({
+            no : route.query.rtnno,
             chgtitle   : '',
             chgintro   : '',
             chgcontent : '',
@@ -140,12 +145,13 @@ export default {
             chgend     : '',
             chgfee     : 1000,
             chgcnt     : 1,
-            chgroutine : '',
+            chgroutine : routine, // 가져온 index.js/state.routine 값 넣기
             cimage     : null,
             currenttime : '',
             //imageUrl   : require('../assets/img/default.png'),
             token      : sessionStorage.getItem("TOKEN")
         });
+
 
         const chgtitle   = ref(null);
         const chgintro   = ref(null);

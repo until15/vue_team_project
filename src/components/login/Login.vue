@@ -3,6 +3,7 @@
         <!-- 로그인 -->
         <el-card style="height:600px">
             <div style="margin-right:70px">
+        {{state.memail1}}
                     <h3 style="margin-left:60px">로그인</h3>
                     <el-form :inline="true">
                             <el-form-item  label="이메일" label-width="80px">
@@ -41,12 +42,12 @@
             <div style="margin-right:40px">
                 <el-form :inline="true"  >
                     <el-form-item label="이름" label-width="80px">
-                        <el-input  size="medium" v-model="state.mname" placeholder="이름" />
+                        <el-input  size="medium" ref="mname" v-model="state.mname" placeholder="이름" />
                     </el-form-item>
                 </el-form>
                 <el-form :inline="true" style="margin-top:-20px" >
                     <el-form-item label="생일" label-width="80px">
-                        <el-input  size="medium" v-model="state.mbirth" placeholder="yyyy-mm-dd" />
+                        <el-input  size="medium" ref="mbirth" v-model="state.mbirth" placeholder="yyyy-mm-dd" />
                     </el-form-item>
                 </el-form>
             </div>
@@ -64,7 +65,7 @@
                     </el-form-item>
                 </el-form>
             </div>
-            <el-button type="info" style="margin-top:-20px;margin-left:30px" size="small" plain @click="handleMpw">찾기</el-button>
+            <el-button type="info" style="margin-top:-20px;margin-left:30px" size="small" plain @click="handleMpw">임시암호발급</el-button>
         </el-dialog>
 
         <!-- 옛날꺼 -->
@@ -78,6 +79,7 @@
 <script>
 import { onMounted, reactive, ref } from 'vue';
 import {useRouter} from 'vue-router';
+import {useRoute} from 'vue-router';
 import axios from 'axios';
 import {useStore} from 'vuex';
 export default {
@@ -85,7 +87,9 @@ export default {
 
         const store = useStore();
         const router = useRouter();
+        const route = useRoute();
         const state = reactive({
+            memail1 : route.query.memail1,
             memail : '',
             mpw : '',
             mname : '',
@@ -94,7 +98,9 @@ export default {
         });
 
         const memail = ref(null);
+        const mname = ref(null);
         const mpw = ref(null);
+        const mbirth = ref(null);
 
         const dialogmemail = ref(false);
         const dialogmpw = ref(false);
@@ -140,13 +146,32 @@ export default {
 
         // 아이디 찾기
         const handleMemail = async() => {
+
+            // 이름 유효성 검사
+            if (state.mname === '') {
+                alert('이름을 입력하세요.');
+                mname.value.focus();
+                return false;
+            }
+
+            // 생일 유효성 검사
+            if (state.mbirth === '') {
+                alert('생년월일을 입력하세요.');
+                mbirth.value.focus();
+                return false;
+            }
+
             const url = `/ROOT/api/member/findmemail?mname=${state.mname}&mbirth=${state.mbirth}`;
             const headers = {"Content-Type":"application/json"};
             const response = await axios.get(url, {headers});
             console.log(response.data);
             if(response.data.status === 200){
                 state.item = response.data.result;
-               
+            }
+            else{
+                alert('찾을 수 없는 사용자입니다.');
+                state.mname = '';
+                state.mbirth = '';
             }
 
         };
@@ -250,7 +275,7 @@ export default {
             // console.log(window.Kakao.isInitialized());
         }) 
 
-        return {state, dialogmemail, dialogmpw, handleMpw, kakao, handleClose, memail, mpw, handleLogin, handleJoin, KakaoLogin, handleMemail}
+        return {state, dialogmemail, mname, mbirth, dialogmpw, handleMpw, kakao, handleClose, memail, mpw, handleLogin, handleJoin, KakaoLogin, handleMemail}
     }
 }
 </script>

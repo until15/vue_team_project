@@ -16,7 +16,7 @@
                 </el-form-item>
 
                 <el-form-item>
-                    <el-button type="info" size="small" style="margin-top:20px" plain @click="state.table = true">암호변경</el-button>
+                    <el-button type="info" size="small" style="margin-top:20px" plain @click="handlePwUpdate">암호변경</el-button>
                 </el-form-item>
 
                 <!-- <el-form-item>
@@ -155,18 +155,23 @@ export default {
 
         const state = reactive({
             token : sessionStorage.getItem("TOKEN"),
+            item : {
+                mpw : '',
+                mpw1 : '',
+                mpw2 : ''
+            },
             mimage : null,
             usermidcheck : '',
             table : ref(false),
         });
 
         const mid = ref(null);
+        const mpw = ref(null);
         const mpw1 = ref(null);
         const mpw2 = ref(null);
 
         // 이름 정규식
         const validname = (mname) => {
-            // 정규표현식
             var re = /(^[가-힣a-zA-Z]{2,15})+$/;
             return re.test(mname);
         };
@@ -285,8 +290,35 @@ export default {
             }
         }
 
+        // 암호변경 다이얼로그 열기
+        const handlePwUpdate = () => {
+            state.table = ref(true);
+            state.item.mpw = '';
+            state.item.mpw1 = '';
+            state.item.mpw2 = '';
+        }
+
         //암호 변경
         const handleUpdatePw1 = async() => {
+            
+            if(state.item.mpw === ''){
+                alert('기존 암호를 입력해주세요.');
+                mpw.value.focus();
+                return false;
+            }
+
+            if(state.item.mpw1 === ''){
+                alert('새암호를 입력해주세요.');
+                mpw1.value.focus();
+                return false;
+            }
+
+            if(state.item.mpw2 === ''){
+                alert('암호확인을 입력해주세요.');
+                mpw2.value.focus();
+                return false;
+            }
+
             if(state.item.mpw === state.item.mpw1){
                 alert('기존 암호와 동일한 암호입니다.');
                 mpw1.value.focus();
@@ -312,6 +344,7 @@ export default {
                     alert('변경되었습니다');
                     handleData();
                     state.table = ref(false);
+                    console.log(state.item.mpw);
                 }
                 else{
                     alert('기존암호 또는 새암호가 일치하지 않습니다.');
@@ -340,7 +373,7 @@ export default {
             router.push({name : "menu3"});
         }
         
-        return {state, mid, mpw1, mpw2, handleUpdate, handleImage, checkMid, handleUpdatePw1, handleMidChk, handleUpdatePW, handleMenu1, handleMenu2, handleMenu3}
+        return {state, handlePwUpdate, mid, mpw, mpw1, mpw2, handleUpdate, handleImage, checkMid, handleUpdatePw1, handleMidChk, handleUpdatePW, handleMenu1, handleMenu2, handleMenu3}
     }
 }
 </script>
