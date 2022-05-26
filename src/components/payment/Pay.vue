@@ -1,8 +1,10 @@
 <template>
-    <div style="padding : 50px">
+    <div align="center" style="padding : 50px">
         <div v-if="this.pjoinchg">
+            <h3>{{this.pjoinchg.chgtitle}}</h3>
+            <h6>주의 : 참가 후 <mark>챌린지 포기</mark>를 누르면 <mark>참가비는 환불되지 않습니다.</mark></h6>
             <input type="number" placeholder="결제금액" v-model="this.pjoinchg.chgfee" readonly>
-            <el-button type="info" plain size="mini" @click="requestPay">참가비 결제하기</el-button>
+            <el-button type="info" plain size="mini" @click="requestPay">참가비 결제</el-button>
         </div>
     </div>
 </template>
@@ -17,7 +19,7 @@ export default {
 
     data(){
         return{
-            jno : 88,
+            jno : 100,
             token : sessionStorage.getItem("TOKEN"),
             pjoinchg : '',
             price: 0
@@ -62,6 +64,7 @@ export default {
                         pprice : rsp.paid_amount,
                         joinchg : {jno:this.pjoinchg.jno},
                         pmethod : rsp.pay_method,
+                        cancelprice : 0
                     }
                 })
                 .then((data) => {// 응답 처리

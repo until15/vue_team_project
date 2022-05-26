@@ -45,6 +45,8 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li>
                                     <router-link to="/myconfirm" class="dropdown-item">내 인증</router-link>
+                                    <router-link to="/mylikelist" class="dropdown-item">좋아요 한 챌린지</router-link>
+                                    <router-link to="/mybookmarklist" class="dropdown-item">즐겨찾는 챌린지</router-link>
                                     <router-link to="/logout" class="dropdown-item">로그아웃</router-link>
                                     <hr class="dropdown-divider" />
                                 </li>

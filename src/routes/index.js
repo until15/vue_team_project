@@ -11,6 +11,8 @@ import ChallengeOne from '@/components/challenge/ChallengeOne.vue';
 import ChallengeWrite from '@/components/challenge/ChallengeWrite.vue';
 import ChallengeLikeList from '@/components/challenge/ChallengeLikeList.vue';
 import ChallengeLevelList from '@/components/challenge/ChallengeLevelList.vue';
+import MyChallenge from '@/components/challenge/MyChallenge.vue';
+import MyChallengeOne from '@/components/challenge/MyChallengeOne.vue';
 //////////////////////////////////////////////////////////////////////
 import MemberJoin from '@/components/MemberJoin.vue';
 import Login from '@/components/login/Login.vue';
@@ -30,6 +32,8 @@ import menu1 from '@/components/mypage/menu1.vue';
 import menu11 from '@/components/mypage/menu11.vue';
 import menu2 from '@/components/mypage/menu2.vue';
 import menu3 from '@/components/mypage/menu3.vue';
+import MyLikeList from '@/components/mypage/MyLikeList.vue';
+import MyBookmarkList from '@/components/mypage/MyBookmarkList.vue';
 /////////////////////////// JOIN ////////////////////////////////
 import JoinList from '@/components/Join/JoinList.vue';
 import JoinState from '@/components/Join/JoinState.vue';
@@ -39,6 +43,7 @@ import JoinListPage from '@/components/Join/JoinListPage.vue';
 import ConfirmInsert from '@/components/Confirm/ConfirmInsert.vue';
 import ConfirmList from '@/components/Confirm/ConfirmList.vue';
 import MyConfirm from '@/components/Confirm/MyConfirm.vue';
+import SuccessCfm from '@/components/Confirm/SuccessCfm.vue';
 //////////////////////// Pose //////////////////////////////
 import Pose from '@/components/Pose/Pose.vue';
 import PoseOne from '@/components/Pose/PoseOne.vue';
@@ -68,6 +73,8 @@ const routes = [
     { path:'/challengewrite', name:"ChallengeWrite", component:ChallengeWrite },
     { path:'/challengelikelist', name:"ChallengeLikeList", component:ChallengeLikeList },
     { path:'/challengelevellist', name:"ChallengeLevelList", component:ChallengeLevelList },
+    { path:'/mylikelist', name:"MyLikeList", component:MyLikeList },
+    { path:'/mybookmarklist', name:"MyBookmarkList", component:MyBookmarkList },
     //////////////////////////////////////////////////////////////////////
     { path:'/memberjoin', name:"MemberJoin", component:MemberJoin },
     { path:'/login', name:"Login", component:Login },
@@ -101,6 +108,9 @@ const routes = [
     { path:'/confirminsert', name:"ConfirmInsert", component:ConfirmInsert },
     { path:'/confirmlist', name:"ConfirmList", component:ConfirmList },
     { path:'/myconfirm', name:"MyConfirm", component:MyConfirm },
+    { path:'/successcfm', name:"SuccessCfm", component:SuccessCfm },
+    { path:'/mychallenge', name:"MyChallenge", component:MyChallenge },
+    { path:'/mychallengeone', name:"MyChallengeOne", component:MyChallengeOne },
     { path:'/pay', name:"Pay", component:Pay },
     { path:'/payrefund', name:"PayRefund", component:PayRefund },
     { path:'/routineselect', name:"RoutineSelect", component:RoutineSelect },

@@ -2,7 +2,7 @@
     <div align="center" style="padding : 50px">
         <div v-if="this.paychg">
             <el-button type="info" plain size="mini" @click="cancelPay">참가비 환급받기</el-button>
-            {{this.paychg.impuid}}
+            <br>{{this.paychg.impuid}}
         </div>
     </div>
 </template>
@@ -18,7 +18,7 @@ export default {
         return{
             token : sessionStorage.getItem("TOKEN"),
             paychg : '',
-            jno : 88
+            jno : 100
         }
     },
 
@@ -38,7 +38,9 @@ export default {
 
         // 환급
         cancelPay : function () {
-            axios({
+            // 환급 중복 방지
+            if(this.paychg.cancelprice === 0){
+                axios({
                 url: `/ROOT/api/pay/refund.json`, // 환급 요청을 받을 서비스 URL
                 method: "post",
                 headers: { "Content-Type": "application/json" },
@@ -46,6 +48,7 @@ export default {
                     impuid: this.paychg.impuid, // 결제 당시 고유 ID
                     pprice: this.paychg.pprice, // 환불금액
                     reason: "테스트 결제 환불", // 환불사유
+                    cancelprice : this.paychg.cancelprice, // 총 환불된 금액
                     joinchg : {jno:this.paychg.jno}// 참가 챌린지 번호
                 }
             })
@@ -53,8 +56,12 @@ export default {
             console.log(data);
             location.href = "http://localhost:8080/?#/pay"; // 환급 성공 시 이동할 페이지
             alert("환급 되었습니다.");
-            })
-        },
+            })        
+            }
+            else{
+                alert('이미 처리된 환급입니다.');
+            }
+        }, 
 
     }
 }

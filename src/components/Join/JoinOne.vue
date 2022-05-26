@@ -5,10 +5,12 @@
         <div  class="center">
             <h3>내가 참가한 첼린지 상세 내용</h3>
         </div>
+
         <!-- 썸네일 이미지 -->
         <div style="margin-top:1rem; margin-bottom:1rem;"  class="center">
             <img :src="state.thumnail" style="width:300px;" /> <br />
         </div>
+
         <!-- 참여 정보 -->
         <div v-if="state.item" class="center">    
             첼린지 번호: {{state.item.chgno}} <br />
@@ -26,13 +28,9 @@
         
         <div class="center" v-if="state.chgstate === 3">
             <button @click="handleGiveup"> 포기하기 </button>
-            <button> 채팅하기 </button>
             <button @click="handleConfirm(state.jno)"> 인증하기 </button>
         </div>
     </div>
-
-    <hr />
-
 
 
     <hr />
