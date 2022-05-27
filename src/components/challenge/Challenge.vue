@@ -1,5 +1,6 @@
 <template>
     <div align="center">
+        
         <el-card>
             <h3>챌린지 최신순</h3><br/>
             <el-button @click="handleMenu1">최신순</el-button>
@@ -24,13 +25,16 @@
                     <el-table-column label="버튼" width="170">
                         <template #default="scope">
                             <el-button 
-                            size="small"
-                            text
-                            @click="handleLike(scope.row.chgno)">좋아요</el-button>
-                            <span>좋아요 {{state.items.chglike}}개</span>
+                                size="small"
+                                text
+                                @click="handleLike(scope.row.chgno)">좋아요</el-button>
+                            <el-button 
+                                size="small"
+                                text
+                                @click="handleBmk(scope.row.chgno)">북마크</el-button>
                         </template>
-                        </el-table-column>
-                    </el-table>
+                    </el-table-column>
+                </el-table>
                 
         
                 <el-pagination layout="prev, pager, next" :total="state.total" @current-change="currentChange">
@@ -77,17 +81,19 @@ import axios from 'axios';
 import {useRouter} from 'vue-router';
 
 export default {
+    data(){
+    },
     setup () {
-
         const router = useRouter();
 
         const state = reactive({
-            token      : sessionStorage.getItem("TOKEN"),
-            chgno : '',
-            page : 1,
+            token     : sessionStorage.getItem("TOKEN"),
+            chgno     : '',
+            lno : '',
+            page      : 1,
             challenge : '',
-            like : '',
-            total : 1,
+            like      : '',
+            total     : 1,
             selectoptions : ['전체', '작성자', '제목', '난이도'],
         });
 
@@ -96,9 +102,7 @@ export default {
             const url = `/ROOT/api/challenge/selectlist?page=${state.page}&challenge=${state.challenge}`;
             const headers = {"Content-Type" : "application/json"};
             const response = await axios.get(url, {headers});
-
             console.log(response.data);
-
             if(response.data.status === 200) {
                 state.items = response.data.result;
                 state.total = response.data.total;
@@ -107,19 +111,36 @@ export default {
         }
 
         const handleLike = async() => {
-            if(state.token !== null){
-                const url = `/ROOT/api/like/insert?chgno=${state.chgno}`;
-                const headers = {
-                    "Content-Type" : "application/json",
-                    "token":state.token
-                };
-                const response = await axios.post(url, {headers});
-                console.log(response.data);
-                if(response.data.status === 200) {
-                    state.chgno= '';
-                    console.log(state.chgno);
-                }
+            console.log(state.chgno);
+            const url = `/ROOT/api/like/insert?chgno=${state.chgno}`;
+            const headers = {
+                "Content-Type" : "application/json",
+                token:state.token
+            };
+            const body = {chgno : state.chgno};
+            const response = await axios.post(url, body, {headers});
+            console.log(response.data);
+            if(response.data.status === 200) {
+                state.chgno = '';
+                state.lno = '';
+                console.log(state.chgno);
+                alert("이 챌린지를 좋아합니다 !");
             }
+            // else if(response.data.status === 0) {
+            //     const url = `/ROOT/api/like/delete?chgno=${state.chgno}&lno=${state.lno}`;
+            //     const headers = {
+            //         "Content-Type" : "application/json",
+            //         token:state.token
+            //     };
+            //     const body = {chgno : state.chgno};
+            //     const response = await axios.delete(url, body, {headers});
+            //     console.log(response.data);
+            //     if(response.data.status === 200) {
+            //         alert("좋아요를 취소 하였습니다.");
+            //         handleLike();
+            //     }
+            // }
+
         }
 
         const handleMenu1 = () => {
