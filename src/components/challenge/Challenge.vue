@@ -44,7 +44,7 @@
                     <option>인기</option>
                     <option>난이도</option>
             </select> -->
-            <el-select v-model="state.options" size="mini" placeholder="Select">
+            <!-- <el-select v-model="state.options" size="mini" placeholder="Select">
                 <el-option
                 v-for="item in state.selectoptions"
                 :key="item"
@@ -53,8 +53,8 @@
                 size="mini"
                 ></el-option>
                 
-            </el-select>
-
+            </el-select> -->
+            <br />
             <el-form-item  label="" label-width="80px">
                 <el-input type="text" size="mini" v-model="state.challenge" placeholder="검색어 입력" @keydown.prevent.enter="handleData" />
             </el-form-item>
@@ -64,22 +64,24 @@
             </el-form-item>
 
         </el-form>
-
-        <el-button type="info" plain @click="handleChallenge">챌린지 생성</el-button>
+        <div v-if="logged === true">
+            <el-button type="info" plain @click="handleChallenge">챌린지 생성</el-button>
+        </div>
 
 
     </div>
 </template>
 
 <script>
-import { onMounted, reactive } from 'vue';
+import { onMounted, reactive, computed } from 'vue';
 import axios from 'axios';
 import {useRouter} from 'vue-router';
-
+import {useStore} from 'vuex';
 export default {
     setup () {
 
         const router = useRouter();
+        const store = useStore();
 
         const state = reactive({
             token      : sessionStorage.getItem("TOKEN"),
@@ -149,6 +151,10 @@ export default {
             router.push({name : "ChallengeWrite"})
         }
 
+        const logged = computed(() => {
+        return store.getters.getLogged
+        });
+
 
         onMounted(() => {
             handleData();
@@ -163,7 +169,8 @@ export default {
             handleMenu1,
             handleMenu2,
             handleMenu3,
-            handleLike
+            handleLike,
+            logged
 
         }
     }

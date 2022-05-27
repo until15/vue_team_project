@@ -23,10 +23,12 @@ export default {
             var Phone = /^01([0])-?([0-9]{4})-?([0-9]{4})$/;
             return Phone.test(mphone);
         }
+
+        
         
         // 생년월일 오늘 넘지않기 element plus
         const disabledDate = (time) => {
-        return time.getTime() < Date.now();
+        return time.getTime() < Date.now()-2;
         }
         
 

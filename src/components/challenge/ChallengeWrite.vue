@@ -265,7 +265,7 @@ export default {
 
         // 생년월일 오늘 넘지않기 element plus
         const disabledDate = (time) => {
-        return time.getTime() < Date.now()
+        return time.getTime() < Date.now();
         }
 
         return {
