@@ -68,8 +68,8 @@
                     <el-input type="number" style="width:150px" ref="chgroutine" v-model="state.chgroutine" placeholder="루틴번호." readonly />
                 </el-form-item>
                 <el-form-item  label="" label-width="70px">
-                    <el-button type="info" plain @click="dialogTableVisible1 = true" style="width:190px">루틴 불러오기</el-button>
-                    <el-dialog v-model="dialogTableVisible1" title="루틴 불러오기" fullscreen center>
+                    <el-button type="info" plain @click="state.dialogTableVisible1 = true" style="width:190px">루틴 불러오기</el-button>
+                    <el-dialog v-model="state.dialogTableVisible1" title="루틴 불러오기" center>
                         <RoutineSelect></RoutineSelect>
                     </el-dialog>     
                 </el-form-item><br />
@@ -148,6 +148,7 @@ export default {
             chgroutine : routine, // 가져온 index.js/state.routine 값 넣기
             cimage     : null,
             currenttime : '',
+            dialogTableVisible1 : false,
             //imageUrl   : require('../assets/img/default.png'),
             token      : sessionStorage.getItem("TOKEN")
         });
@@ -172,7 +173,7 @@ export default {
             }
             
             if(state.chgintro === ''){
-                alert('내용을 입력해주세요.');
+                alert('소개를 입력해주세요.');
                 chgintro.value.focus();
                 return false;
             }
