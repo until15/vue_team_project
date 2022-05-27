@@ -1,14 +1,25 @@
 <template>
     <div>
-        <div>
-            <h3>내가 만든 첼린지</h3>
-        </div>
+
         <div v-if="state.items">
-            
-            <!-- 검색기능 -->
-            <div class="center">
-                <input type="text" v-model="state.text">
-                <button @click="handleData(state.page, state.text)">검색</button>
+
+            <!-- 검색 -->
+            <div class="center my-3">
+                <el-form :inline="true">
+                    <el-form-item  label="" label-width="80px">
+                        <el-input 
+                        type="text" 
+                        v-model="state.text" 
+                        placeholder="제목 검색" 
+                        @keydown.prevent.enter="handleData(state.page, state.text)" />
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button 
+                        type="info" 
+                        plain style="margin-left:5px" 
+                        @click="handleData(state.page, state.text)" >검색</el-button>
+                    </el-form-item>
+                </el-form>
             </div>
 
             <!-- 리스트 -->
@@ -39,6 +50,19 @@
                 </tr>
             </table>
 
+            <el-table :data="state.items" style="width: 100%" @row-click="handleRow">
+                <el-table-column prop="chgno" label="번호" width="50" />
+                <el-table-column prop="chgtitle" label="제목" width="180" />
+                <el-table-column prop="chgintro" label="소개" />
+                <el-table-column prop="chgcnt" label="인원수" />
+                <el-table-column prop="chgfee" label="참가비" />
+                <el-table-column prop="chgstart" label="시작일" />
+                <el-table-column prop="chgend" label="종료일" />
+                <el-table-column prop="recstate" label="첼린지 상태" />
+                <el-table-column prop="chglevel" label="난이도" />
+                <el-table-column prop="chglike" label="좋아요" />
+            </el-table>
+
             <!-- 페이지네이션 -->
             <div>
                 <label v-for="tmp in state.pages" :key="tmp">
@@ -46,6 +70,7 @@
                 </label>
             </div>
         </div>
+
     </div>
 </template>
 
@@ -65,6 +90,10 @@ export default {
             pages : 1,
             text : "",
         });
+
+        const handleRow = (e)=> {
+            console.log(e);
+        };
 
         const handleData = async(page, text)=> {
             const url = `/ROOT/api/join/cidselectlist?page=${page}&text=${text}`;
@@ -98,11 +127,12 @@ export default {
             handlePage,
             handleData,
             handleSelectOne,
+            handleRow,
         }
     }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css">
 
 </style>

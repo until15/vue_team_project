@@ -61,6 +61,7 @@ import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
 import Navi from '@/components/Navi.vue';
 import Testttt from '@/components/Testttt.vue';
+import MyActivity from '@/components/MyActivity.vue';
 
 
 const routes = [
@@ -117,6 +118,7 @@ const routes = [
     { path:'/payrefund', name:"PayRefund", component:PayRefund },
     { path:'/routineselect', name:"RoutineSelect", component:RoutineSelect },
     { path:'/testttt', name:"Testttt", component:Testttt },
+    { path:'/myactivity', name:"MyActivity", component:MyActivity },
 ];
   
 const router = createRouter({

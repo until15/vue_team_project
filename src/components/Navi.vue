@@ -24,7 +24,7 @@
                         <router-link to="/memberjoin" class="nav-link">회원가입</router-link>  
                         <router-link to="/login" class="nav-link">로그인</router-link>
                     </div>
-                    
+
 
                     <!-- 로그인한 사용자의 이메일 -->
                     <div v-if="state.item" style="margin-right:10px">
@@ -44,14 +44,14 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li>
-                                    <router-link to="/myconfirm" class="dropdown-item">내 인증</router-link>
-                                    <router-link to="/mylikelist" class="dropdown-item">좋아요 한 챌린지</router-link>
-                                    <router-link to="/mybookmarklist" class="dropdown-item">즐겨찾는 챌린지</router-link>
+                                    <router-link to="/myactivity" class="dropdown-item">내 활동</router-link>
+                                    <hr class="dropdown-divider" />
+                                </li>
+                                <li>
                                     <router-link to="/logout" class="dropdown-item">로그아웃</router-link>
                                     <hr class="dropdown-divider" />
                                 </li>
                                 <li><a class="dropdown-item" href="#/menu1">정보수정</a></li>
-                                <li><hr class="dropdown-divider" /></li>
                                 <li><a class="dropdown-item" href="#/menu3">1:1 문의</a></li>
                                 <li><a class="dropdown-item" href="#/menu2">회원탈퇴</a></li>
                             </ul>
@@ -86,12 +86,9 @@ export default {
             if(sessionStorage.getItem("TOKEN") !== null){
                 store.commit('setLogged', true);
                 handleData();
-
             }
             else {
                 store.commit('setLogged', false);
-                
-                
             }
 
         });

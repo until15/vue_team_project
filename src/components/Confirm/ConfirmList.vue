@@ -145,27 +145,6 @@ export default {
 
 <style lang="css" scoped>
 
-.center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
-.center1 {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.text-tb {
-    /* padding-top: 1.5rem; */
-    padding-bottom: 1.5rem;
-}
-
-.padding-tb {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
 
 </style>
