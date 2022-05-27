@@ -34,7 +34,8 @@
             <SuccessCfm 
                 :chgno="state.chgno" 
                 :cid="state.item.cid" 
-                :jno="state.item.jno">
+                :jno="state.item.jno"
+                :chgrate="state.item.chgrate">
             </SuccessCfm>
         </div>
     </div>
@@ -42,7 +43,7 @@
 
 <script>
 import { reactive } from '@vue/reactivity'
-import { onMounted } from '@vue/runtime-core';
+import { onMounted, watch } from '@vue/runtime-core';
 import axios from 'axios';
 import { useRoute, useRouter } from 'vue-router';
 import SuccessCfm from '../Confirm/SuccessCfm.vue';
@@ -89,7 +90,7 @@ export default {
         };
 
         // 내가만든 첼린지 상세
-        const handleData = async()=> {
+        const handleData = watch(async()=> {
             const url = `/ROOT/api/join/cidselectone?chgno=${state.chgno}`;
             const headers = {
                 "Content-Type":"application/json",
@@ -101,16 +102,19 @@ export default {
                 state.item = response.data.result
                 state.thumnail = response.data.image
             }
-        };
+        });
 
         onMounted(()=> {
             handleData();
         });
 
+        
+
         return {
             state,
             handleGiveup,
-            handleConfirm
+            handleConfirm,
+            handleData
         }
     }
 }
