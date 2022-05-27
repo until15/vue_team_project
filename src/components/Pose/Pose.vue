@@ -1,7 +1,8 @@
 <template>
     <div align="center">
         <br>
-        <h3><mark>자세</mark></h3><br>
+        <h3>자세</h3>
+        <hr>
         <el-form :inline="true" v-if="state.pose" align="center" label-width="100px">
             <el-form-item>
                 <el-input v-model="state.title" placeholder="검색어를 입력하세요" size="small" v-on:keydown.enter.prevent='handleLoadData()'/>

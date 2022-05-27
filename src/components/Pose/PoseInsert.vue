@@ -21,7 +21,7 @@
         </el-row>
         <el-row :gutter="20">
         <el-col :span="2" :offset="8">동영상 :</el-col> 
-        <el-col :span="5"><input type="file" accept="video/*" @change="handleVideo"><br><br></el-col>
+        <el-col :span="5"><input type="file" id="vFile" accept="video/*" @change="handleVideo"><br><br></el-col>
         </el-row>
         <el-button round @click="handlePoseInsert">등록</el-button>
         <router-link to="/pose"><el-button round>목록</el-button></router-link><br>
@@ -58,6 +58,7 @@ export default {
         }
 
         const handlePoseInsert = async() => {
+            let filechk = document.getElementById("vFile").value;
             if(state.name === ''){
                 alert('자세 이름을 입력하세요')
                 return false;
@@ -68,6 +69,18 @@ export default {
             }
             if(state.content === ''){
                 alert('자세 내용을 입력하세요')
+                return false;
+            }
+            if( 5 < state.level){
+                alert('난이도는 1~5까지 설정 가능합니다.')
+                return false;
+            }
+            if( 1 > state.level){
+                alert('난이도는 1~5까지 설정 가능합니다.')
+                return false;
+            }
+            if(!filechk){
+                alert('파일을 첨부하세요.')
                 return false;
             }
             const url = `/ROOT/api/pose/insert.json`;
@@ -81,8 +94,6 @@ export default {
             };
             const response = await axios.post(url, body, {headers});
             console.log(response.data);
-            alert('등록되었습니다.');
-            router.push({name:"Pose"});
             if(response.data.status === 200){
                 const url1 = `/ROOT/api/pose/insertvideo.json`;
                 const headers1 = {"Content-Type":"multipart/form-data", "token":state.token};

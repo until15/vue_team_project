@@ -1,6 +1,6 @@
 <template>
   <div align="center" style="padding: 50px">
-    <h3>루틴 불러오기 작업용</h3>
+    <h3>커스텀 루틴 불러오기</h3>
     <el-button text @click="dialogTableVisible = true">불러오기</el-button>
     <el-dialog v-model="dialogTableVisible" title="나의 루틴" fullscreen center>
       <el-table :data="state.rtn">
@@ -51,11 +51,11 @@
       </el-popconfirm>
     </el-dialog>
     <div v-if="state.routine">
-      <el-dialog v-model="state.dialogTableVisible2" title="루틴 수정">
+      <el-dialog v-model="state.dialogTableVisible2" title="루틴 수정" width="500px">
         <el-form :model="state.routine">
           <el-form-item label="요일 :" :label-width="formLabelWidth">
             <el-row :gutter="20">
-              <el-col :span="5">
+              <el-col :span="14">
                 <el-select
                   size="large"
                   v-model="state.routine.rtnday"
@@ -70,9 +70,9 @@
                   <el-option label="일요일" value="일" />
                 </el-select>
               </el-col>
-              <el-col :span="19"></el-col>
+              <el-col :span="10"></el-col>
             </el-row>
-          </el-form-item>
+          </el-form-item><br>
           <el-form-item label="자세 : " :label-width="formLabelWidth">
             <!-- <input type="hidden" v-model="state.routine.pno"> -->
             <el-row :gutter="20">
@@ -88,6 +88,7 @@
               >
             </el-row>
           </el-form-item>
+          <br>
           <el-form-item label="횟수 : " :label-width="formLabelWidth">
             <el-input
               type="number"
@@ -96,6 +97,7 @@
               autocomplete="off"
             />
           </el-form-item>
+          <br>
           <el-form-item label="세트 : " :label-width="formLabelWidth">
             <el-input
               type="number"
@@ -108,8 +110,9 @@
             <input type="hidden" v-model="state.routine.rtnno" />
           </el-form-item>
         </el-form>
+        <br>
         <el-button
-          size="small"
+        style="margin-left: 40%;"
           text
           @click="handleRoutineUpdate(state.routine.rtnno)"
           >수정</el-button
