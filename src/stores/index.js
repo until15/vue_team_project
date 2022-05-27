@@ -19,6 +19,9 @@ export default createStore({
         rtncnt  : '',
         rtnset  : '',
 
+        // like
+        
+
         // 로그인한 사용자의 권한을 저장  
     },
 
