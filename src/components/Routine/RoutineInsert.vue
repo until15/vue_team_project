@@ -1,9 +1,12 @@
 <template>
     <div align="center">
         <el-card shadow="never">
-        <h3>루틴 생성 페이지</h3>
+        <h3>커스텀 루틴 생성</h3>
         <br>
-        루틴 이름 : <input type="text" v-model="state.rtnname"> <br><br>
+        <el-row :gutter="20">
+        <el-col :span="2" :offset="8">루틴 이름 :</el-col> 
+        <el-col :span="5"><el-input v-model="state.rtnname"></el-input></el-col><br><br>
+        </el-row>
         <el-button type="info" plain size="mini" @click="handlePlus">루틴추가</el-button>
         <el-button type="info" plain size="mini" @click="handleMinus">루틴삭제</el-button><br><br>
         <div v-for="(routine,i) in state.routines" :key="i">

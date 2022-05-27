@@ -26,7 +26,7 @@
             </div>
             <!-- 동영상이 있는 경우 Update, Delete -->
             <div v-if="state.video">
-                    <el-button type="info" plain @click="handleVideoDelete(state.no)">동영상 삭제</el-button><br>
+                    <el-button type="info" plain @click="handleVideoDelete(state.no)">파일 삭제</el-button><br>
                 <video width='400' controls>
                     <source :src="state.video">
                 </video>
