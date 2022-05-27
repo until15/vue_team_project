@@ -435,6 +435,7 @@ export default {
             router.push({name :"Home"});
         }
         
+        
         // 생년월일 오늘 넘지않기 element plus
         const disabledDate = (time) => {
         return time.getTime() > Date.now()

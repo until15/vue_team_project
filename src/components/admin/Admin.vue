@@ -1,8 +1,12 @@
 <template>
     <div>
         <h2 style="padding:20px">관리자 페이지</h2>
-        <el-button type="primary" size="mini" round plain @click="handleMenu(1)">문의</el-button>     
-        <el-button type="primary" size="mini" round plain @click="handleMenu(2)">회원관리</el-button>     
+        <div class="center" style="margin-bottom:10px">
+            <el-button type="primary" round plain @click="handleMenu(1)">문의</el-button>     
+            <el-button type="primary" round plain @click="handleMenu(2)">회원관리</el-button>  
+        </div>
+        
+           
        
          
 
@@ -51,6 +55,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
+.center{
+  text-align: center;
+}
 
 </style>

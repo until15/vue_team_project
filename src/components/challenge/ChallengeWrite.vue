@@ -31,7 +31,7 @@
                     <el-date-picker 
                         style="width:152px" ref="recruitend" 
                         format="YYYY-MM-DD" value-format="YYYY-MM-DD"
-                        v-model="state.recruitend" type="date" placeholder="모집 마감일" />     
+                        v-model="state.recruitend" type="date" placeholder="모집 마감일" :disabled-date="disabledDate" />     
                 </el-form-item><br />
                 
                 <!-- 챌린지 기간 -->
@@ -42,7 +42,7 @@
                     <el-date-picker 
                     style="width:152px" ref="chgend" 
                     format="YYYY-MM-DD" value-format="YYYY-MM-DD"
-                    v-model="state.chgend" type="date" placeholder="챌린지 종료일" />     
+                    v-model="state.chgend" type="date" placeholder="챌린지 종료일" :disabled-date="disabledDate" />     
                 </el-form-item><br />
                 
                 <!-- 참가비 -->
@@ -263,6 +263,11 @@ export default {
             router.push({name : "Challenge"});
         }
 
+        // 생년월일 오늘 넘지않기 element plus
+        const disabledDate = (time) => {
+        return time.getTime() < Date.now()
+        }
+
         return {
             state,  
             chgtitle,
@@ -279,7 +284,8 @@ export default {
             currentTime,
             dialogTableVisible,
             dialogTableVisible1,
-            routine
+            routine,
+            disabledDate
             
         }
     }
