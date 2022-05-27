@@ -6,15 +6,18 @@
             부위 : {{state.pose.ppart}}<br><br>
             난이도 : {{state.pose.plevel}} <br><br>
             <el-card shadow="never">{{state.pose.pcontent}} </el-card><br>
-            <div v-if="state.video">
-                
-                <video width='400' controls style="margin-left: 30%;">
-                    <source :src="state.video">
-                </video><br>
-                <img :src="state.video" style="width:400px; margin-left: 30%;"/>
-            </div>
-            <br>
             <div align="center">
+                <div v-if="state.video">
+                    <div v-if="state.type === state.vio || state.type === state.vio1 || state.type === state.vio2">
+                    <video width='400' controls>
+                        <source :src="state.video">
+                    </video><br>
+                    </div>
+                    <div v-if="state.type === state.img || state.type === state.img1 || state.type === state.img2">              
+                        <img :src="state.video"/>
+                    </div>
+                </div>
+                <br>
                 <router-link to="/pose"><el-button id="btn">목록</el-button></router-link><br>
                 <div v-if="state.member.memail === state.useremail" >
                     <el-button id="btn" @click="handleUpdate(state.pose.pno)">수정</el-button>
@@ -40,7 +43,13 @@ export default {
         const state = reactive({
             no : route.query.pno,
             token : sessionStorage.getItem("TOKEN"),
-            useremail : sessionStorage.getItem("MEMAIL")
+            useremail : sessionStorage.getItem("MEMAIL"),
+            img : "image/jpeg",
+            img1 : "image/png",
+            img2 : "image/gif",
+            vio : "video/mp4",
+            vio1 : "video/ogg",
+            vio2 : "video/webm"
         })
 
         onMounted(async() => {
@@ -72,6 +81,7 @@ export default {
             if(response.data.status === 200){
                 state.pose = response.data.result;
                 state.video = response.data.videoUrl;
+                state.type = response.data.videotype;
                 state.member = response.data.userEmail;
             }
             state.pose = response.data.result;

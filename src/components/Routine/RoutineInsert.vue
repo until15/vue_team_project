@@ -11,20 +11,26 @@
         <el-button type="info" plain size="mini" @click="handleMinus">루틴삭제</el-button><br><br>
         <div v-for="(routine,i) in state.routines" :key="i">
             <!-- 루틴 이름 : <input type="text" v-model="state.routines[i].rtnname"> -->
-            요일 : 
-            <select v-model="state.routines[i].rtnday">
-                <option :value="'월'">월요일</option>
-                <option :value="'화'">화요일</option>
-                <option :value="'수'">수요일</option>
-                <option :value="'목'">목요일</option>
-                <option :value="'금'">금요일</option>
-                <option :value="'토'">토요일</option>
-                <option :value="'일'">일요일</option>
-            </select>
-            횟수 : <input type="number" min="1" v-model="state.routines[i].rtncnt">
-            세트 : <input type="number" min="1" v-model="state.routines[i].rtnset">
-            <el-button @click="state.routines[i].dialogTableVisible = true" size="mini">자세추가</el-button>
-            자세 : <input type="text" v-model="state.routines[i].posechg.pno" readonly>
+            <div class="div1">
+                <el-col :span="2" :offset="1">
+                요일 :
+                </el-col>
+                <el-col :span="3" style="margin-left:10px;"> 
+                <el-select v-model="state.routines[i].rtnday">
+                    <el-option :value="'월'">월요일</el-option>
+                    <el-option :value="'화'">화요일</el-option>
+                    <el-option :value="'수'">수요일</el-option>
+                    <el-option :value="'목'">목요일</el-option>
+                    <el-option :value="'금'">금요일</el-option>
+                    <el-option :value="'토'">토요일</el-option>
+                    <el-option :value="'일'">일요일</el-option>
+                </el-select>
+                </el-col>
+                <el-col :span="1" style="margin-left:20px;">횟수 : </el-col><el-col :span="4" style="margin-left:10px;"><el-input type="number" min="1" v-model="state.routines[i].rtncnt"></el-input></el-col>
+                <el-col :span="1" style="margin-left:20px;">세트 : </el-col><el-col :span="4" style="margin-left:10px;"><el-input type="number" min="1" v-model="state.routines[i].rtnset"></el-input></el-col>
+                <el-col :span="1" style="margin-left:20px;"></el-col><el-col :span="4" style="margin-left:10px;"><el-button @click="state.routines[i].dialogTableVisible = true" size="mini">자세추가</el-button></el-col>
+                <el-col :span="1" style="margin-left:10px;">자세 : </el-col><el-col :span="4" style="margin-left:10px;"><el-input type="text" v-model="state.routines[i].posechg.pno" readonly></el-input></el-col>
+            </div>
             <el-dialog v-model="state.routines[i].dialogTableVisible" title="자세 추가" width="550px" center>
             <el-table :data="state.pose">
                 <!-- chk : true 된 것 번호 저장, state.routines[i].posechg.pno 에 세팅-->
@@ -39,6 +45,7 @@
                 <el-table-column property="plevel" label="난이도" width="100"/>
             </el-table>
             <el-pagination
+                align="center"
                 layout="prev, pager, next"
                 @current-change="currentChange"
                 :current-page="state.page"
@@ -46,7 +53,6 @@
                 :pager-count="5"
                 :total="state.total">
             </el-pagination>
-            <br>
             <el-button type="info" size="mini" @click="handleChk(i)">선택</el-button>
             </el-dialog>
         </div>
@@ -193,6 +199,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
+.div1{
+    display: inline-block;
+}
 
 </style>

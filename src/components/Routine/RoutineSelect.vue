@@ -3,7 +3,7 @@
     <h3>커스텀 루틴 불러오기</h3>
     <el-button text @click="dialogTableVisible = true">불러오기</el-button>
     <el-dialog v-model="dialogTableVisible" title="나의 루틴" fullscreen center>
-      <el-table :data="state.rtn">
+      <el-table :data="state.rtn" style="margin-left:50px;">
         <el-table-column width="80">
           <template #default="scope">
             <el-checkbox
@@ -32,7 +32,7 @@
               "
               >수정</el-button
             >
-            <el-button size="small" type="danger" @click="handleRoutineDelete()">삭제</el-button>
+            <el-button size="small" type="danger" @click="handleRoutineDelete(scope.row.rtnno)">삭제</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -43,10 +43,10 @@
         :total="state.total"
       >
       </el-pagination>
-      <el-button size="small" @click="handleInsert">등록</el-button>
+      <el-button size="small" @click="handleInsert" style="margin-left:50px;">등록</el-button>
       <el-popconfirm title="정말 삭제하시겠습니까?" @confirm="handleDelete()">
         <template #reference>
-          <el-button size="small" type="danger">삭제</el-button>
+          <el-button size="small" type="danger" style="margin-left:10px;">삭제</el-button>
         </template>
       </el-popconfirm>
     </el-dialog>
@@ -80,8 +80,8 @@
                 ><el-input v-model="state.routine.pname" autocomplete="off"
               />
               </el-col>
-              <el-col :span="2"><el-tag>{{state.routine.pno}}</el-tag></el-col>
-              <el-col :span="5"
+              <el-col :span="2" style="margin-right:20px;"><el-tag>{{state.routine.pno}}</el-tag></el-col>
+              <el-col :span="3"
                 ><el-button text @click="state.dialogTableVisible3 = true"
                   >변경</el-button
                 ></el-col
