@@ -34,24 +34,24 @@
                 <div style="margin-right:100px;">
                     {{tmp.iqcontent}}
                 </div>
-                <div style="margin-left:1000px;" v-if="tmp.memberchg.mrole === 'admin'">
-                    <el-button type="info" size="small" plain @click="handleReplyDelete(tmp.iqcmtno)">삭제</el-button>
-                </div>           
+             
+                <el-button type="info" size="small" plain @click="handleReplyDelete(tmp.iqcmtno)">삭제</el-button>
+                         
             </el-collapse-item>
         </el-collapse>
         </div>
         
             <!-- 댓글 등록 -->
-            <div v-if="state.item">
-                <el-form :inline="true" class="center" v-if="state.item.mrole === 'admin'">
-                    <el-form-item  label="댓글" label-width="50px">
-                        <el-input  size="medium" v-model="state.reply1.iqcontent" placeholder="댓글"/>
-                    </el-form-item>
-                    <el-form-item>
-                        <el-button type="info" size="small" plain @click="handleComment">입력</el-button>
-                    </el-form-item>
-                </el-form>
-            </div>    
+            
+            <el-form :inline="true" class="center">
+                <el-form-item  label="댓글" label-width="50px">
+                    <el-input  size="medium" v-model="state.reply1.iqcontent" placeholder="댓글"/>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="info" size="small" plain @click="handleComment">입력</el-button>
+                </el-form-item>
+            </el-form>
+                
     </div>
 </template>
 
@@ -154,13 +154,24 @@ export default {
             }
         };
 
+        const handleData2 = async() => {
+            const url = `/ROOT/api/member/selectmemberone`;
+            const headers = {"Content-Type":"application/json","token":state.token};
+            const response = await axios.get(url, {headers});
+            console.log("---------------" + response.data);
+            if(response.data.status === 200){
+                state.member = response.data.result;
+            }
+        }
+
         onMounted(() =>{
             handleData(state.qno);
             handleSelectComment(state.qno);
+            handleData2();
          
         });
 
-        return {state, handleComment, handleReplyDelete, handleMenu, handleDelete}
+        return {state, handleComment, handleData2, handleReplyDelete, handleMenu, handleDelete}
     }
 }
 </script>
