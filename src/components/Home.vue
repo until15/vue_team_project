@@ -4,16 +4,71 @@
     <!-- Header-->
     <header>
     <div class="container px-4 px-lg-5 header-mb bg-white">
-        <!-- 헬린지 로고 -->
-        <div class="text-center cropping">
-            <img src="../assets/img/헬린지_블랙_로고.gif">
-        </div>
 
-        <!-- 헬린지 타이틀 -->
-        <div class="text-center">
-            <h1 class="display-4 fw-bolder tracking-in-expand-fwd" style="font-size:6rem;">Health Challenge!!</h1>
-            <p class="lead fw-normal mb-0">운동하자!!</p>
+      <!-- 썸네일 : 드웨인 존슨 -->
+      <div class="text-center">
+        <div style="margin-top:40px;">
+          <img 
+            class="image-thumbnail" 
+            src='https://1.bp.blogspot.com/-EyJrKPuJf-U/XQ2YpSY7n-I/AAAAAAAAADo/8IfUH9x0s7YvnbTRnwiz7oSbi-2WypO9gCKgBGAs/w919-h516-p-k-no-nu/dwayne-johnson-working-out-uhdpaper.com-8K-356.jpg'/>
         </div>
+      </div>
+
+      <!-- 폰트 이미지 -->
+      <!-- <div class="text-center">
+        <div>
+          <img 
+            style="margin-top:20px;" 
+            src="../assets/img/끝없는_도전.jpg">
+        </div>
+      </div> -->
+
+      <div class="text-center">
+        <div style="margin-top:40px;">
+          <h2 style="font-size:5rem;">
+            끝없는 우리의 도전
+          </h2> 
+        </div>
+      </div> 
+
+      <!-- 헬린지 로고 -->
+      <div class="text-center">
+        <div style="margin-top:-23px;">
+          <img 
+            width="200px;" 
+            src="../assets/img/헬린지_블랙_로고.gif">
+        </div>
+      </div>
+
+      <!-- 헬린지 타이틀 -->
+      <div class="text-center">
+        <div>
+          <!-- <h1 class="display-4 fw-bolder tracking-in-expand-fwd" style="font-size:5rem;">끝없는 우리의 도전</h1> -->
+          <p class="lead fw-normal mb-0">
+            헬린지에서 당신의 한계에 도전하세요. <br />
+          </p>
+        </div>
+        <button style="margin-top:10px;" class="button-blk">더 보기</button>
+      </div>
+
+      <div class="text-center">
+        <div style="margin-top:150px;">
+          <img 
+            class="image-thumbnail1" 
+            src='https://rare-gallery.com/thumbs/322766-Dwayne-Johnson-Gym-Workout-4K-iphone-wallpaper.jpg'/> 
+        </div>
+      </div>
+
+      <div>
+        <div class="font-right">
+          <h2 style="font-size:7rem;">
+            수많은 <br /> 
+            챌린지들이 <br /> 
+            당신을 <br />
+            기다리고 있습니다.</h2> 
+        </div>
+      </div> 
+        
     </div>
     </header>
 
@@ -374,6 +429,38 @@ export default {
     width: 100%;
     display: block;
   }
+
+  /* 메인 */
+  .image-thumbnail {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+
+  .image-thumbnail1 {
+    float: left;
+    height:100%;
+    object-fit:cover;
+  }
+
+  .font-right {
+    justify-content : right;
+    display: flex;
+    
+  }
+
+  .button-blk {
+  background-color: rgb(0, 0, 0);
+  border: none;
+  color: rgb(255, 255, 255);
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 16px;
+}
 
   @-webkit-keyframes tracking-in-expand-fwd{0%{letter-spacing:-.5em;-webkit-transform:translateZ(-700px);transform:translateZ(-700px);opacity:0}40%{opacity:.6}100%{-webkit-transform:translateZ(0);transform:translateZ(0);opacity:1}}@keyframes tracking-in-expand-fwd{0%{letter-spacing:-.5em;-webkit-transform:translateZ(-700px);transform:translateZ(-700px);opacity:0}40%{opacity:.6}100%{-webkit-transform:translateZ(0);transform:translateZ(0);opacity:1}}
 
