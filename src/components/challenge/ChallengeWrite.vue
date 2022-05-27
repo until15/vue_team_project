@@ -58,7 +58,7 @@
                 <!-- 루틴 설정 다이어로그 -->
                 <el-form-item style="margin-left:80px;">
                     <el-button type="info" plain @click="dialogTableVisible = true" style="width:350px">루틴 생성</el-button>
-                    <el-dialog v-model="dialogTableVisible" title="루틴 생성" fullscreen center>
+                    <el-dialog v-model="dialogTableVisible" title="루틴 생성"  center>
                         <RoutineInsert></RoutineInsert>
                     </el-dialog>    
                 </el-form-item><br />
@@ -134,6 +134,7 @@ export default {
 
         // index.js/state.routine 값 가져오기
         const routine = computed(() => store.getters.getRoutine);
+
         console.log(routine);
 
         const state = reactive({
@@ -268,6 +269,7 @@ export default {
         const disabledDate = (time) => {
         return time.getTime() < Date.now();
         }
+
 
         return {
             state,  

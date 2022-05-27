@@ -21,7 +21,7 @@ export default createStore({
 
         // like
         
-
+        dialog : '',
         // 로그인한 사용자의 권한을 저장  
     },
 
@@ -65,6 +65,10 @@ export default createStore({
         },
         getRtnset(state){
             return state.rtnset
+        },
+
+        getDialog(state){
+            return state.dialog
         }
     },
 
@@ -118,6 +122,10 @@ export default createStore({
         setRtnset(state, value) {
             console.log("setRtnset", value);
             state.rtnset = value;
+        },
+        setDialog(state, value) {
+            console.log("setDialog", value);
+            state.dialog = value;
         }
     },
 

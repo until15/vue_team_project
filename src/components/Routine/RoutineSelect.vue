@@ -207,7 +207,6 @@ export default {
       console.log(store.commit);
       alert('등록되었습니다');
       state.dialogTableVisible = false;
-      state.dialogTableVisible1 = false;
     }
 
     // 루틴 개별 삭제
