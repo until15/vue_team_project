@@ -67,6 +67,9 @@
         <div v-if="logged === true">
             <el-button type="info" plain @click="handleChallenge">챌린지 생성</el-button>
         </div>
+        <div v-if="logged === false">
+            <el-button type="info" plain @click="handleMain">메인으로</el-button>
+        </div>  
 
 
     </div>
@@ -151,6 +154,10 @@ export default {
             router.push({name : "ChallengeWrite"})
         }
 
+        const handleMain = () => {
+            router.push({name : "Home"})
+        }
+
         const logged = computed(() => {
         return store.getters.getLogged
         });
@@ -170,6 +177,7 @@ export default {
             handleMenu2,
             handleMenu3,
             handleLike,
+            handleMain,
             logged
 
         }

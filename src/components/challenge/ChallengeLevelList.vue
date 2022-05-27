@@ -24,6 +24,7 @@
             <el-pagination layout="prev, pager, next" :total="state.total" @current-change="currentChange"></el-pagination>
         </el-card>
 
+        <br />
         <el-form :inline="true" v-if="state.items" >
             <el-form-item  label="" label-width="80px">
                 <el-input type="text" size="mini" v-model="state.level" placeholder="검색어 입력" @keydown.prevent.enter="handleData" />
@@ -33,19 +34,25 @@
             </el-form-item>
         </el-form>
 
-        <el-button type="info" plain @click="handleMain">메인으로</el-button>
+        <div v-if="logged === true">
+            <el-button type="info" plain @click="handleChallenge">챌린지 생성</el-button>
+        </div>
+        <div v-if="logged === false">
+            <el-button type="info" plain @click="handleMain">메인으로</el-button>
+        </div>  
     </div>
 </template>
 
 <script>
-import { reactive, onMounted} from 'vue'
+import { reactive, onMounted, computed} from 'vue'
 import axios from 'axios';
 import {useRouter} from 'vue-router';
-
+import {useStore} from 'vuex';
 export default {
     setup () {
 
         const router = useRouter();
+        const store = useStore();
 
         const state = reactive({
             page : 1,
@@ -94,6 +101,11 @@ export default {
             router.push({name : "ChallengeLevelList"});
         }
 
+        const logged = computed(() => {
+        return store.getters.getLogged
+        });
+
+
         onMounted(() => {
             handleData();
         });
@@ -106,7 +118,8 @@ export default {
             handleMain,
             handleMenu1,
             handleMenu2,
-            handleMenu3
+            handleMenu3,
+            logged
 
         }
     }
