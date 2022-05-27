@@ -143,7 +143,7 @@ export default {
             chgcontent : '',
             recruitend : '',
             chgend     : '',
-            chgfee     : 1000,
+            chgfee     : 5000,
             chgcnt     : 1,
             chgroutine : routine, // 가져온 index.js/state.routine 값 넣기
             cimage     : null,
