@@ -36,7 +36,7 @@
                     </el-table-column>
                 </el-table>
                 
-        
+            
                 <el-pagination layout="prev, pager, next" :total="state.total" @current-change="currentChange">
                 </el-pagination>
         </el-card>
