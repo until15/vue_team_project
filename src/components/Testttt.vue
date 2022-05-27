@@ -1,7 +1,11 @@
 <template>
     <div>
-        <input type="text" v-model="state.memail1"   />
-        <button @keyup="validPhone">등록</button>
+        <el-form :inline="true" style="margin-right:150px" >
+            <el-form-item  label="생년월일" label-width="80px" style="margin-top:-20px">
+                <el-date-picker ref="mbirth" v-model="state.mbirth" type="date" placeholder="날짜선택" 
+                format="YYYY-MM-DD" value-format="YYYY-MM-DD" :disabled-date="disabledDate" />
+            </el-form-item>
+        </el-form>
     </div>
 </template>
 
@@ -20,9 +24,13 @@ export default {
             return Phone.test(mphone);
         }
         
+        // 생년월일 오늘 넘지않기 element plus
+        const disabledDate = (time) => {
+        return time.getTime() < Date.now();
+        }
         
 
-        return {state, validPhone }
+        return {state, validPhone, disabledDate }
     }
 }
 </script>
