@@ -30,7 +30,7 @@
             :current-page="state.page"
             :total="state.total">
         </el-pagination>
-        <el-button type="info" plain @click="handlePoseInsert" size="small" style="margin-left: 35%;">등록</el-button><br><br>
+        <el-button type="info" plain @click="handlePoseInsert" size="small">등록</el-button><br><br>
     </div>
 </template>
 
