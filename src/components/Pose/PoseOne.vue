@@ -2,24 +2,23 @@
     <div v-if="state.pose">
         <div style="padding: 80px">
             <h2>{{state.pose.pname}}</h2>
-            부위 : {{state.pose.ppart}} <br>
-            내용 : {{state.pose.pcontent}} <br>
-            난이도 : {{state.pose.plevel}} <br>
-            등록일 : {{state.pose.pregdate}} <br><br>
+            | {{state.pose.pregdate}}<br><br>
+            부위 : {{state.pose.ppart}}<br><br>
+            난이도 : {{state.pose.plevel}} <br><br>
+            <el-card shadow="never">{{state.pose.pcontent}} </el-card><br>
             <div v-if="state.video">
+                
                 <video width='400' controls style="margin-left: 30%;">
                     <source :src="state.video">
                 </video><br>
-                    
                 <img :src="state.video" style="width:400px; margin-left: 30%;"/>
-                    
             </div>
             <br>
             <div align="center">
-                <router-link to="/pose"><el-button round>목록</el-button></router-link><br>
+                <router-link to="/pose"><el-button id="btn">목록</el-button></router-link><br>
                 <div v-if="state.member.memail === state.useremail" >
-                    <el-button round @click="handleUpdate(state.pose.pno)">수정</el-button>
-                    <el-button round @click="handleDelete" style="margin-left: 35%;">삭제</el-button>
+                    <el-button id="btn" @click="handleUpdate(state.pose.pno)">수정</el-button>
+                    <el-button id="btn" @click="handleDelete" style="margin-left: 35%;">삭제</el-button>
                 </div>
             </div>
         </div>
@@ -95,6 +94,10 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
+
+#btn:hover{
+   color: rgb(253, 177, 114);
+}
 
 </style>

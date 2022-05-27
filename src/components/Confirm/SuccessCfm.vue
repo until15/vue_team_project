@@ -52,7 +52,7 @@
 
 <script>
 import { reactive } from '@vue/reactivity';
-import { onMounted } from '@vue/runtime-core';
+import { onMounted, watch } from '@vue/runtime-core';
 import axios from 'axios';
 
 export default {
@@ -60,6 +60,7 @@ export default {
         chgno : String,
         cid : String,
         jno : [String, Number],
+        chgrate : Number,
     },
     setup (props) {
         
@@ -71,7 +72,7 @@ export default {
             jconfirm : "",      // 성공/실패
         });
 
-
+        // 인증글 리스트
         const handleData = async(page)=> {
             const url = `/ROOT/api/confirm/chgcfmlist.json?chgno=${props.chgno}&page=${page}`;
             const headers = {"Content-Type":"application/json"};
@@ -115,7 +116,7 @@ export default {
             } else if (e === 2) {
                 state.jconfirm = "실패";
             }
-
+            // console.log("cfno" , cfno);
             if (confirm( state.jconfirm+" 확정하시겠습니까?")) {
                 // console.log("인증 번호 : ", cfno);
                 // console.log("성공 여부 : ", e);
@@ -126,23 +127,36 @@ export default {
                 // console.log(response.data);
                 if (response.data.status === 200) {
                     // console.log("완료");
-
-                    if (e === 1) {
-                        const url1 = `/ROOT/api/confirm/successrate.json?chgno=${props.chgno}&jno=${props.jno}`;
-                        const headers1 = {"Content-Type":"application/json"};
-                        const body1 = {};
-                        const response1 = await axios.put(url1, body1, {headers:headers1});
-                        // console.log("달성률 결과 : ", response1.data);
-                        if (response1.data.status === 200) {
-                            handleData(state.page);
-                        }
-                    }
-
+                    alert( state.jconfirm+'확정 되었습니다');
                     handleData(state.page);
                 }
             }
-            
+
         };
+
+        // 달성률 업데이트
+        const challnegeRate = async()=> {
+            const url1 = `/ROOT/api/confirm/successrate.json?chgno=${props.chgno}&jno=${props.jno}`;
+            const headers1 = {"Content-Type":"application/json"};
+            const body1 = {};
+            const response1 = await axios.put(url1, body1, {headers:headers1});
+            // console.log("달성률 결과 : ", response1.data);
+            if (response1.data.status === 200) {
+                handleData(state.page);
+            }
+        }
+
+        // 성공 클릭하면 달성률 업데이트
+        watch(() => (state.jconfirm), (currentValue, oldValue) => {
+            console.log("성공 유무 현재값 :",currentValue);
+            console.log("성공 유무 이전값",oldValue);
+            console.log("props로 넘어오는 달성률 :", props.chgrate);
+            if (currentValue === "성공") {
+                challnegeRate();
+                // props.chgrate = state.cfitems.chgrate;
+            }
+        });
+
 
         onMounted(()=> {
             handleData(state.page);
@@ -154,6 +168,7 @@ export default {
             handlePage,
             handleData,
             handleSuccess,
+            challnegeRate
         }
     }
 }
