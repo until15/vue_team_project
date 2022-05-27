@@ -22,46 +22,20 @@
                 </el-form>
             </div>
 
-            <!-- 리스트 -->
-            <table border="1">
-                <tr>
-                    <th>첼린지 번호</th>
-                    <th>첼린지 제목</th>
-                    <th>첼린지 소개</th>
-                    <th>첼린지 인원수</th>
-                    <th>첼린지 참가비</th>
-                    <th>첼린지 시작일</th>
-                    <th>첼린지 종료일</th>
-                    <th>첼린지 진행상태</th>
-                    <th>첼린지 난이도</th>
-                    <th>첼린지 좋아요</th>
-                </tr>
-                <tr v-for="tmp in state.items" :key="tmp">
-                    <td>{{tmp.chgno}}</td>
-                    <td @click="handleSelectOne(tmp.chgno)">{{tmp.chgtitle}}</td>
-                    <td>{{tmp.chgintro}}</td>
-                    <td>{{tmp.chgcnt}}</td>
-                    <td>{{tmp.chgfee}}</td>
-                    <td>{{tmp.chgstart}}</td>
-                    <td>{{tmp.chgend}}</td>
-                    <td>{{tmp.recstate}}</td>
-                    <td>{{tmp.chglevel}}</td>
-                    <td>{{tmp.chglike}}</td>
-                </tr>
-            </table>
-
-            <el-table :data="state.items" style="width: 100%" @row-click="handleRow">
-                <el-table-column prop="chgno" label="번호" width="50" />
-                <el-table-column prop="chgtitle" label="제목" width="180" />
-                <el-table-column prop="chgintro" label="소개" />
-                <el-table-column prop="chgcnt" label="인원수" />
-                <el-table-column prop="chgfee" label="참가비" />
-                <el-table-column prop="chgstart" label="시작일" />
-                <el-table-column prop="chgend" label="종료일" />
-                <el-table-column prop="recstate" label="첼린지 상태" />
-                <el-table-column prop="chglevel" label="난이도" />
-                <el-table-column prop="chglike" label="좋아요" />
-            </el-table>
+            <div>
+                <el-table :data="state.items" style="width: 100%" @row-click="handleRow">
+                    <el-table-column prop="chgno" label="번호" width="50" />
+                    <el-table-column prop="chgtitle" label="제목" width="180" />
+                    <el-table-column prop="chgintro" label="소개" />
+                    <el-table-column prop="chgcnt" label="인원수" />
+                    <el-table-column prop="chgfee" label="참가비" />
+                    <el-table-column prop="chgstart" label="시작일" />
+                    <el-table-column prop="chgend" label="종료일" />
+                    <el-table-column prop="recstate" label="첼린지 상태" />
+                    <el-table-column prop="chglevel" label="난이도" />
+                    <el-table-column prop="chglike" label="좋아요" />
+                </el-table>
+            </div>
 
             <!-- 페이지네이션 -->
             <div>
@@ -69,6 +43,11 @@
                     <button @click="handlePage(tmp, state.text)" >{{ tmp }}</button>
                 </label>
             </div>
+
+            <div class="example-pagination-block">
+                <el-pagination layout="prev, pager, next" :total="state.pages" @current-change="handleCurrent" />
+            </div>
+
         </div>
 
     </div>
@@ -92,7 +71,8 @@ export default {
         });
 
         const handleRow = (e)=> {
-            console.log(e);
+            console.log("row 누름 : ", e.chgno);
+            router.push({name: 'MyChallengeOne', query:{chgno:e.chgno}});
         };
 
         const handleData = async(page, text)=> {
@@ -113,10 +93,9 @@ export default {
             handleData(tmp, text);
         }
 
-        const handleSelectOne = async(no)=> {
-            console.log(no);
-            router.push({name: 'MyChallengeOne', query:{chgno:no}});
-        }
+        const handleCurrent = (e)=> {
+            console.log(e);
+        };
 
         onMounted(()=> {
             handleData(state.page, state.text);
@@ -126,13 +105,18 @@ export default {
             state,
             handlePage,
             handleData,
-            handleSelectOne,
             handleRow,
+            handleCurrent
         }
     }
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
+
+.example-pagination-block{
+  margin-top: 10px;
+  margin-bottom: 16px;
+}
 
 </style>
