@@ -58,7 +58,7 @@
                             <el-divider border-style="dotted" />
                             <span>{{tmp.memberchg.mid}}</span> : 
                             <span>{{tmp.cmtcontent}}</span>
-                            <div style="margin-left:150px; margin-top:-28px" v-if="tmp.memberchg.memail === memail">
+                            <div style="margin-left:1000px; margin-top:-28px" v-if="tmp.memberchg.memail === memail">
                                 <el-button type="info" size="small" plain @click="handleReplyDelete(tmp.cmtno)">삭제</el-button>
                             </div>
                         </div>  

@@ -47,7 +47,7 @@
                 
                 <!-- 참가비 -->
                 <el-form-item  label="참가비" label-width="80px">
-                    <el-input type="number" style="width:152px" ref="chgfee" v-model="state.chgfee" placeholder="참가비를 설정해주세요." />
+                    <el-input type="number" style="width:152px" ref="chgfee" step="100" min="5000" max="15000" v-model="state.chgfee" placeholder="참가비를 설정해주세요." />
                 </el-form-item>
 
                 <!-- 참가인원 -->
@@ -58,7 +58,7 @@
                 <!-- 루틴 설정 다이어로그 -->
                 <el-form-item style="margin-left:80px;">
                     <el-button type="info" plain @click="dialogTableVisible = true" style="width:350px">루틴 생성</el-button>
-                    <el-dialog v-model="dialogTableVisible" title="루틴 생성" fullscreen center>
+                    <el-dialog v-model="dialogTableVisible" title="루틴 생성"  center>
                         <RoutineInsert></RoutineInsert>
                     </el-dialog>    
                 </el-form-item><br />
@@ -68,8 +68,8 @@
                     <el-input type="number" style="width:150px" ref="chgroutine" v-model="state.chgroutine" placeholder="루틴번호." readonly />
                 </el-form-item>
                 <el-form-item  label="" label-width="70px">
-                    <el-button type="info" plain @click="dialogTableVisible1 = true" style="width:190px">루틴 불러오기</el-button>
-                    <el-dialog v-model="dialogTableVisible1" title="루틴 불러오기" fullscreen center>
+                    <el-button type="info" plain @click="state.dialogTableVisible1 = true" style="width:190px">루틴 불러오기</el-button>
+                    <el-dialog v-model="state.dialogTableVisible1" title="루틴 불러오기" center>
                         <RoutineSelect></RoutineSelect>
                     </el-dialog>     
                 </el-form-item><br />
@@ -134,6 +134,7 @@ export default {
 
         // index.js/state.routine 값 가져오기
         const routine = computed(() => store.getters.getRoutine);
+
         console.log(routine);
 
         const state = reactive({
@@ -143,11 +144,12 @@ export default {
             chgcontent : '',
             recruitend : '',
             chgend     : '',
-            chgfee     : 1000,
+            chgfee     : 5000,
             chgcnt     : 1,
             chgroutine : routine, // 가져온 index.js/state.routine 값 넣기
             cimage     : null,
             currenttime : '',
+            dialogTableVisible1 : false,
             //imageUrl   : require('../assets/img/default.png'),
             token      : sessionStorage.getItem("TOKEN")
         });
@@ -172,7 +174,7 @@ export default {
             }
             
             if(state.chgintro === ''){
-                alert('내용을 입력해주세요.');
+                alert('소개를 입력해주세요.');
                 chgintro.value.focus();
                 return false;
             }
@@ -267,6 +269,7 @@ export default {
         const disabledDate = (time) => {
         return time.getTime() < Date.now();
         }
+
 
         return {
             state,  

@@ -335,6 +335,10 @@ export default {
                         alert('가입되었습니다!');
                         router.push({name : "Login"});
                     }
+                    else if(response.data.status === 202){
+                        alert('가입되었습니다!');
+                        router.push({name : "Login"});
+                    }
                 }
                 else{
                     alert('잘못된 연락처 형식입니다');

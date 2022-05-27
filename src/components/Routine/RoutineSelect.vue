@@ -1,8 +1,8 @@
 <template>
   <div align="center" style="padding: 50px">
     <h3>커스텀 루틴 불러오기</h3>
-    <el-button text @click="dialogTableVisible = true">불러오기</el-button>
-    <el-dialog v-model="dialogTableVisible" title="나의 루틴" fullscreen center>
+    <el-button text @click="state.dialogTableVisible = true">불러오기</el-button>
+    <el-dialog v-model="state.dialogTableVisible" title="나의 루틴" fullscreen center>
       <el-table :data="state.rtn">
         <el-table-column width="80">
           <template #default="scope">
@@ -43,7 +43,7 @@
         :total="state.total"
       >
       </el-pagination>
-      <el-button size="small" @click="handleInsert">등록</el-button>
+      <el-button size="small" @click="handleInsert()">등록</el-button>
       <el-popconfirm title="정말 삭제하시겠습니까?" @confirm="handleDelete()">
         <template #reference>
           <el-button size="small" type="danger">삭제</el-button>
@@ -169,6 +169,8 @@ export default {
       page2: 1,
       title: "",
       step: 1, // 자세, 삭제되지 않은 것만
+      dialogTableVisible: false,
+      dialogTableVisible1: false,
       dialogTableVisible2: false,
       dialogTableVisible3: false,
       chk : [], // 루틴 선택 보관
@@ -203,7 +205,8 @@ export default {
       // store.commit("setRtncnt", state.rtncnt);
       // store.commit("setRtnset", state.rtnset);
       console.log(store.commit);
-      //alert('챌린지 등록할 때 연결하기');
+      alert('등록되었습니다');
+      state.dialogTableVisible = false;
     }
 
     // 루틴 개별 삭제
@@ -345,7 +348,7 @@ export default {
       handleDelete,
       handleRoutineDelete,
       handleInsert,
-      handleRtnno
+      handleRtnno,
     };
   },
 };
