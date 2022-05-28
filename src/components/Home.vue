@@ -5,7 +5,7 @@
     <header>
     <div class="container px-4 px-lg-5 header-mb bg-white">
 
-      <!-- 썸네일 : 드웨인 존슨 -->
+      <!-- 드웨인 존슨 썸네일 1 -->
       <div class="text-center">
         <div style="margin-top:40px;">
           <img 
@@ -31,43 +31,62 @@
         </div>
       </div> 
 
-      <!-- 헬린지 로고 -->
-      <div class="text-center">
-        <div style="margin-top:-23px;">
-          <img 
-            width="200px;" 
-            src="../assets/img/헬린지_블랙_로고.gif">
-        </div>
-      </div>
-
       <!-- 헬린지 타이틀 -->
       <div class="text-center">
         <div>
-          <!-- <h1 class="display-4 fw-bolder tracking-in-expand-fwd" style="font-size:5rem;">끝없는 우리의 도전</h1> -->
+          <img 
+            class="logo_black"
+            :src="logo_black">
+        </div>
+        <div>
           <p class="lead fw-normal mb-0">
             헬린지에서 당신의 한계에 도전하세요. <br />
           </p>
         </div>
-        <button style="margin-top:10px;" class="button-blk">더 보기</button>
+        <button 
+          style="margin-top:10px;" 
+          class="button-blk"
+          @click="handleAbout">더 보기</button>
       </div>
 
+      <!-- 드웨인 존슨 썸네일 2 -->
       <div class="text-center">
-        <div style="margin-top:150px;">
+        <div style="margin-top:200px;">
           <img 
             class="image-thumbnail1" 
             src='https://rare-gallery.com/thumbs/322766-Dwayne-Johnson-Gym-Workout-4K-iphone-wallpaper.jpg'/> 
         </div>
       </div>
 
+      <!-- 드웨인 존슨의 명언 -->
       <div>
         <div class="font-right">
-          <h2 style="font-size:7rem;">
-            수많은 <br /> 
-            챌린지들이 <br /> 
-            당신을 <br />
-            기다리고 있습니다.</h2> 
+          <h2 style="font-size:6rem;">
+            '피, 땀, 존경'을 <br /> 기억해라.
+          </h2>
         </div>
-      </div> 
+        <div class="font-right">
+          <h2 style="font-size:3rem;">
+              "첫 두가지는 <br />
+              당신이 투자해야 하는 것이고 <br />
+              마지막 한 가지는 <br />
+              당신이 얻게 되는 것이다." <br />
+              - 드웨인 존슨 -
+          </h2>
+        </div>
+      </div>
+
+      <div>
+        <div class="text-center"
+        style="margin-top:300px;">
+          <h2 style="font-size:6rem;">
+            수많은 챌린지들이 <br /> 
+            당신을 <br />
+            기다리고 있습니다.<br />
+          </h2> 
+        </div>
+      </div>
+      
         
     </div>
     </header>
@@ -75,12 +94,18 @@
     <!-- 메인 화면 -->
     <section class="py-5">
 
-        <!-- 진행 중인 첼린지 -->
+        <!-- 참가 중인 첼린지 -->
         <div class="container px-4 px-lg-5 mt-5 mb-6" v-if="logged === true">
-            
-            <div class="list-top">
-              <span> 진행 중인 첼린지 </span>
-              <button class="seemore" @click="JoinListPage"> 더 보기 </button>
+            <div style="margin-top:200px;" class="list-top">
+              <span> 
+                <h2 style="font-size:3rem;">
+                  참가 중인 챌린지
+                </h2>
+                <button 
+                  style="margin-top:10px;" 
+                  class="button-blk"
+                  @click="JoinListPage">더 보기</button>
+              </span>
             </div>
             <!-- vueper Slider -->
             <vueper-slides
@@ -125,55 +150,68 @@
 
         <!-- 인기 리스트 -->
         <div class="container px-4 px-lg-5 mb-6">
-            <div class="list-top">
-              <span> 인기 리스트 </span>
-              <button class="seemore" @click="LikeListPage"> 더 보기 </button>
+            <div style="margin-top:300px;"  class="list-top">
+              <span> 
+                <h2 style="font-size:3rem;">
+                  인기있는 챌린지
+                </h2>
+                <button 
+                  style="margin-top:10px;" 
+                  class="button-blk"
+                  @click="LikeListPage">더 보기</button>
+              </span>
             </div>
             
-            <!-- vueper Slider -->
-            <vueper-slides
-              :fixed-height="true"
-              class="no-shadow"
-              :visible-slides="3"
-              :slide-ratio="1 / 4"
-              :dragging-distance="70">
-              <vueper-slide v-for="(tmp) in state1.items" :key="tmp">
+          <!-- vueper Slider -->
+          <vueper-slides
+            :fixed-height="true"
+            class="no-shadow" 
+            :visible-slides="3"
+            :slide-ratio="1 / 4"
+            :dragging-distance="70">
+            <vueper-slide v-for="(tmp) in state1.items" :key="tmp">
 
-                <!-- card -->
-                <template v-slot:content>
-                  <el-row>
-                    <el-col>
-                      <el-card :body-style="{ padding: '0px' }" class="c-m">
-                        <img
-                          :src="tmp.imgurl"
-                          class="image"
-                        />
-                        <div style="padding: 14px">
-                          <span>{{tmp.chgtitle}}</span><br />
-                          <span>좋아요{{tmp.chglike}}개</span>
-                          <span class="ch-mem">{{tmp.chgrate}}</span>
-                          <div class="bottom">
-                            <time class="time">{{tmp.chgregdate}}</time>
-                          </div>
-                          <div class="chg-detail">
-                            <el-button text class="button" @click="handleSelectLike(tmp.chgno)">상세 보기</el-button>
-                          </div>
+              <!-- card -->
+              <template v-slot:content>
+                <el-row>
+                  <el-col>
+                    <el-card :body-style="{ padding: '0px' }" class="c-m">
+                      <img
+                        :src="tmp.imgurl"
+                        class="image"
+                      />
+                      <div style="padding: 14px">
+                        <span>{{tmp.chgtitle}}</span><br />
+                        <span>좋아요{{tmp.chglike}}개</span>
+                        <span class="ch-mem">{{tmp.chgrate}}</span>
+                        <div class="bottom">
+                          <time class="time">{{tmp.chgregdate}}</time>
                         </div>
-                      </el-card>
-                    </el-col>
-                  </el-row>
-                </template>
-
-              </vueper-slide>
-            </vueper-slides>
+                        <div class="chg-detail">
+                          <el-button text class="button" @click="handleSelectLike(tmp.chgno)">상세 보기</el-button>
+                        </div>
+                      </div>
+                    </el-card>
+                  </el-col>
+                </el-row>
+              </template>
+            </vueper-slide>
+          </vueper-slides>
         </div>
 
 
         <!-- 난이도 별 리스트 -->
         <div class="container px-4 px-lg-5 mb-6">
-            <div class="list-top">
-              <span> 난이도 별 리스트 </span>
-              <button class="seemore" @click="LevelListPage"> 더 보기 </button>
+            <div style="margin-top:300px;" class="list-top">
+              <span> 
+                <h2 style="font-size:3rem;">
+                  난이도 순 챌린지
+                </h2>
+                <button 
+                  style="margin-top:10px;" 
+                  class="button-blk"
+                  @click="LevelListPage">더 보기</button>
+              </span>
             </div> 
 
             <!-- vueper Slider -->
@@ -233,6 +271,13 @@ export default {
     VueperSlides, VueperSlide
   },
 
+  // 로고 require
+  data () {
+        return {
+            logo_black : require("@/assets/img/헬린지_블랙_로고.gif")
+        }
+  },
+
   setup () {
     const store = useStore();
 
@@ -254,6 +299,11 @@ export default {
     }); // 인기 챌린지 
 
     const state2 = reactive({}); // 난이도 챌린지 
+
+    // about us 더보기 클릭
+    const handleAbout = async()=> {
+      router.push({name:'AboutUs'});
+    };
 
     // 진행 중인 첼린지 더보기 클릭
     const JoinListPage = async()=> {
@@ -363,6 +413,7 @@ export default {
       handleSelectOne,
       handleSelectLike,
       handleSelectLevel,
+      handleAbout,
       JoinListPage,
       LikeListPage,
       LevelListPage,
@@ -391,7 +442,7 @@ export default {
   }
 
   .list-top {
-    background-color: rgb(206, 206, 206);
+    background-color: rgb(255, 255, 255);
     padding: 15px;
     text-align: center;
   }
@@ -449,8 +500,12 @@ export default {
     
   }
 
+  .logo_black {
+    width: 200px;
+  }
+
   .button-blk {
-  background-color: rgb(0, 0, 0);
+  background-color: #212529;
   border: none;
   color: rgb(255, 255, 255);
   padding: 10px 20px;

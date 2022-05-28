@@ -1,70 +1,119 @@
 <template>
-    <div class="center">
+    <div>
         <!-- 로그인 -->
-        <el-card style="height:600px">
-            <div style="margin-right:70px">
-                    <h3 style="margin-left:60px">로그인</h3>
-                    <el-form :inline="true">
-                            <el-form-item  label="이메일" label-width="80px">
-                                <el-input  size="medium" ref="memail" v-model="state.memail" placeholder="이메일" @keypress="handleEmail"/>
-                            </el-form-item>
-                    </el-form>
+        <div style="margin-right:70px">
+            
+            <!-- 로고 -->
+            <div style="margin-left:65px;">
+                <img 
+                class="logo_black"
+                :src="logo_black" />
+            </div>
+            
+            <h3 class="center" style="margin-top:-30px;">헬린지 로그인</h3>
+
+            <!-- 정보 입력 -->
+            <div style="margin-top:50px;">
+                <el-form class="center" :inline="true">
+                    <el-form-item>
+                        <el-input class="input-size" size="medium" ref="memail" v-model="state.memail" placeholder="이메일을 입력해주세요." @keypress="handleEmail"/>
+                    </el-form-item>
+                </el-form>
                     
-                    <el-form :inline="true"  >
-                        <el-form-item label="암호" label-width="80px" style="margin-top:-20px" >
-                            <el-input  size="medium" ref="mpw" v-model="state.mpw" type="password" placeholder="암호" @keydown.prevent.enter="handleLogin"/>
-                        </el-form-item>
-                    </el-form>
-                    <div style="margin-top:-20px;margin-left:65px">
-                        <el-link @click="dialogmemail = true">아이디찾기</el-link>
-                        <el-link style="margin-left:30px" @click="dialogmpw = true">암호찾기</el-link>
-                    </div>
-                    
-                <el-button type="info" style="margin-left:60px;margin-top:10px" size="small" plain @click="handleLogin">로그인</el-button> 
-                <el-button type="info" size="small" plain @click="handleJoin">회원가입</el-button> <br /><br />
-                
-                <a id="custom-login-btn" @click="kakao" style="margin-left:65px">
+                <el-form style="margin-top:-12px;" class="center" :inline="true">
+                    <el-form-item>
+                        <el-input class="input-size" size="medium" ref="mpw" v-model="state.mpw" type="password" placeholder="비밀번호를 입력해주세요." @keydown.prevent.enter="handleLogin"/>
+                    </el-form-item>
+                </el-form>            
+            </div>
+
+            <!-- 아이디/비밀번호 찾기 -->
+            <div class="center" style="margin-top:-10px;">
+                <el-link @click="dialogmemail = true">아이디 찾기</el-link>/
+                <el-link style="" @click="dialogmpw = true">비밀번호 찾기</el-link>
+            </div>
+
+            <!-- 로그인 -->
+            <div class="center">
+                <button class="button-blk" style="margin-top:10px;" plain @click="handleLogin">로그인</button> 
+            </div>
+            
+            <!-- 카카오 로그인 -->
+            <div class="center">
+                <!-- <a id="custom-login-btn" @click="kakao">
                     <img
                         src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
                         width="222"
                         alt="카카오 로그인 버튼"
                     />
-                </a>
+                </a> -->
+                <button class="button-kakao" style="margin-top:10px;" plain id="custom-login-btn" @click="kakao">카카오 로그인</button>
             </div>
-        </el-card>
+
+            <!-- 회원가입 -->
+            <div class="center" style="margin-top:10px;margin-bottom:60px">회원이 아니신가요? 
+                <el-link style="margin-left:10px" @click="handleJoin">이곳을 클릭해주세요.</el-link>
+            </div>
+
+        </div>
+
+
         <!-- 아이디 찾기 다이얼로그 -->
-        <el-dialog v-model="dialogmemail" width="30%" title="이메일(아이디)찾기" :before-close="handleClose">
+        <el-dialog v-model="dialogmemail" width="30%" :before-close="handleClose">
             <div v-if="state.item">
                당신의 아이디는 {{state.item.memail}} 입니다.
             </div>
             <br />        
-            <div style="margin-right:40px">
-                <el-form :inline="true"  >
-                    <el-form-item label="이름" label-width="80px">
-                        <el-input  size="medium" ref="mname" v-model="state.mname" placeholder="이름" />
+            <div>
+
+                <h3 class="center-log">이메일(아이디) 찾기</h3>
+
+                <!-- 아이디 입력 -->
+                <el-form style="margin-top:25px" class="center-log" :inline="true"  >
+                    <el-form-item>
+                        <el-input class="input-size" size="medium" ref="mname" v-model="state.mname" placeholder="이름을 입력해주세요." />
                     </el-form-item>
                 </el-form>
-                <el-form :inline="true" style="margin-top:-20px" >
-                    <el-form-item label="생일" label-width="80px">
-                        <el-input  size="medium" ref="mbirth" v-model="state.mbirth" placeholder="yyyy-mm-dd"  />
+
+                <!-- 생년월일 입력 -->
+                <el-form class="center-log" :inline="true" style="margin-top:-20px" >
+                    <el-form-item>
+                        <el-input class="input-size" size="medium" ref="mbirth" v-model="state.mbirth" placeholder="생년월일(YYYY-MM-DD)을 입력해주세요."  />
                     </el-form-item>
                 </el-form>
+
             </div>
-            <el-button type="info" style="margin-top:-20px" size="small" plain @click="handleMemail">찾기</el-button>
+
+            <!-- 찾기 버튼 -->
+            <div class="center-log">
+                <button class="button-blk" style="margin-top:10px;" plain @click="handleMemail">아이디 찾기</button> 
+            </div>
+            
         </el-dialog>
+
+
         <!-- 암호 찾기 다이얼로그 -->
-        <el-dialog v-model="dialogmpw" width="30%" title="암호찾기" :before-close="handleClose">
+        <el-dialog v-model="dialogmpw" width="30%" :before-close="handleClose">
             <div v-if="state.newmpw" style="margin-top:-20px;margin-left:20px">
                임시 암호는 {{state.newmpw}}입니다.
             </div>       
             <div style="margin-right:60px;margin-top:10px">
-                <el-form :inline="true"  >
-                    <el-form-item label="이메일(아이디)" label-width="100px">
-                        <el-input  size="medium" ref="memail" v-model="state.memail" placeholder="이메일" />
+
+                <h3 class="center">비밀번호 찾기</h3>
+
+                <!-- 이메일 입력 -->
+                <el-form style="margin-top:25px" class="center" :inline="true"  >
+                    <el-form-item>
+                        <el-input class="input-size" size="medium" ref="memail" v-model="state.memail" placeholder="이메일(아이디)를 입력해주세요." />
                     </el-form-item>
                 </el-form>
+
             </div>
-            <el-button type="info" style="margin-top:-20px;margin-left:30px" size="small" plain @click="handleMpw">임시암호발급</el-button>
+
+            <!-- 찾기 버튼 -->
+            <div class="center-log">
+                <button class="button-blk" style="margin-top:10px;" plain @click="handleMpw">비밀번호 찾기</button> 
+            </div>
         </el-dialog>
 
         <!-- 옛날꺼 -->
@@ -82,6 +131,12 @@ import {useRoute} from 'vue-router';
 import axios from 'axios';
 import {useStore} from 'vuex';
 export default {
+    // 로고 require
+    data () {
+            return {
+                logo_black : require("@/assets/img/헬린지_블랙_로고.gif")
+            }
+    },
     setup () {
 
         const store = useStore();
@@ -284,7 +339,51 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
+.button-blk {
+    background-color: #212529;
+    border: none;
+    color: rgb(255, 255, 255);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
+    width: 300px;
+}
+
+.button-kakao {
+    background-color: #f9e000;
+    border: none;
+    color: #212529;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
+    width: 300px;
+}
+
+.input-size {
+    width: 300px;
+}
+
+.logo_black {
+    display: block; margin: 0px auto;
+    width: 200px;
+
+}
+
 .center{
-  text-align: center;
+    margin-left: 65px;
+    text-align: center;
+}
+
+.center-log{
+    text-align: center;
 }
 </style>

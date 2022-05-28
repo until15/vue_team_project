@@ -2,6 +2,8 @@ import { createWebHashHistory, createRouter } from "vue-router";
 
 import Home from '@/components/Home.vue';
 
+import AboutUs from '@/components/AboutUs.vue';
+
 import Admin from '@/components/admin/Admin.vue'; 
 import Admin1 from '@/components/admin/Admin1.vue'; 
 import Admin2 from '@/components/admin/Admin2.vue'; 
@@ -66,6 +68,7 @@ import MyActivity from '@/components/MyActivity.vue';
 
 const routes = [
     { path:'/', name:"Home", component:Home },
+    { path:'/aboutus', name:"AboutUs", component:AboutUs },
     { path:'/admin', name:"Admin", component:Admin },
     { path:'/admin1', name:"Admin1", component:Admin1 },
     { path:'/admin2', name:"Admin2", component:Admin2 },

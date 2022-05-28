@@ -86,7 +86,7 @@ import axios from 'axios';
 export default {
     data () {
         return {
-            logo_black : require("@/assets/img/헬린지_블랙_로고.gif")
+            logo_black : require("@/assets/img/헬린지_블랙_폰트와로고.gif")
         }
     },
 
@@ -162,7 +162,7 @@ export default {
 <style lang="css" scoped>
 
 .logo_black {
-    width: 110px;
+    width: 100px;
 }
 
 .fonts {
