@@ -100,8 +100,8 @@
 
                     <!-- 몸무게 -->
                     <el-form-item style="margin-top:-10px;">
-                        <el-select style="width:159px;" ref="mrole" v-model="state.mweight" size="medium" placeholder="몸무게를 입력해주세요.">
-                            <el-option v-for="no in 250" :key="no" :label="no" :value="no">
+                        <el-select style="width:159px;" ref="mrole"  v-model="state.mweight" size="medium" placeholder="몸무게를 입력해주세요.">
+                            <el-option v-for="no in 250" :key="no" :label="no" :value="no" >
                                 {{no}}
                             </el-option>
                         </el-select>

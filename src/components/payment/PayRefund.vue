@@ -35,7 +35,7 @@ export default {
       token: sessionStorage.getItem("TOKEN"),
       paychg: "",
       pjoinchg: "",
-      jno: 114, // 연결 필요
+      jno: 118, // 연결 필요
     };
   },
 
@@ -94,7 +94,7 @@ export default {
         }).then((data) => {
           // 환급 성공 시 응답 처리
           console.log(data);
-          location.href = "http://localhost:8080/?#/pay"; // 환급 성공 시 이동할 페이지
+          location.href = "http://localhost:8080/?#/"; // 환급 성공 시 이동할 페이지
           alert("환급 되었습니다.");
         });
       } else {

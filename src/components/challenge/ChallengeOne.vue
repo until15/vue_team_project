@@ -18,8 +18,8 @@
             모집기간 : {{state.item.recruitstart}} ~ {{state.item.recruitend}} <br />
             챌린지 기간 : {{state.item.chgstart}} ~ {{state.item.chgend}} <br />
             루틴 : {{state.item.chgroutine}}<br />
-            참가비 : {{state.item.chgfee}} <br />
-            인원수 : {{state.item.chgcnt}} <br />
+            참가비 : {{state.item.chgfee}}원 <br />
+            인원수 : {{state.item.chgcnt}}명 <br />
             난이도 : {{state.item.chglevel}} <br />
             루틴 : 
             <div v-if="state.routines">
