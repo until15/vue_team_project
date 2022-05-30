@@ -27,7 +27,7 @@
                         <el-descriptions title="" :column="1"  >
                             <el-descriptions-item >
                             <template #label>
-                                <div class="center" style="margin-top:40px"> {{state.item.bcontent}}</div>
+                                <div class="center" style="margin-top:40px"> {{state.item.bcontent.replace("<p>", "").replace("</p>","")}}</div>
                                 <div class="center" v-for="tmp in state.image" :key="tmp">
                                 <img :src="tmp" style="width:300px;margin-top:20px" /><br />
                             </div>
@@ -38,7 +38,7 @@
                         
                         <div v-if="state.member.memail === memail">
                         <img :src="state.imageUrl" style="width:80px" />
-                            <input type="file" @change="handleImage($event)"  style="width:150px" />
+                            <input type="file" accept="image/*" @change="handleImage($event)"  style="width:150px" />
                             <el-button type="info" size="small" plain @click="handleImageInsert">이미지등록</el-button>
                         </div>
                         <hr />
@@ -150,6 +150,7 @@ export default {
         
         // 데이터 불러오기(상세)
         const handleData = async(bno) => {
+            
             const url = `/ROOT/api/community/selectone?bno=${bno}`;
             const headers = {"Content-Type":"application/json"};
             const response = await axios.get(url, {headers});
@@ -162,6 +163,8 @@ export default {
                 state.iitems = response.data.next2;
             }
         };
+
+        
 
         // 수정화면으로 이동
         const handleUpdate = async() => {

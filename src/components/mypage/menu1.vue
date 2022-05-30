@@ -26,7 +26,7 @@
                 <label style="margin-left:-5px;margin-top:20px;" class="button-blk1" for="file">프로필 사진 변경</label> 
 
                 <!-- 숨김 -->
-                <input class="hide" type="file" id="file" @change="handleImage($event)" />
+                <input class="hide" type="file" accept="image/*" id="file" @change="handleImage($event)" />
             </div>
 
             <!-- 정보 입력 -->

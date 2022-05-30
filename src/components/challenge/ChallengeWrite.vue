@@ -81,7 +81,7 @@
 
                 <!-- 이미지 -->
                 <img :src="state.imageUrl" style="width:300px" /><br />
-        이미지 : <input type="file" @change="handleImage($event)" /><br />
+        이미지 : <input type="file" accept="image/*" @change="handleImage($event)" /><br />
 
 
 
