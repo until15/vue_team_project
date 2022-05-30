@@ -1,7 +1,7 @@
 <template>
     <div align="center">
         <!-- 문의목록 -->
-        <el-card style="height:550px">
+        <el-card >
         <h3>1:1문의</h3>
         <hr /> 
             <el-table :data="state.items">
@@ -57,7 +57,7 @@ export default {
 
         // 데이터 불러오기(목록)
         const handleData = async() => {
-            const url = `/ROOT/api/Inquiry/selectlist2??page=${state.page}&qtitle=${state.qtitle}`;
+            const url = `/ROOT/api/Inquiry/selectlist2?page=${state.page}&qtitle=${state.qtitle}`;
             const headers = {"Content-Type":"application/json", "token":state.token};
             const response = await axios.get(url, {headers});
             console.log(response.data);

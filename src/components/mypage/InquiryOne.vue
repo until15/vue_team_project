@@ -41,8 +41,8 @@
         <!-- 답글 보이기 -->
         <div v-for="tmp in state.reply" :key="tmp">
         <el-collapse>
-            <el-collapse-item style="margin-left:100px;"  title="문의답변" name="1">
-                <div style="margin-right:100px;">
+            <el-collapse-item style="margin-left:100px;"  title="문의답변" >
+                <div style="margin-right:100px;text-size:100px">
                     {{tmp.iqcontent}}
                 </div>
                 <div style="margin-left:1000px;" v-if="tmp.memberchg.mrole === 'admin'">

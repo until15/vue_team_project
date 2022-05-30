@@ -4,7 +4,7 @@
         <el-card>
         <h3>자유게시판</h3>
         <hr />
-            <el-table :data="state.items"  style="width: 100% " >
+            <el-table :data="state.items"  style="width: 100%;  " >
                 <el-table-column prop="bno" label="번호" width="60" />
                 <el-table-column prop="btitle" label="제목"  width="250" >
             <template #default="scope">

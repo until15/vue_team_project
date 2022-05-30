@@ -65,7 +65,7 @@
                 <el-form class="center" :inline="true">
                     <!-- 연락처 -->
                     <el-form-item label="연락처" label-width="80px;" style="margin-left:22px;margin-top:-15px;">
-                        <el-input class="input-size" size="medium" ref="mphone" v-model="state.item.mphone" type="text" placeholder="000-0000-0000"/>
+                        <el-input class="input-size" size="medium" ref="mphone" maxlength="11" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" v-model="state.item.mphone" type="text" placeholder="-는 빼고 입력해주세요"/>
                     </el-form-item>
                 </el-form>
 

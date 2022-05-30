@@ -16,7 +16,7 @@
 
             <el-form :inline="true" v-if="state.item" >
             <el-form-item  label="" label-width="80px">
-                <el-input type="text" size="mini" v-model="state.memail" placeholder="검색어 입력" @keydown.prevent.enter="handleData" />
+                <el-input type="text" size="mini" v-model="state.mid" placeholder="검색어 입력" @keydown.prevent.enter="handleData" />
             </el-form-item>
             <el-form-item>
                 <el-button type="info" plain size="mini" style="margin-left:5px" @click="handleData" >검색</el-button>
@@ -39,7 +39,7 @@ export default {
         });
 
         const handleData = async() => {
-            const url = `/ROOT/api/member/selectmemberlist1?page=${state.page}&memail=${state.memail}`;
+            const url = `/ROOT/api/member/selectmemberlist1?page=${state.page}&memail=${state.memail}&mid=${state.mid}`;
             const headers = {"Content-Type":"application/json"};
             const response = await axios.get(url, {headers});
             console.log(response.data);
@@ -47,6 +47,7 @@ export default {
                 state.item = response.data.result;
                 state.total = response.data.total;
                 state.memail = '';
+                state.mid = '';
 
                 let mstep = []; 
                 for(let tmp of response.data.result){
