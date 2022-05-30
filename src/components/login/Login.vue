@@ -35,7 +35,7 @@
 
             <!-- 로그인 -->
             <div class="center">
-                <button class="button-blk" style="margin-top:10px;" plain @click="handleLogin">로그인</button> 
+                <el-button class="button-blk" type="info" style="margin-top:10px;" plain @click="handleLogin">로그인</el-button> 
             </div>
             
             <!-- 카카오 로그인 -->
@@ -47,7 +47,7 @@
                         alt="카카오 로그인 버튼"
                     />
                 </a> -->
-                <button class="button-kakao" style="margin-top:10px;" plain id="custom-login-btn" @click="kakao">카카오 로그인</button>
+                <el-button class="button-kakao" type="info" style="margin-top:10px;" plain id="custom-login-btn" @click="kakao">카카오 로그인</el-button>
             </div>
 
             <!-- 회원가입 -->

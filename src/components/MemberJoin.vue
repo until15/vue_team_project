@@ -26,23 +26,156 @@
         </div> -->
         
         <!-- 회원가입 -->
-        <el-card shadow="always">
+        
+        <div>
+
             <div class="center">
-            <el-form :inline="true" style="margin-left:192px; display:block">
-                <el-form-item label="이메일" label-width="80px">
-                    <el-input v-model="state.memail" size="medium" ref="memail" placeholder="이메일" @keyup="handleChk" />
-                </el-form-item>
-                <el-form-item>@</el-form-item>
-                <el-form-item>
-                        <el-select v-model="state.memail1" size="medium" ref="memail1" placeholder="선택">
-                            <el-option  v-for="tmp in state.emailoption" :key="tmp" :label="tmp" :value="tmp" >
+                <h3 style="margin-top:100px;">헬린지 회원가입</h3>
+            </div>
+
+            <div class="center">
+                <p>
+                    헬린지의 회원이 되어 <br />
+                    다양한 챌린지에 도전하세요.
+                </p>
+            </div>
+            
+            <div style="margin-top:50px;">
+
+                <!-- 이메일 입력 -->
+                <el-form class="center" :inline="true">
+                    <el-form-item style="margin-left:145px;">
+                        <el-input v-model="state.memail" size="medium" ref="memail" placeholder="이메일" @keyup="handleChk" />
+                    </el-form-item>
+
+                    <el-form-item>@</el-form-item>
+
+                    <el-form-item>
+                            <el-select style="width:154px;  " v-model="state.memail1" size="medium" ref="memail1" placeholder="선택">
+                                <el-option  v-for="tmp in state.emailoption" :key="tmp" :label="tmp" :value="tmp" >
+                                </el-option>
+                            </el-select>
+                    </el-form-item>
+
+                    <el-form-item>
+                        <el-button class="button-blk1" type="info" size="small" plain @click="emailCheck">중복확인</el-button>{{state.usermailcheck}}
+                    </el-form-item>
+                </el-form>
+
+                <!-- 비밀번호 -->
+                <el-form class="center" :inline="true">
+                    <el-form-item style="margin-top:-10px;" >
+                        <el-input class="input-size" size="medium" ref="mpw" v-model="state.mpw" type="password" placeholder="비밀번호를 입력해주세요."/>
+                    </el-form-item>
+                </el-form>
+
+                <!-- 비밀번호 확인 -->
+                <el-form class="center" :inline="true">
+                    <el-form-item style="margin-top:-10px;">
+                        <el-input class="input-size" size="medium" ref="mpw1" v-model="state.mpw1" type="password" placeholder="비밀번호를 다시 입력해주세요."/>
+                    </el-form-item>
+                </el-form>
+
+                <!-- 이름 -->
+                <el-form class="center" :inline="true">
+                    <el-form-item style="margin-top:-10px;">
+                        <el-input class="input-size" size="medium" ref="mname"  v-model="state.mname" placeholder="이름을 입력해주세요." />
+                    </el-form-item>
+                </el-form>
+
+                <!-- 닉네임 -->
+                <el-form class="center" :inline="true">
+                    <el-form-item style="margin-top:-10px;margin-left:148px;">
+                        <el-input class="input-size" size="medium" ref="mid"  v-model="state.mid" placeholder="닉네임을 입력해주세요." @keyup="handleMidChk" />
+                    </el-form-item>
+
+                    <el-form-item style="margin-top:-10px;">
+                        <el-button class="button-blk1" type="info" size="small" plain @click="checkMid">중복확인</el-button> {{state.usermidcheck}}
+                    </el-form-item>
+                </el-form>
+
+
+                <el-form class="center" :inline="true">
+                    <!-- 성별 -->
+                    <el-form-item style="margin-top:-10px;">
+                        <el-select style="width:152px;" ref="mgender" v-model="state.mgender" size="medium" placeholder="성별을 선택해주세요.">
+                            <el-option value="1" label="남자">남자</el-option>
+                            <el-option value="2" label="여자">여자</el-option>
+                        </el-select>
+                    </el-form-item>
+
+                    <!-- 생년월일 -->
+                    <el-form-item style="margin-top:-10px;">
+                        <el-date-picker style="width:188px;" ref="mbirth" v-model="state.mbirth" size="medium" type="date" placeholder="생년월일을 입력해주세요." 
+                        format="YYYY-MM-DD" value-format="YYYY-MM-DD" :disabled-date="disabledDate" />
+                    </el-form-item>
+                </el-form>
+
+            
+                <el-form class="center" :inline="true">
+                    <!-- 키 -->
+                    <el-form-item style="margin-top:-10px;margin-left:20px;">
+                        <el-select style="width:159px;" ref="mrole" v-model="state.mheight" size="medium" placeholder="키를 입력해주세요.">
+                            <el-option v-for="no in 250" :key="no" :label="no" :value="no">
+                                {{no}}
                             </el-option>
                         </el-select>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="info" size="small" plain @click="emailCheck">중복확인</el-button>{{state.usermailcheck}}
-                </el-form-item>
-            </el-form>
+                        cm
+                    </el-form-item>
+
+                    <!-- 몸무게 -->
+                    <el-form-item style="margin-top:-10px;">
+                        <el-select style="width:159px;" ref="mrole" v-model="state.mweight" size="medium" placeholder="몸무게를 입력해주세요.">
+                            <el-option v-for="no in 250" :key="no" :label="no" :value="no">
+                                {{no}}
+                            </el-option>
+                        </el-select>
+                        kg
+                    </el-form-item>
+                </el-form>
+
+
+                <!-- 연락처 -->
+                <el-form class="center" :inline="true">
+                    <el-form-item style="margin-top:-10px;">
+                        <el-input class="input-size" size="medium" ref="mphone" v-model="state.mphone" type="text" placeholder="연락처 예) 000-0000-0000"/>
+                    </el-form-item>
+                </el-form>
+
+                <!-- 권한 -->
+                <el-form class="center" :inline="true">
+                    <el-form-item style="margin-top:-10px;">
+                        <el-select class="input-size" ref="mrole" v-model="state.mrole" size="medium" placeholder="권한을 선택해주세요. ">
+                            <el-option value="admin" label="관리자"></el-option>
+                            <el-option value="member" label="회원"></el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-form>
+                
+                <div class="center" style="margin-left:-10px;">
+                    <img :src="state.imageUrl" style="width:350px;" /><br />
+                </div>
+
+                <!-- 프로필 사진 업로드 -->
+                <div class="center">
+                    <!-- 버튼 -->
+                    <label style="margin-left:-5px;margin-top:20px;" class="button-blk" for="file">프로필 사진 업로드</label> 
+
+                    <!-- 숨김 -->
+                    <input class="hide" type="file" id="file" @change="handleImage($event)" />
+                </div>
+                
+                <!-- 회원가입 버튼 -->
+                <div class="center" style="margin-left:-5px;">
+                    <el-button class="button-blk" type="info" style="margin-top:10px;" plain @click="handleData">회원가입</el-button>
+                </div>
+
+                <!-- 로그인 링크 -->
+                <div class="center" style="margin-top:10px;margin-bottom:60px">이미 가입하셨나요?
+                    <el-link style="margin-left:10px" @click="handleLogin">이곳을 클릭해주세요.</el-link>
+                </div>
+            </div>
+
             <!-- 옛날꺼 -->
             <!-- <el-form :inline="true" style="margin-left:90px" >
                 <el-form-item  label="이메일" label-width="80px">
@@ -52,59 +185,7 @@
                     <el-button type="info" size="small" plain>{{state.usermailcheck}}</el-button> 
                 </el-form-item>
             </el-form> -->
-            <el-form :inline="true" style="margin-right:150px" >
-                <el-form-item label="암호" label-width="80px" style="margin-top:-20px" >
-                    <el-input  size="medium" ref="mpw" v-model="state.mpw" type="password" placeholder="암호"/>
-                </el-form-item>
-            </el-form>
 
-            <el-form :inline="true" style="margin-right:150px"  >
-                <el-form-item label="암호확인" label-width="80px" style="margin-top:-20px">
-                    <el-input  size="medium" ref="mpw1" v-model="state.mpw1" type="password" placeholder="암호확인"/>
-                </el-form-item>
-            </el-form>
-
-             <el-form :inline="true" style="margin-right:150px"  >
-                <el-form-item  label="이름" label-width="80px" style="margin-top:-20px">
-                    <el-input  size="medium" ref="mname"  v-model="state.mname" placeholder="이름" />
-                </el-form-item>
-            </el-form>
-
-            <el-form :inline="true" style="margin-left:-15px;margin-top:-20px" >
-                <el-form-item  label="닉네임" label-width="80px">
-                    <el-input  size="medium" ref="mid"  v-model="state.mid" placeholder="닉네임" @keyup="handleMidChk" />
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="info" size="small" plain @click="checkMid">중복확인</el-button> {{state.usermidcheck}}
-                </el-form-item>
-            </el-form>
-
-            <el-form :inline="true" style="margin-right:150px"  >
-                <el-form-item  label="성별" label-width="80px" style="margin-top:-20px">
-                    <el-select ref="mgender" v-model="state.mgender" size="medium" placeholder="성별">
-                        <el-option value="1" label="남자">남자</el-option>
-                        <el-option value="2" label="여자">여자</el-option>
-                    </el-select>
-              </el-form-item>
-            </el-form>
-
-            <el-form :inline="true" style="margin-right:150px" >
-                <el-form-item  label="생년월일" label-width="80px" style="margin-top:-20px">
-                    <el-date-picker ref="mbirth" v-model="state.mbirth" type="date" placeholder="날짜선택" 
-                    format="YYYY-MM-DD" value-format="YYYY-MM-DD" :disabled-date="disabledDate" />
-              </el-form-item>
-            </el-form>
-
-            <el-form :inline="true" style="margin-right:126px"  >
-                <el-form-item  label="키" label-width="80px" style="margin-top:-20px">
-                    <el-select ref="mrole" v-model="state.mheight" size="medium" placeholder="키">
-                        <el-option v-for="no in 250" :key="no" :label="no" :value="no">
-                            {{no}}
-                        </el-option>
-                    </el-select>
-                    cm
-              </el-form-item>
-            </el-form>
             <!-- 옛날꺼 -->
             <!-- <el-form :inline="true" style="margin-right:150px"  >
                 <el-form-item  label="키" label-width="80px" style="margin-top:-20px">
@@ -112,45 +193,14 @@
               </el-form-item>
             </el-form> -->
 
-            <el-form :inline="true" style="margin-right:129px"  >
-                <el-form-item  label="몸무게" label-width="80px" style="margin-top:-20px">
-                    <el-select ref="mrole" v-model="state.mweight" size="medium" placeholder="몸무게">
-                        <el-option v-for="no in 250" :key="no" :label="no" :value="no">
-                            {{no}}
-                        </el-option>
-                    </el-select>
-                    kg
-              </el-form-item>
-            </el-form>
             <!-- 옛날꺼 -->
             <!-- <el-form :inline="true" style="margin-right:150px"  >
                 <el-form-item  label="몸무게" label-width="80px" style="margin-top:-20px">
                     <el-input-number ref="mweight" v-model="state.mweight" size="medium" />
               </el-form-item>
             </el-form> -->
-
-            <el-form :inline="true" style="margin-right:150px"  >
-                <el-form-item  label="연락처" label-width="80px" style="margin-top:-20px">
-                    <el-input  size="medium" ref="mphone" v-model="state.mphone" type="text" placeholder="000-0000-0000"/>
-              </el-form-item>
-            </el-form>
-
-            <el-form :inline="true" style="margin-right:150px"  >
-                <el-form-item  label="권한" label-width="80px" style="margin-top:-20px">
-                    <el-select ref="mrole" v-model="state.mrole" size="medium" placeholder="권한">
-                        <el-option value="admin" label="관리자"></el-option>
-                        <el-option value="member" label="회원"></el-option>
-                    </el-select>
-              </el-form-item>
-            </el-form>
-
-            <img :src="state.imageUrl" style="width:100px" />
-            프로필사진 : <input type="file" @change="handleImage($event)" /><br />
-
-            <el-button type="info" plain  style="margin-left:-100px" @click="handleData">회원가입</el-button>
-            <el-button type="info" plain  @click="hendleHome">홈으로</el-button>
-            </div>
-        </el-card>
+        </div>
+        
     </div>
 
 </template>
@@ -178,7 +228,7 @@ export default {
             mphone : '',
             mrole : '',
             mimage : null,
-            imageUrl : require('../assets/img/default.png'),
+            imageUrl : require('../assets/img/default_member.jpg'),
             usermailcheck : '"중복확인"',
             usermidcheck : '"중복확인"',
             emailoption : ['naver.com','gmail.com','daum.net'],
@@ -435,8 +485,8 @@ export default {
         }
 
         // 홈으로 이동
-        const hendleHome = () => {
-            router.push({name :"Home"});
+        const handleLogin = () => {
+            router.push({name :"Login"});
         }
         
         
@@ -445,35 +495,88 @@ export default {
         return time.getTime() > Date.now()
         }
 
-        return {state, disabledDate, handleChk, handleMidChk, usermidcheck, usermailcheck, memail, memail1, mpw, mpw1, mname, mid, mgender, mbirth, mheight, mweight, mphone, mrole, checkMid, handleData, handleImage, hendleHome, emailCheck}
+        return {
+            state, 
+            disabledDate, 
+            handleChk, 
+            handleMidChk, 
+            usermidcheck, usermailcheck, 
+            memail, memail1, 
+            mpw, mpw1, 
+            mname, mid, 
+            mgender, mbirth, 
+            mheight, mweight, 
+            mphone, mrole, 
+            checkMid, 
+            handleData, 
+            handleImage, 
+            handleLogin, 
+            emailCheck
+        }
     }
 }
 </script>
 
 <style lang="css" scoped>
+
+.hide {
+    display: none;
+}
+
+.button-blk1 {
+    background-color: #212529;
+    border: none;
+    color: rgb(255, 255, 255);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
+}
+
+.button-blk {
+    background-color: #212529;
+    border: none;
+    color: rgb(255, 255, 255);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
+    width: 350px;
+}
+
+.input-size {
+    width: 350px;
+}
+
 .center{
-  text-align: center;
+    text-align: center;
 }
 
 .demo-date-picker {
-  display: flex;
-  width: 100%;
-  padding: 0;
-  flex-wrap: wrap;
+    display: flex;
+    width: 100%;
+    padding: 0;
+    flex-wrap: wrap;
 }
 
 .demo-date-picker .demonstration {
-  display: block;
-  color: var(--el-text-color-secondary);
-  font-size: 14px;
-  margin-bottom: 20px;
+    display: block;
+    color: var(--el-text-color-secondary);
+    font-size: 14px;
+    margin-bottom: 20px;
 }
 
 .demo-date-picker .block {
-  padding: 30px 0;
-  text-align: center;
-  border-right: solid 1px var(--el-border-color);
-  flex: 1;
+    padding: 30px 0;
+    text-align: center;
+    border-right: solid 1px var(--el-border-color);
+    flex: 1;
 }
 
 </style>
