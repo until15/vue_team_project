@@ -8,8 +8,11 @@
             RECRUITSTART, RECSTATE, CHGIMAGE, CHGINAME 
             CHGISIZE, CHGITYPE MEMAIL 
         -->
-        <h3>챌린지 상세보기</h3>
+        <div v-if="state.item" class="center">
+            <h2 style="margin-top:100px;">[{{state.item.chgtitle}}]</h2>
+        </div>
         <div v-if="state.item">
+            <img :src="state.image" style="width:100%; height:100%" />
             번호 : {{state.item.chgno}} <br />
             좋아요 : {{state.item.chglike}} <br />
             제목 : {{state.item.chgtitle}} <br />
@@ -66,6 +69,8 @@ export default {
             console.log(response.data);
             if(response.data.status === 200){
                 state.item = response.data.result;
+                state.image = response.data.imgurl;
+                state.imageUrl = state.image;
                 const url2 = `/ROOT/api/routine/chgselectone.json?no=${state.item.chgroutine}`;
                 const headers2 = {"Content-Type":"application/json"};
                 const response2 = await axios.get(url2, { headers: headers2 });
@@ -116,6 +121,10 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
+
+    .center{
+        text-align: center;
+    }
 
 </style>

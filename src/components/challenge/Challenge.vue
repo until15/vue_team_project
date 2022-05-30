@@ -145,7 +145,8 @@ export default {
             console.log(response.data);
             if(response.data.status === 200) {
                 state.items = response.data.result;
-                state.images = response.data.images;
+                state.image = response.data.imgurl;
+                state.imageUrl = state.image;
                 state.total = response.data.total;
                 state.challenge= '';
             }

@@ -16,7 +16,7 @@
             <!-- 검색창 -->
             <el-form :inline="true" v-if="state.items" style="margin-top:60px;" >
                 <el-form-item>
-                    <el-input style="width:200px;" type="text" size="mini" v-model="state.qtitle" placeholder="검색어 입력" @keydown.prevent.enter="handleData" />
+                    <el-input style="width:200px;" type="text" size="mini" v-model="state.qtitle" placeholder="검색어를 입력하세요." @keydown.prevent.enter="handleData" />
                 </el-form-item>
                 <el-form-item>
                     <el-button type="info" plain size="mini" style="margin-left:5px;" @click="handleData" >검색</el-button>
