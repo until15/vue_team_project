@@ -3,9 +3,11 @@
     <div v-if="this.paychg">
       <img src="@/assets/img/환급.png" style="width: 500px" />
       <h3>
+        <div v-if="this.member">
         {{ this.member.mid }} 님은 달성률을
         <mark>{{ this.pjoinchg.chgrate }}</mark
         >% 달성하셨습니다!
+        </div>
       </h3>
       <h6>
         달성률 <mark>80%</mark> 이상 달성 시 <mark>전액</mark> 환급, 80% 미만
@@ -94,7 +96,7 @@ export default {
         }).then((data) => {
           // 환급 성공 시 응답 처리
           console.log(data);
-          location.href = "http://localhost:8080/?#/pay"; // 환급 성공 시 이동할 페이지
+          location.href = "http://localhost:8080/?#/"; // 환급 성공 시 이동할 페이지
           alert("환급 되었습니다.");
         });
       } else {
