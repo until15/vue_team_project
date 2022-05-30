@@ -47,7 +47,7 @@
                 
                 <!-- 참가비 -->
                 <el-form-item  label="참가비" label-width="80px">
-                    <el-input type="number" style="width:152px" ref="chgfee" step="100" min="5000" max="15000" v-model="state.chgfee" placeholder="참가비를 설정해주세요." @keypress="handleNumber" />
+                    <el-input type="number" style="width:152px" ref="chgfee" step="500" min="5000" max="15000" v-model="state.chgfee" placeholder="참가비를 설정해주세요." @change="handleNumber" />
                 </el-form-item>
 
                 <!-- 참가인원 -->
@@ -203,6 +203,20 @@ export default {
                 return false;
             }
 
+            if(state.chgfee > 15000){
+                alert('참가비는 15000원을 넘을 수 없습니다.');
+                chgfee.value.focus();
+                state.chgfee = 15000;
+                return false;
+            }
+
+             if(state.chgfee < 5000){
+                alert('참가는 5000원부터 가능합니다.');
+                chgfee.value.focus();
+                state.chgfee = 5000;
+                return false;
+            }
+
             if(state.chgcnt === ''){
                 alert('참여인원을 설정해주세요.');
                 chgcnt.value.focus();
@@ -273,6 +287,10 @@ export default {
         const handleNumber = () => {
             if(state.chgfee >= 15000){
                 state.chgfee = 15000;
+            }
+
+            if(state.chgfee < 5000){
+                state.chgfee = 5000;
             }
         }
 
