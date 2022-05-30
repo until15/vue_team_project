@@ -19,20 +19,21 @@
         <el-row :gutter="20">
         <el-col :span="2" :offset="8">난이도 :</el-col> 
         <el-col :span="5"><el-input type="number" min="1" max="5" v-model="state.level"></el-input></el-col><br>
-        </el-row>
+        </el-row><br>
         <el-row :gutter="20">
-        <el-col :span="2" :offset="8">동영상 :</el-col> 
-        <!-- <el-col :span="5"><input type="file" id="vFile" accept="video/*" @change="handleVideo"><br><br></el-col> -->
-        </el-row>
-        <el-upload id="vFile"
+        <el-col :span="2" :offset="8">동영상 :</el-col>
+        <el-upload id="vFile" accept="video/*"
         class="upload-demo"
         action="https://jsonplaceholder.typicode.com/posts/"
         :limit="1"
-        :on-exceed="handleVideo"
+        :on-remove="handleremove"
+        :on-change="handleVideo2"
         :auto-upload="false"
         >
-        <el-button type="primary" size="mini">파일선택</el-button>
+        <el-button type="info" size="mini" style="margin-left: 10px">파일선택</el-button>
         </el-upload>
+        </el-row>
+        <br>
         <el-button round @click="handlePoseInsert">등록</el-button>
         <router-link to="/pose"><el-button round>목록</el-button></router-link><br>
         </el-card>
@@ -56,10 +57,6 @@ export default {
             videodata : ''
         })
 
-        const handleExceed  = () => {
-
-        }
-
         const handleVideo = (e) => {
             // e 변수에 첨부한 파일의 정보 저장
             console.log(e);
@@ -70,9 +67,23 @@ export default {
                 state.videodata = '';
             }
         }
+        // 파일을 삭제한 경우
+        const handleremove = () => {
+            state.videodata = '';
+        }
+
+        const handleVideo2 = (e) => {
+            // e 변수에 첨부한 파일의 정보 저장
+            console.log(e.raw);
+            if(e.raw){ // 파일 첨부의 경우
+                state.videodata = e.raw;
+            }
+            else{ // 취소의 경우
+                state.videodata = '';
+            }
+        }
 
         const handlePoseInsert = async() => {
-            let filechk = document.getElementById("vFile").value;
             if(state.name === ''){
                 alert('자세 이름을 입력하세요')
                 return false;
@@ -93,7 +104,7 @@ export default {
                 alert('난이도는 1~5까지 설정 가능합니다.')
                 return false;
             }
-            if(!filechk){
+            if(state.videodata === ''){
                 alert('파일을 첨부하세요.')
                 return false;
             }
@@ -123,7 +134,7 @@ export default {
             }
 
         }
-        return {state, handlePoseInsert, handleVideo, handleExceed}
+        return {state, handlePoseInsert, handleVideo, handleVideo2, handleremove}
     }
 }
 </script>

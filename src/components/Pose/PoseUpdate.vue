@@ -33,7 +33,16 @@
       <br /><br />
       <!-- 동영상이 없는 경우 Insert -->
       <div v-if="!state.video">
-        <input type="file" @change="handleVideo" /><br />
+        <el-upload id="vFile" accept="video/*"
+        class="upload-demo"
+        action="https://jsonplaceholder.typicode.com/posts/"
+        :limit="1"
+        :on-remove="handleremove"
+        :on-change="handleVideo"
+        :auto-upload="false"
+        >
+        <el-button type="info" size="mini" style="margin-right: 60px">파일선택</el-button>
+        </el-upload><br>
         <el-button
           round
           @click="handleUpdateAction(state.no), handleVideoInsertAction()"
@@ -66,7 +75,16 @@
         >
           <img :src="state.video" style="width: 400px" /><br />
         </div>
-        <input type="file" @change="handleVideo" /><br /><br />
+        <el-upload id="vFile" accept="video/*"
+        class="upload-demo"
+        action="https://jsonplaceholder.typicode.com/posts/"
+        :limit="1"
+        :on-remove="handleremove"
+        :on-change="handleVideo"
+        :auto-upload="false"
+        >
+        <el-button type="info" size="mini" style="margin-right: 327px">파일선택</el-button>
+        </el-upload><br /><br />
         <el-button
           round
           @click="handleUpdateAction(state.no), handleVideoUpdateAction()"
@@ -101,17 +119,22 @@ export default {
       vio1: "video/ogg",
       vio2: "video/webm",
     });
+
+    // 파일을 삭제한 경우
+    const handleremove = () => {
+      state.videodata = '';
+    }
+
     const handleVideo = (e) => {
-      // e 변수에 첨부한 파일의 정보 저장
-      console.log(e);
-      if (e.target.files[0]) {
-        // 파일 첨부의 경우
-        state.videodata = e.target.files[0];
-      } else {
-        // 취소의 경우
-        state.videodata = "";
-      }
-    };
+    // e 변수에 첨부한 파일의 정보 저장
+      console.log(e.raw);
+        if(e.raw){ // 파일 첨부의 경우
+          state.videodata = e.raw;
+        }
+        else{ // 취소의 경우
+          state.videodata = '';
+        }
+    }
     const handleVideoInsertAction = async () => {
       const url = `/ROOT/api/pose/insertvideo.json`;
       const headers = {
@@ -223,6 +246,7 @@ export default {
       handleVideoUpdateAction,
       handleVideoDelete,
       handleVideoInsertAction,
+      handleremove
     };
   },
 };
