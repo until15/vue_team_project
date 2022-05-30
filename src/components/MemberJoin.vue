@@ -140,7 +140,7 @@
                     <label style="margin-left:-5px;margin-top:20px;" class="button-blk" for="file">프로필 사진 업로드</label> 
 
                     <!-- 숨김 -->
-                    <input class="hide" type="file" id="file" @change="handleImage($event)" />
+                    <input class="hide" type="file" accept="image/*" id="file" @change="handleImage($event)" />
                 </div>
                 
                 <!-- 회원가입 버튼 -->
@@ -374,6 +374,9 @@ export default {
             return Phone.test(mphone);
         }
 
+        
+
+
         // 정규식 설명
         // var Phone = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
         // 핸드폰번호 첫/두번째 자리는 01로 시작하며 세번째 자리는 01+0/1/6/7/8/9 가 될 수 있다.
@@ -467,7 +470,8 @@ export default {
             handleData, 
             handleImage, 
             handleLogin, 
-            emailCheck
+            emailCheck,
+        
         }
     }
 }

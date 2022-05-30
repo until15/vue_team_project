@@ -7,7 +7,7 @@
             <ckeditor :editor="state.editor" v-model="state.qcontent" @ready="onReady"></ckeditor>
             
             <img :src="state.imageUrl" style="width:50px" />
-            <input type="file" @change="handleImage($event)" /><br />
+            <input type="file" accept="image/*" @change="handleImage($event)" /><br />
         </el-card><br />
         <el-button type="info" size="small" plain @click="handleInsert">등록하기</el-button> 
         <el-button type="info" size="small" plain @click="handleBack">돌아가기</el-button><br /><br />
@@ -42,7 +42,11 @@ export default {
         const onReady = ( editor ) => {
             console.log(editor);
             editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader ) => {
+                if(state.qcontent !== null){
+                    state.qcontent.replace("<p>", "");
+                }
                 return new UploadAdapter( loader );
+                
             };
           
           

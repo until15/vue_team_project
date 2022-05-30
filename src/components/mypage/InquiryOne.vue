@@ -12,13 +12,28 @@
                     {{state.item.mid}}</el-descriptions-item>
                 <el-descriptions-item label="제목"  label-align="center" align="center">
                     {{state.item.qtitle}}</el-descriptions-item>
-                <el-descriptions-item label="내용" hight="20px" label-align="center" align="center">
+                <!-- <el-descriptions-item label="내용" hight="20px" label-align="center" align="center">
                     {{state.item.qcontent}}
                 <div class="center" v-for="tmp in state.image" :key="tmp">
-                    <img :src="state.image[0]" style="width:300px" /><br />
+                    <img :src="state.image[0]"  style="width:300px" /><br />
                 </div>
+                    </el-descriptions-item> -->
+                </el-descriptions>
+
+                <el-descriptions title="" :column="1"  >
+                    <el-descriptions-item >
+                    <template #label>
+                        <div class="center" style="margin-top:40px">{{state.item.qcontent.replace("<p>", "").replace("</p>","")}}</div>
+                        <div class="center" v-for="tmp in state.image" :key="tmp">
+                    <img :src="state.image[0]"  style="width:300px" /><br />
+
+                    </div>
+                    </template>
                     </el-descriptions-item>
                 </el-descriptions>
+               
+                
+
                 <hr />
                 <el-button type="info" size="small" plain @click="handleMenu">목록</el-button>
                 <el-button type="info" size="small" plain @click="handleDelete">삭제</el-button>
