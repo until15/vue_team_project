@@ -1,33 +1,28 @@
 <template>
-  <div style="padding: 80px">
+  <div style="padding: 100px" align="center">
     <div v-if="state.pose">
+      <el-card shadow="hover" style="width:1000px">
       <h3>자세 수정</h3>
       <br />
-      <el-row :gutter="20">
-        <el-col :span="2">이름 :</el-col>
-        <el-col :span="5"
-          ><el-input v-model="state.pose.pname" clearable></el-input></el-col
-        ><br /> </el-row
-      ><br />
-      <el-row :gutter="20">
-        <el-col :span="2">부위 :</el-col>
-        <el-col :span="5"
+        <el-col :span="2" :offset="9">이름 :</el-col>
+        <el-col :span="5" style="margin-left: 20px">
+        <el-input v-model="state.pose.pname" clearable></el-input></el-col
+        ><br /> 
+        <br />
+        <el-col :span="2" :offset="9">부위 :</el-col>
+        <el-col :span="5" style="margin-left: 20px"
           ><el-input v-model="state.pose.ppart" clearable></el-input></el-col
-        ><br /> </el-row
-      ><br />
-      <el-row :gutter="20">
-        <el-col :span="2">내용 :</el-col>
-        <el-col :span="5"
+        ><br /><br />
+        <el-col :span="2" :offset="9">내용 :</el-col>
+        <el-col :span="5" style="margin-left: 20px"
           ><el-input
             type="textarea"
             :rows="2"
             v-model="state.pose.pcontent"
           ></el-input></el-col
-        ><br /> </el-row
-      ><br />
-      <el-row :gutter="20">
-        <el-col :span="2">난이도 :</el-col>
-        <el-col :span="5"
+        ><br /><br /><br />
+        <el-col :span="2" :offset="9">난이도 :</el-col>
+        <el-col :span="5" style="margin-left: 9px"
           ><el-input
             type="number"
             min="1"
@@ -35,8 +30,7 @@
             v-model="state.pose.plevel"
           ></el-input></el-col
         ><br />
-      </el-row>
-      <br />
+      <br /><br />
       <!-- 동영상이 없는 경우 Insert -->
       <div v-if="!state.video">
         <input type="file" @change="handleVideo" /><br />
@@ -48,7 +42,7 @@
       </div>
       <!-- 동영상이 있는 경우 Update, Delete -->
       <div v-if="state.video">
-        <el-button type="info" plain @click="handleVideoDelete(state.no)"
+        <el-button type="info" plain @click="handleVideoDelete(state.no)" size="mini" style="margin-right: 327px"
           >파일 삭제</el-button
         ><br />
         <div
@@ -81,6 +75,7 @@
       </div>
       <router-link to="/pose"><el-button round>목록</el-button></router-link
       ><br />
+      </el-card>
     </div>
   </div>
 </template>

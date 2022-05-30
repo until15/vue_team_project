@@ -2,6 +2,7 @@
     <div align="center" style="padding: 80px">
         <el-card shadow="never">
         <h3>자세 등록</h3>
+        <h6>부적절하거나 운동과 관련없는 자세를 등록할 시 무통보 삭제가 될 수 있습니다.</h6>
         <br>
         <el-row :gutter="20">
         <el-col :span="2" :offset="8">이름 :</el-col> 
@@ -21,8 +22,17 @@
         </el-row>
         <el-row :gutter="20">
         <el-col :span="2" :offset="8">동영상 :</el-col> 
-        <el-col :span="5"><input type="file" id="vFile" accept="video/*" @change="handleVideo"><br><br></el-col>
+        <!-- <el-col :span="5"><input type="file" id="vFile" accept="video/*" @change="handleVideo"><br><br></el-col> -->
         </el-row>
+        <el-upload id="vFile"
+        class="upload-demo"
+        action="https://jsonplaceholder.typicode.com/posts/"
+        :limit="1"
+        :on-exceed="handleVideo"
+        :auto-upload="false"
+        >
+        <el-button type="primary" size="mini">파일선택</el-button>
+        </el-upload>
         <el-button round @click="handlePoseInsert">등록</el-button>
         <router-link to="/pose"><el-button round>목록</el-button></router-link><br>
         </el-card>
@@ -45,6 +55,10 @@ export default {
             step : 1,
             videodata : ''
         })
+
+        const handleExceed  = () => {
+
+        }
 
         const handleVideo = (e) => {
             // e 변수에 첨부한 파일의 정보 저장
@@ -109,11 +123,14 @@ export default {
             }
 
         }
-        return {state, handlePoseInsert, handleVideo}
+        return {state, handlePoseInsert, handleVideo, handleExceed}
     }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
+h6{
+    color: rgb(209, 209, 209);
+}
 
 </style>
