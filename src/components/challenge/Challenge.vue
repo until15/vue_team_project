@@ -1,13 +1,55 @@
 <template>
     <div align="center">
         
-        <el-card>
-            <h3>챌린지 최신순</h3><br/>
-            <el-button @click="handleMenu1">최신순</el-button>
-            <el-button @click="handleMenu2">인기순</el-button>
-            <el-button @click="handleMenu3">난이도순</el-button>
-            <br /><br />
-            <hr />
+        <div>
+            <h3 style="margin-top:100px;">챌린지 최신순</h3>
+        </div>
+
+            
+            <!-- 버튼 -->
+            <div class="center">
+                <el-button class="button-blk1" type="info" @click="handleMenu1">정보 수정</el-button>
+                <el-button class="button-blk1" type="info" @click="handleMenu3">1:1 문의</el-button>
+                <el-button class="button-blk1" type="info"   @click="handleMenu2">회원 탈퇴</el-button>
+            </div>
+            
+        <div v-for="(tmp) in state.items" :key="tmp">
+            <el-card :body-style="{ padding: '0px' }" class="c-m">
+                <img
+                    :src="tmp.imgurl"
+                    class="image"/>
+                <div style="padding: 14px">
+                    
+                    <span>
+                        <h4>{{tmp.chgtitle}}</h4><br />
+                        {{tmp.chgintro}}<br />
+                        좋아요{{tmp.chglike}}개<br />
+                        난이도{{tmp.chglevel}}단계<br />
+                        {{tmp.chgfee}}원
+                    </span>
+
+                    <span class="ch-mem">
+                        {{tmp.chgrate}}
+                    </span>
+
+                    <div class="bottom">
+                        <time class="time">
+                            {{tmp.chgregdate}}
+                        </time>
+                    </div>
+
+                    <div class="chg-detail">
+                        <el-link style="margin-top:20px;" @click="handleSelect(tmp.chgno)">상세 보기</el-link>
+                    </div>
+                    
+
+                </div>
+            </el-card>
+        </div>
+
+      
+            
+
                 <el-table :data="state.items"  style="width: 100% " >
                     <el-table-column prop="chgno" label="번호" width="60" />
                     <el-table-column prop="chgtitle" label="제목"  width="250" >
@@ -39,7 +81,6 @@
             
                 <el-pagination layout="prev, pager, next" :total="state.total" @current-change="currentChange">
                 </el-pagination>
-        </el-card>
 
         <el-form :inline="true" v-if="state.items" >
             <!-- <select>
@@ -110,6 +151,7 @@ export default {
             console.log(response.data);
             if(response.data.status === 200) {
                 state.items = response.data.result;
+                state.images = response.data.images;
                 state.total = response.data.total;
                 state.challenge= '';
             }
@@ -200,12 +242,53 @@ export default {
             handleLike,
             handleMain,
             logged
-
         }
     }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
+
+    .c-m {
+        margin: 3rem;
+    }
+
+    .ch-mem {
+        float: right;
+        font-size: 12px;
+        color: #999;
+    }
+
+    .bottom {
+        margin-top: 13px;
+        margin-bottom: 13px;
+        line-height: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .image {
+        width: 100%;
+        display: block;
+    }
+
+    .chg-detail {
+        text-align: center;
+        padding: 5px;
+    }
+
+    .button-blk1 {
+        background-color: #212529;
+        border: none;
+        color: rgb(255, 255, 255);
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 16px;
+    }
 
 </style>

@@ -5,7 +5,7 @@
             | {{state.pose.pregdate}}<br><br>
             부위 : {{state.pose.ppart}}<br><br>
             난이도 : {{state.pose.plevel}} <br><br>
-            <el-card shadow="never">{{state.pose.pcontent}} </el-card><br>
+            <el-card shadow="never">{{state.pose.pcontent}} </el-card><br><br>
             <div align="center">
                 <div v-if="state.video">
                     <div v-if="state.type === state.vio || state.type === state.vio1 || state.type === state.vio2">
@@ -14,10 +14,10 @@
                     </video><br>
                     </div>
                     <div v-if="state.type === state.img || state.type === state.img1 || state.type === state.img2">              
-                        <img :src="state.video"/>
+                        <img :src="state.video" width="400"/>
                     </div>
                 </div>
-                <br>
+                <br><br>
                 <router-link to="/pose"><el-button id="btn">목록</el-button></router-link><br>
                 <div v-if="state.member.memail === state.useremail" >
                     <el-button id="btn" @click="handleUpdate(state.pose.pno)">수정</el-button>

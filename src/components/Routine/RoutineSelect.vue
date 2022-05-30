@@ -173,7 +173,6 @@
         :total="state.total1"
       >
       </el-pagination>
-      <br />
       <el-button type="info" size="mini" @click="handleChk">선택</el-button>
     </el-dialog>
     <br />

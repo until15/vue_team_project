@@ -14,7 +14,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         
-                        <li class="nav-item"><router-link to="/challenge" class="nav-link">첼린지</router-link></li>
+                        <li class="nav-item"><router-link to="/challenge" class="nav-link">챌린지</router-link></li>
                         <li class="nav-item"><router-link to="/confirmlist" class="nav-link">인증</router-link></li>
                         <li class="nav-item"><router-link to="/board" class="nav-link">커뮤니티</router-link></li>
                         <li class="nav-item"><router-link to="/pose" class="nav-link">자세</router-link></li>
