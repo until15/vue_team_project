@@ -5,41 +5,34 @@
             <h3>진행 상태 별 조회</h3>
         </div>
         
+        <!-- 진행 상태 -->
         <div class="text-center center">
-            <!-- 진행 상태 -->
-            <select @change="handleState($event)" >
-                <option value="1">대기중</option>
-                <option value="2">포기</option>
-                <option value="3">진행중</option>
-                <option value="4">달성</option>
-            </select>
+        <el-select class="m-2" placeholder="Select" size="large" @change="handleChange">
+            <el-option value="1" label="대기중" />
+            <el-option value="2" label="포기" />
+            <el-option value="3" label="진행중" />
+            <el-option value="4" label="달성" />
+        </el-select>
         </div>
 
-        <div v-if="state.items" class="text-center center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-            <!-- 리스트 -->
-            <table border="1">
-                <tr>
-                    <th>첼린지 번호</th>
-                    <th>첼린지 제목</th>
-                    <th>첼린지 진행상태</th>
-                    <th>첼린지 가입날짜</th>
-                    <th>첼린지 달성률</th>
-                </tr>
-                <tr v-for="tmp in state.items" :key="tmp">
-                    <td>{{tmp.challengechgChgno}}</td>
-                    <td @click="handleDetail(tmp.jno, tmp.challengechgChgno)" style="cursor:pointer">{{tmp.challengechgChgtitle}}</td>
-                    <td>{{tmp.chgstate}}</td>
-                    <td>{{tmp.jregdate}}</td>
-                    <td>{{tmp.chgrate}}%</td>
-                </tr>
-            </table>
+        <!-- 리스트 -->
+        <div class="center">
+            <el-table :data="state.items" style="width: 100%" @row-click="handleRow">
+                <el-table-column prop="challengechgChgno" label="번호" width="50" />
+                <el-table-column prop="challengechgChgtitle" label="제목" width="180" />
+                <el-table-column prop="chgstate" label="진행상태" width="80" />
+                <el-table-column prop="jregdate" label="가입일" />
+                <el-table-column prop="chgrate" label="달성률" />
+            </el-table>
         </div>
 
         <!-- 페이지네이션 -->
-        <div class="text-center center">
-            <label v-for="tmp in state.pages" :key="tmp">
-                <button @click="handlePage(tmp)" >{{ tmp }}</button>
-            </label>
+        <div class="example-pagination-block center my-3" v-if="state.pages">
+            <el-pagination 
+                layout="prev, pager, next" 
+                :page-size="10"
+                :total="state.pages" 
+                @current-change="handleCurrent" />
         </div>
         
     </div>
@@ -59,12 +52,6 @@ export default {
             chgstate : 1,
             token : sessionStorage.getItem("TOKEN")
         });
-
-        // 제목을 클릭하면 상세 페이지로
-        const handleDetail = async(jno, chgno)=> {
-            console.log("상세 페이지로 : ", chgno);
-            router.push({name:'JoinOne', query:{jno: jno, chgno:chgno}});
-        };
 
         // 진행 상태에 따른 리스트 조회
         const handleData = async(chgs)=> {
@@ -97,29 +84,37 @@ export default {
 
         };
 
-        // 상태에 따라 다른 값
-        const handleState = async(event)=> {
-            state.chgstate = event.target.value;
-            // console.log("클릭시 진행 상태 : ", state.chgstate);
-            handleData(state.chgstate);
+        // 상세 페이지로
+        const handleRow = (e)=> {
+            // console.log(e.jno);
+            // console.log(e.challengechgChgno);
+            router.push({name:'JoinOne', query:{jno: e.jno, chgno:e.challengechgChgno}});
         };
 
         // 페이지네이션
-        const handlePage = async(page)=> {
-            state.page = page;
-            handleData(state.chgstate, state.page);
+        const handleCurrent = (e)=> {
+            console.log(e);
+            state.page = e;
+            handleData(state.chgstate);
         };
 
         onMounted(()=> {
             handleData(state.chgstate, state.page);
         });
 
+        // 상태에 따라 다른 값
+        const handleChange = (e)=> {
+            // console.log(e);
+            // state.chgstate = e;
+            handleData(e);
+        };
+
         return {
             state,
-            handleState,
             handleData,
-            handlePage,
-            handleDetail,
+            handleChange,
+            handleCurrent,
+            handleRow
         }
     }
 }

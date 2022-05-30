@@ -131,13 +131,8 @@ export default createStore({
 
     actions : {
        
-     
-            // mutations의 setUid, setUname을 호출해서 내용변경
-                    
-                   
-                
-                
-        
+        // mutations의 setUid, setUname을 호출해서 내용변경
+
     }
     
         

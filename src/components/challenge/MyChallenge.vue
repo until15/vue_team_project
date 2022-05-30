@@ -22,7 +22,8 @@
                 </el-form>
             </div>
 
-            <div>
+            <!-- 리스트 -->
+            <div class="center">
                 <el-table :data="state.items" style="width: 100%" @row-click="handleRow">
                     <el-table-column prop="chgno" label="번호" width="50" />
                     <el-table-column prop="chgtitle" label="제목" width="180" />
@@ -38,14 +39,13 @@
             </div>
 
             <!-- 페이지네이션 -->
-            <div>
-                <label v-for="tmp in state.pages" :key="tmp">
-                    <button @click="handlePage(tmp, state.text)" >{{ tmp }}</button>
-                </label>
-            </div>
-
-            <div class="example-pagination-block">
-                <el-pagination layout="prev, pager, next" :total="state.pages" @current-change="handleCurrent" />
+            
+            <div class="example-pagination-block center my-3" v-if="state.pages">
+                <el-pagination 
+                    layout="prev, pager, next" 
+                    :page-size="5" 
+                    :total="state.pages" 
+                    @current-change="handleCurrent" />
             </div>
 
         </div>
@@ -85,16 +85,17 @@ export default {
             console.log("내가 만든 첼린지 : ", response.data);
             if (response.data.status === 200) {
                 state.items = response.data.result;
+                state.pages = response.data.pages;
             }
         };
 
-        const handlePage = async(tmp, text)=> {
+        // const handlePage = async(tmp, text)=> {
 
-            handleData(tmp, text);
-        }
+        //     handleData(tmp, text);
+        // }
 
         const handleCurrent = (e)=> {
-            console.log(e);
+            handleData(e, state.text);
         };
 
         onMounted(()=> {
@@ -103,7 +104,7 @@ export default {
 
         return {
             state,
-            handlePage,
+            // handlePage,
             handleData,
             handleRow,
             handleCurrent
