@@ -7,10 +7,11 @@ export default class UploadAdapter {
     // Starts the upload process.
     upload() {
         return this.loader.file
-            .then( file => new Promise( ( resolve, reject ) => {
+            .then( file => new Promise( ( resolve, reject, bno ) => {
                 this._initRequest();
                 this._initListeners( resolve, reject, file );
                 this._sendRequest( file );
+                this._sendRequest( bno );
             } ) );
     }
 
@@ -25,7 +26,7 @@ export default class UploadAdapter {
     _initRequest() {
         const xhr = this.xhr = new XMLHttpRequest();
 
-        xhr.open( 'POST', '/upload/upload_single', true ); //**** update url 설정
+        xhr.open( 'POST', '/ROOT/api/bimg/insert1', true ); //**** update url 설정
         xhr.responseType = 'json';
     }
 
@@ -65,9 +66,10 @@ export default class UploadAdapter {
         // Prepare the form data.
         const data = new FormData();
 
-        data.append( 'img', file ); //**** name값설정
+        data.append( 'file', file ); //**** name값설정
 
         // Send the request.
         this.xhr.send( data );
     }
+   
 }

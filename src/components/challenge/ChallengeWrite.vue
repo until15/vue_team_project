@@ -47,7 +47,7 @@
                 
                 <!-- 참가비 -->
                 <el-form-item  label="참가비" label-width="80px">
-                    <el-input type="number" style="width:152px" ref="chgfee" step="100" min="5000" max="15000" v-model="state.chgfee" placeholder="참가비를 설정해주세요." />
+                    <el-input type="number" style="width:152px" ref="chgfee" step="100" min="5000" max="15000" v-model="state.chgfee" placeholder="참가비를 설정해주세요." @keypress="handleNumber" />
                 </el-form-item>
 
                 <!-- 참가인원 -->
@@ -270,6 +270,14 @@ export default {
         return time.getTime() < Date.now();
         }
 
+        const handleNumber = () => {
+            if(state.chgfee >= 15000){
+                state.chgfee = 15000;
+            }
+        }
+
+      
+
 
         return {
             state,  
@@ -288,7 +296,8 @@ export default {
             dialogTableVisible,
             dialogTableVisible1,
             routine,
-            disabledDate
+            disabledDate,
+            handleNumber
             
         }
     }
