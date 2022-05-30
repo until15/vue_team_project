@@ -54,7 +54,7 @@
                                     <hr class="dropdown-divider" />
                                 </li>
                                 <li>
-                                    <router-link to="/logout" class="dropdown-item">로그아웃</router-link>
+                                    <router-link to="" class="dropdown-item" @click="handleLogout">로그아웃</router-link>
                                     <hr class="dropdown-divider" />
                                 </li>
                                 <li><a class="dropdown-item" href="#/menu1">정보수정</a></li>
@@ -80,7 +80,7 @@
 
 import { onMounted, computed, reactive } from 'vue';
 import {useStore} from 'vuex';
-//import {useRouter} from 'vue-router';
+import {useRouter} from 'vue-router';
 import axios from 'axios';
 
 export default {
@@ -92,7 +92,7 @@ export default {
 
     setup () {
         const store = useStore();
-        //const router = useRouter();
+        const router = useRouter();
 
         onMounted(() =>{
             if(sessionStorage.getItem("TOKEN") !== null){
@@ -151,10 +151,21 @@ export default {
                 state.item = response.data.result;
             }
         }
+
+        const handleLogout = () => {
+            if (confirm("로그아웃 하시겠습니까?")) {
+                alert("로그아웃 완료");
+                sessionStorage.removeItem("TOKEN");
+                sessionStorage.removeItem("MEMAIL");
+                store.commit('setLogged', false);
+                store.commit('ClearMemail');
+                router.push({name : 'Logout1'}); 
+            }
+        }
         
 
 
-        return {logged, state, mrole, mname, memail}
+        return {logged, state, mrole, mname, memail, handleLogout}
     }
 }
 </script>
