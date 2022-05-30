@@ -1,32 +1,7 @@
 @@ -1,95 +0,0 @@
 <template>
     <div >
-        <!-- 옛날꺼 -->
-        <!-- <div>
-            이메일 : <input type="text" v-model="state.memail" placeholder="이메일" /><br />
-            암호 : <input type="password" v-model="state.mpw" placeholder="암호" /><br />
-            암호확인 : <input type="password" v-model="state.mpw1" placeholder="암호확인" /><br />
-            이름 : <input type="text" v-model="state.mname" placeholder="이름" /><br />
-            별명(닉네임) : <input type="text" v-model="state.mid" placeholder="닉네임" /><br />
-            성별 : <select v-model="state.mgender">
-                <option value="1">남</option>
-                <option value="2">여</option>
-            </select><br />
-            생년월일 : <input type="number" v-model="state.mbirth" placeholder="생년월일" /><br />
-            키 : <input type="number" v-model="state.mheight" placeholder="키" /><br />
-            몸무게 : <input type="number" v-model="state.mweight" placeholder="몸무게" /><br />
-            연락처 : <input type="number" v-model="state.mphone" placeholder="연락처" /><br />
-            권한 : <select v-model="state.mrole">
-                <option value="admin">관리자</option>
-                <option value="member">회원</option>
-            </select><br />
-            <img :src="state.imageUrl" style="width:100px" />
-            프로필사진 : <input type="file" @change="handleImage($event)" /><br />
-            <button @click="handleData">화원가입</button>
-        </div> -->
-        
-        <!-- 회원가입 -->
-        
+
         <div>
 
             <div class="center">
@@ -152,9 +127,12 @@
                     </el-form-item>
                 </el-form>
                 
-                <div class="center" style="margin-left:-10px;">
-                    <img :src="state.imageUrl" style="width:350px;" /><br />
-                </div>
+                <!-- 프로필 사진 -->
+                <a class="center" style="margin-top:10px;">
+                    <div style="border-radius: 70%; width:250px; height:250px;overflow: hidden; border: 3px solid #e2e2e2;">
+                        <img :src="state.imageUrl" style="width:100%; height:100% object-fit: cover;margin-top:0px" />
+                    </div>
+                </a>
 
                 <!-- 프로필 사진 업로드 -->
                 <div class="center">
@@ -176,29 +154,6 @@
                 </div>
             </div>
 
-            <!-- 옛날꺼 -->
-            <!-- <el-form :inline="true" style="margin-left:90px" >
-                <el-form-item  label="이메일" label-width="80px">
-                    <el-input  size="medium" ref="memail" v-model="state.memail" placeholder="이메일" @keyup="emailCheck"/>
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="info" size="small" plain>{{state.usermailcheck}}</el-button> 
-                </el-form-item>
-            </el-form> -->
-
-            <!-- 옛날꺼 -->
-            <!-- <el-form :inline="true" style="margin-right:150px"  >
-                <el-form-item  label="키" label-width="80px" style="margin-top:-20px">
-                    <el-input-number ref="mheight" v-model="state.mheight" size="medium" />
-              </el-form-item>
-            </el-form> -->
-
-            <!-- 옛날꺼 -->
-            <!-- <el-form :inline="true" style="margin-right:150px"  >
-                <el-form-item  label="몸무게" label-width="80px" style="margin-top:-20px">
-                    <el-input-number ref="mweight" v-model="state.mweight" size="medium" />
-              </el-form-item>
-            </el-form> -->
         </div>
         
     </div>

@@ -1,146 +1,142 @@
 <template>
-    <div class="center">
-            <h1>마이페이지</h1>
-            <el-button @click="handleMenu1">정보수정</el-button>
-            <el-button @click="handleMenu3">1:1문의</el-button>
-            <el-button @click="handleMenu2">회원탈퇴</el-button>
-            <br /><br />
-        <!-- 회원정보 수정 -->
-        <el-card >
-        <h3>정보수정</h3>
-        <hr />
-        <div v-if="state.item" style="margin-right:60px">
-            <el-form :inline="true" style="margin-left:80px" >
-                <el-form-item  label="이름" label-width="80px" style="margin-top:20px">
-                    <el-input  size="medium" ref="mname"  v-model="state.item.mname" placeholder="이름" />
-                </el-form-item>
-
-                <el-form-item>
-                    <el-button type="info" size="small" style="margin-top:20px" plain @click="handlePwUpdate">암호변경</el-button>
-                </el-form-item>
-
-                <!-- <el-form-item>
-                    <el-button type="info" size="small" style="margin-top:20px" plain @click="handleUpdatePW">암호변경</el-button>
-                </el-form-item> -->
-            </el-form>
-
-            <el-form :inline="true" style="margin-left:80px" >
-                <el-form-item  label="닉네임" label-width="80px" style="margin-top:-15px">
-                    <el-input  size="medium" ref="mid"  v-model="state.item.mid" placeholder="닉네임" @keyup="handleMidChk"/>
-                </el-form-item>
-                <el-form-item label-width="80px" style="margin-top:-15px">
-                    <el-button type="info" size="small" plain @click="checkMid">중복확인</el-button>
-                </el-form-item><br />
-                <el-form-item label-width="80px" style="margin-top:-40px">
-                
-                    <div style="font-size:10px">{{state.usermidcheck}}</div>
-          
-                </el-form-item>
-            </el-form>
-
-            <el-form :inline="true"  >
-                <el-form-item  label="연락처" label-width="80px" style="margin-top:-40px">
-                    <el-input  size="medium" ref="mphone" v-model="state.item.mphone" type="text" placeholder="000-0000-0000"/>
-              </el-form-item>
-            </el-form>
-
-            <el-form :inline="true" style="margin-right:-36px"  >
-                <el-form-item  label="키" label-width="80px" style="margin-top:-20px">
-                    <el-select ref="mrole" v-model="state.item.mheight" size="medium" placeholder="키">
-                        <el-option v-for="no in 250" :key="no" :label="no" :value="no">
-                            {{no}}
-                        </el-option>
-                    </el-select>
-                    cm
-              </el-form-item>
-            </el-form>
-
-            <el-form :inline="true" style="margin-right:-32px"  >
-                <el-form-item  label="몸무게" label-width="80px" style="margin-top:-20px">
-                    <el-select ref="mrole" v-model="state.item.mweight" size="medium" placeholder="몸무게">
-                        <el-option v-for="no in 250" :key="no" :label="no" :value="no">
-                            {{no}}
-                        </el-option>
-                    </el-select>
-                    kg
-              </el-form-item>
-            </el-form>
-
-            <!-- <el-form :inline="true"  >
-                <el-form-item  label="키" label-width="80px" style="margin-top:-15px">
-                    <el-input-number ref="mheight" v-model="state.item.mheight" size="medium" />
-              </el-form-item>
-            </el-form>
-
-            <el-form :inline="true"  >
-                <el-form-item  label="몸무게" label-width="80px" style="margin-top:-15px">
-                    <el-input-number ref="mweight" v-model="state.item.mweight" size="medium" />
-              </el-form-item>
-            </el-form> -->
-
-            <img :src="state.imageUrl" style="width:100px; margin-left:60px"/><br />
-            <input type="file" @change="handleImage($event)" style="margin-left:220px; font-size:12px; margin-top:10px" /><br />
-            
-            <hr />
-            <el-button type="info" style="margin-left:50px;margin-top:10px" plain @click="handleUpdate">수정하기</el-button>
-            <br /><br /><br /><br /><br />
-
-            <!-- 옛날꺼 -->
-            <!-- <div>
-                이름 : <input type="text" v-model="state.item.mname" /><br />
-                <button @click="handleUpdatePW">암호변경</button><br />
-                닉네임 : <input type="text" v-model="state.item.mid" /><br />
-                연락처 : <input type="text" v-model="state.item.mphone" /><br />
-                키 : <input type="text" v-model="state.item.mheight" /><br />
-                몸무게 : <input type="text" v-model="state.item.mweight" /><br />
-                이미지 : <img :src="state.imageUrl" style="width:100px"/><br />
-                프로필사진 : <input type="file" @change="handleImage($event)" /><br />
-                <button @click="handleUpdate">수정하기</button>
-            </div> -->
-        
-        </div>
-        </el-card>
-
-        <!-- 암호변경 -->
-        <el-drawer v-model="state.table" title="" size="30%">
+    <div>
+        <div>
+            <!-- 타이틀 -->
             <div class="center">
-                <h3>암호변경</h3>
-                <el-card style="height:500px">
-                    <div v-if="state.item" style="margin-right:50px">
-                        <el-form :inline="true"  >
-                            <el-form-item label="기존암호" label-width="80px">
-                                <el-input  size="medium" ref="mpw" v-model="state.item.mpw" type="password" placeholder="기존암호"/>
-                            </el-form-item>
-                        </el-form>
-
-                        <el-form :inline="true"  >
-                            <el-form-item label="새암호" label-width="80px" style="margin-top:-20px" >
-                                <el-input  size="medium" ref="mpw1" v-model="state.item.mpw1" type="password" placeholder="새암호"/>
-                            </el-form-item>
-                        </el-form>
-
-                        <el-form :inline="true"  >
-                            <el-form-item label="암호확인" label-width="80px" style="margin-top:-20px" >
-                                <el-input  size="medium" ref="mpw2" v-model="state.item.mpw2" type="password" placeholder="암호확인"/>
-                            </el-form-item>
-                        </el-form>
-
-                        <el-button type="info" size="small" style="margin-left:65px" plain @click="handleUpdatePw1">변경하기</el-button>
-
-                       <!-- 옛날꺼  -->
-                        <!-- <div>
-                            <el-button type="info" size="small" plain @click="handleBack">돌아가기</el-button>
-
-                            기존암호 : <input type="password" v-model="state.item.mpw" placeholder="기존암호" /><br />
-                            새암호 : <input type="password" v-model="state.item.mpw1" placeholder="새암호" /><br />
-                            암호확인 : <input type="password" v-model="state.item.mpw2" placeholder="암호확인" /><br />
-                            <button @click="handleUpdate">변경하기</button>
-                        </div> -->
-                    </div>
-                </el-card>
-                <br /><br />
+                <h3 style="margin-top:100px;">정보 수정</h3>
             </div>
-        </el-drawer>
+            
+            <!-- 버튼 -->
+            <div class="center">
+                <el-button class="button-blk1" type="info" @click="handleMenu1">정보 수정</el-button>
+                <el-button class="button-blk1" type="info" @click="handleMenu3">1:1 문의</el-button>
+                <el-button class="button-blk1" type="info"   @click="handleMenu2">회원 탈퇴</el-button>
+            </div>
+
+            <!-- 프로필 사진 -->
+            <a class="center" style="margin-top:50px;">
+                <div style="border-radius: 70%; width:250px; height:250px;overflow: hidden; border: 3px solid #e2e2e2;">
+                    <img :src="state.imageUrl" style="width:100%; height:100% object-fit: cover;margin-top:0px" />
+                </div>
+            </a>
+
+            <!-- 프로필 사진 변경 -->
+            <div class="center">
+                <!-- 버튼 -->
+                <label style="margin-left:-5px;margin-top:20px;" class="button-blk1" for="file">프로필 사진 변경</label> 
+
+                <!-- 숨김 -->
+                <input class="hide" type="file" id="file" @change="handleImage($event)" />
+            </div>
+
+            <!-- 정보 입력 -->
+            <div v-if="state.item" style="margin-right:60px;">
+
+                <el-form class="center" :inline="true" style="margin-top:50px;" >
+                    <!-- 이름 -->
+                    <el-form-item label="이름" label-width="80px" style="margin-left:65px;margin-top:20px;">
+                        <el-input class="input-size" size="medium" ref="mname" v-model="state.item.mname" placeholder="이름" />
+                    </el-form-item>
+
+                    <!-- 비밀번호 변경 -->
+                    <el-form-item>
+                        <el-link style="margin-top:20px;" @click="handlePwUpdate">비밀번호 변경</el-link>
+                    </el-form-item>
+                </el-form>
+
+                <el-form class="center" :inline="true">
+                    <!-- 닉네임 -->
+                    <el-form-item label="닉네임" label-width="80px;" style="margin-left:75px;margin-top:-15px;">
+                        <el-input class="input-size" size="medium" ref="mid" v-model="state.item.mid" placeholder="닉네임" @keyup="handleMidChk"/>
+                    </el-form-item>
+
+                    <!-- 중보확인 -->
+                    <el-form-item label-width="80px;" style="margin-top:-15px;">
+                        <el-link style="margin-top:5px;" @click="checkMid">중복확인</el-link>
+                    </el-form-item><br />
+                </el-form>
+
+                <el-form class="center" :inline="true">
+                    <el-form-item style="margin-left:75px;margin-top:-15px;">
+                        <div style="font-size:15px;">{{state.usermidcheck}}</div>
+                    </el-form-item>
+                </el-form>
+
+                <el-form class="center" :inline="true">
+                    <!-- 연락처 -->
+                    <el-form-item label="연락처" label-width="80px;" style="margin-left:22px;margin-top:-15px;">
+                        <el-input class="input-size" size="medium" ref="mphone" v-model="state.item.mphone" type="text" placeholder="000-0000-0000"/>
+                    </el-form-item>
+                </el-form>
+
+                <el-form class="center" :inline="true">
+                    <!-- 키 -->
+                    <el-form-item label="키" label-width="80px;" style="margin-left:66px;margin-top:-15px;">
+                        <el-select class="input-size" ref="mrole" v-model="state.item.mheight" size="medium" placeholder="키">
+                            <el-option v-for="no in 250" :key="no" :label="no" :value="no">
+                                {{no}}
+                            </el-option>
+                        </el-select>
+                        cm
+                    </el-form-item>
+                </el-form>
+
+                <el-form class="center" :inline="true" style="margin-right:-32px;"  >
+                    <!-- 몸무게 -->
+                    <el-form-item label="몸무게" label-width="80px;" style="margin-left:9px;margin-top:-15px;">
+                        <el-select class="input-size" ref="mrole" v-model="state.item.mweight" size="medium" placeholder="몸무게">
+                            <el-option v-for="no in 250" :key="no" :label="no" :value="no">
+                                {{no}}
+                            </el-option>
+                        </el-select>
+                        kg
+                    </el-form-item>
+                </el-form>
+                
+                <!-- 수정하기 버튼 -->
+                <div class="center">
+                    <el-button class="button-blk" type="info" style="margin-left:60px;margin-top:-10px;margin-bottom:60px;" plain @click="handleUpdate">수정하기</el-button>
+                </div>
+
+            </div>
+
+            <!-- 비밀번호 변경 -->
+            <el-drawer v-model="state.table" title="" size="40%">
+                <div>
+                    <div class="center">
+                        <h3 style="margin-top:20px;">비밀번호 변경</h3>
+                    </div>
+
+                    <div v-if="state.item" style="margin-top:50px;">
+                        <el-form class="center" :inline="true">
+                            <el-form-item>
+                                <el-input class="input-size" size="medium" ref="mpw" v-model="state.item.mpw" type="password" placeholder="기존 비밀번호를 입력해주세요."/>
+                            </el-form-item>
+                        </el-form>
+
+                        <el-form class="center" :inline="true">
+                            <el-form-item>
+                                <el-input class="input-size" size="medium" ref="mpw1" v-model="state.item.mpw1" type="password" placeholder="변경하실 비밀번호를 입력해주세요."/>
+                            </el-form-item>
+                        </el-form>
+
+                        <el-form class="center" :inline="true"  >
+                            <el-form-item>
+                                <el-input class="input-size" size="medium" ref="mpw2" v-model="state.item.mpw2" type="password" placeholder="변경하실 비밀번호를 확인해주세요."/>
+                            </el-form-item>
+                        </el-form>
+                        
+                        <div class="center">
+                            <el-button class="button-blk" type="info" size="medium" plain @click="handleUpdatePw1">변경하기</el-button>
+                        </div>
+                        
+
+                    </div>
+
+                    <br /><br />
+                </div>
+            </el-drawer>
+        </div>
 
     </div>
 </template>
@@ -379,8 +375,43 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
 .center{
   text-align: center;
 }
 
+.button-blk1 {
+    background-color: #212529;
+    border: none;
+    color: rgb(255, 255, 255);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
+}
+
+.button-blk {
+    background-color: #212529;
+    border: none;
+    color: rgb(255, 255, 255);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
+    width: 300px;
+}
+
+.input-size {
+    width: 300px;
+}
+
+.hide {
+    display: none;
+}
 </style>

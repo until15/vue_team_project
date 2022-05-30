@@ -1,27 +1,29 @@
 <template>
-    <div class="center">
-        <h1>마이페이지</h1>
-            <el-button @click="handleMenu1">정보수정</el-button>
-            <el-button @click="handleMenu3">1:1문의</el-button>
-            <el-button @click="handleMenu2">회원탈퇴</el-button>
-            <br /><br />
-        <!-- 회원탈퇴 -->
-        <el-card style="height:600px">
-            <h3>회원탈퇴</h3>
-            <hr />
-            <el-form :inline="true" style="margin-top:50px" >
-                <el-form-item label="암호">
-                    <el-input  size="medium" v-model="state.mpw" type="password" placeholder="암호"/>
+    <div>
+        <div>
+            <!-- 타이틀 -->
+            <div class="center">
+                <h3 style="margin-top:100px;">회원 탈퇴</h3>
+            </div>
+            
+            <!-- 버튼 -->
+            <div class="center">
+                <el-button class="button-blk1" type="info" @click="handleMenu1">정보 수정</el-button>
+                <el-button class="button-blk1" type="info" @click="handleMenu3">1:1 문의</el-button>
+                <el-button class="button-blk1" type="info"   @click="handleMenu2">회원 탈퇴</el-button>
+            </div>
+
+            <!-- 회원탈퇴 -->
+            <el-form class="center" :inline="true" style="margin-top:60px;" >
+                <el-form-item>
+                    <el-input style="width:300px" size="medium" v-model="state.mpw" type="password" placeholder="비밀번호를 입력해주세요."/>
                 </el-form-item>
             </el-form>
-            <el-button type="info" size="small" plain @click="handleDelete">회원탈퇴</el-button> 
-        </el-card>
-        
-        <!-- 옛날꺼 -->
-        <!-- <div>
-            암호 : <input type="password" v-model="state.item.mpw" /><br />
-            <button @click="handleDelete">회원탈퇴</button>
-        </div> -->
+
+            <div class="center">
+                <el-button class="button-blk" style="margin-bottom:60px;" type="info" size="medium" plain @click="handleDelete">회원 탈퇴</el-button> 
+            </div>
+        </div>
     </div>
 </template>
 
@@ -88,6 +90,34 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
+.button-blk {
+    background-color: #212529;
+    border: none;
+    color: rgb(255, 255, 255);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
+    width: 300px;
+}
+
+.button-blk1 {
+    background-color: #212529;
+    border: none;
+    color: rgb(255, 255, 255);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
+}
+
 .center{
   text-align: center;
 }

@@ -44,7 +44,7 @@
 
                             <!-- 프로필 이미지 -->
                             <a  id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <div style="border-radius: 70%; width:50px; height:50px;overflow: hidden; border: 1px solid red;">
+                                <div style="border-radius: 70%; width:50px; height:50px;overflow: hidden; border: 2px solid #e2e2e2;">
                                     <img :src="state.image" style="width:100%; height:100% object-fit: cover;margin-top:0px" />
                                 </div>
                             </a>
