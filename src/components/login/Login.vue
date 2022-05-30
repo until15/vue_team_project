@@ -39,16 +39,16 @@
             </div>
             
             <!-- 카카오 로그인 -->
-            <div class="center">
-                <!-- <a id="custom-login-btn" @click="kakao">
+            <!-- <div class="center">
+                <a id="custom-login-btn" @click="kakao">
                     <img
                         src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
                         width="222"
                         alt="카카오 로그인 버튼"
                     />
-                </a> -->
+                </a>
                 <el-button class="button-kakao" type="info" style="margin-top:10px;" plain id="custom-login-btn" @click="kakao">카카오 로그인</el-button>
-            </div>
+            </div> -->
 
             <!-- 회원가입 -->
             <div class="center" style="margin-top:10px;margin-bottom:60px">회원이 아니신가요? 

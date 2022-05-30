@@ -4,7 +4,7 @@
         <!-- 게시물 수정화면 -->
         <el-card style="width:1200px">
             <h3>게시물 수정</h3>
-            <div v-if="state.item" class="center">
+            <div v-if="state.item" >
             <el-form >
                 <el-form-item  label="제목" label-width="40px">
                     <el-input  size="medium" ref="memail" v-model="state.item.btitle" />
@@ -16,13 +16,14 @@
                     <el-input v-model="state.item.bcontent" :rows="10" type="textarea" />
                     <div v-for="(tmp, idx) in state.image" :key="tmp">
                         <img :src="state.image[idx]" style="width:200px;margin-top:20px" /><br />
-                        <div style="margin-left:290px;margin-top:-40px">
+                        <div style="margin-left:300px;margin-top:-60px">
                             <el-button type="info" plain @click="handleDeleteImg(tmp)">삭제</el-button> 
                         </div>
                     </div>
                 </el-form-item>
             </el-form>
             </div>
+            <br />
 
             <el-button type="info" plain @click="handleUpdate">수정하기</el-button> 
             <el-button type="info" plain @click="handleBack">돌아가기</el-button> <br /><br />

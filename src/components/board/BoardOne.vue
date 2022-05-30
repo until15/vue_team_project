@@ -17,18 +17,30 @@
                             {{state.item.bhit}}</el-descriptions-item>
                             <el-descriptions-item label="등록일"  label-align="center" align="center">
                             {{state.item.bregdate}}</el-descriptions-item>
-                        <el-descriptions-item label="내용" hight="20px" label-align="center" align="center">
+                        <!-- <el-descriptions-item label="내용" hight="20px" label-align="center" align="center">
                             {{state.item.bcontent}}<br />
                             <div class="center" v-for="tmp in state.image" :key="tmp">
-                            <img :src="tmp" style="width:300px;margin-top:20px" /><br />
-                        </div></el-descriptions-item>
-                        </el-descriptions>
-
-                            <img :src="state.imageUrl" style="width:80px" />
-                            <div v-if="state.member.memail === memail">
-                                <input type="file" @change="handleImage($event)"  style="width:200px" />
-                                <el-button type="info" size="small" plain @click="handleImageInsert">이미지등록</el-button>
+                                <img :src="tmp" style="width:300px;margin-top:20px" /><br />
                             </div>
+                        </el-descriptions-item> -->
+                        </el-descriptions>
+                        <el-descriptions title="" :column="1"  >
+                            <el-descriptions-item >
+                            <template #label>
+                                <div class="center" style="margin-top:40px"> {{state.item.bcontent}}</div>
+                                <div class="center" v-for="tmp in state.image" :key="tmp">
+                                <img :src="tmp" style="width:300px;margin-top:20px" /><br />
+                            </div>
+                            </template>
+                            </el-descriptions-item>
+                        </el-descriptions>
+                        <hr />
+                        
+                        <div v-if="state.member.memail === memail">
+                        <img :src="state.imageUrl" style="width:80px" />
+                            <input type="file" @change="handleImage($event)"  style="width:150px" />
+                            <el-button type="info" size="small" plain @click="handleImageInsert">이미지등록</el-button>
+                        </div>
                         <hr />
                     </div>
                     <!-- 목록 이전글 다음글 버튼 -->
@@ -54,7 +66,7 @@
                             </div>
                         </div>
                         <br />
-                        <div v-for="tmp in state.reply" :key="tmp" class="center">
+                        <div v-for="tmp in state.reply" :key="tmp.desc" >
                             <el-divider border-style="dotted" />
                             <span>{{tmp.memberchg.mid}}</span> : 
                             <span>{{tmp.cmtcontent}}</span>

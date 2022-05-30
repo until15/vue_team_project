@@ -45,7 +45,7 @@
                 <!-- 이메일 입력 -->
                 <el-form class="center" :inline="true">
                     <el-form-item style="margin-left:145px;">
-                        <el-input v-model="state.memail" size="medium" ref="memail" placeholder="이메일" @keyup="handleChk" />
+                        <el-input v-model="state.memail" size="medium"  ref="memail" placeholder="이메일" @keyup="handleChk" />
                     </el-form-item>
 
                     <el-form-item>@</el-form-item>
@@ -138,7 +138,7 @@
                 <!-- 연락처 -->
                 <el-form class="center" :inline="true">
                     <el-form-item style="margin-top:-10px;">
-                        <el-input class="input-size" size="medium" ref="mphone" v-model="state.mphone" type="text" placeholder="연락처 예) 000-0000-0000"/>
+                        <el-input class="input-size" size="medium" ref="mphone" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" v-model="state.mphone" maxlength="11" type="text" placeholder="-는 생략해주세요  연락처 예) 01012345678"/>
                     </el-form-item>
                 </el-form>
 
@@ -227,7 +227,7 @@ export default {
             mweight : 30,
             mphone : '',
             mrole : '',
-            mimage : null,
+            mimage : '',
             imageUrl : require('../assets/img/default_member.jpg'),
             usermailcheck : '"중복확인"',
             usermidcheck : '"중복확인"',
@@ -480,6 +480,7 @@ export default {
                 state.mimage = e.target.files[0];
             }
             else{
+                state.imageUrl = require('../assets/img/default_member.jpg');
                 state.mimage = '';
             }
         }
