@@ -43,7 +43,7 @@
         >
         <el-button type="info" size="mini" style="margin-right: 60px">파일선택</el-button>
         </el-upload><br>
-        <el-button
+        <el-button id="btn"
           round
           @click="handleUpdateAction(state.no), handleVideoInsertAction()"
           >수정</el-button
@@ -51,7 +51,7 @@
       </div>
       <!-- 동영상이 있는 경우 Update, Delete -->
       <div v-if="state.video">
-        <el-button type="info" plain @click="handleVideoDelete(state.no)" size="mini" style="margin-right: 327px"
+        <el-button type="info" id="btn" plain @click="handleVideoDelete(state.no)" size="mini" style="margin-right: 327px"
           >파일 삭제</el-button
         ><br />
         <div
@@ -85,13 +85,13 @@
         >
         <el-button type="info" size="mini" style="margin-right: 327px">파일선택</el-button>
         </el-upload><br /><br />
-        <el-button
+        <el-button id="btn"
           round
           @click="handleUpdateAction(state.no), handleVideoUpdateAction()"
           >수정</el-button
         >
       </div>
-      <router-link to="/pose"><el-button round>목록</el-button></router-link
+      <router-link to="/pose"><el-button round id="btn">목록</el-button></router-link
       ><br />
       </el-card>
     </div>
@@ -252,4 +252,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="css" scoped>
+#btn:hover{
+   color: rgb(255, 255, 255);
+   background-color: black;
+   border: 0;
+}
+</style>

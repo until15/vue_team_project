@@ -5,7 +5,7 @@
             | {{state.pose.pregdate}}<br><br>
             부위 : {{state.pose.ppart}}<br><br>
             난이도 : {{state.pose.plevel}} <br><br>
-            <el-card shadow="never">{{state.pose.pcontent}} </el-card><br><br>
+            <el-card shadow="never" style="width:500px">{{state.pose.pcontent}} </el-card><br><br>
             <div align="center">
                 <div v-if="state.video">
                     <div v-if="state.type === state.vio || state.type === state.vio1 || state.type === state.vio2">
@@ -107,7 +107,9 @@ export default {
 <style scoped>
 
 #btn:hover{
-   color: rgb(253, 177, 114);
+   color: rgb(255, 255, 255);
+   background-color: black;
+   border: 0;
 }
 
 </style>

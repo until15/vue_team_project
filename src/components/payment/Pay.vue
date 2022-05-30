@@ -8,7 +8,7 @@
         <h3>{{ this.pjoinchg.chgtitle }}</h3>
         <br />
         <h6>
-          주의 : 참가 후 <mark>챌린지 포기</mark>를 누르셔도
+          ※ 챌린지 시작일 후 <mark>챌린지 포기</mark>를 누르시면
           <mark>참가비는 환불되지 않습니다.</mark>
         </h6>
         <br />
