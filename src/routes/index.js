@@ -63,6 +63,7 @@ import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
 import Navi from '@/components/Navi.vue';
 import Testttt from '@/components/Testttt.vue';
+import TestM from '@/components/Test-M.vue';
 import MyActivity from '@/components/MyActivity.vue';
 
 
@@ -121,6 +122,7 @@ const routes = [
     { path:'/payrefund', name:"PayRefund", component:PayRefund },
     { path:'/routineselect', name:"RoutineSelect", component:RoutineSelect },
     { path:'/testttt', name:"Testttt", component:Testttt },
+    { path:'/testm', name:"TestM", component:TestM },
     { path:'/myactivity', name:"MyActivity", component:MyActivity },
 ];
   
