@@ -23,26 +23,20 @@
                     <span>
                         <h4>{{tmp.chgtitle}}</h4><br />
                         {{tmp.chgintro}}<br />
-                        좋아요{{tmp.chglike}}개<br />
-                        난이도{{tmp.chglevel}}단계<br />
-                        {{tmp.chgfee}}원
+                        좋아요 {{tmp.chglike}} 개<br />
+                        난이도 {{tmp.chglevel}} 단계<br />
+                        {{tmp.chgfee}} 원<br />
+                        {{tmp.chgregdate}}
                     </span>
 
                     <span class="ch-mem">
                         {{tmp.chgrate}}
                     </span>
 
-                    <div class="bottom">
-                        <time class="time">
-                            {{tmp.chgregdate}}
-                        </time>
-                    </div>
-
                     <div class="chg-detail">
                         <el-link style="margin-top:20px;" @click="handleSelect(tmp.chgno)">상세 보기</el-link>
                     </div>
                     
-
                 </div>
             </el-card>
         </div>
