@@ -1,69 +1,53 @@
 <template>
-    <div align="center">
-        <h1>마이페이지</h1>
-            <el-button @click="handleMenu1">정보수정</el-button>
-            <el-button @click="handleMenu3">1:1문의</el-button>
-            <el-button @click="handleMenu2">회원탈퇴</el-button>
-            <br /><br />
-        <!-- 문의목록 -->
-        <el-card style="height:550px">
-        <h3>1:1문의</h3>
-        <hr /> 
-            <el-table :data="state.items">
-                <el-table-column prop="qno" label="번호" width="60" />
-                <el-table-column prop="qtitle" label="제목"  width="230" >
-                <template #default="scope">
-                    <div @click="handlePage(scope.row.qno)" style="cursor:pointer;">
-                        {{scope.row.qtitle}}
-                    </div> 
-                </template>
-                </el-table-column>
-                <el-table-column prop="mid" label="작성자" width="130" />
-                <el-table-column prop="qregdate" label="날짜" width="100" />
-                <el-table-column prop="com" label="처리현황" width="100" />
-                 
-            </el-table>
+    <div class="center">
+        <div>
+            <!-- 타이틀 -->
+            <div>
+                <h3 style="margin-top:100px;">1:1 문의</h3>
+            </div>
+            
+            <!-- 버튼 -->
+            <div>
+                <el-button class="button-blk1" type="info" @click="handleMenu1">정보 수정</el-button>
+                <el-button class="button-blk1" type="info" @click="handleMenu3">1:1 문의</el-button>
+                <el-button class="button-blk1" type="info"   @click="handleMenu2">회원 탈퇴</el-button>
+            </div>
 
-            <el-pagination layout="prev, pager, next" :total="state.total" @current-change="currentchange">
-            </el-pagination>
-        </el-card>
-        <!-- 검색창 -->
-        <el-form :inline="true" v-if="state.items" style="margin-top:20px;" >
-            <el-form-item>
-                <el-input type="text" size="mini" v-model="state.qtitle" placeholder="검색어 입력" @keydown.prevent.enter="handleData" />
-            </el-form-item>
-            <el-form-item>
-                <el-button type="info" plain size="mini" style="margin-left:5px;" @click="handleData" >검색</el-button>
-            </el-form-item>
-        </el-form>
-        <el-button type="info" plain @click="handleInquiryWriter">글쓰기</el-button><br /><br />
+            <!-- 검색창 -->
+            <el-form :inline="true" v-if="state.items" style="margin-top:60px;" >
+                <el-form-item>
+                    <el-input style="width:200px;" type="text" size="mini" v-model="state.qtitle" placeholder="검색어 입력" @keydown.prevent.enter="handleData" />
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="info" plain size="mini" style="margin-left:5px;" @click="handleData" >검색</el-button>
+                </el-form-item>
+            </el-form>
+
+            <div style="margin-top:10px;">
+                <el-table :data="state.items">
+                    <el-table-column prop="qno" label="번호" width="60" />
+                    <el-table-column prop="qtitle" label="제목"  width="230" >
+                        <template #default="scope">
+                            <div @click="handlePage(scope.row.qno)" style="cursor:pointer;">
+                                {{scope.row.qtitle}}
+                            </div> 
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="mid" label="작성자" width="130" />
+                    <el-table-column prop="qregdate" label="날짜" width="100" />
+                    <el-table-column prop="com" label="처리현황" width="100" />
+                </el-table>
+
+                <el-pagination layout="prev, pager, next" :total="state.total" @current-change="currentchange">
+                </el-pagination>
+            </div>
+            
+            <!-- 글쓰기 버튼 -->
+            <div>
+                <el-button class="button-blk1" style="margin-top:20px;margin-bottom:60px;" type="info" plain @click="handleInquiryWriter">글쓰기</el-button><br /><br />
+            </div>
+        </div>
     </div>
-
-        <!-- 옛날꺼 -->
-        <!-- <div v-if="state.items">
-            <input type="text" v-model="state.items.title" @keyup.enter="handleData" placeholder="검색어" />
-            <button @click="handleData">검색</button>
-            <table border="1">
-                    <tr>
-                        <th>번호</th>
-                        <th>제목</th>
-                        <th>작성자</th>
-                        <th>날짜</th>
-                        <th>처리현황</th>
-                    </tr>
-                    <tr v-for="tmp in state.items" :key="tmp">
-                        <td>{{tmp.qno}}</td>
-                        <td @click="handlePage(tmp.qno)" style="cursor:pointer">{{tmp.qtitle}}</td>
-                        <td>{{tmp.memberchgMemail}}</td>
-                        <td>{{tmp.qregdate}}</td>
-                        <td>처리중</td>
-                    </tr>
-            </table>
-            <button @click="handleInquiryWriter">글쓰기</button>
-        </div> -->
-   
-
-
 </template>
 
 <script>
@@ -150,6 +134,20 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
+.button-blk1 {
+    background-color: #212529;
+    border: none;
+    color: rgb(255, 255, 255);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
+}
+
 .center{
   text-align: center;
 }
