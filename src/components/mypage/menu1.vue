@@ -23,7 +23,7 @@
             <!-- 프로필 사진 변경 -->
             <div class="center">
                 <!-- 버튼 -->
-                <label style="margin-left:-5px;margin-top:20px;" class="button-blk1" for="file">프로필 사진 변경</label> 
+                <label style="margin-left:-5px;margin-top:20px;" class="button-wht" for="file">프로필 사진 변경</label> 
 
                 <!-- 숨김 -->
                 <input class="hide" type="file" accept="image/*" id="file" @change="handleImage($event)" />
@@ -378,6 +378,19 @@ export default {
 
 .center{
   text-align: center;
+}
+
+.button-wht {
+    background-color: #ffffff;
+    border: 1px solid #212529;
+    color: #212529;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
 }
 
 .button-blk1 {
