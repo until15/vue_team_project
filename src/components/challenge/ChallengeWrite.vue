@@ -150,7 +150,8 @@ export default {
             cimage     : null,
             currenttime : '',
             dialogTableVisible1 : false,
-            //imageUrl   : require('../assets/img/default.png'),
+            imageUrl : '',
+            // imageUrl   : require('@/assets/img/default.png'),
             token      : sessionStorage.getItem("TOKEN")
         });
 
@@ -229,6 +230,11 @@ export default {
                 return false;
             }
 
+            if(state.imageUrl === ''){
+                alert('사진을 등록해주세요.');
+                return false;
+            }
+
             if(state.token !== null){
                 const url = `/ROOT/api/challenge/insert`;
                 const headers = {"Content-Type":"multipart/form-data", "token":state.token};
@@ -289,7 +295,7 @@ export default {
                 state.chgfee = 15000;
             }
 
-            if(state.chgfee < 5000){
+            if(state.chgfee <= 5000){
                 state.chgfee = 5000;
             }
         }

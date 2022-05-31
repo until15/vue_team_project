@@ -9,14 +9,14 @@
                         <el-descriptions direction="horizontal" title="" :column="1" border>
                         <el-descriptions-item label="글번호" width="10px" label-align="center" align="center">
                             {{state.item.bno}}</el-descriptions-item>
+                        <el-descriptions-item label="등록일"  label-align="center" align="center">
+                            {{state.item.bregdate}}</el-descriptions-item>
+                        <el-descriptions-item label="조회수"  label-align="center" align="center">
+                            {{state.item.bhit}}</el-descriptions-item>
                         <el-descriptions-item label="작성자" width="10px" label-align="center" align="center">
                             {{state.item.mid}}</el-descriptions-item>
                         <el-descriptions-item label="제목"  label-align="center" align="center">
                             {{state.item.btitle}}</el-descriptions-item>
-                        <el-descriptions-item label="조회수"  label-align="center" align="center">
-                            {{state.item.bhit}}</el-descriptions-item>
-                            <el-descriptions-item label="등록일"  label-align="center" align="center">
-                            {{state.item.bregdate}}</el-descriptions-item>
                         <!-- <el-descriptions-item label="내용" hight="20px" label-align="center" align="center">
                             {{state.item.bcontent}}<br />
                             <div class="center" v-for="tmp in state.image" :key="tmp">
@@ -29,20 +29,32 @@
                             <template #label>
                                 <div class="center" style="margin-top:40px"> {{state.item.bcontent.replace("<p>", "").replace("</p>","")}}</div>
                                 <div class="center" v-for="tmp in state.image" :key="tmp">
-                                <img :src="tmp" style="width:300px;margin-top:20px" /><br />
-                            </div>
+                                    <img :src="tmp" style="width:300px;margin-top:20px" /><br />
+                                </div>
                             </template>
                             </el-descriptions-item>
                         </el-descriptions>
                         <hr />
-                        
-                        <div v-if="state.member.memail === memail">
-                        <img :src="state.imageUrl" style="width:80px" />
-                            <input type="file" accept="image/*" @change="handleImage($event)"  style="width:150px" />
-                            <el-button type="info" size="small" plain @click="handleImageInsert">이미지등록</el-button>
-                        </div>
-                        <hr />
                     </div>
+                        
+                    <div v-if="state.member.memail === memail">
+                        <a class="center" style="margin-bottom:-100px;margin-right:200px">
+                            <div style="border-radius: 70%; width:80px; height:80px;overflow: hidden; border: 3px solid #e2e2e2;">
+                                <img :src="state.imageUrl" style="width:135%; height:135% object-fit: cover;margin-top:0px;" />
+                            </div>
+                        </a>
+
+                        <!-- 프로필 사진 업로드 -->
+                        <div class="center">
+                            <!-- 버튼 -->
+                            <label style="margin-left:-5px;margin-top:20px;width:90px" class="button-blk" for="file">파일선택</label> 
+
+                            <!-- 숨김 -->
+                            <input class="hide" type="file" accept="image/*" id="file" @change="handleImage($event)" />
+                        </div>
+                        <el-button type="info" style="margin-left:-5px;" size="small" plain @click="handleImageInsert">이미지등록</el-button>
+                    </div>
+                    <hr />
                     <!-- 목록 이전글 다음글 버튼 -->
                     <div style="margin-right:900px;" >
                         <div class="float">
@@ -270,6 +282,7 @@ export default {
             if(response.data.status === 200){
                 alert('등록되었습니다');
                 handleData(state.item.bno); 
+                state.imageUrl = '';
             }
         };
 
@@ -331,5 +344,22 @@ export default {
 .float{
     float: left;
 
+}
+.button-blk {
+    background-color: #212529;
+    border: none;
+    color: rgb(255, 255, 255);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
+    width: 350px;
+}
+
+.hide {
+    display: none;
 }
 </style>

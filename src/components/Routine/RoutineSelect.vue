@@ -238,7 +238,7 @@ export default {
       // store.commit("setRtncnt", state.rtncnt);
       // store.commit("setRtnset", state.rtnset);
       console.log(store.commit);
-      alert("등록되었습니다");
+
       state.dialogTableVisible = false;
     };
 

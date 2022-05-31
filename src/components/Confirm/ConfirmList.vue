@@ -51,7 +51,7 @@
                             <td>{{tmp.ccregdate}}</td>
                             <td>{{tmp.chgstate}}</td>
                             <td>{{tmp.cfsuccess}}</td>
-                            <td>{{tmp.chgrate}}</td>
+                            <td>{{tmp.chgrate}}%</td>
                         </tr>
                     </table>
                 </div> -->
@@ -138,6 +138,15 @@ export default {
             if (response.data.status === 200) {
                 state.items = response.data.result
                 state.pages = response.data.pages
+
+                let chgrate = []; 
+                for(let tmp of response.data.result){
+                   chgrate.push(tmp.chgrate);
+                  
+                   if(tmp.chgrate <= 0){
+                       tmp.chgrate = 0;
+                   }
+               }
 
                 // imageUrl 배열 초기화
                 state.imageUrl.splice(0, state.items.length);   //idx 0부터 요소의 갯수만큼

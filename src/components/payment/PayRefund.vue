@@ -3,7 +3,7 @@
     <div v-if="this.paychg">
       <img src="@/assets/img/환급.png" style="width: 500px" />
       <h3>
-        <div v-if="this.member">
+        <div v-if="this.member" >
         {{ this.member.mid }} 님은 달성률을
         <mark>{{ this.pjoinchg.chgrate }}</mark
         >% 달성하셨습니다!
@@ -37,7 +37,7 @@ export default {
       token: sessionStorage.getItem("TOKEN"),
       paychg: "",
       pjoinchg: "",
-      jno: 118, // 연결 필요
+      jno: 123, // 연결 필요
     };
   },
 

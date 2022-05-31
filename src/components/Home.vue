@@ -189,8 +189,8 @@
                       </div>
                       <div style="padding: 14px">
                         <span>{{tmp.chgtitle}}</span><br />
-                        <span>좋아요{{tmp.chglike}}개</span><br />
-                        <span>참가비{{tmp.chgfee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}원</span>
+                        <span>좋아요 {{tmp.chglike}}개</span><br />
+                        <span>참가비 {{tmp.chgfee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}원</span>
                         <span class="ch-mem">{{tmp.chgrate}}</span>
                         <div class="bottom">
                           <time class="time">{{tmp.chgregdate}}</time>
@@ -246,8 +246,9 @@
                         <!-- 하단: 내용 -->
                         <div style="padding: 14px">
                           
-                          <span>{{tmp.chgtitle}}<br />난이도{{tmp.chglevel}}단계</span><br />
-                          <span>참가비{{tmp.chgfee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}원</span>
+
+                          <span>{{tmp.chgtitle}}<br />난이도 {{tmp.chglevel}}단계</span><br />
+                          <span>참가비 {{tmp.chgfee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}원</span>
 
                           <span class="ch-mem">{{tmp.chgrate}}</span>
                           <div class="bottom">
