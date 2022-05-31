@@ -171,7 +171,7 @@ export default {
 
         // 좋아요
         const handleLike = async() => {
-            console.log(state.chgno);
+            // console.log(state.chgno);
             const url = `/ROOT/api/like/insert?chgno=${state.chgno}`;
             const headers = {
                 "Content-Type" : "application/json",
