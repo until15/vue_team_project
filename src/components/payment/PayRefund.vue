@@ -81,16 +81,16 @@ export default {
     // 환급
     cancelPay: function () {
       // 환급 중복 방지
-      if (this.paychg.cancelprice === 0) {
+      if (this.paychg.checksum === 0) {
         axios({
           url: `/ROOT/api/pay/refund.json`, // 환급 요청을 받을 서비스 URL
           method: "post",
           headers: { "Content-Type": "application/json" },
           data: {
-            impuid: this.paychg.impuid, // 결제 당시 고유 ID
-            pprice: this.paychg.pprice, // 환불금액
+            imp_uid: this.paychg.imp_uid, // 결제 당시 고유 ID
+            amount: this.paychg.amount, // 환불금액
             reason: "테스트 결제 환불", // 환불사유
-            cancelprice: this.paychg.cancelprice, // 총 환불된 금액
+            checksum: this.paychg.checksum, // 총 환불된 금액
             joinchg: { jno: this.paychg.jno }, // 참가 챌린지 번호
           },
         }).then((data) => {
