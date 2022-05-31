@@ -72,7 +72,7 @@ export default {
                    if(tmp.com === 0){
                        tmp.com = '처리중';
                    }
-                   else if(tmp.com === 1){
+                   else if(tmp.com >= 1){
                        tmp.com = '답변완료';
                    }
                    else{
