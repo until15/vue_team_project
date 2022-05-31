@@ -7,6 +7,7 @@ import AboutUs from '@/components/AboutUs.vue';
 import Admin from '@/components/admin/Admin.vue'; 
 import Admin1 from '@/components/admin/Admin1.vue'; 
 import Admin2 from '@/components/admin/Admin2.vue'; 
+import Admin3 from '@/components/admin/Admin3.vue'; 
 import MemberList from '@/components/admin/MemberList.vue'; 
 /////////////////////////// Challenge ////////////////////////////////
 import Challenge from '@/components/challenge/Challenge.vue'; 
@@ -73,6 +74,7 @@ const routes = [
     { path:'/admin', name:"Admin", component:Admin },
     { path:'/admin1', name:"Admin1", component:Admin1 },
     { path:'/admin2', name:"Admin2", component:Admin2 },
+    { path:'/admin3', name:"Admin3", component:Admin3 },
     { path:'/memberlist', name:"MemberList", component:MemberList },
     /////////////////////////// Challenge ////////////////////////////////
     { path:'/challenge', name:"Challenge", component:Challenge },

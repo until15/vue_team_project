@@ -4,28 +4,28 @@
         <div class="center" style="margin-bottom:10px">
             <el-button type="primary" round plain @click="handleMenu(1)">문의</el-button>     
             <el-button type="primary" round plain @click="handleMenu(2)">회원관리</el-button>  
+            <el-button type="primary" round plain @click="handleMenu(3)">돈관리</el-button>  
         </div>
         
-           
-       
-         
 
         <admin-1 v-if="state.menu === 1"></admin-1>
         <member-list v-if="state.menu === 2"></member-list>
+        <admin-3 v-if="state.menu === 3"></admin-3>
 
     </div>
 </template>
 
 <script>
 import { reactive, onMounted } from 'vue';
-import Admin1 from '../admin/Admin1.vue'
+import Admin1 from '../admin/Admin1.vue';
+import Admin3 from '../admin/Admin3.vue';
 import MemberList from '../admin/MemberList.vue';
 
 import { useRoute } from 'vue-router'
 import { useRouter } from 'vue-router'
 export default {
     components : {
-        Admin1, MemberList
+        Admin1, Admin3, MemberList
     },
 
     setup () {
