@@ -129,7 +129,7 @@
                 
                 <!-- 프로필 사진 -->
                 <a class="center" style="margin-top:10px;">
-                    <div style="border-radius: 70%; width:250px; height:250px;overflow: hidden; border: 3px solid #e2e2e2;">
+                    <div style="border-radius: 70%; width:150px; height:150px;overflow: hidden; border: 3px solid #e2e2e2;">
                         <img :src="state.imageUrl" style="width:100%; height:100% object-fit: cover;margin-top:0px" />
                     </div>
                 </a>
@@ -406,6 +406,7 @@ export default {
 
         const handleChk = () => {
             state.usermailcheck = '"중복확인"';
+            
         }
 
         const handleMidChk = () => {
