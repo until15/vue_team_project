@@ -54,7 +54,7 @@
                 <!-- 이름 -->
                 <el-form class="center" :inline="true">
                     <el-form-item style="margin-top:-10px;">
-                        <el-input class="input-size" size="medium" ref="mname"  v-model="state.mname" placeholder="이름을 입력해주세요." />
+                        <el-input class="input-size"  size="medium" ref="mname" v-model="state.mname" placeholder="이름을 입력해주세요."  />
                     </el-form-item>
                 </el-form>
 
@@ -113,7 +113,7 @@
                 <!-- 연락처 -->
                 <el-form class="center" :inline="true">
                     <el-form-item style="margin-top:-10px;">
-                        <el-input class="input-size" size="medium" ref="mphone" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" v-model="state.mphone" maxlength="11" type="text" placeholder="-는 생략해주세요  연락처 예) 01012345678"/>
+                        <el-input class="input-size" size="medium" ref="mphone" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" v-model="state.mphone" maxlength="11" type="text" placeholder="-는 생략해주세요  연락처 예) 01012345678" show-word-limit/>
                     </el-form-item>
                 </el-form>
 
