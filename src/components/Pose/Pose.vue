@@ -1,16 +1,26 @@
 <template>
     <div align="center">
-        <br>
-        <h3>자세</h3>
-        <h6>루틴에 등록될 자세를 등록하는 곳입니다.</h6><br>
-        <el-form :inline="true" v-if="state.pose" align="center" label-width="100px">
+
+        <!-- 타이틀 -->
+        <div>
+            <h3 style="margin-top:100px;">자세</h3>
+        </div>
+
+        <div>
+            <h6>루틴에 등록될 자세를 등록하는 곳입니다.</h6><br>    
+        </div>
+
+        <!-- 검색창 -->
+        <el-form :inline="true" v-if="state.pose" style="margin-top:60px;" >
             <el-form-item>
-                <el-input v-model="state.title" placeholder="검색어를 입력하세요" size="small" v-on:keydown.enter.prevent='handleLoadData()'/>
+                <el-input v-model="state.title" placeholder="검색어를 입력하세요" style="width:200px;" type="text" size="small" v-on:keydown.enter.prevent='handleLoadData()'/>
             </el-form-item>
             <el-form-item>
-                <el-button type="info" plain size="small" @click="handleLoadData()">검색</el-button>
+                <el-button type="info" plain size="small" style="margin-left:5px;" @click="handleLoadData()">검색</el-button>
             </el-form-item>
         </el-form>
+
+        <!-- 테이블 -->
         <el-table :data="state.pose" align="center">
             <el-table-column property="pno" label="번호" width="150"/>
             <el-table-column property="pname" label="자세" width="250">
@@ -23,6 +33,8 @@
             <el-table-column property="ppart" label="부위" width="300" />
             <el-table-column property="plevel" label="난이도" width="100"/>
         </el-table>
+
+        <!-- 페이지네이션 -->
         <el-pagination
             align="center"
             layout="prev, pager, next"
@@ -31,7 +43,11 @@
             :total="state.total">
         </el-pagination>
         <br>
-        <el-button type="info" plain @click="handlePoseInsert" size="small">등록</el-button><br><br>
+
+        <!-- 글쓰기 버튼 -->
+        <div>
+            <el-button class="button-blk1" style="margin-top:20px;margin-bottom:60px;" type="info" plain @click="handlePoseInsert">자세 등록</el-button><br /><br />
+        </div>
     </div>
 </template>
 
@@ -99,6 +115,19 @@ export default {
 <style lang="css" scoped>
 h6{
     color: rgb(209, 209, 209);
+}
+
+.button-blk1 {
+    background-color: #212529;
+    border: none;
+    color: rgb(255, 255, 255);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
 }
 
 </style>

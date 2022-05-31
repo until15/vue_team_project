@@ -1,6 +1,6 @@
 <template>
-    <div align="center" style="padding: 80px">
-        <el-card shadow="never">
+    <div align="center">
+
         <h3>자세 등록</h3>
         <h6>부적절하거나 운동과 관련없는 자세를 등록할 시 무통보 삭제가 될 수 있습니다.</h6>
         <br>
@@ -36,7 +36,7 @@
         <br>
         <el-button round @click="handlePoseInsert">등록</el-button>
         <router-link to="/pose"><el-button round>목록</el-button></router-link><br>
-        </el-card>
+
     </div>
 </template>
 
