@@ -23,8 +23,8 @@
                     <span>
                         <h4>{{tmp.chgtitle}}</h4><br />
                         {{tmp.chgintro}}<br />
-                        좋아요{{tmp.chglike}}개<br />
-                        난이도{{tmp.chglevel}}단계<br />
+                        좋아요 {{tmp.chglike}}개<br />
+                        난이도 {{tmp.chglevel}}단계<br />
                         {{tmp.chgfee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}원
                     </span>
 

@@ -32,6 +32,7 @@ import axios from "axios";
 export default {
   created() {
     this.handleJoinCHG();
+    this.handleMemberData();
   },
 
   data() {
@@ -44,6 +45,21 @@ export default {
   },
 
   methods: {
+
+    // 회원 조회
+    async handleMemberData() {
+      const url = `/ROOT/api/member/selectmemberone`;
+      const headers = {
+        "Content-Type": "application/json",
+        token: this.token,
+      };
+      const response = await this.axios.get(url, { headers });
+      console.log(response.data);
+      if (response.data.status === 200) {
+        this.member = response.data.result;
+      }
+    },
+
     // 참여중인 챌린지 상세조회 (번호)
     async handleJoinCHG() {
       const url = `/ROOT/api/join/selectone?jno=${this.jno}`;
@@ -67,6 +83,7 @@ export default {
           merchant_uid: "CHG_" + new Date().getTime(), // 결제번호
           name: this.pjoinchg.chgtitle, // 결제 시 표시되는 이름
           amount: this.pjoinchg.chgfee, // 결제금액
+          buyer_name: this.member.mid, // 참여자 이름
           buyer_email: this.pjoinchg.memail, // 참여자 이메일
           buyer_tel: this.pjoinchg.mphone, // 참여자 번호
         },
@@ -80,12 +97,12 @@ export default {
               method: "post",
               headers: { "Content-Type": "application/json" },
               data: {
-                impuid: rsp.imp_uid,
-                merchantuid: rsp.merchant_uid,
-                pprice: rsp.paid_amount,
+                imp_uid: rsp.imp_uid,
+                merchant_uid: rsp.merchant_uid,
+                amount: rsp.paid_amount,
                 joinchg: { jno: this.pjoinchg.jno },
                 pmethod: rsp.pay_method,
-                cancelprice: 0,
+                checksum: 0,
               },
             }).then((data) => {
               // 응답 처리
