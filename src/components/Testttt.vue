@@ -18,6 +18,8 @@ export default {
             mpw : '',
         })
 
+        
+
      //연락처 정규식
         const validPhone = (mphone) => {
             var Phone = /^01([0])-?([0-9]{4})-?([0-9]{4})$/;

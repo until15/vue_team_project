@@ -289,7 +289,7 @@ export default {
                 state.chgfee = 15000;
             }
 
-            if(state.chgfee < 5000){
+            if(state.chgfee <= 5000){
                 state.chgfee = 5000;
             }
         }

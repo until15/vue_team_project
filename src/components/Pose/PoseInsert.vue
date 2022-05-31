@@ -10,7 +10,9 @@
         </el-row>
         <el-row :gutter="20">
         <el-col :span="2" :offset="8">부위 :</el-col> 
-        <el-col :span="5"><el-input v-model="state.part"></el-input></el-col><br>
+        <el-col :span="5" autocomplete="on">
+            <el-input v-model="state.part" ></el-input>
+        </el-col><br>
         </el-row>
         <el-row :gutter="20">
         <el-col :span="2" :offset="8">내용 :</el-col> 
