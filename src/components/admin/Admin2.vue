@@ -57,7 +57,7 @@
             
             <el-form :inline="true" class="center">
                 <el-form-item  label="댓글" label-width="50px">
-                    <el-input  size="medium" v-model="state.reply1.iqcontent" placeholder="댓글"/>
+                    <el-input  size="medium" v-model="state.reply1.iqcontent" placeholder="댓글" @keydown.prevent.enter="handleComment"/>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="info" size="small" plain @click="handleComment">입력</el-button>
@@ -113,7 +113,7 @@ export default {
                 const headers1 = {"Content-Type":"application/json"};
                 const response1 = await axios.put(url1, {headers:headers1});
                 console.log(response1.data);
-
+                alert('등록되었습니다');
                 state.reply1.iqcontent = '';
                 state.reply = response.data.result;
                 handleData(state.item.qno);
