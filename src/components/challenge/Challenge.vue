@@ -70,18 +70,7 @@
                     <el-table-column prop="chglike" label="좋아요" width="80" />
                     <el-table-column prop="chglevel" label="난이도" width="80" />
                     <el-table-column prop="chgregdate" label="작성일" width="100" />
-                    <el-table-column label="버튼" width="170">
-                        <template #default="scope">
-                            <el-button 
-                                size="small"
-                                text
-                                @click="handleLike(scope.row.chgno)">좋아요</el-button>
-                            <el-button 
-                                size="small"
-                                text
-                                @click="handleBmk(scope.row.chgno)">북마크</el-button>
-                        </template>
-                    </el-table-column>
+
                 </el-table>
                 
             
@@ -163,38 +152,7 @@ export default {
             }
         }
 
-        const handleLike = async() => {
-            console.log(state.chgno);
-            const url = `/ROOT/api/like/insert?chgno=${state.chgno}`;
-            const headers = {
-                "Content-Type" : "application/json",
-                token:state.token
-            };
-            const body = {chgno : state.chgno};
-            const response = await axios.post(url, body, {headers});
-            console.log(response.data);
-            if(response.data.status === 200) {
-                state.chgno = '';
-                state.lno = '';
-                console.log(state.chgno);
-                alert("이 챌린지를 좋아합니다 !");
-            }
-            // else if(response.data.status === 0) {
-            //     const url = `/ROOT/api/like/delete?chgno=${state.chgno}&lno=${state.lno}`;
-            //     const headers = {
-            //         "Content-Type" : "application/json",
-            //         token:state.token
-            //     };
-            //     const body = {chgno : state.chgno};
-            //     const response = await axios.delete(url, body, {headers});
-            //     console.log(response.data);
-            //     if(response.data.status === 200) {
-            //         alert("좋아요를 취소 하였습니다.");
-            //         handleLike();
-            //     }
-            // }
 
-        }
 
         const handleMenu1 = () => {
             router.push({name : "Challenge"});
@@ -245,7 +203,6 @@ export default {
             handleMenu1,
             handleMenu2,
             handleMenu3,
-            handleLike,
             handleMain,
             logged
         }
