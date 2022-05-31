@@ -107,44 +107,49 @@
                   @click="JoinListPage">더 보기</button>
               </span>
             </div>
+
             <!-- vueper Slider -->
-            <vueper-slides
-              :fixed-height="true"
-              class="no-shadow"
-              :visible-slides="3"
-              :slide-ratio="1 / 4"
-              :dragging-distance="70">
-              <vueper-slide v-for="(tmp, idx) in state.items" :key="tmp">
-
-                <!-- card -->
-                <template v-slot:content>
-                  <el-row>
-                    <el-col>
-                      
-                      <el-card :body-style="{ padding: '0px' }" class="c-m">
-                        <img
-                          :src="state.images[idx]"
-                          class="image"
-                        />
+            <div>
+              <vueper-slides
+                :fixed-height="true"
+                class="no-shadow"
+                :visible-slides="3"
+                :slide-ratio="1 / 4"
+                :dragging-distance="70">
+                <vueper-slide v-for="(tmp, idx) in state.items" :key="tmp">
+                  
+                  <!-- card -->
+                  <template v-slot:content>
+                    <el-row>
+                      <el-col>
                         
-                        <!-- 내용1 -->
-                        <div style="padding: 14px">
-                          <span>{{tmp.chgtitle}}</span>
-                          <span class="ch-mem">{{tmp.chgrate}}</span>
-                          <div class="bottom time">
-                            <time>{{ tmp.jregdate }}</time>
+                        <el-card :body-style="{ padding: '0px' }" class="c-m" style="width:228.92px;">
+                          <div style="height:228.92px;">
+                            <img
+                              :src="state.images[idx]"
+                              class="img-size"
+                            />
                           </div>
-                          <div class="chg-detail">
-                            <el-button text class="button" @click="handleSelectOne(tmp.jno, tmp.chgno)">상세 보기</el-button>
+                          
+                          <!-- 내용1 -->
+                          <div style="padding: 14px">
+                            <span>{{tmp.chgtitle}}</span>
+                            <span class="ch-mem">{{tmp.chgrate}}</span>
+                            <div class="bottom time">
+                              <time>{{ tmp.jregdate }}</time>
+                            </div>
+                            <div class="chg-detail">
+                              <el-button text class="button" @click="handleSelectOne(tmp.jno, tmp.chgno)">상세 보기</el-button>
+                            </div>
                           </div>
-                        </div>
-                      </el-card>
-                    </el-col>
-                  </el-row>
-                </template>
+                        </el-card>
+                      </el-col>
+                    </el-row>
+                  </template>
 
-              </vueper-slide>
-            </vueper-slides>
+                </vueper-slide>
+              </vueper-slides>
+            </div>
         </div>
 
 
@@ -175,11 +180,13 @@
               <template v-slot:content>
                 <el-row>
                   <el-col>
-                    <el-card :body-style="{ padding: '0px' }" class="c-m">
-                      <img
-                        :src="tmp.imgurl"
-                        class="image"
-                      />
+                    <el-card :body-style="{ padding: '0px' }" class="c-m"  style="width:228.92px;">
+                      <div style="height:228.92px;">
+                        <img
+                          :src="tmp.imgurl"
+                          class="img-size"
+                        />
+                      </div>
                       <div style="padding: 14px">
                         <span>{{tmp.chgtitle}}</span><br />
                         <span>좋아요{{tmp.chglike}}개</span><br />
@@ -225,18 +232,23 @@
               <vueper-slide v-for="(tmp) in state2.items" :key="tmp">
 
                 <!-- card -->
-                <template v-slot:content>
+                <template v-slot:content >
                   <el-row>
                     <el-col>
-                      <el-card :body-style="{ padding: '0px' }" class="c-m">
-                        <img
-                          :src="tmp.imgurl"
-                          class="image"
-                        />
+                      <el-card :body-style="{ padding: '0px' }" class="c-m" style="width:228.92px;">
+                        <!-- 상단: 이미지 -->
+                        <div style="height:228.92px;">
+                          <img
+                            :src="tmp.imgurl"
+                            class="img-size"
+                          />
+                        </div>
+                        <!-- 하단: 내용 -->
                         <div style="padding: 14px">
                           
                           <span>{{tmp.chgtitle}}<br />난이도{{tmp.chglevel}}단계</span><br />
                           <span>참가비{{tmp.chgfee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}원</span>
+
                           <span class="ch-mem">{{tmp.chgrate}}</span>
                           <div class="bottom">
                             <time class="time">{{tmp.chgregdate}}</time>
@@ -245,6 +257,7 @@
                             <el-button text class="button" @click="handleSelectLevel(tmp.chgno)">상세 보기</el-button>
                           </div>
                         </div>
+
                       </el-card>
                     </el-col>
                   </el-row>
@@ -483,6 +496,13 @@ export default {
   .image {
     width: 100%;
     display: block;
+  }
+
+  .img-size {
+    height: 100%; 
+    width: 100%;
+    /* object-fit:cover; */
+    background-size: cover;
   }
 
   /* 메인 */

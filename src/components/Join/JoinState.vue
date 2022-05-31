@@ -7,22 +7,22 @@
         
         <!-- 진행 상태 -->
         <div class="text-center center">
-        <el-select class="m-2" placeholder="Select" size="large" @change="handleChange">
-            <el-option value="1" label="대기중" />
-            <el-option value="2" label="포기" />
-            <el-option value="3" label="진행중" />
-            <el-option value="4" label="달성" />
-        </el-select>
+            <el-select class="m-2" v-model="label" placeholder="진행 상태" size="large" @change="handleChange">
+                <el-option value="1" label="대기중" />
+                <el-option value="2" label="포기" />
+                <el-option value="3" label="진행중" />
+                <el-option value="4" label="달성" />
+            </el-select>
         </div>
 
         <!-- 리스트 -->
-        <div class="center">
-            <el-table :data="state.items" style="width: 100%" @row-click="handleRow">
+        <div class="center" align="center">
+            <el-table :data="state.items" style="width:100%" @row-click="handleRow">
                 <el-table-column prop="challengechgChgno" label="번호" width="50" />
                 <el-table-column prop="challengechgChgtitle" label="제목" width="180" />
                 <el-table-column prop="chgstate" label="진행상태" width="80" />
-                <el-table-column prop="jregdate" label="가입일" />
-                <el-table-column prop="chgrate" label="달성률" />
+                <el-table-column prop="jregdate" label="가입일" width="180" />
+                <el-table-column prop="chgrate" label="달성률" width="80" />
             </el-table>
         </div>
 
