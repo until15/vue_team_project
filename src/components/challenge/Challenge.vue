@@ -13,8 +13,11 @@
                 <el-button class="button-blk1" type="info"   @click="handleMenu2">회원 탈퇴</el-button>
             </div>
             
-        <div v-for="(tmp) in state.items" :key="tmp">
-            <el-card :body-style="{ padding: '0px' }" class="c-m">
+        <div v-for="(tmp) in state.items" :key="tmp"  align="center">
+                <el-col :span="8" :gutter="20" v-for="(j) in 1" :key="j" >
+            <el-card :body-style="{ padding: '0px' }" class="c-m" style="width:350px;height:350px">
+          <div>
+          </div>
                 <img
                     :src="tmp.imgurl"
                     class="image"/>
@@ -45,6 +48,7 @@
 
                 </div>
             </el-card>
+            </el-col>
         </div>
 
       
