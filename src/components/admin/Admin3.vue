@@ -12,9 +12,9 @@
                 <el-table-column prop="pregdate" label="결제일" width="100" />
                  
             </el-table>
-
             <el-pagination layout="prev, pager, next" :total="state.total" @current-change="currentchange">
             </el-pagination>
+            {{state.price}}
         </el-card>
     </div>
 </template>
@@ -27,6 +27,7 @@ export default {
         
         const state = reactive({
             total : 1,
+            price : '',
             token : sessionStorage.getItem("TOKEN")
         });
 
@@ -41,6 +42,17 @@ export default {
             }
         };
 
+        const totalPrice = () => {
+            let sum = 0;
+            for(let tmp of state.items) {
+                sum += tmp.pprice
+                sum = state.price;
+                console.log(sum);
+
+                return sum;
+            }
+        }
+
         const currentchange = (page) => {
             state.page = page;
             handleData();
@@ -50,7 +62,7 @@ export default {
             handleData();
         });
 
-        return {state, currentchange}
+        return {state, currentchange, totalPrice}
     }
 }
 </script>
