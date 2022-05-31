@@ -122,10 +122,7 @@
                     <el-col>
                       
                       <el-card :body-style="{ padding: '0px' }" class="c-m">
-                        <img
-                          :src="state.images[idx]"
-                          class="image"
-                        />
+                        <img :src="state.images[idx]" class="image"/>
                         
                         <!-- 내용1 -->
                         <div style="padding: 14px">
@@ -481,7 +478,8 @@ export default {
   }
 
   .image {
-    width: 100%;
+    width: 280px;
+    height: 280px;
     display: block;
   }
 

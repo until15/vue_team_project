@@ -23,32 +23,23 @@
                     <span>
                         <h4>{{tmp.chgtitle}}</h4><br />
                         {{tmp.chgintro}}<br />
-                        좋아요{{tmp.chglike}}개<br />
-                        난이도{{tmp.chglevel}}단계<br />
-                        {{tmp.chgfee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}원
+                        좋아요 {{tmp.chglike}} 개<br />
+                        난이도 {{tmp.chglevel}} 단계<br />
+                        {{tmp.chgfee}} 원<br />
+                        {{tmp.chgregdate}}
                     </span>
 
                     <span class="ch-mem">
                         {{tmp.chgrate}}
                     </span>
 
-                    <div class="bottom">
-                        <time class="time">
-                            {{tmp.chgregdate}}
-                        </time>
-                    </div>
-
                     <div class="chg-detail">
                         <el-link style="margin-top:20px;" @click="handleSelect(tmp.chgno)">상세 보기</el-link>
                     </div>
                     
-
                 </div>
             </el-card>
         </div>
-
-      
-            
 
                 <el-table :data="state.items"  style="width: 100% " >
                     <el-table-column prop="chgno" label="번호" width="60" />
@@ -59,18 +50,11 @@
                         </div> 
                     </template>
                     </el-table-column>
-                    <el-table-column prop="chgfee" label="참가비" width="100">
-                    <template #default="scope">
-                        <div>
-                            {{scope.row.chgfee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}
-                        </div> 
-                    </template>
-                    </el-table-column>
+                    <el-table-column prop="chgfee" label="참가비" width="100" />
                     <el-table-column prop="chgcnt" label="참가인원" width="80" />
                     <el-table-column prop="chglike" label="좋아요" width="80" />
                     <el-table-column prop="chglevel" label="난이도" width="80" />
                     <el-table-column prop="chgregdate" label="작성일" width="100" />
-
                 </el-table>
                 
             
@@ -146,12 +130,12 @@ export default {
             console.log(response.data);
             if(response.data.status === 200) {
                 state.items = response.data.result;
-                state.images = response.data.images;
+                state.image = response.data.imgurl;
+                state.imageUrl = state.image;
                 state.total = response.data.total;
                 state.challenge= '';
             }
         }
-
 
 
         const handleMenu1 = () => {
