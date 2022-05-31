@@ -150,7 +150,8 @@ export default {
             cimage     : null,
             currenttime : '',
             dialogTableVisible1 : false,
-            //imageUrl   : require('../assets/img/default.png'),
+            imageUrl : '',
+            // imageUrl   : require('@/assets/img/default.png'),
             token      : sessionStorage.getItem("TOKEN")
         });
 
@@ -226,6 +227,11 @@ export default {
             if(state.chgroutine === ''){
                 alert('루틴을 불러와주세요.');
                 chgcnt.value.focus();
+                return false;
+            }
+
+            if(state.imageUrl === ''){
+                alert('사진을 등록해주세요.');
                 return false;
             }
 
