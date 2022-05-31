@@ -4,11 +4,11 @@
         <h3>돈관리</h3>
         <hr /> 
             <el-table :data="state.items">
-                <el-table-column prop="chgno" label="챌린지 번호" width="160" />
+                <el-table-column prop="chgno" label="챌린지 번호" width="100" />
+                <el-table-column prop="chgtitle" label="챌린지 제목" width="200" />
                 <el-table-column prop="memail" label="아이디"  width="130" />
                 <el-table-column prop="pprice" label="입금액"  width="130" />
-                <el-table-column prop="cancelprice" label="환불가능금액"  width="130" />
-                <el-table-column prop="pprice" label="환불액"  width="130" />
+                <el-table-column prop="cancelprice" label="환불된 금액"  width="130" />
                 <el-table-column prop="pregdate" label="결제일" width="100" />
                  
             </el-table>
