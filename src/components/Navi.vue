@@ -105,6 +105,9 @@ export default {
 
         });
 
+        
+
+
         const menu = computed(() => {
         return store.getters.getMenu
         });
@@ -165,7 +168,7 @@ export default {
         
 
 
-        return {logged, state, mrole, mname, memail, handleLogout}
+        return {logged, state, mrole,  mname, memail, handleLogout}
     }
 }
 </script>

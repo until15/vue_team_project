@@ -183,7 +183,7 @@
                       <div style="padding: 14px">
                         <span>{{tmp.chgtitle}}</span><br />
                         <span>좋아요{{tmp.chglike}}개</span><br />
-                        <span>참가비{{tmp.chgfee}}원</span>
+                        <span>참가비{{tmp.chgfee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}원</span>
                         <span class="ch-mem">{{tmp.chgrate}}</span>
                         <div class="bottom">
                           <time class="time">{{tmp.chgregdate}}</time>
@@ -236,7 +236,7 @@
                         <div style="padding: 14px">
                           
                           <span>{{tmp.chgtitle}}<br />난이도{{tmp.chglevel}}단계</span><br />
-                          <span>참가비{{tmp.chgfee}}원<br /></span>
+                          <span>참가비{{tmp.chgfee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}원</span>
                           <span class="ch-mem">{{tmp.chgrate}}</span>
                           <div class="bottom">
                             <time class="time">{{tmp.chgregdate}}</time>
@@ -290,6 +290,7 @@ export default {
     const router = useRouter();
 
     const currentDate = new Date();
+
 
     // 진행중인 챌린지
     const state = reactive({
@@ -419,6 +420,7 @@ export default {
       JoinListPage,
       LikeListPage,
       LevelListPage,
+  
     }
   }
 }

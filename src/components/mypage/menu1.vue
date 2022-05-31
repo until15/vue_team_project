@@ -15,7 +15,7 @@
 
             <!-- 프로필 사진 -->
             <a class="center" style="margin-top:50px;">
-                <div style="border-radius: 70%; width:250px; height:250px;overflow: hidden; border: 3px solid #e2e2e2;">
+                <div style="border-radius: 70%; width:130px; height:130px;overflow: hidden; border: 3px solid #e2e2e2;">
                     <img :src="state.imageUrl" style="width:100%; height:100% object-fit: cover;margin-top:0px" />
                 </div>
             </a>
@@ -30,7 +30,7 @@
             </div>
 
             <!-- 정보 입력 -->
-            <div v-if="state.item" style="margin-right:60px;">
+            <div v-if="state.item" style="margin-right:60px;margin-top:-40px">
 
                 <el-form class="center" :inline="true" style="margin-top:50px;" >
                     <!-- 이름 -->

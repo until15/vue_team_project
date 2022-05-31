@@ -25,7 +25,7 @@
                         {{tmp.chgintro}}<br />
                         좋아요{{tmp.chglike}}개<br />
                         난이도{{tmp.chglevel}}단계<br />
-                        {{tmp.chgfee}}원
+                        {{tmp.chgfee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}원
                     </span>
 
                     <span class="ch-mem">
@@ -59,7 +59,13 @@
                         </div> 
                     </template>
                     </el-table-column>
-                    <el-table-column prop="chgfee" label="참가비" width="100" />
+                    <el-table-column prop="chgfee" label="참가비" width="100">
+                    <template #default="scope">
+                        <div>
+                            {{scope.row.chgfee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}
+                        </div> 
+                    </template>
+                    </el-table-column>
                     <el-table-column prop="chgcnt" label="참가인원" width="80" />
                     <el-table-column prop="chglike" label="좋아요" width="80" />
                     <el-table-column prop="chglevel" label="난이도" width="80" />
