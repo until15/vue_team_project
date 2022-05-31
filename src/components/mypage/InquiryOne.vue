@@ -60,7 +60,7 @@
                 <div style="margin-right:100px;text-size:100px">
                     {{tmp.iqcontent}}
                 </div>
-                <div style="margin-left:1000px;" v-if="tmp.memberchg.mrole === 'admin'">
+                <div style="margin-left:1000px;" v-if="tmp.memberchg.mrole !== 'admin'">
                     <el-button type="info" size="small" plain @click="handleReplyDelete(tmp.iqcmtno)">삭제</el-button>
                 </div>           
             </el-collapse-item>
