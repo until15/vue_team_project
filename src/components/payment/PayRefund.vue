@@ -37,7 +37,7 @@ export default {
       token: sessionStorage.getItem("TOKEN"),
       paychg: "",
       pjoinchg: "",
-      jno: 118, // 연결 필요
+      jno: 114, // 연결 필요
     };
   },
 
