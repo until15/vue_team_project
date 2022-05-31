@@ -175,7 +175,7 @@ export default {
             const url = `/ROOT/api/like/insert?chgno=${state.chgno}`;
             const headers = {
                 "Content-Type" : "application/json",
-                token:state.token
+                "token":state.token
             };
             const body = {chgno : state.chgno};
             const response = await axios.post(url, body, {headers});
@@ -183,7 +183,7 @@ export default {
             if(response.data.status === 200) {
                 alert("이 챌린지를 좋아합니다 !");
                 state.chgno = response.data.chgno;
-                console.log(state.chgno);
+                // console.log(state.chgno);
             }
             // else if(response.data.status === 0) {
             //     const url = `/ROOT/api/like/delete?chgno=${state.chgno}&lno=${state.lno}`;
