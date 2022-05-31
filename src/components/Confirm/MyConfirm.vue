@@ -103,6 +103,13 @@ export default {
                 state.items = response.data.result
                 state.pages = response.data.pages
 
+                for (let i in state.items) {
+                    // console.log(state.items[i].ccregdate);
+                    state.items[i].ccregdate = regdate(state.items[i].ccregdate);
+                    state.items[i].cfsuccess = proveScState(state.items[i].cfsuccess);
+                    state.items[i].chgstate = challengeState(state.items[i].chgstate);
+                }
+
                 // imageUrl 배열 초기화
                 state.imageUrl.splice(0, state.items.length);   //idx 0부터 요소의 갯수만큼
 
@@ -126,10 +133,60 @@ export default {
             }
         };
 
-        const handlePage = async(tmp, text)=> {
+        // 등록일 정규 표현식
+        const regdate = (date)=> {
+            var regdate = new Date(date);
 
-            handleData(tmp, text);
+            var year = regdate.getFullYear();
+            var month = ('0' + (regdate.getMonth() + 1)).slice(-2);
+            var day = ('0' + regdate.getDate()).slice(-2);
+
+            var hours = ('0' + regdate.getHours()).slice(-2); 
+            var minutes = ('0' + regdate.getMinutes()).slice(-2);
+            var seconds = ('0' + regdate.getSeconds()).slice(-2); 
+            
+            var dateString = year + '-' + month  + '-' + day + ' ' + hours + ':' + minutes  + ':' + seconds;
+            // console.log(dateString);
+            return dateString;
+        };
+
+        // 인증 상태
+        const proveScState = (state)=> {
+            if (state === 0) {
+                state = "대기중";
+            }
+            else if (state === 1) {
+                state = "성공";
+            }
+            else if (state === 2) {
+                state = "실패";
+            }
+            var stateString = state;
+            return stateString;
+        };
+
+        // 진행 상태 표시
+        const challengeState = (state)=> {
+            if (state === 1) {
+                state = "대기중";
+            }
+            else if (state === 2) {
+                state = "포기";
+            }
+            else if (state === 3) {
+                state = "진행중";
+            }
+            else if (state === 4) {
+                state = "달성";
+            }
+            var stateString = state;
+            return stateString;
         }
+
+        // const handlePage = async(tmp, text)=> {
+
+        //     handleData(tmp, text);
+        // }
 
         const handleCurrent = async(e)=> {
             // console.log(e);
@@ -143,7 +200,7 @@ export default {
 
         return {
             state,
-            handlePage,
+            // handlePage,
             handleData,
             handleCurrent
         }

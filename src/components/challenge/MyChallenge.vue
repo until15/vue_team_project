@@ -70,8 +70,9 @@ export default {
             text : "",
         });
 
+        // 상세보기
         const handleRow = (e)=> {
-            console.log("row 누름 : ", e.chgno);
+            // console.log("row 누름 : ", e.chgno);
             router.push({name: 'MyChallengeOne', query:{chgno:e.chgno}});
         };
 
@@ -86,14 +87,70 @@ export default {
             if (response.data.status === 200) {
                 state.items = response.data.result;
                 state.pages = response.data.pages;
+
+                for (let i in state.items) {
+                    // 첼린지 시작일 정규식
+                    state.items[i].chgstart = startDate(state.items[i].chgstart);
+                    // 첼린지 종료일 정규식
+                    state.items[i].chgend = endDate(state.items[i].chgend);
+                    // 첼린지 상태 표현식
+                    state.items[i].recstate = challengeState(state.items[i].recstate);
+                }
             }
         };
 
-        // const handlePage = async(tmp, text)=> {
+        // 시작일 정규 표현식
+        const startDate = (date)=> {
+            // console.log("시작일 : ", date);
+            var regdate = new Date(date);
 
-        //     handleData(tmp, text);
-        // }
+            var year = regdate.getFullYear();
+            var month = ('0' + (regdate.getMonth() + 1)).slice(-2);
+            var day = ('0' + regdate.getDate()).slice(-2);
 
+            var hours = ('0' + regdate.getHours()).slice(-2); 
+            var minutes = ('0' + regdate.getMinutes()).slice(-2);
+            var seconds = ('0' + regdate.getSeconds()).slice(-2); 
+            
+            var dateString = year + '-' + month  + '-' + day + ' ' + hours + ':' + minutes  + ':' + seconds;
+            // console.log(dateString);
+            return dateString;
+        };
+
+        // 종료일 정규 표현식
+        const endDate = (date)=> {
+            // console.log("종료일 : ", date);
+            var regdate = new Date(date);
+
+            var year = regdate.getFullYear();
+            var month = ('0' + (regdate.getMonth() + 1)).slice(-2);
+            var day = ('0' + regdate.getDate()).slice(-2);
+
+            var hours = ('0' + regdate.getHours()).slice(-2); 
+            var minutes = ('0' + regdate.getMinutes()).slice(-2);
+            var seconds = ('0' + regdate.getSeconds()).slice(-2); 
+            
+            var dateString = year + '-' + month  + '-' + day + ' ' + hours + ':' + minutes  + ':' + seconds;
+            // console.log(dateString);
+            return dateString;
+        };
+
+        // 첼린지 상태
+        const challengeState = (state)=> {
+            if (state === 1) {
+                state = "시작전";
+            }
+            else if (state === 2) {
+                state = "시작";
+            }
+            else if (state === 3) {
+                state = "종료";
+            }
+            var stateString = state;
+            return stateString;
+        };
+
+        // 페이지네이션
         const handleCurrent = (e)=> {
             handleData(e, state.text);
         };
@@ -104,7 +161,6 @@ export default {
 
         return {
             state,
-            // handlePage,
             handleData,
             handleRow,
             handleCurrent

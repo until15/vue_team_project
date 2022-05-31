@@ -11,14 +11,13 @@
             <div v-if="state.items" >
                 
                 <!-- 검색기능 -->
-                <!-- <div class="center">
-                    <input type="text" v-model="state.text">
-                    <button @click="handleData(state.page, state.text)">검색</button>
-                </div> -->
-                <div class="center">
+                <div class="center my-3">
                     <el-form :inline="true">
                         <el-form-item  label="" label-width="80px">
-                            <el-input type="text" v-model="state.text" placeholder="참가자 검색" @keydown.prevent.enter="handleData(state.page, state.text)" />
+                            <el-input type="text" 
+                            v-model="state.text" 
+                            placeholder="참가자 검색" 
+                            @keydown.prevent.enter="handleData(state.page, state.text)" />
                         </el-form-item>
                         <el-form-item>
                             <el-button type="info" plain style="margin-left:5px" @click="handleData(state.page, state.text)" >검색</el-button>
@@ -26,8 +25,8 @@
                     </el-form>
                 </div>
 
-                <div class="center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-                    <!-- 리스트 -->
+                <!-- 리스트 -->
+                <!-- <div class="center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
                     <table border="1">
                         <tr>
                             <th>이미지</th>
@@ -43,7 +42,6 @@
                         <tr v-for="(tmp, i) in state.items" :key="tmp">
                             <td>
                                 <div v-for="(tmp1, j) in state.imageUrl[i]" :key="tmp1">
-                                    <!-- <span>{{state.imageUrl[i][j]}}</span> -->
                                     <img :src="state.imageUrl[i][j]" style="width:50px" />
                                 </div>
                             </td>
@@ -56,17 +54,53 @@
                             <td>{{tmp.chgrate}}%</td>
                         </tr>
                     </table>
+                </div> -->
+
+                <div v-for="(tmp, i) in state.items" :key="tmp" style="margin-top:30px;" class="center">
+                <el-card>
+                    <template #header>
+                        <div class="m-tb side">
+                            <!-- 작성자 -->
+                            <div style="margin-left:10px">
+                                <span style="font-size:2rem;">{{tmp.memail}}</span>
+                            </div>
+                            <!-- 등록일 -->
+                            <div style="margin-right:10px">
+                                <span>{{tmp.ccregdate}}</span>
+                            </div>
+                        </div>
+                    </template>
+                    <!-- 하단 -->
+                    <div style="display:flex;">
+                        <!-- 이미지 -->
+                        <div v-if="state.imageUrl" style="padding:10px; width:370px;">
+                            <el-carousel height="350px">
+                                <el-carousel-item v-for="(tmp1, j) in state.imageUrl[i]" :key="tmp1">
+                                    <img :src="state.imageUrl[i][j]" class="img-size" />
+                                </el-carousel-item>
+                            </el-carousel>
+                        </div>
+
+                        <!-- 내용 -->
+                        <div style="padding:10px;">
+                            <span>제목: {{tmp.chgtitle}}</span> <br />
+                            <span>내용: {{tmp.cfcomment}}</span> <br />
+                            <span>진행 상태 : {{tmp.chgstate}}</span> <br />
+                            <span>인증 상태 : {{tmp.cfsuccess}}</span> <br />
+                            <span>달성률 : {{tmp.chgrate}}%</span> <br />
+                        </div>
+                    </div>
+                </el-card>
                 </div>
 
                 <!-- 페이지네이션 -->
-                <div class="center">
-                    <label v-for="tmp in state.pages" :key="tmp">
-                        <button @click="handlePage(tmp, state.text)" >{{ tmp }}</button>
-                    </label>
+                <div class="example-pagination-block center my-3" v-if="state.pages">
+                    <el-pagination 
+                        layout="prev, pager, next" 
+                        :page-size="5" 
+                        :total="state.pages" 
+                        @current-change="handleCurrent" />
                 </div>
-                <!-- <div class="center">
-                    <el-pagination layout="prev, pager, next" :total="15" @current-change="handlepage" />
-                </div> -->
                 
 
             </div>
@@ -137,23 +171,57 @@ export default {
             }
         };
 
-        // 페이지 네이션
-        const handlePage = async(tmp, text)=> {
-
-            handleData(tmp, text);
+        const handleCurrent = async(e)=> {
+            // console.log(e);
+            // console.log("검색어 넘어오나? ", state.text);
+            handleData(e, state.text);
         }
 
         onMounted(()=> {
             handleData(state.page, state.text);
         });
 
-        return {state, handleData, handlePage, handlePushCHG}
+        return {
+            state, 
+            handleData,
+            handlePushCHG,
+            handleCurrent
+        }
     }
 }
 </script>
 
 <style lang="css" scoped>
 
+.m-tb {
+    margin-top:5px;
+    margin-bottom:5px;
+}
 
+.cf-list {
+    padding:10px;
+    margin-top:30px;
+}
+
+.side {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.img-size {
+    height: 100%; 
+    width: 100%;
+    /* object-fit:cover; */
+    background-size: cover;
+}
+
+.text {
+  font-size: 14px;
+}
+
+.item {
+  margin-bottom: 18px;
+}
 
 </style>
