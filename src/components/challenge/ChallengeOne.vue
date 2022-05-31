@@ -184,6 +184,7 @@ export default {
                 alert("이 챌린지를 좋아합니다 !");
                 state.chgno = response.data.chgno;
                 // console.log(state.chgno);
+                handleData(state.chgno);
             }
             // else if(response.data.status === 0) {
             //     const url = `/ROOT/api/like/delete?chgno=${state.chgno}&lno=${state.lno}`;
