@@ -41,7 +41,7 @@
             <h3>인증 글</h3>
         </div>
 
-        <div class="text-center center">
+        <!-- <div class="text-center center">
             <table>
                 <tr>
                     <th>이미지</th>
@@ -54,7 +54,6 @@
                 <tr v-for="(tmp, i) in state.cfitems" :key="tmp">
                     <td>
                         <div v-for="(tmp1, j) in state.imageUrl[i]" :key="tmp1">
-                            <!-- <span>{{state.imageUrl[i][j]}}</span> -->
                             <img :src="state.imageUrl[i][j]" style="width:50px" />
                         </div>
                     </td>
@@ -75,14 +74,64 @@
                     </td>
                 </tr>
             </table>
+        </div> -->
+
+        <div v-for="(tmp, i) in state.cfitems" :key="tmp" style="margin-top:30px;" class="center">
+            <el-card>
+                <template #header>
+                    <div class="m-tb side">
+                        <!-- 작성자 -->
+                        <div style="margin-left:10px">
+                            <span style="font-size:2rem;">{{tmp.memail}}</span>
+                        </div>
+                        <!-- 등록일 -->
+                        <div style="margin-right:10px">
+                            <span>{{tmp.ccregdate}}</span>
+                        </div>
+                    </div>
+                </template>
+                <!-- 하단 -->
+                <div style="display:flex;">
+                    <!-- 이미지 -->
+                    <div v-if="state.imageUrl" style="padding:10px; width:370px;">
+                        <el-carousel height="350px">
+                            <el-carousel-item v-for="(tmp1, j) in state.imageUrl[i]" :key="tmp1">
+                                <img :src="state.imageUrl[i][j]" class="img-size" />
+                            </el-carousel-item>
+                        </el-carousel>
+                    </div>
+
+                    <!-- 내용 -->
+                    <div style="padding:10px;">
+                        <span>번호: {{tmp.cfno}}</span> <br />
+                        <span>내용: {{tmp.cfcomment}}</span> <br />
+                        <span>인증 상태 : {{tmp.cfsuccess}}</span> <br />
+                        <!-- 성공 판별 버튼 -->
+                        <div v-if="state.item.cid === state.mId">
+                            <div v-if="tmp.cfsuccess === '대기중'">
+                                <button @click="handleSuccess(1, tmp.cfno)">성공</button>
+                                <button @click="handleSuccess(2, tmp.cfno)">실패</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </el-card>
         </div>
+
         <!-- 페이지네이션 -->
-        <div>
+        <!-- <div>
             <label v-for="tmp in state.pages" :key="tmp">
                 <button @click="handlePage(state.chgno, tmp)" >{{ tmp }}</button>
             </label>
+        </div> -->
+        <!-- 페이지네이션 -->
+        <div class="example-pagination-block center my-3" v-if="state.pages">
+            <el-pagination 
+                layout="prev, pager, next" 
+                :page-size="5" 
+                :total="state.pages" 
+                @current-change="handleCurrent" />
         </div>
-
         <!-- 상황별 인증 조회 -->
         <!-- 성공, 실패, 인증 대기중 -->
     </div>
@@ -128,7 +177,7 @@ export default {
                 const response = await axios.put(url, body, {headers});
                 // console.log("첼린지 포기 : ", response.data);
                 if (response.data.status === 200) {
-                    console.log("포기");
+                    // console.log("포기");
                     router.push({name:'JoinState'});
                 }
             }
@@ -143,7 +192,7 @@ export default {
                 "token" : state.token
             }
             const response = await axios.get(url, {headers});
-            console.log(response.data);
+            // console.log(response.data);
             if (response.data.status === 200) {
                 state.item = response.data.result
                 state.thumnail = response.data.image
@@ -172,6 +221,12 @@ export default {
                 state.cfitems = response.data.result
                 state.pages = response.data.pages
 
+                for (let i in state.cfitems) {
+                    // console.log(state.items[i].ccregdate);
+                    state.cfitems[i].ccregdate = regdate(state.cfitems[i].ccregdate);
+                    state.cfitems[i].cfsuccess = proveScState(state.cfitems[i].cfsuccess);
+                }
+
                 // 인증 이미지 조회
                 // imageUrl 배열 초기화
                 state.imageUrl.splice(0, state.cfitems.length);   //idx 0부터 요소의 갯수만큼
@@ -197,10 +252,48 @@ export default {
 
         };
 
+        // 등록일 정규 표현식
+        const regdate = (date)=> {
+            var regdate = new Date(date);
+
+            var year = regdate.getFullYear();
+            var month = ('0' + (regdate.getMonth() + 1)).slice(-2);
+            var day = ('0' + regdate.getDate()).slice(-2);
+
+            var hours = ('0' + regdate.getHours()).slice(-2); 
+            var minutes = ('0' + regdate.getMinutes()).slice(-2);
+            var seconds = ('0' + regdate.getSeconds()).slice(-2); 
+            
+            var dateString = year + '-' + month  + '-' + day + ' ' + hours + ':' + minutes  + ':' + seconds;
+            // console.log(dateString);
+            return dateString;
+        };
+
+        // 인증 상태
+        const proveScState = (state)=> {
+            if (state === 0) {
+                state = "대기중";
+            }
+            else if (state === 1) {
+                state = "성공";
+            }
+            else if (state === 2) {
+                state = "실패";
+            }
+            var stateString = state;
+            return stateString;
+        };
+
         // 페이지네이션
-        const handlePage = async(chgno, page)=> {
+        const handlePage = (chgno, page)=> {
             handleCfmData(chgno, page);
         };
+
+        const handleCurrent = (e)=> {
+            // console.log(e);
+            // console.log("검색어 넘어오나? ", state.text);
+            handleCfmData(state.chgno, e);
+        }
 
         // 인증글 성공 유무 판별
         const handleSuccess = async(e, cfno)=> {
@@ -221,6 +314,7 @@ export default {
                 if (response.data.status === 200) {
                     // console.log("완료");
 
+                    // 달성률 업데이트
                     if (e === 1) {
                         const url1 = `/ROOT/api/confirm/successrate.json?chgno=${state.chgno}&jno=${state.jno}`;
                         const headers1 = {"Content-Type":"application/json"};
@@ -248,7 +342,8 @@ export default {
             handleConfirm,
             handlePage,
             handleSuccess,
-            handleGiveup
+            handleGiveup,
+            handleCurrent
         }
     }
 }
@@ -264,5 +359,36 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.m-tb {
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+.cf-list {
+    padding:10px;
+    margin-top:30px;
+}
+
+.side {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.img-size {
+    height: 100%; 
+    width: 100%;
+    /* object-fit:cover; */
+    background-size: cover;
+}
+
+.text {
+  font-size: 14px;
+}
+
+.item {
+  margin-bottom: 18px;
 }
 </style>

@@ -1,8 +1,7 @@
 <template>
     <div>
         <h3>인증하기</h3>
-        {{state.jno}}
-        imgcount : {{state.imgcount}}
+        
         <div>
             <!-- 내용 -->
             내용 : <input type="text" v-model="state.comment" /> <br />
@@ -13,6 +12,20 @@
                 <input type="file" @change="handleImage($event, idx)" />
                 <button @click="handleDelete(idx)">X</button>
             </div>
+
+            <!-- <el-upload
+                action="https://jsonplaceholder.typicode.com/posts/"
+                list-type="picture-card"
+                :on-preview="handlePictureCardPreview"
+                :on-remove="handleRemove"
+                :file-list="fileList"
+            >
+                <el-icon><Plus /></el-icon>
+            </el-upload>
+
+            <el-dialog v-model="dialogVisible">
+                <img w-full :src="dialogImageUrl"/>
+            </el-dialog> -->
 
             <!-- 인증하기 버튼 -->
             <button @click="handleProve">인증하기</button>

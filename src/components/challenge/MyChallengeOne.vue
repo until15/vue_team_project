@@ -31,6 +31,7 @@
                 <button @click="handleConfirm(state.item.jno)"> 인증하기 </button>
             </div>
             
+            <hr />
             <SuccessCfm 
                 :chgno="state.chgno" 
                 :cid="state.item.cid" 

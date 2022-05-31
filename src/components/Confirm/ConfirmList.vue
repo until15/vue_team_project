@@ -26,36 +26,6 @@
                 </div>
 
                 <!-- 리스트 -->
-                <!-- <div class="center" style="margin-top:1.5rem; margin-bottom:1.5rem;">
-                    <table border="1">
-                        <tr>
-                            <th>이미지</th>
-                            <th>인증자명</th>
-                            <th>첼린지 제목</th>
-                            <th>인증 내용</th>
-                            <th>인증일</th>
-                            <th>진행 상태</th>
-                            <th>성공 유무</th>
-                            <th>달성률</th>
-                        </tr>
-
-                        <tr v-for="(tmp, i) in state.items" :key="tmp">
-                            <td>
-                                <div v-for="(tmp1, j) in state.imageUrl[i]" :key="tmp1">
-                                    <img :src="state.imageUrl[i][j]" style="width:50px" />
-                                </div>
-                            </td>
-                            <td>{{tmp.memail}}</td>
-                            <td @click="handlePushCHG">{{tmp.chgtitle}}</td>
-                            <td>{{tmp.cfcomment}}</td>
-                            <td>{{tmp.ccregdate}}</td>
-                            <td>{{tmp.chgstate}}</td>
-                            <td>{{tmp.cfsuccess}}</td>
-                            <td>{{tmp.chgrate}}%</td>
-                        </tr>
-                    </table>
-                </div> -->
-
                 <div v-for="(tmp, i) in state.items" :key="tmp" style="margin-top:30px;" class="center">
                 <el-card>
                     <template #header>
@@ -139,14 +109,12 @@ export default {
                 state.items = response.data.result
                 state.pages = response.data.pages
 
-                let chgrate = []; 
-                for(let tmp of response.data.result){
-                   chgrate.push(tmp.chgrate);
-                  
-                   if(tmp.chgrate <= 0){
-                       tmp.chgrate = 0;
-                   }
-               }
+                for (let i in state.items) {
+                    // console.log(state.items[i].ccregdate);
+                    state.items[i].ccregdate = regdate(state.items[i].ccregdate);
+                    state.items[i].cfsuccess = proveScState(state.items[i].cfsuccess);
+                    state.items[i].chgstate = challengeState(state.items[i].chgstate);
+                }
 
                 // imageUrl 배열 초기화
                 state.imageUrl.splice(0, state.items.length);   //idx 0부터 요소의 갯수만큼
@@ -170,6 +138,56 @@ export default {
                 // console.log("이미지 url : ", state.imageUrl);
             }
         };
+
+                // 등록일 정규 표현식
+        const regdate = (date)=> {
+            var regdate = new Date(date);
+
+            var year = regdate.getFullYear();
+            var month = ('0' + (regdate.getMonth() + 1)).slice(-2);
+            var day = ('0' + regdate.getDate()).slice(-2);
+
+            var hours = ('0' + regdate.getHours()).slice(-2); 
+            var minutes = ('0' + regdate.getMinutes()).slice(-2);
+            var seconds = ('0' + regdate.getSeconds()).slice(-2); 
+            
+            var dateString = year + '-' + month  + '-' + day + ' ' + hours + ':' + minutes  + ':' + seconds;
+            // console.log(dateString);
+            return dateString;
+        };
+
+        // 인증 상태
+        const proveScState = (state)=> {
+            if (state === 0) {
+                state = "대기중";
+            }
+            else if (state === 1) {
+                state = "성공";
+            }
+            else if (state === 2) {
+                state = "실패";
+            }
+            var stateString = state;
+            return stateString;
+        };
+
+        // 진행 상태 표시
+        const challengeState = (state)=> {
+            if (state === 1) {
+                state = "대기중";
+            }
+            else if (state === 2) {
+                state = "포기";
+            }
+            else if (state === 3) {
+                state = "진행중";
+            }
+            else if (state === 4) {
+                state = "달성";
+            }
+            var stateString = state;
+            return stateString;
+        }
 
         const handleCurrent = async(e)=> {
             // console.log(e);
