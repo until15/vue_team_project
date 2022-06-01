@@ -43,27 +43,58 @@
             <!-- 아래부분 -->
             <div class="el-card" style="margin-top:60px;margin-bottom:60px;">
                 <!-- 소개 -->
-                <div class="center" style="margin-top:20px;">
+                <div style="margin-top:20px;">
                     <h3>
                         {{state.item.chgintro}}
                     </h3>
                 </div>
 
                 <!-- 내용 -->
-                <div class="el-card1" style="margin-top:10px;">
+                <div style="margin-top:10px;">
                     {{state.item.chgcontent}}
                 </div>
 
                 <hr />
 
-                
-                <div class="center">
-                    <div class="div1">
+                <div class="wrapper">
+
+                    <div class="one">
+
+                        <!-- 모집기간 -->
+                        <h4 class="text-left1" style="margin-left:30px;">모집 기간</h4>
+                        <div class="text-left1" style="margin-left:30px;">
+                            {{state.item.recruitstart}} <br />- {{state.item.recruitend}} 
+                        </div><br />
+
+                        <!-- 챌린지 기간 -->
+                        <h4 class="text-left1" style="margin-left:30px;">챌린지 기간</h4>
+                        <div class="text-left1" style="margin-left:30px;">
+                            {{state.item.chgstart}} <br />- {{state.item.chgend}} 
+                        </div><br />
+                    
+                        <!-- 참가비 -->
+                        <h4 class="text-left1" style="margin-left:30px;">참가비</h4>
+                        <div class="text-left1" style="margin-left:30px;">
+                            {{state.item.chgfee}}원 
+                        </div><br />
+
+                        <!-- 참여인원 -->
+                        <h4 class="text-left1" style="margin-left:30px;">참여인원</h4>
+                        <div class="text-left1" style="margin-left:30px;">
+                            {{state.item.chgcnt}}명
+                        </div><br />
+
+                        <!-- 난이도 -->
+                        <h4 class="text-left1" style="margin-left:30px;">챌린지 난이도</h4>
+                        <div class="text-left1" style="margin-left:30px;">
+                            {{state.item.chglevel}} 단계
+                        </div><br />
 
                     </div>
 
-                    <div class="div2">
-                        <h4>루틴</h4>
+                    <div class="two">
+
+                        <h4 class="text-right1">루틴</h4><br />
                         <div>
                             <el-table class="el-table" :data="state.routines" style="width:370px;">
                                 <el-table-column prop="rtnday" label="요일" width="74" />
@@ -71,9 +102,11 @@
                                 <el-table-column prop="rtnset" label="세트" width="74" />
                                 <el-table-column prop="pname" label="자세" width="74" />
                                 <el-table-column prop="ppart" label="부위" width="74" />
-                            </el-table>  
+                            </el-table>     
                         </div>
+
                     </div>
+
                 </div>
 
                 <!-- 루틴 -->
@@ -81,37 +114,7 @@
                 
 
                 
-                <!-- 모집기간 -->
-                <h4 class="text-left1" style="margin-left:30px;">모집 기간</h4>
-                <div class="text-left1" style="margin-left:30px;">
-                    {{state.item.recruitstart}} <br />- {{state.item.recruitend}} 
-                </div><br />
 
-
-
-                    <!-- 챌린지 기간 -->
-                    <h4 class="text-left1" style="margin-left:30px;">챌린지 기간</h4>
-                    <div class="text-left1" style="margin-left:30px;">
-                        {{state.item.chgstart}} <br />- {{state.item.chgend}} 
-                    </div><br />
-                    
-                    <!-- 참가비 -->
-                    <h4 class="text-left1" style="margin-left:30px;">참가비</h4>
-                    <div class="text-left1" style="margin-left:30px;">
-                        {{state.item.chgfee}}원 
-                    </div><br />
-
-                    <!-- 참여인원 -->
-                    <h4 class="text-left1" style="margin-left:30px;">참여인원</h4>
-                    <div class="text-left1" style="margin-left:30px;">
-                        {{state.item.chgcnt}}명
-                    </div><br />
-
-                    <!-- 난이도 -->
-                    <h4 class="text-left1" style="margin-left:30px;">챌린지 난이도</h4>
-                    <div class="text-left1" style="margin-left:30px;">
-                        {{state.item.chglevel}} 단계
-                    </div><br />
     
               
             </div>
@@ -359,6 +362,7 @@ export default {
 }
 
 .text-right1 {
+    margin-right: 30px;;
     justify-content : right;
     display: flex;
 }
@@ -407,9 +411,24 @@ export default {
 .div2 {
     background-color: rgb(244, 255, 87);
     width: 370px;
-    height: 100px;
     display: flex;
     justify-content : right;
+}
+
+/* 그리드 */
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
+.one {
+  grid-column: 1 / 3;
+  grid-row: 1;
+}
+.two {
+  grid-column: 2 / 4;
+  grid-row: 1 / 3;
 }
 /* 하트 */
 
