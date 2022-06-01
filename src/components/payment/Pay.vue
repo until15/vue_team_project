@@ -12,10 +12,11 @@
           <mark>참가비는 환불되지 않습니다.</mark>
         </h6>
         <br />
-        <input
+        <el-input
           type="number"
           placeholder="결제금액"
           v-model="this.pjoinchg.chgfee"
+          style="width: 100px"
           readonly
         />
         <el-button type="info" plain size="mini" @click="requestPay"
@@ -45,7 +46,6 @@ export default {
   },
 
   methods: {
-
     // 회원 조회
     async handleMemberData() {
       const url = `/ROOT/api/member/selectmemberone`;
@@ -132,5 +132,62 @@ export default {
   width: 400px;
   height: 200px;
   z-index: -1;
+}
+button {
+  font-size: 14px;
+  margin-top: 20px;
+  position: relative;
+  outline: none;
+  text-decoration: none;
+  /* border-radius: 10px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  height: 30px;
+  width: 150px;
+  opacity: 1;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.92);
+}
+button:hover {
+  animation: rotate 0.7s ease-in-out both;
+  background-color: black;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+  25% {
+    transform: rotate(3deg) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: rotate(-3deg) translate3d(0, 0, 0);
+  }
+  75% {
+    transform: rotate(1deg) translate3d(0, 0, 0);
+  }
+  100% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+}
+@keyframes storm {
+  0% {
+    transform: translate3d(0, 0, 0) translateZ(0);
+  }
+  25% {
+    transform: translate3d(4px, 0, 0) translateZ(0);
+  }
+  50% {
+    transform: translate3d(-3px, 0, 0) translateZ(0);
+  }
+  75% {
+    transform: translate3d(2px, 0, 0) translateZ(0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) translateZ(0);
+  }
 }
 </style>
