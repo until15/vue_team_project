@@ -42,6 +42,15 @@ export default {
   },
 
   methods: {
+    unicodeToChar(text) {
+      let str =
+        "\ucde8\uc18c\ud560 imp_uid \ub610\ub294 merchant_uid\ub97c \uc9c0\uc815\ud574\uc8fc\uc154\uc57c\ud569\ub2c8\ub2e4. \uc694\uccad imp_uid : , \uc694\uccad merchant_uid : ";
+      console.log(str);
+      return text.replace(/\\u[\dA-F]{4}/gi, function (match) {
+        return String.fromCharCode(parseInt(match.replace(/\\u/g, ""), 16));
+      });
+    },
+
     // 회원 조회
     async handleData() {
       const url = `/ROOT/api/member/selectmemberone`;
@@ -124,19 +133,9 @@ button {
   background-color: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.92);
 }
-button span {
-  color: #164ca7;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.7px;
-}
 button:hover {
   animation: rotate 0.7s ease-in-out both;
   background-color: black;
-}
-button:hover span {
-  animation: storm 0.7s ease-in-out both;
-  animation-delay: 0.06s;
 }
 
 @keyframes rotate {
