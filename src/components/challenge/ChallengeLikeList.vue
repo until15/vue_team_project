@@ -1,12 +1,18 @@
 <template>
     <div align="center">
-        <el-card>
-            <h3>챌린지 인기순</h3><br />
-            <el-button @click="handleMenu1">최신순</el-button>
-            <el-button @click="handleMenu2">인기순</el-button>
-            <el-button @click="handleMenu3">난이도순</el-button>
-            <br /><br />
-            <hr />
+
+        <div>
+            <h3 style="margin-top:100px;">챌린지 인기순</h3>
+        </div>
+            
+        <!-- 버튼 -->
+        <div class="center">
+            <el-button class="button-blk1" type="info" @click="handleMenu1">최신순</el-button>
+            <el-button class="button-blk1" type="info" @click="handleMenu2">인기순</el-button>
+            <el-button class="button-blk1" type="info"   @click="handleMenu3">난이도순</el-button>
+        </div>
+
+
             <el-table :data="state.items"  style="width: 100% " >
                 <el-table-column prop="chglike" label="좋아요" width="80" />
                 <el-table-column prop="chgtitle" label="제목"  width="250" >
@@ -23,7 +29,7 @@
             </el-table>
             <el-pagination layout="prev, pager, next" :total="state.total" @current-change="currentChange">
             </el-pagination>
-        </el-card>
+
 
         <br />
         <el-form :inline="true" v-if="state.items" >
@@ -129,6 +135,19 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
 
+    .button-blk1 {
+        background-color: #212529;
+        border: none;
+        color: rgb(255, 255, 255);
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 16px;
+        width: 80px;
+    }
 </style>
