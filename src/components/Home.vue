@@ -495,7 +495,8 @@ export default {
   }
 
   .image {
-    width: 100%;
+    width: 280px;
+    height: 280px;
     display: block;
   }
 

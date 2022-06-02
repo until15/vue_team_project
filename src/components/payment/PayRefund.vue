@@ -3,10 +3,10 @@
     <div v-if="this.paychg">
       <img src="@/assets/img/환급.png" style="width: 500px" />
       <h3>
-        <div v-if="this.member" >
-        {{ this.member.mid }} 님은 달성률을
-        <mark>{{ this.pjoinchg.chgrate }}</mark
-        >% 달성하셨습니다!
+        <div v-if="this.member">
+          {{ this.member.mid }} 님은 달성률을
+          <mark>{{ this.pjoinchg.chgrate }}</mark
+          >% 달성하셨습니다!
         </div>
       </h3>
       <h6>
@@ -37,11 +37,20 @@ export default {
       token: sessionStorage.getItem("TOKEN"),
       paychg: "",
       pjoinchg: "",
-      jno: 123, // 연결 필요
+      jno: 114, // 연결 필요
     };
   },
 
   methods: {
+    unicodeToChar(text) {
+      let str =
+        "\ucde8\uc18c\ud560 imp_uid \ub610\ub294 merchant_uid\ub97c \uc9c0\uc815\ud574\uc8fc\uc154\uc57c\ud569\ub2c8\ub2e4. \uc694\uccad imp_uid : , \uc694\uccad merchant_uid : ";
+      console.log(str);
+      return text.replace(/\\u[\dA-F]{4}/gi, function (match) {
+        return String.fromCharCode(parseInt(match.replace(/\\u/g, ""), 16));
+      });
+    },
+
     // 회원 조회
     async handleData() {
       const url = `/ROOT/api/member/selectmemberone`;
@@ -107,4 +116,60 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="css" scoped>
+button {
+  position: relative;
+  outline: none;
+  text-decoration: none;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  text-transform: uppercase;
+  height: 60px;
+  width: 210px;
+  opacity: 1;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.92);
+}
+button:hover {
+  animation: rotate 0.7s ease-in-out both;
+  background-color: black;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+  25% {
+    transform: rotate(3deg) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: rotate(-3deg) translate3d(0, 0, 0);
+  }
+  75% {
+    transform: rotate(1deg) translate3d(0, 0, 0);
+  }
+  100% {
+    transform: rotate(0deg) translate3d(0, 0, 0);
+  }
+}
+@keyframes storm {
+  0% {
+    transform: translate3d(0, 0, 0) translateZ(0);
+  }
+  25% {
+    transform: translate3d(4px, 0, 0) translateZ(0);
+  }
+  50% {
+    transform: translate3d(-3px, 0, 0) translateZ(0);
+  }
+  75% {
+    transform: translate3d(2px, 0, 0) translateZ(0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) translateZ(0);
+  }
+}
+</style>
