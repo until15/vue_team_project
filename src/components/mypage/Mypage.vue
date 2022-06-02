@@ -5,16 +5,9 @@
             <div class="center">
                 <h3 style="margin-top:100px;">나의 정보</h3>
             </div>
-            
-            <!-- 버튼 -->
-            <div class="center" >
-                <el-button class="button-blk1" type="info" @click="handleMenu1">정보 수정</el-button>
-                <el-button class="button-blk1" type="info" @click="handleMenu3">1:1 문의</el-button>
-                <el-button class="button-blk1" type="info"   @click="handleMenu2">회원 탈퇴</el-button>
-            </div>
 
             <!-- 프로필 사진 -->
-            <a class="center" style="margin-top:50px;">
+            <a class="center" style="margin-top:40px;">
                 <div style="border-radius: 70%; width:130px; height:130px;overflow: hidden; border: 3px solid #e2e2e2;">
                     <img :src="state.imageUrl" style="width:100%; height:100% object-fit: cover;margin-top:0px" />
                 </div>
@@ -83,6 +76,10 @@
                         <el-input class="input-size" size="medium" ref="mphone" maxlength="11" v-model="state.item.mrank" type="text" disabled/>
                     </el-form-item>
                 </el-form>
+            </div>
+
+            <div class="center" >
+                <el-button class="button-blk1" type="info" @click="handleMenu1">정보 수정</el-button>
             </div>
             <br /><br />
         </div>
