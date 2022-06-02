@@ -6,60 +6,76 @@
         </div>
 
             
-        <!-- 버튼 -->
-        <div class="center">
-            <el-button class="button-blk1" type="info" @click="handleMenu1">정보 수정</el-button>
-            <el-button class="button-blk1" type="info" @click="handleMenu3">1:1 문의</el-button>
-            <el-button class="button-blk1" type="info"   @click="handleMenu2">회원 탈퇴</el-button>
-        </div>
-     
-            <div v-for="(tmp) in state.items" :key="tmp" class="left" >
-                    <el-col :span="8" :gutter="5" v-for="(j) in 1" :key="j" >
-                <el-card :body-style="{ padding: '0px' }" class="c-m, card" @click="handlePage(tmp.chgno)">
-            <div>
+            <!-- 버튼 -->
+            <div class="center">
+                <el-button class="button-blk1" type="info" @click="handleMenu1">정보 수정</el-button>
+                <el-button class="button-blk1" type="info" @click="handleMenu3">1:1 문의</el-button>
+                <el-button class="button-blk1" type="info"   @click="handleMenu2">회원 탈퇴</el-button>
             </div>
-                    <img
-                        :src="tmp.imgurl"
-                        class="image"/>
-                    <div style="padding: 14px">
-                        
-                        <span>
-                            <h4>{{tmp.chgtitle}}</h4><br />
-                            {{tmp.chgintro}}<br />
-                            좋아요 {{tmp.chglike}}개<br />
-                            난이도 {{tmp.chglevel}}단계<br />
-                            {{tmp.chgfee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}원
-                        </span>
-
-                        <span class="ch-mem">
-                            {{tmp.chgrate}}
-                        </span>
-
-                        <!-- <div class="chg-detail">
-                            <el-link style="margin-top:20px;" @click="handleSelect(tmp.chgno)">상세 보기</el-link>
-                        </div> -->
-                        
-                    </div>
-                </el-card>
-                </el-col>
-            </div>
-                
-                    <el-table :data="state.items"  style="width: 100% " >
-                        <el-table-column prop="chgno" label="번호" width="60" />
-                        <el-table-column prop="chgtitle" label="제목"  width="250" >
-                        <template #default="scope">
-                            <div @click="handlePage(scope.row.chgno)" style="cursor:pointer;">
-                                {{scope.row.chgtitle}}
-                            </div> 
-                        </template>
-                        </el-table-column>
-                        <el-table-column prop="chgfee" label="참가비" width="100" />
-                        <el-table-column prop="chgcnt" label="참가인원" width="80" />
-                        <el-table-column prop="chglike" label="좋아요" width="80" />
-                        <el-table-column prop="chglevel" label="난이도" width="80" />
-                        <el-table-column prop="chgregdate" label="작성일" width="100" />
-                    </el-table>
             
+        <div v-for="(tmp) in state.items" :key="tmp"  align="center">
+                <el-col :span="8" :gutter="20" v-for="(j) in 1" :key="j" >
+            <el-card :body-style="{ padding: '0px' }" class="c-m" style="width:350px;height:350px">
+          <div>
+          </div>
+                <img
+                    :src="tmp.imgurl"
+                    class="image"/>
+                <div style="padding: 14px">
+                    
+                    <span>
+                        <h4>{{tmp.chgtitle}}</h4><br />
+                        {{tmp.chgintro}}<br />
+                        좋아요 {{tmp.chglike}}개<br />
+                        난이도 {{tmp.chglevel}}단계<br />
+                        {{tmp.chgfee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}원
+                    </span>
+
+                    <span class="ch-mem">
+                        {{tmp.chgrate}}
+                    </span>
+
+                    <div class="bottom">
+                        <time class="time">
+                            {{tmp.chgregdate}}
+                        </time>
+                    </div>
+
+                    <div class="chg-detail">
+                        <el-link style="margin-top:20px;" @click="handleSelect(tmp.chgno)">상세 보기</el-link>
+                    </div>
+                    
+
+                </div>
+            </el-card>
+            </el-col>
+        </div>
+
+      
+            
+
+                <el-table :data="state.items"  style="width: 100% " >
+                    <el-table-column prop="chgno" label="번호" width="60" />
+                    <el-table-column prop="chgtitle" label="제목"  width="250" >
+                    <template #default="scope">
+                        <div @click="handlePage(scope.row.chgno)" style="cursor:pointer;">
+                            {{scope.row.chgtitle}}
+                        </div> 
+                    </template>
+                    </el-table-column>
+                    <el-table-column prop="chgfee" label="참가비" width="100">
+                    <template #default="scope">
+                        <div>
+                            {{scope.row.chgfee.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}}
+                        </div> 
+                    </template>
+                    </el-table-column>
+                    <el-table-column prop="chgcnt" label="참가인원" width="80" />
+                    <el-table-column prop="chglike" label="좋아요" width="80" />
+                    <el-table-column prop="chglevel" label="난이도" width="80" />
+                    <el-table-column prop="chgregdate" label="작성일" width="100" />
+
+                </el-table>
                 
             
                 <el-pagination layout="prev, pager, next" :total="state.total" @current-change="currentChange">
@@ -134,12 +150,12 @@ export default {
             console.log(response.data);
             if(response.data.status === 200) {
                 state.items = response.data.result;
-                state.image = response.data.imgurl;
-                state.imageUrl = state.image;
+                state.images = response.data.images;
                 state.total = response.data.total;
                 state.challenge= '';
             }
         }
+
 
 
         const handleMenu1 = () => {
@@ -241,21 +257,5 @@ export default {
         cursor: pointer;
         border-radius: 16px;
     }
-
-    .card{
-        padding: 70px;
-        width: 350px;
-        height: 350px;
-        cursor: pointer;
-        margin-left: 60px;
-        margin-top: 60px;
-        margin-bottom: 10px;
-        display: block;
-    }
-
-    .left{
-        margin-left: 190px;
-    }
-    
 
 </style>
