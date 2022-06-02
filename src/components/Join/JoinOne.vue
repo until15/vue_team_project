@@ -1,39 +1,6 @@
 <template>
 <div class="padding-tb container px-4 px-lg-5 mt-5 mb-6" >
-
-    <!-- 
     <div>
-        
-        <div  class="center">
-            <h3>내가 참가한 첼린지 상세 내용</h3>
-        </div>
-
-        <div style="margin-top:1rem; margin-bottom:1rem;"  class="center">
-            <img :src="state.thumnail" style="width:300px;" /> <br />
-        </div>
-
-        <div v-if="state.item" class="center">    
-            첼린지 번호: {{state.item.chgno}} <br />
-            첼린지 제목: {{state.item.chgtitle}}<br />
-            참여자 수 : {{state.item.chgcnt}}<br />
-            첼린지 시작일 : {{state.item.chgstart}}<br />
-            첼린지 종료일 : {{state.item.chgend}}<br />
-            첼린지 참가비 : {{state.item.chgfee}}<br />
-            내가 참가한 날 : {{state.item.jregdate}}<br />
-            첼린지 레벨 : {{state.item.chglevel}}<br />
-            좋아요 개수 : {{state.item.chglike}}<br />
-            달성률 : {{state.item.chgrate}}%<br />
-            진행 상황 : {{state.item.chgstate}}<br />
-        </div>
-        
-        <div class="center" v-if="state.chgstate === 3">
-            <button @click="handleGiveup"> 포기하기 </button>
-            <button @click="handleConfirm(state.jno)"> 인증하기 </button>
-        </div>
-    </div>
-    -->
-
-        <div>
         <div v-if="state.item">
             
             <!-- 윗 부분 -->
@@ -136,24 +103,25 @@
                                 <el-table-column prop="pname" label="자세" width="74" />
                                 <el-table-column prop="ppart" label="부위" width="74" />
                             </el-table>     
-                        </div>
-
-                    </div>
-
-                    <div class="three">
+                        </div><br />
+    
                         <h4 class="text-right1">인증글</h4><br />
-                        <div class="pro">
-                            ㅁㄴㅇㅁㄴㅇ
+                        <div>
+                            <el-table class="el-table" :data="state.cfitems" style="width:370px;">
+                                <el-table-column prop="memail" label="작성자" width="120" />
+                                <el-table-column prop="cfsuccess" label="인증상태" width="120" />
+                                <el-table-column prop="ccregdate" label="등록일" width="120" />
+                            </el-table>
                         </div>
+      
                     </div>
-
                 </div>
 
             </div>
 
-            <div class="btn">
+            <div class="center">
                 <!-- 포기하기 -->
-                <div class="center" style="margin-top:15px;">
+                <div style="margin-top:10px;">
                     <el-button class="btn-give-up" type="info" size="medium" plain @click="handleGiveup">챌린지 포기</el-button>
                 </div>
             </div>

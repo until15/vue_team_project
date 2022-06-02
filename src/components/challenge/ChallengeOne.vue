@@ -103,6 +103,11 @@
                                 <el-table-column prop="pname" label="자세" width="74" />
                                 <el-table-column prop="ppart" label="부위" width="74" />
                             </el-table>     
+                        </div><br />
+                        
+                        <h4 class="text-right1">댓글?방명록?</h4><br />
+                        <div class="el-table" style="width:370px;">
+                            임시
                         </div>
 
                     </div>
