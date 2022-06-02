@@ -23,6 +23,12 @@
                     <el-button id="btn" @click="handleUpdate(state.pose.pno)">수정</el-button>
                     <el-button id="btn" @click="handleDelete" style="margin-left: 35%;">삭제</el-button>
                 </div>
+                <!-- 관리자 삭제 -->
+                <div v-if="state.memberRole">
+                    <div v-if="state.memberRole.mrole === 'admin'">
+                        <el-button type="danger" @click="handleDeleteAdmin" style="margin-left: 35%;">삭제</el-button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -54,7 +60,39 @@ export default {
 
         onMounted(async() => {
             await handleLoadData(state.no);
+            await handleMemberData();
         });
+
+        // 회원 조회
+        const handleMemberData = async() => {
+            const url = `/ROOT/api/member/selectmemberone`;
+            const headers = {
+                "Content-Type": "application/json",
+                token: state.token,
+            };
+            const response = await axios.get(url, { headers : headers });
+            console.log(response.data);
+            if (response.data.status === 200) {
+                state.memberRole = response.data.result;
+            }
+        }
+
+        const handleDeleteAdmin = async() => {
+            if(confirm('관리자 권한으로 삭제하시겠습니까? 삭제된 자세는 보관됩니다.')){
+                const url = `/ROOT/api/pose/deleteone.json`;
+                const headers = {"Content-Type":"application/json"};
+                const body = {
+                    "pno" : state.no,
+                    "pstep" : 2
+                }
+                const response = await axios.put(url, body, {headers:headers});
+                console.log(response.data);
+                if(response.data.status === 200){
+                    alert('보관되었습니다.');
+                    router.push({name:"Pose"});
+                }
+            }
+        }
 
         const handleDelete = async() => {
             if(confirm('삭제하시겠습니까?')){
@@ -99,7 +137,7 @@ export default {
             return store.getters.getMemail
         });
 
-        return {state, handleUpdate, memail, handleDelete}
+        return {state, handleUpdate, memail, handleDelete, handleDeleteAdmin}
     }
 }
 </script>

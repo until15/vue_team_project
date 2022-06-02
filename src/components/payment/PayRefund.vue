@@ -42,14 +42,6 @@ export default {
   },
 
   methods: {
-    unicodeToChar(text) {
-      let str =
-        "\ucde8\uc18c\ud560 imp_uid \ub610\ub294 merchant_uid\ub97c \uc9c0\uc815\ud574\uc8fc\uc154\uc57c\ud569\ub2c8\ub2e4. \uc694\uccad imp_uid : , \uc694\uccad merchant_uid : ";
-      console.log(str);
-      return text.replace(/\\u[\dA-F]{4}/gi, function (match) {
-        return String.fromCharCode(parseInt(match.replace(/\\u/g, ""), 16));
-      });
-    },
 
     // 회원 조회
     async handleData() {

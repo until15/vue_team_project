@@ -1,5 +1,5 @@
 <template>
-    <div align="center">
+    <div align="center" style="padding : 20px">
 
         <h3>자세 등록</h3>
         <h6>부적절하거나 운동과 관련없는 자세를 등록할 시 무통보 삭제가 될 수 있습니다.</h6>

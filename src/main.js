@@ -18,6 +18,10 @@ import 'element-plus/theme-chalk/index.css';
 // CKEditor
 import CKEditor from '@ckeditor/ckeditor5-vue';
 
+// AOS
+import AOS from 'aos';
+import "aos/dist/aos.css";
+
 
 const app = createApp(App);
 app.use(router);  
@@ -26,6 +30,7 @@ app.use(stores);
 app.use(VideoPlayer);
 app.config.globalProperties.axios = axios;
 app.use(CKEditor);
+app.use(AOS.init());
 
 app.mount('#app');
 

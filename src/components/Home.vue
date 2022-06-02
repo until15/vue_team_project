@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <!-- Header-->
     <header>
     <div class="container px-4 px-lg-5 header-mb bg-white">
@@ -13,7 +12,6 @@
             src='https://1.bp.blogspot.com/-EyJrKPuJf-U/XQ2YpSY7n-I/AAAAAAAAADo/8IfUH9x0s7YvnbTRnwiz7oSbi-2WypO9gCKgBGAs/w919-h516-p-k-no-nu/dwayne-johnson-working-out-uhdpaper.com-8K-356.jpg'/>
         </div>
       </div>
-
       <!-- 폰트 이미지 -->
       <!-- <div class="text-center">
         <div>
@@ -25,12 +23,16 @@
 
       <div class="text-center">
         <div style="margin-top:40px;">
+          <div data-aos="fade-up"  data-aos-easing="linear"
+     data-aos-duration="1500">
           <h2 style="font-size:5rem;">
             끝없는 우리의 도전
-          </h2> 
+          </h2>
+          </div> 
         </div>
       </div> 
-
+      <div data-aos="fade-up"  data-aos-easing="linear"
+     data-aos-duration="1500">
       <!-- 헬린지 타이틀 -->
       <div class="text-center">
         <div>
@@ -48,24 +50,33 @@
           class="button-blk"
           @click="handleAbout">더 보기</button>
       </div>
+      </div>
 
       <!-- 드웨인 존슨 썸네일 2 -->
       <div class="text-center">
         <div style="margin-top:200px;">
+          <div data-aos="fade-down"  data-aos-easing="linear"
+     data-aos-duration="1500">
           <img 
             class="image-thumbnail1" 
-            src='https://rare-gallery.com/thumbs/322766-Dwayne-Johnson-Gym-Workout-4K-iphone-wallpaper.jpg'/> 
+            src='https://rare-gallery.com/thumbs/322766-Dwayne-Johnson-Gym-Workout-4K-iphone-wallpaper.jpg'/>
+          </div> 
         </div>
       </div>
 
       <!-- 드웨인 존슨의 명언 -->
       <div>
         <div class="font-right">
+           <div data-aos="fade-down"  data-aos-easing="linear"
+     data-aos-duration="1500">
           <h2 style="font-size:6rem;">
             '피, 땀, 존경'을 <br /> 기억해라.
           </h2>
+           </div>
         </div>
         <div class="font-right">
+          <div data-aos="fade-left"  data-aos-easing="linear"
+     data-aos-duration="1500">
           <h2 style="font-size:3rem;">
               "첫 두가지는 <br />
               당신이 투자해야 하는 것이고 <br />
@@ -73,17 +84,20 @@
               당신이 얻게 되는 것이다." <br />
               - 드웨인 존슨 -
           </h2>
+          </div>
         </div>
       </div>
 
       <div>
         <div class="text-center"
         style="margin-top:300px;">
+        <div data-aos="zoom-in-up">
           <h2 style="font-size:6rem;">
             수많은 챌린지들이 <br /> 
             당신을 <br />
             기다리고 있습니다.<br />
           </h2> 
+        </div>
         </div>
       </div>
       
@@ -95,6 +109,9 @@
     <section class="py-5">
 
         <!-- 참가 중인 첼린지 -->
+        <div data-aos="fade-up"
+     data-aos-anchor-placement="center-bottom" data-aos-easing="linear"
+     data-aos-duration="1500">
         <div class="container px-4 px-lg-5 mt-5 mb-6" v-if="logged === true">
             <div style="margin-top:200px;" class="list-top">
               <span> 
@@ -151,14 +168,17 @@
               </vueper-slides>
             </div>
         </div>
-
+        </div>
 
         <!-- 인기 리스트 -->
+      <div div data-aos="fade-up"
+     data-aos-anchor-placement="top-bottom" data-aos-easing="linear"
+     data-aos-duration="1500">
         <div class="container px-4 px-lg-5 mb-6">
-            <div style="margin-top:300px;"  class="list-top">
+            <div style="margin-top:100px;"  class="list-top">
               <span> 
                 <h2 style="font-size:3rem;">
-                  인기있는 챌린지
+                  인기 챌린지
                 </h2>
                 <button 
                   style="margin-top:10px;" 
@@ -206,9 +226,9 @@
             </vueper-slide>
           </vueper-slides>
         </div>
-
-
+        </div>
         <!-- 난이도 별 리스트 -->
+              <div div data-aos="fade-up" data-aos-duration="1500">
         <div class="container px-4 px-lg-5 mb-6">
             <div style="margin-top:300px;" class="list-top">
               <span> 
@@ -263,9 +283,9 @@
                     </el-col>
                   </el-row>
                 </template>
-
               </vueper-slide>
             </vueper-slides>
+        </div>
         </div>
 
     </section>
@@ -295,6 +315,7 @@ export default {
   },
 
   setup () {
+
     const store = useStore();
 
     const logged = computed(() => {

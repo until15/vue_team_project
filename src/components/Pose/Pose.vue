@@ -11,7 +11,7 @@
         </div>
 
         <!-- 검색창 -->
-        <el-form :inline="true" v-if="state.pose" style="margin-top:60px;" >
+        <el-form :inline="true" v-if="state.pose" style="margin-top:20px;" >
             <el-form-item>
                 <el-input v-model="state.title" placeholder="검색어를 입력하세요" style="width:200px;" type="text" size="small" v-on:keydown.enter.prevent='handleLoadData()'/>
             </el-form-item>
@@ -48,6 +48,12 @@
         <div>
             <el-button class="button-blk1" style="margin-top:20px;margin-bottom:60px;" type="info" plain @click="handlePoseInsert">자세 등록</el-button><br /><br />
         </div>
+        <!-- 삭제된 자세 보기 : 관리자 -->
+        <div v-if="state.member">
+            <div v-if="state.member.mrole === 'admin'">
+            <el-button type="info" plain @click="handleStep">삭제된 자세 관리</el-button>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -61,12 +67,34 @@ export default {
         const router = useRouter();
 
         const state = reactive({
+            token : sessionStorage.getItem("TOKEN"),
             step : 1, // 삭제 되지 않은 것만
             page : 1,
             title : '',
-            total : 1
+            total : 1,
+            search : "close"
 
         });
+
+        // 삭제 자세 보기
+        const handleStep = () => {
+            state.step = 2
+            handleLoadData();
+        }
+
+        // 회원 조회
+        const handleMemberData = async() => {
+            const url = `/ROOT/api/member/selectmemberone`;
+            const headers = {
+                "Content-Type": "application/json",
+                token: state.token,
+            };
+            const response = await axios.get(url, { headers : headers });
+            console.log(response.data);
+            if (response.data.status === 200) {
+                state.member = response.data.result;
+            }
+        }
 
         const handlePoseInsert = () => {
             if(sessionStorage.getItem("TOKEN") !== null){
@@ -104,10 +132,11 @@ export default {
         // 생명주기 onMounted()
         onMounted( async() => {
             await handleLoadData();
+            await handleMemberData();
 
         });
 
-        return {state, handlePoseOne, handleLoadData, handlePoseInsert, currentChange}
+        return {state, handlePoseOne, handleLoadData, handlePoseInsert, currentChange, handleStep}
     }
 }
 </script>

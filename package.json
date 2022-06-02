@@ -11,6 +11,7 @@
     "@ckeditor/ckeditor5-build-classic": "^34.1.0",
     "@ckeditor/ckeditor5-editor-classic": "^34.0.0",
     "@ckeditor/ckeditor5-vue": "^4.0.1",
+    "aos": "^2.3.4",
     "axios": "^0.26.1",
     "core-js": "^3.6.5",
     "element-plus": "^1.2.0-beta.6",
