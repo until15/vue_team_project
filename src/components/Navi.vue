@@ -63,6 +63,7 @@
                                     <router-link to="" class="dropdown-item" @click="handleLogout">로그아웃</router-link>
                                     <hr class="dropdown-divider" />
                                 </li>
+                                <li><a class="dropdown-item" href="#/mypage">나의정보</a></li>
                                 <li><a class="dropdown-item" href="#/menu1">정보수정</a></li>
                                 <li><a class="dropdown-item" href="#/menu3">1:1 문의</a></li>
                                 <li><a class="dropdown-item" href="#/menu2">회원탈퇴</a></li>
