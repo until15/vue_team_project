@@ -7,11 +7,11 @@ export default class UploadAdapter {
     // Starts the upload process.
     upload() {
         return this.loader.file
-            .then( file => new Promise( ( resolve, reject, bno ) => {
+            .then( file => new Promise( ( resolve, reject ) => {
                 this._initRequest();
                 this._initListeners( resolve, reject, file );
                 this._sendRequest( file );
-                this._sendRequest( bno );
+
             } ) );
     }
 

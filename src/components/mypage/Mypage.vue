@@ -375,6 +375,7 @@ export default {
 }
 
 .back{
+    background-image: url(/ROOT/api/bimg/selectimg?bimgno=175);
     background-image: url(https://jhealthfile.joins.com/photo//2020/02/20/1343b1c172e80.jpg);
     background-size: unset;
 }
