@@ -33,8 +33,8 @@
 
                     <!-- 회원가입/로그인 -->
                     <div class="nav-item navbar-nav" v-if="logged === false">
-                        <router-link to="/memberjoin" class="nav-link">회원가입</router-link>  
-                        <router-link to="/login" class="nav-link">로그인</router-link>
+                        <router-link to="/memberjoin" id="nav1" class="nav-link">회원가입</router-link>  
+                        <router-link to="/login" id="nav1" class="nav-link">로그인</router-link>
                     </div>
 
 
@@ -49,14 +49,14 @@
                         <li class="nav-item dropdown d-flex">
 
                             <!-- 프로필 이미지 -->
-                            <a  id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a  id="navbarDropdown" href="#"  role="button" data-bs-toggle="dropdown"  aria-expanded="false">
                                 <div style="border-radius: 70%; width:50px; height:50px;overflow: hidden; border: 2px solid #e2e2e2;">
-                                    <img :src="state.image" style="width:100%; height:100% object-fit: cover;margin-top:0px" />
+                                    <img :src="state.image"  style="width:100%; height:100% object-fit: cover;margin-top:0px" />
                                 </div>
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown" >
                                 <li>
-                                    <router-link to="/myactivity" class="dropdown-item">내 활동</router-link>
+                                    <router-link to="/myactivity" class="dropdown-item" >내 활동</router-link>
                                     <hr class="dropdown-divider" />
                                 </li>
                                 <li>

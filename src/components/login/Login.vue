@@ -297,37 +297,37 @@ export default {
         }
 
         // 카카오 로그인1
-       const kakao = async() => {
-            window.Kakao.Auth.login({
-                scope : 'account_email, profile_nickname, gender',
-                success : function(response){
-                    console.log(response);
-                    window.Kakao.API.request({
-                        url: '/v2/user/me',
-                        success : res => {
-                            const kakao_account = res.kakao_account;
-                            console.log(kakao_account);
-                            state.memail = kakao_account.email;
-                        }
-                    });
-                },
-                fail : function(error) {
-                    console.log(error);
-                }
-            });
+    //    const kakao = async() => {
+    //         window.Kakao.Auth.login({
+    //             scope : 'account_email, profile_nickname, gender',
+    //             success : function(response){
+    //                 console.log(response);
+    //                 window.Kakao.API.request({
+    //                     url: '/v2/user/me',
+    //                     success : res => {
+    //                         const kakao_account = res.kakao_account;
+    //                         console.log(kakao_account);
+    //                         state.memail = kakao_account.email;
+    //                     }
+    //                 });
+    //             },
+    //             fail : function(error) {
+    //                 console.log(error);
+    //             }
+    //         });
 
-            if(state.memail){
-                const url = `/ROOT/api/member/login`;
-                const headers = {"Content-Type":"application/json"};
-                const body = {
-                    memail : state.memail,
-                    mpw : state.mpw
-                }
-                const response = await axios.post(url, body, {headers});
-                console.log(response.data);
-            }
+    //         if(state.memail){
+    //             const url = `/ROOT/api/member/login`;
+    //             const headers = {"Content-Type":"application/json"};
+    //             const body = {
+    //                 memail : state.memail,
+    //                 mpw : state.mpw
+    //             }
+    //             const response = await axios.post(url, body, {headers});
+    //             console.log(response.data);
+    //         }
 
-        }
+    //     }
 
 
         // Logout = () => {
@@ -342,7 +342,7 @@ export default {
             // console.log(window.Kakao.isInitialized());
         }) 
 
-        return {state, dialogmemail,  handleEmail, mname, mbirth, dialogmpw, handleMpw, kakao, handleClose, memail, mpw, handleLogin, handleJoin, KakaoLogin, handleMemail}
+        return {state, dialogmemail,  handleEmail, mname, mbirth, dialogmpw, handleMpw, handleClose, memail, mpw, handleLogin, handleJoin, KakaoLogin, handleMemail}
     }
 }
 </script>
@@ -398,5 +398,25 @@ export default {
 
 .center-log{
     text-align: center;
+}
+
+#nav1{
+    text-align: center;
+    font-size: 18px;
+    margin-right: 10px;
+    display: inline-block;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    -ms-transition: 0.3s;
+    transition: 0.3s;
+}
+
+#nav1:hover {
+    -webkit-transform: scale(1.5,1.5);
+    -moz-transform: scale(1.5,1.5);
+    -o-transform: scale(1.5,1.5);
+    -ms-transform: scale(1.5,1.5);
+    transform: scale(1.5,1.5);
 }
 </style>

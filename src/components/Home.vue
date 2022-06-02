@@ -155,7 +155,7 @@
                             <div class="bottom time">
                               <time>{{ tmp.jregdate }}</time>
                             </div>
-                            <div class="chg-detail">
+                            <div class="chg-detail" >
                               <el-button text class="button" @click="handleSelectOne(tmp.jno, tmp.chgno)">상세 보기</el-button>
                             </div>
                           </div>
@@ -587,6 +587,26 @@ export default {
 .cropping img{
   max-height: initial;
   margin-top: -15%;
+}
+
+#nav1{
+    text-align: center;
+    font-size: 18px;
+    margin-right: 10px;
+    display: inline-block;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    -ms-transition: 0.3s;
+    transition: 0.3s;
+}
+
+#nav1:hover {
+    -webkit-transform: scale(1.5,1.5);
+    -moz-transform: scale(1.5,1.5);
+    -o-transform: scale(1.5,1.5);
+    -ms-transform: scale(1.5,1.5);
+    transform: scale(1.5,1.5);
 }
 
 
