@@ -1,7 +1,9 @@
 <template>
   <div align="center" style="padding: 50px">
     <h3>커스텀 루틴 불러오기</h3>
-    <el-button text @click="state.dialogTableVisible = true"
+    <el-button
+      text
+      @click="(state.dialogTableVisible = true), handleRoutineData()"
       >불러오기</el-button
     >
     <el-dialog
@@ -266,10 +268,12 @@ export default {
         "Content-Type": "application/json",
         token: state.token,
       };
+      // console.log(state.chk);
       const response = await axios.delete(url, { headers: headers });
       console.log(response);
       if (response.data.status === 200) {
         alert("루틴이 삭제되었습니다.");
+        state.chk = [];
         handleRoutineData();
       }
     };
