@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #fff;">
             <div class="container px-4 px-lg-5">
                 <div>
                     <a href="http://localhost:8080/#/">
@@ -14,16 +14,22 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         
-                        <li class="nav-item"><router-link to="/challenge" class="nav-link">챌린지</router-link></li>
-                        <li class="nav-item"><router-link to="/confirmlist" class="nav-link">인증</router-link></li>
-                        <li class="nav-item"><router-link to="/board" class="nav-link">커뮤니티</router-link></li>
-                        <li class="nav-item"><router-link to="/pose" class="nav-link">자세</router-link></li>
+                        <li class="nav-item" id="nav1"><router-link to="/challenge" class="nav-link">챌린지</router-link></li>
+                        <li class="nav-item" id="nav1"><router-link to="/confirmlist" class="nav-link">인증</router-link></li>
+                        <li class="nav-item" id="nav1"><router-link to="/board" class="nav-link">커뮤니티</router-link></li>
+                        <li class="nav-item" id="nav1"><router-link to="/pose" class="nav-link">자세</router-link></li>
                         <div v-if="state.item">
                             <div v-if="state.item.mrole === 'admin'">
                             <li class="nav-item"><router-link to="/admin" class="nav-link">관리자 페이지</router-link></li>
                             </div>
                         </div>
                     </ul>
+
+                    <!-- 검색창 -->
+                    <label :data-state="state.search" for="search">
+                    <input type="text" v-model="state.title" placeholder="검색어를 입력하세요" @click="state.search = 'opan'" @blur="state.search='close'" v-on:keydown.enter.prevent='handleLoadData()'/>
+                    <i class="fa fa-search" @click="handleLoadData()" aria-hidden="true"></i>
+                    </label>
 
                     <!-- 회원가입/로그인 -->
                     <div class="nav-item navbar-nav" v-if="logged === false">
@@ -105,9 +111,6 @@ export default {
 
         });
 
-        
-
-
         const menu = computed(() => {
         return store.getters.getMenu
         });
@@ -141,6 +144,7 @@ export default {
         const state = reactive({
         activeIndex : menu,
         token : sessionStorage.getItem("TOKEN"),
+        search : "close"
         });
 
         const handleData = async() => {
@@ -183,4 +187,79 @@ export default {
     font-family: 'Do Hyeon', sans-serif;
 }
 
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css");
+
+label {
+  position: relative;
+  display: inline-block;
+  background-color: #fff;
+  padding: 5px 12px;
+  transition: all 1s ease;
+  border-radius: 0;
+  box-shadow: 1px 1px 5px rgba(228, 228, 228, 0.5);
+  margin : 0px 20px 0px 20px
+}
+label::after {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 80%;
+  background-color: #4d3f2b;
+  transition: all 1s ease 0.5s;
+}
+label input {
+  transition: width 1s ease, opacity 0.5s ease 0.5s;
+  opacity: 1;
+  width: 180px;
+  height: 25px;
+  border: 0;
+  outline: none;
+  color: #000000;
+}
+label i {
+  position: absolute;
+  top: 11px;
+  right: 11px;
+  color: rgb(107, 107, 107);
+  cursor: pointer;
+}
+label[data-state=close] {
+  border-radius: 30px;
+  padding: 5px 5px;
+  transition: all 1s ease;
+}
+label[data-state=close]::after {
+  width: 0%;
+  transition: all 0.3s ease;
+}
+label[data-state=close] i {
+  pointer-events: none;
+}
+label[data-state=close] input {
+  width: 28px;
+  height: 25px;
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 0.5s ease, width 1s ease;
+  -webkit-appearance: none;
+}
+#nav1{
+    text-align: center;
+    font-size: 18px;
+    margin-right: 10px;
+    display: inline-block;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    -ms-transition: 0.3s;
+    transition: 0.3s;
+}
+
+#nav1:hover {
+    -webkit-transform: scale(1.5,1.5);
+    -moz-transform: scale(1.5,1.5);
+    -o-transform: scale(1.5,1.5);
+    -ms-transform: scale(1.5,1.5);
+    transform: scale(1.5,1.5);
+}
 </style>
