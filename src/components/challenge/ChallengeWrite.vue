@@ -80,8 +80,23 @@
                 </el-form-item><br />
 
                 <!-- 이미지 -->
-                <img :src="state.imageUrl" style="width:300px" /><br />
-        이미지 : <input type="file" accept="image/*" @change="handleImage($event)" /><br />
+                <img :src="state.imageUrl" style="width:400px" /><br />
+
+                <!-- 이미지 : <input type="file" accept="image/*" @change="handleImage($event)" /><br />
+                <a class="center" style="margin-top:50px;">
+                    <div style="width:300px; height:200px;overflow: hidden; border: 3px solid #e2e2e2;">
+                        <img :src="state.imageUrl" style="width:100%; height:100% object-fit: cover;margin-top:0px" />
+                    </div>
+                </a> -->
+
+                <!-- 프로필 사진 변경 -->
+                <div class="center">
+                    <!-- 버튼 -->
+                    <label style="margin-left:-5px;margin-top:20px;" class="button-wht" for="file">프로필 사진 변경</label> 
+
+                    <!-- 숨김 -->
+                    <input class="hide" type="file" accept="image/*" id="file" @change="handleImage($event)" />
+                </div>
 
 
 
@@ -93,11 +108,6 @@
             </el-form>
         </el-card>
 
-        <hr />
-        <img :src="state.imageUrl" style="width:300px" /><br />
-        이미지 : <input type="file" @change="handleImage($event)" /><br />
-        <button @click="handleInsert">등록하기</button>
-        <button @click="handleBack">돌아가기</button> -->
     </div>
 </template>
 
@@ -321,6 +331,56 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
+.center{
+  text-align: center;
+}
 
+.button-wht {
+    background-color: #ffffff;
+    border: 1px solid #212529;
+    color: #212529;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
+}
+
+.button-blk1 {
+    background-color: #212529;
+    border: none;
+    color: rgb(255, 255, 255);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
+}
+
+.button-blk {
+    background-color: #212529;
+    border: none;
+    color: rgb(255, 255, 255);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
+    width: 300px;
+}
+
+.input-size {
+    width: 300px;
+}
+
+.hide {
+    display: none;
+}
 </style>

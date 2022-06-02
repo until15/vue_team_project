@@ -202,6 +202,8 @@ export default {
             if (response.data.status === 200) {
                 state.item = response.data.result
                 state.thumnail = response.data.image
+
+                
             }
         };
 

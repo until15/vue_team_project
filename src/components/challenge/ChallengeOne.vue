@@ -8,7 +8,7 @@
 
                 <!-- 이미지 -->
                 <div class="center">
-                    <img :src="state.image" class="image" style="width:400px;height:400px;margin-top:100px" /> <br />
+                    <img :src="state.image" class="image" style="width:800px;height:500px;margin-top:100px" /> <br />
                 </div>
             
                 <!-- 제목 -->
@@ -105,10 +105,10 @@
                             </el-table>     
                         </div><br />
                         
-                        <h4 class="text-right1">댓글?방명록?</h4><br />
+                        <!-- <h4 class="text-right1">댓글?방명록?</h4><br />
                         <div class="el-table" style="width:370px;">
                             임시
-                        </div>
+                        </div> -->
 
                     </div>
 
