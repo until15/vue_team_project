@@ -47,7 +47,7 @@
                 <el-form class="center" :inline="true">
                     <!-- 닉네임 -->
                     <el-form-item label="닉네임" label-width="80px;" style="margin-left:75px;margin-top:-15px;">
-                        <el-input class="input-size" size="medium" ref="mid" v-model="state.item.mid" placeholder="닉네임" @keyup="handleMidChk"/>
+                        <el-input class="input-size" size="medium" ref="mid" v-model="state.item.mid" placeholder="닉네임" @change="handleMidChk"/>
                     </el-form-item>
 
                     <!-- 중보확인 -->
@@ -57,14 +57,14 @@
                 </el-form>
 
                 <el-form class="center" :inline="true">
-                    <el-form-item style="margin-left:75px;margin-top:-15px;">
-                        <div style="font-size:15px;">{{state.usermidcheck}}</div>
+                    <el-form-item style="margin-left:75px;margin-top:-20px;">
+                        <div style="font-size:12px;">{{state.usermidcheck}}</div>
                     </el-form-item>
                 </el-form>
 
                 <el-form class="center" :inline="true">
                     <!-- 연락처 -->
-                    <el-form-item label="연락처" label-width="80px;" style="margin-left:22px;margin-top:-15px;">
+                    <el-form-item label="연락처" label-width="80px;" style="margin-left:22px;margin-top:-20px;">
                         <el-input class="input-size" size="medium" ref="mphone" maxlength="11" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" v-model="state.item.mphone" type="text" placeholder="-는 빼고 입력해주세요"/>
                     </el-form-item>
                 </el-form>

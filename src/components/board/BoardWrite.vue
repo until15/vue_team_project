@@ -89,11 +89,12 @@ export default {
                 const headers = {"Content-Type":"application/json", "token":state.token};
                 const body = {
                     btitle : state.btitle,
-                    bcontent : state.bcontent
+                    bcontent : state.bcontent.replace("<p>","").replace("</p>","")
                 };
                 const response = await axios.post(url, body, {headers});
                 console.log(response.data);
                 if(response.data.status === 200){
+                    
                     const url1 = `/ROOT/api/bimg/insert`;
                     const headers1 = {"Content-Type":"multipart/form-data", "token":state.token};
                     const body1 = new FormData();

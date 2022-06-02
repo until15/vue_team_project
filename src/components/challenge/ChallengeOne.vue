@@ -8,7 +8,7 @@
 
                 <!-- 이미지 -->
                 <div class="center">
-                    <img :src="state.image" class="image" style="width:800px;height:500px;margin-top:100px" /> <br />
+                    <img :src="state.image" class="image" style="width:400px;height:400px;margin-top:100px" /> <br />
                 </div>
             
                 <!-- 제목 -->

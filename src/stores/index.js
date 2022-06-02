@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-
+// import axios from 'axios';
 export default createStore({
     // 상태변수
     state : {
@@ -130,9 +130,26 @@ export default createStore({
     },
 
     actions : {
-       
-        // mutations의 setUid, setUname을 호출해서 내용변경
-
+        // async handleData(context, payload){
+        //     console.log(payload);
+        //     const token = sessionStorage.getItem("TOKEN");
+        //     if(typeof token !== 'undefined' && token !== null){
+        //         const url = `/ROOT/api/member/selectmemberone`;
+        //         const headers = {"Content-type":"application/json","token":token};
+        //         const response = await axios.get(url, {headers:headers});
+        //         if(response.data.status===200){
+        //             // mutations의 setUid, setUname을 호출해서 내용변경
+        //             context.commit("setMemail", response.data.memail);
+        //             context.commit("setMname", response.data.mname);
+        //             context.commit("setMrole", response.data.mrole);
+        //             context.commit("setLogged", true);
+        //         }
+        //         else{
+        //             // 토큰의 유효성을 검사하여 통과하지 못할경우 
+        //             context.commit("setLogged", false);
+        //         }
+        //     }
+        // }
     }
     
         

@@ -286,6 +286,13 @@ export default {
             }
         }
 
+        // const handleTwo = () => {
+        //     setTimeout(() => {
+        //         state.dialogTableVisible1 = false
+        //     },2000);
+        // }
+        
+
       
 
 
@@ -307,7 +314,7 @@ export default {
             dialogTableVisible1,
             routine,
             disabledDate,
-            handleNumber
+            handleNumber,
             
         }
     }

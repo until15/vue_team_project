@@ -29,8 +29,8 @@
 
             <!-- 아이디/비밀번호 찾기 -->
             <div class="center" style="margin-top:-10px;">
-                <el-link @click="dialogmemail = true">아이디 찾기</el-link>/
-                <el-link style="" @click="dialogmpw = true">비밀번호 찾기</el-link>
+                <el-link @click="state.dialogmemail = true">아이디 찾기</el-link>/
+                <el-link style="" @click="state.dialogmpw = true">비밀번호 찾기</el-link>
             </div>
 
             <!-- 로그인 -->
@@ -59,8 +59,8 @@
 
 
         <!-- 아이디 찾기 다이얼로그 -->
-        <el-dialog v-model="dialogmemail" width="30%" :before-close="handleClose">
-            <div v-if="state.item">
+        <el-dialog v-model="state.dialogmemail" width="30%" :before-close="handleClose">
+            <div v-if="state.item" style="margin-left:55px">
                당신의 아이디는 {{state.item.memail}} 입니다.
             </div>
             <br />        
@@ -93,8 +93,8 @@
 
 
         <!-- 암호 찾기 다이얼로그 -->
-        <el-dialog v-model="dialogmpw" width="30%" :before-close="handleClose">
-            <div v-if="state.newmpw" style="margin-top:-20px;margin-left:20px">
+        <el-dialog v-model="state.dialogmpw" width="30%" :before-close="handleClose">
+            <div v-if="state.newmpw" style="margin-top:-20px;margin-left:105px">
                임시 암호는 {{state.newmpw}}입니다.
             </div>       
             <div style="margin-right:60px;margin-top:10px">
@@ -149,6 +149,9 @@ export default {
             mname : '',
             mbirth : '',
             newpw : '',
+            dialogmemail : false,
+            dialogmpw : false
+
         });
 
         const memail = ref(null);
@@ -257,7 +260,13 @@ export default {
 
         // 다이얼로그 닫을때 새로고침
         const handleClose = () => {
-            router.push({name : "Login2"});
+            state.item = '';
+            state.newmpw = '';
+            state.dialogmemail = false;
+            state.dialogmpw = false;
+            state.mname = '';
+            state.mbirth = '';
+            state.memail = '';
         }
         
         // 회원가입으로 가기

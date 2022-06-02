@@ -34,10 +34,10 @@
                             </template>
                             </el-descriptions-item>
                         </el-descriptions>
-                        <hr />
                     </div>
                         
                     <div v-if="state.member.memail === memail">
+                        <hr />
                         <a class="center" style="margin-bottom:-100px;margin-right:200px">
                             <div style="border-radius: 70%; width:80px; height:80px;overflow: hidden; border: 3px solid #e2e2e2;">
                                 <img :src="state.imageUrl" style="width:135%; height:135% object-fit: cover;margin-top:0px;" />
