@@ -1,23 +1,23 @@
 <template>
-    <div align="center" style="padding : 20px">
+    <div align="center" style="padding : 120px">
 
-        <h3>자세 등록</h3>
+        <h2>자세 등록</h2>
         <h6>부적절하거나 운동과 관련없는 자세를 등록할 시 무통보 삭제가 될 수 있습니다.</h6>
         <br>
         <el-row :gutter="20">
         <el-col :span="2" :offset="8">이름 :</el-col> 
         <el-col :span="5"><el-input v-model="state.name"></el-input></el-col><br>
-        </el-row>
+        </el-row><br>
         <el-row :gutter="20">
         <el-col :span="2" :offset="8">부위 :</el-col> 
         <el-col :span="5" autocomplete="on">
             <el-input v-model="state.part" ></el-input>
         </el-col><br>
-        </el-row>
+        </el-row><br>
         <el-row :gutter="20">
         <el-col :span="2" :offset="8">내용 :</el-col> 
         <el-col :span="5"><el-input type="textarea" :rows="2" v-model="state.content"></el-input></el-col><br>
-        </el-row>
+        </el-row><br>
         <el-row :gutter="20">
         <el-col :span="2" :offset="8">난이도 :</el-col> 
         <el-col :span="5"><el-input type="number" min="1" max="5" v-model="state.level"></el-input></el-col><br>
