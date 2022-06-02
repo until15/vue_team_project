@@ -20,7 +20,7 @@
                         <li class="nav-item" id="nav1"><router-link to="/pose" class="nav-link">자세</router-link></li>
                         <div v-if="state.item">
                             <div v-if="state.item.mrole === 'admin'">
-                            <li class="nav-item"><router-link to="/admin" class="nav-link">관리자 페이지</router-link></li>
+                            <li class="nav-item" id="nav1"><router-link to="/admin" class="nav-link">관리자 페이지</router-link></li>
                             </div>
                         </div>
                     </ul>
