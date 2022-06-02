@@ -60,7 +60,7 @@
 
         <!-- 아이디 찾기 다이얼로그 -->
         <el-dialog v-model="state.dialogmemail" width="30%" :before-close="handleClose">
-            <div v-if="state.item" style="margin-left:55px">
+            <div v-if="state.item" class="left">
                당신의 아이디는 {{state.item.memail}} 입니다.
             </div>
             <br />        
@@ -94,7 +94,7 @@
 
         <!-- 암호 찾기 다이얼로그 -->
         <el-dialog v-model="state.dialogmpw" width="30%" :before-close="handleClose">
-            <div v-if="state.newmpw" style="margin-top:-20px;margin-left:105px">
+            <div v-if="state.newmpw" style="margin-top:-20px;margin-left:168px">
                임시 암호는 {{state.newmpw}}입니다.
             </div>       
             <div style="margin-right:60px;margin-top:10px">
@@ -390,6 +390,10 @@ export default {
 .center{
     margin-left: 65px;
     text-align: center;
+}
+
+.left{
+   margin-left:110px
 }
 
 .center-log{
