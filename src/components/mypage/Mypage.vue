@@ -16,7 +16,7 @@
 
 
             <!-- 정보 입력 -->
-            <div v-if="state.item" style="margin-right:60px;margin-top:-40px">
+            <div v-if="state.item" style="margin-right:60px;margin-top:-60px">
 
                 <el-form class="center" :inline="true" style="margin-top:50px;" >
                     <!-- 이름 -->
