@@ -78,7 +78,7 @@
                 <!-- 생년월일 입력 -->
                 <el-form class="center-log" :inline="true" style="margin-top:-20px" >
                     <el-form-item>
-                        <el-input class="input-size" size="medium" ref="mbirth" v-model="state.mbirth" placeholder="생년월일(YYYY-MM-DD)을 입력해주세요."  />
+                        <el-input class="input-size" size="medium" ref="mbirth" v-model="state.mbirth" placeholder="생년월일(YYYY-MM-DD)을 입력해주세요." @keydown.prevent.enter="handleMemail" />
                     </el-form-item>
                 </el-form>
 
@@ -104,7 +104,7 @@
                 <!-- 이메일 입력 -->
                 <el-form style="margin-top:25px" class="center" :inline="true"  >
                     <el-form-item>
-                        <el-input class="input-size" size="medium" ref="memail" v-model="state.memail" placeholder="이메일(아이디)를 입력해주세요." />
+                        <el-input class="input-size" size="medium" ref="memail" v-model="state.memail" placeholder="이메일(아이디)를 입력해주세요." @keydown.prevent.enter="handleMpw"/>
                     </el-form-item>
                 </el-form>
 
