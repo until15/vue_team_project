@@ -1,11 +1,13 @@
 <template>
     <div v-if="state.pose">
         <div style="padding: 80px">
+            <div style="margin-left:150px">
             <h2>{{state.pose.pname}}</h2>
             | {{state.pose.pregdate}}<br><br>
             부위 : {{state.pose.ppart}}<br><br>
             난이도 : {{state.pose.plevel}} <br><br>
             <el-card shadow="never" style="width:500px">{{state.pose.pcontent}} </el-card><br><br>
+            </div>
             <div align="center">
                 <div v-if="state.video">
                     <div v-if="state.type === state.vio || state.type === state.vio1 || state.type === state.vio2">
