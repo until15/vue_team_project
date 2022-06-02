@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div>
+        <div class="back">
             <!-- 타이틀 -->
             <div class="center">
                 <h3 style="margin-top:100px;">나의 정보</h3>
@@ -372,5 +372,10 @@ export default {
 
 .hide {
     display: none;
+}
+
+.back{
+    background-image: url(https://jhealthfile.joins.com/photo//2020/02/20/1343b1c172e80.jpg);
+    background-size: unset;
 }
 </style>
