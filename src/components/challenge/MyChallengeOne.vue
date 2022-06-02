@@ -27,7 +27,7 @@
 
                         <!-- 인증하기 -->
                         <div class="center" style="margin-top:-45px;">
-                            <el-button class="button-blk" type="info" size="medium" plain @click="handleConfirm(state.jno)" >인증하기</el-button>
+                            <el-button class="button-blk" type="info" size="medium" plain @click="handleConfirm(state.item.jno)" >인증하기</el-button>
                         </div>
                     
                         <!-- 뒤로가기 -->
@@ -113,7 +113,7 @@
                                     <el-table-column prop="ccregdate" label="등록일" width="120" />
                                 </el-table>
                             </div>
-
+                            
                         </div>
                     </div>
 
@@ -131,130 +131,28 @@
 
 
         <hr />
-
-        <!-- 첼린지 내 인증 리스트 -->
-        <div class="text-center">
-            <div>
-                <h3>인증 글</h3>
-            </div>
-
-            <!-- <div class="text-center center">
-                <table>
-                    <tr>
-                        <th>이미지</th>
-                        <th>인증 번호</th>
-                        <th>작성자</th>
-                        <th>인증내용</th>
-                        <th>성공 유무</th>
-                        <th>인증일</th>
-                    </tr>
-                    <tr v-for="(tmp, i) in state.cfitems" :key="tmp">
-                        <td>
-                            <div v-for="(tmp1, j) in state.imageUrl[i]" :key="tmp1">
-                                <img :src="state.imageUrl[i][j]" style="width:50px" />
-                            </div>
-                        </td>
-                        <td>{{tmp.cfno}}</td>
-                        <td>{{tmp.memail}}</td>
-                        <td>{{tmp.cfcomment}}</td>
-                        <td>
-                            <span v-if="tmp.cfsuccess === 0"> 대기중</span>
-                            <span v-if="tmp.cfsuccess === 1"> 성공</span>
-                            <span v-if="tmp.cfsuccess === 2"> 실패</span>
-                        </td>
-                        <td>{{tmp.ccregdate}}</td>
-                        <td v-if="state.item.cid === state.mId">
-                            <div v-if="tmp.cfsuccess === 0">
-                                <button @click="handleSuccess(1, tmp.cfno)">성공</button>
-                                <button @click="handleSuccess(2, tmp.cfno)">실패</button>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </div> -->
-
-            <div v-for="(tmp, i) in state.cfitems" :key="tmp" style="margin-top:30px;" class="center">
-                <el-card>
-                    <template #header>
-                        <div class="m-tb side">
-                            <!-- 작성자 -->
-                            <div style="margin-left:10px">
-                                <span style="font-size:2rem;">{{tmp.memail}}</span>
-                            </div>
-                            <!-- 등록일 -->
-                            <div style="margin-right:10px">
-                                <span>{{tmp.ccregdate}}</span>
-                            </div>
-                        </div>
-                    </template>
-                    <!-- 하단 -->
-                    <div style="display:flex;">
-                        <!-- 이미지 -->
-                        <div v-if="state.imageUrl" style="padding:10px; width:370px;">
-                            <el-carousel height="350px">
-                                <el-carousel-item v-for="(tmp1, j) in state.imageUrl[i]" :key="tmp1">
-                                    <img :src="state.imageUrl[i][j]" class="img-size" />
-                                </el-carousel-item>
-                            </el-carousel>
-                        </div>
-
-                        <!-- 내용 -->
-                        <div style="padding:10px;">
-                            <span>번호: {{tmp.cfno}}</span> <br />
-                            <span>내용: {{tmp.cfcomment}}</span> <br />
-                            <span>인증 상태 : {{tmp.cfsuccess}}</span> <br />
-                            <!-- 성공 판별 버튼 -->
-                            <div v-if="state.item.cid === state.mId">
-                                <div v-if="tmp.cfsuccess === '대기중'">
-                                    <el-button class="button-bmk" type="info" size="medium" plain 
-                                        @click="handleSuccess(1, tmp.cfno)">성공</el-button>
-                                    <el-button class="button-like" type="info" size="medium" plain
-                                        @click="handleSuccess(2, tmp.cfno)">실패</el-button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </el-card>
-            </div>
-
-            <!-- 페이지네이션 -->
-            <!-- <div>
-                <label v-for="tmp in state.pages" :key="tmp">
-                    <button @click="handlePage(state.chgno, tmp)" >{{ tmp }}</button>
-                </label>
-            </div> -->
-            <!-- 페이지네이션 -->
-            <div class="example-pagination-block center my-3" v-if="state.pages">
-                <el-pagination 
-                    layout="prev, pager, next" 
-                    :page-size="5" 
-                    :total="state.pages" 
-                    @current-change="handleCurrent" />
-            </div>
-            <!-- 상황별 인증 조회 -->
-            <!-- 성공, 실패, 인증 대기중 -->
-                        <!-- <hr />
+        <div v-if="state.item">
             <SuccessCfm 
                 :chgno="state.chgno" 
                 :cid="state.item.cid" 
                 :jno="state.item.jno"
                 :chgrate="state.item.chgrate">
-            </SuccessCfm> -->
+            </SuccessCfm>
         </div>
     </div>
 </template>
 
 <script>
 import { reactive } from '@vue/reactivity'
-import { onMounted, watch } from '@vue/runtime-core';
+import { onMounted } from 'vue';
 import axios from 'axios';
 import { useRoute, useRouter } from 'vue-router';
-//import SuccessCfm from '../Confirm/SuccessCfm.vue';
+import SuccessCfm from '../Confirm/SuccessCfm.vue';
 
 export default {
-    // components:{
-    //     SuccessCfm,
-    // },
+    components:{
+        SuccessCfm,
+    },
 
     setup () {
         const route = useRoute();
@@ -293,7 +191,7 @@ export default {
         };
 
         // 내가만든 첼린지 상세
-        const handleData = watch(async()=> {
+        const handleData = async()=> {
             const url = `/ROOT/api/join/cidselectone?chgno=${state.chgno}`;
             const headers = {
                 "Content-Type":"application/json",
@@ -305,7 +203,7 @@ export default {
                 state.item = response.data.result
                 state.thumnail = response.data.image
             }
-        });
+        };
 
         // 좋아요
         const handleLike = async() => {
