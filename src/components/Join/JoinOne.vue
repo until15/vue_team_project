@@ -60,7 +60,7 @@
 
                     <!-- 인증하기 -->
                     <div class="center" style="margin-top:-45px;">
-                        <el-button class="button-blk" type="info" size="medium" plain >인증하기</el-button>
+                        <el-button class="button-blk" type="info" size="medium" plain @click="handleConfirm(state.jno)" >인증하기</el-button>
                     </div>
                 
                     <!-- 뒤로가기 -->
@@ -154,7 +154,7 @@
             <div class="btn">
                 <!-- 포기하기 -->
                 <div class="center" style="margin-top:15px;">
-                    <el-button class="btn-give-up" type="info" size="medium" plain >챌린지 포기</el-button>
+                    <el-button class="btn-give-up" type="info" size="medium" plain @click="handleGiveup">챌린지 포기</el-button>
                 </div>
             </div>
 
@@ -238,8 +238,10 @@
                         <!-- 성공 판별 버튼 -->
                         <div v-if="state.item.cid === state.mId">
                             <div v-if="tmp.cfsuccess === '대기중'">
-                                <button @click="handleSuccess(1, tmp.cfno)">성공</button>
-                                <button @click="handleSuccess(2, tmp.cfno)">실패</button>
+                                <el-button class="button-bmk" type="info" size="medium" plain 
+                                    @click="handleSuccess(1, tmp.cfno)">성공</el-button>
+                                <el-button class="button-like" type="info" size="medium" plain
+                                     @click="handleSuccess(2, tmp.cfno)">실패</el-button>
                             </div>
                         </div>
                     </div>
