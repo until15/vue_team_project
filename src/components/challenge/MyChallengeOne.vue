@@ -27,7 +27,7 @@
 
                         <!-- 인증하기 -->
                         <div class="center" style="margin-top:-45px;">
-                            <el-button class="button-blk" type="info" size="medium" plain @click="handleConfirm(state.jno)" >인증하기</el-button>
+                            <el-button class="button-blk" type="info" size="medium" plain @click="handleConfirm(state.item.jno)" >인증하기</el-button>
                         </div>
                     
                         <!-- 뒤로가기 -->

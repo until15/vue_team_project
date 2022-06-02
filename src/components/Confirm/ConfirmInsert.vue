@@ -122,10 +122,10 @@ export default {
                 return false;
             }
 
-            if (state.comment.length <= 0) {
-                alert("내용을 입력해주세요");
-                return false;
-            }
+            // if (state.comment.length <= 0) {
+            //     alert("내용을 입력해주세요");
+            //     return false;
+            // }
 
             const url = `/ROOT/api/confirm/insert.json?jno=${state.jno}`;
             const headers = {
