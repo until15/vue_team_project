@@ -6,7 +6,7 @@
                 <div>
                     <a href="http://localhost:8080/#/">
                         <img class="logo_black" 
-                        :src="logo_black" /> 
+                        :src="logo_black" id="nav1" /> 
                     </a>
                 </div>
                 <!-- <router-link to="/" class="navbar-brand fonts" style="font-size:2.5rem" >헬린지</router-link> -->
