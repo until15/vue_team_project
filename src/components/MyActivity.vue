@@ -26,6 +26,11 @@
                     <el-tab-pane label="좋아요 목록" name="4">
                         <my-like></my-like>
                     </el-tab-pane>
+
+                    <!-- 나의 게시판 목록 -->
+                    <el-tab-pane label="나의 게시물 목록" name="5">
+                        <my-community></my-community>
+                    </el-tab-pane>
                 </el-tabs>
             </div>
         </div>
@@ -38,6 +43,7 @@ import myChallenge from './challenge/MyChallenge.vue';
 import myConfirm from './Confirm/MyConfirm.vue';
 import myBookmark from './mypage/MyBookmarkList.vue';
 import myLike from './mypage/MyLikeList.vue';
+import MyCommunity from './mypage/MyCommunity.vue';
 import { ref } from 'vue'
 
 export default {
@@ -45,7 +51,8 @@ export default {
         myChallenge,
         myConfirm,
         myBookmark,
-        myLike
+        myLike,
+        MyCommunity,
     },
 
     setup () {

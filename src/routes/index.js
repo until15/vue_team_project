@@ -40,6 +40,7 @@ import menu3 from '@/components/mypage/menu3.vue';
 import Mypage from '@/components/mypage/Mypage.vue'; 
 import MyLikeList from '@/components/mypage/MyLikeList.vue';
 import MyBookmarkList from '@/components/mypage/MyBookmarkList.vue';
+import MyCommunity from '@/components/mypage/MyCommunity.vue';
 /////////////////////////// JOIN ////////////////////////////////
 import JoinList from '@/components/Join/JoinList.vue';
 import JoinState from '@/components/Join/JoinState.vue';
@@ -105,6 +106,7 @@ const routes = [
     { path:'/menu2', name:"menu2", component:menu2 },
     { path:'/menu3', name:"menu3", component:menu3 },
     { path:'/mypage', name:"Mypage", component:Mypage },
+    { path:'/mycommunity', name:"MyCommunity", component:MyCommunity },
     { path:'/inquiryone', name:"InquiryOne", component:InquiryOne },
     { path:'/joinlist', name:"JoinList", component:JoinList },
     { path:'/joinstate', name:"JoinState", component:JoinState },
