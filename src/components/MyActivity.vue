@@ -28,7 +28,7 @@
                     </el-tab-pane>
 
                     <!-- 나의 게시판 목록 -->
-                    <el-tab-pane label="나의 게시판 목록" name="5">
+                    <el-tab-pane label="나의 게시물 목록" name="5">
                         <my-community></my-community>
                     </el-tab-pane>
                 </el-tabs>

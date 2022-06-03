@@ -45,7 +45,7 @@ export default {
 
         const state = reactive({
             page : 1,
-            total : 1,
+            total : 0,
             btitle : '',
             memail : '',
             token : sessionStorage.getItem("TOKEN"),
@@ -54,9 +54,13 @@ export default {
 
         const handleData = async() => {
             const url = `/ROOT/api/community/myselectlist?page=${state.page}&btitle=${state.btitle}`;
-            const headers = {"Content-Type":"application/json"};
+            const headers = {"Content-Type":"application/json", "token":state.token};
             const response = await axios.get(url, {headers});
-            console.log("게시판꺼" + response.data);
+            console.log(response.data);
+            if(response.data.status === 200){
+                state.items = response.data.result;
+                state.total = response.data.total;
+            }
             
         }
 
