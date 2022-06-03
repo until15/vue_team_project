@@ -93,7 +93,7 @@
             </el-form>
         </el-card>
 
-        <hr />
+        <!-- <hr />
         <img :src="state.imageUrl" style="width:300px" /><br />
         이미지 : <input type="file" @change="handleImage($event)" /><br />
         <button @click="handleInsert">등록하기</button>
