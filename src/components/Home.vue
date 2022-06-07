@@ -380,7 +380,7 @@ export default {
 
     // 인기 첼린지 리스트
     const likeChallengeData = async() => {
-      const url = `/ROOT/api/challenge/selectlikelist?like=${state1.like}`;
+      const url = `/until15/api/challenge/selectlikelist?like=${state1.like}`;
       const headers = {"Content-Type":"application/json"};
       const response = await axios.get(url, {headers});
        console.log("인기 챌린지 : ", response.data);
@@ -392,7 +392,7 @@ export default {
 
     // 난이도 별 첼린지 리스트
     const levelChallengeData = async() => {
-      const url = `/ROOT/api/challenge/selectlevellist`;
+      const url = `/until15/api/challenge/selectlevellist`;
       const headers = {"Content-Type":"application/json"};
       const response = await axios.get(url, {headers});
        console.log("난이도별 챌린지 : ", response.data);
@@ -405,7 +405,7 @@ export default {
 
     // 내가 참여한 진행 중인 첼린지 리스트
     const joinChallengeData = async() => {
-      const url = `/ROOT/api/join/inglist`;
+      const url = `/until15/api/join/inglist`;
       const headers = {
         "Content-Type":"application/json",
         "token" : state.token

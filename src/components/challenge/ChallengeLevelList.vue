@@ -65,7 +65,7 @@ export default {
         });
 
         const handleData = async() => {
-            const url = `/ROOT/api/challenge/levelselectlist?page=${state.page}&level=${state.level}`;
+            const url = `/until15/api/challenge/levelselectlist?page=${state.page}&level=${state.level}`;
             const headers = {"Content-Type" : "application/json"};
             const response = await axios.get(url, {headers});
 

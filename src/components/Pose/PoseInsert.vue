@@ -110,7 +110,7 @@ export default {
                 alert('파일을 첨부하세요.')
                 return false;
             }
-            const url = `/ROOT/api/pose/insert.json`;
+            const url = `/until15/api/pose/insert.json`;
             const headers = {"Content-Type":"application/json", "token":state.token};
             const body = {
                 pname : state.name,
@@ -122,7 +122,7 @@ export default {
             const response = await axios.post(url, body, {headers});
             console.log(response.data);
             if(response.data.status === 200){
-                const url1 = `/ROOT/api/pose/insertvideo.json`;
+                const url1 = `/until15/api/pose/insertvideo.json`;
                 const headers1 = {"Content-Type":"multipart/form-data", "token":state.token};
                 const body1 = new FormData();
                 body1.append("pvideo", state.videodata);

@@ -163,7 +163,7 @@ export default {
         // 데이터 불러오기(상세)
         const handleData = async(bno) => {
             
-            const url = `/ROOT/api/community/selectone?bno=${bno}`;
+            const url = `/until15/api/community/selectone?bno=${bno}`;
             const headers = {"Content-Type":"application/json"};
             const response = await axios.get(url, {headers});
             console.log(response.data);
@@ -187,7 +187,7 @@ export default {
         // 상세페이지 삭제
         const handleDelete = async() => {
             if(confirm('삭제하시겠습니까?')){
-                const url = `/ROOT/api/community/delete?bno=${state.bno}`;
+                const url = `/until15/api/community/delete?bno=${state.bno}`;
                 const headers = {"Content-Type":"application/json", "token":state.token};
                 const response = await axios.delete(url, {headers});
                 console.log(response.data);
@@ -208,7 +208,7 @@ export default {
                 cmtcontent.value.focus();
                 return false;
             }
-            const url = `/ROOT/api/comment/insert`;
+            const url = `/until15/api/comment/insert`;
             const headers = {"Content-Type":"application/json", "token":state.token};
             const body = {
                 cmtcontent : state.reply1.cmtcontent,
@@ -228,7 +228,7 @@ export default {
 
         // 댓글 출력
         const handleSelectComment = async(bno) => {
-            const url = `/ROOT/api/comment/selectone?bno=${bno}`;
+            const url = `/until15/api/comment/selectone?bno=${bno}`;
             const headers = {"Content-Type":"application/json"};
             const response = await axios.get(url, {headers});
             console.log(response.data);
@@ -239,7 +239,7 @@ export default {
 
         // 댓글 삭제
         const handleReplyDelete = async(cmtno) => {
-            const url = `/ROOT/api/comment/delete?cmtno=${cmtno}`;
+            const url = `/until15/api/comment/delete?cmtno=${cmtno}`;
             const headers = {"Content-Type":"application/json","token":state.token};
             const response = await axios.delete(url, {headers});
             console.log(response.data);
@@ -254,7 +254,7 @@ export default {
 
         // 이미지 보이기
         const handleSelectImage = async(bno) => {
-            const url = `/ROOT/api/bimg/selectimg?bno=${bno}`;
+            const url = `/until15/api/bimg/selectimg?bno=${bno}`;
             const headers = {"Content-Type":"application/json"};
             const response = await axios.get(url, {headers});
             console.log("============", response.data);
@@ -272,7 +272,7 @@ export default {
                 return false;
             }
 
-            const url = `/ROOT/api/bimg/insert`;
+            const url = `/until15/api/bimg/insert`;
             const headers = {"Content-Type":"multipart/form-data","token":state.token};
             const body = new FormData();
             body.append("file", state.mimage);

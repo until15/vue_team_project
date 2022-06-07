@@ -127,7 +127,7 @@ export default {
             //     return false;
             // }
 
-            const url = `/ROOT/api/confirm/insert.json?jno=${state.jno}`;
+            const url = `/until15/api/confirm/insert.json?jno=${state.jno}`;
             const headers = {
                 "Content-Type":"application/json",
                 "token":state.token
@@ -141,7 +141,7 @@ export default {
                 console.log("인증 완료");
                 state.cfno = response.data.result
                 // 이미지 등록
-                const urlImg = `/ROOT/api/confirm/cfimage.insert?cfno=${state.cfno}`;
+                const urlImg = `/until15/api/confirm/cfimage.insert?cfno=${state.cfno}`;
                 const headersImg = {"Content-Type":"multipart/form-data"};
                 const bodyImg = new FormData();
                 for (let i=0; i<state.proImg.length; i++) {

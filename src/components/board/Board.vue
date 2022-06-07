@@ -78,7 +78,7 @@ export default {
         
         // 테이블 데이터 불러오기
         const handleData = async() => {
-            const url = `/ROOT/api/community/selectlist?page=${state.page}&btitle=${state.btitle}`;
+            const url = `/until15/api/community/selectlist?page=${state.page}&btitle=${state.btitle}`;
             const headers = {"Content-Type":"application/json"};
             const response = await axios.get(url, {headers});
             console.log(response.data);
@@ -91,7 +91,7 @@ export default {
 
         // 조회수 오르면서 상세페이지로 이동
         const handlePage = async(bno) => {
-            const url = `/ROOT/api/community/updatehit?bno=${bno}`;
+            const url = `/until15/api/community/updatehit?bno=${bno}`;
             const headers = {"Content-Type":"application/json"};
             const response = await axios.put(url, {headers});
             console.log(response.data);

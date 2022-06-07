@@ -52,7 +52,7 @@ export default {
 
         // 데이터 불러오기
         const handleData = async() => {
-            const url = `/ROOT/api/member/selectmemberone`;
+            const url = `/until15/api/member/selectmemberone`;
             const headers = {"Content-Type":"application/json","token":state.token};
             const response = await axios.get(url, {headers});
             console.log(response.data);
@@ -64,7 +64,7 @@ export default {
         // 암호 수정하기
         const handleUpdate = async() => {
             if(state.token !== null){
-                const url = `/ROOT/api/member/updatepw`;
+                const url = `/until15/api/member/updatepw`;
                 const headers = {"Content-Type":"application/json","token":state.token};
                 const body = {
                     mpw : state.item.mpw,

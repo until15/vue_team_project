@@ -67,7 +67,7 @@ export default {
 
         // 회원 조회
         const handleMemberData = async() => {
-            const url = `/ROOT/api/member/selectmemberone`;
+            const url = `/until15/api/member/selectmemberone`;
             const headers = {
                 "Content-Type": "application/json",
                 token: state.token,
@@ -81,7 +81,7 @@ export default {
 
         const handleDeleteAdmin = async() => {
             if(confirm('관리자 권한으로 삭제하시겠습니까? 삭제된 자세는 보관됩니다.')){
-                const url = `/ROOT/api/pose/deleteone.json`;
+                const url = `/until15/api/pose/deleteone.json`;
                 const headers = {"Content-Type":"application/json"};
                 const body = {
                     "pno" : state.no,
@@ -98,7 +98,7 @@ export default {
 
         const handleDelete = async() => {
             if(confirm('삭제하시겠습니까?')){
-                const url = `/ROOT/api/pose/delete.json`;
+                const url = `/until15/api/pose/delete.json`;
                 const headers = {"Content-Type":"application/json", "token":state.token};
                 const body = {
                     "pno" : state.no,
@@ -114,7 +114,7 @@ export default {
         }
 
         const handleLoadData = async(no) => {
-            const url = `/ROOT/api/pose/selectone.json?pno=${no}`;
+            const url = `/until15/api/pose/selectone.json?pno=${no}`;
             const headers = {"Content-Type":"application/json"};
             const response = await axios.get(url, {headers});
             console.log(response.data);

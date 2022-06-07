@@ -77,7 +77,7 @@ export default {
         };
 
         const handleData = async(page, text)=> {
-            const url = `/ROOT/api/join/cidselectlist?page=${page}&text=${text}`;
+            const url = `/until15/api/join/cidselectlist?page=${page}&text=${text}`;
             const headers = {
                 "Content-Type":"application/json",
                 "token" : state.token

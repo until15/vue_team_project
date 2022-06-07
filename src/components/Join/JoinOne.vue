@@ -267,7 +267,7 @@ export default {
             // console.log(state.chgno);
 
             if (confirm("포기하시겠습니까?")) {
-                const url = `/ROOT/api/join/giveup?chgno=${state.chgno}`;
+                const url = `/until15/api/join/giveup?chgno=${state.chgno}`;
                 const headers = {
                     "Content-Type":"application/json",
                     "token" : state.token
@@ -285,7 +285,7 @@ export default {
         // 내가 참여한 진행 중인 첼린지 상세 내용
         const handleData = async(no)=> {
             // console.log(no);
-            const url = `/ROOT/api/join/selectone?jno=${no}`;
+            const url = `/until15/api/join/selectone?jno=${no}`;
             const headers = {
                 "Content-Type":"application/json",
                 "token" : state.token
@@ -312,7 +312,7 @@ export default {
         const handleCfmData = async(chgno, page)=> {
             // console.log("첼린지 번호 : ", chgno);
             // console.log("페이지 : ", page);
-            const url = `/ROOT/api/confirm/chgcfmlist.json?chgno=${chgno}&page=${page}`;
+            const url = `/until15/api/confirm/chgcfmlist.json?chgno=${chgno}&page=${page}`;
             const headers = {"Content-Type":"application/json"};
             const response = await axios.get(url, {headers});
             // console.log("인증글 조회 : ", response.data);
@@ -335,7 +335,7 @@ export default {
                     // console.log(state.imageNo);
 
                     // 인증 이미지
-                    const url1 = `/ROOT/api/confirm/selectimages?cfno=${state.imageNo}`;
+                    const url1 = `/until15/api/confirm/selectimages?cfno=${state.imageNo}`;
                     const headers1 = {"Content-Type":"application/json"};
                     const response1 = await axios.get(url1, {headers:headers1});
                     // console.log("이미지 데이터 : ", response1.data);
@@ -405,7 +405,7 @@ export default {
             if (confirm( state.jconfirm+" 확정하시겠습니까?")) {
                 // console.log("인증 번호 : ", cfno);
                 // console.log("성공 여부 : ", e);
-                const url = `/ROOT/api/confirm/whethercfm.json?cfno=${cfno}`;
+                const url = `/until15/api/confirm/whethercfm.json?cfno=${cfno}`;
                 const headers = {"Content-Type":"application/json"};
                 const body = {cfsuccess : e};
                 const response = await axios.put(url, body, {headers});
@@ -415,7 +415,7 @@ export default {
 
                     // 달성률 업데이트
                     if (e === 1) {
-                        const url1 = `/ROOT/api/confirm/successrate.json?chgno=${state.chgno}&jno=${state.jno}`;
+                        const url1 = `/until15/api/confirm/successrate.json?chgno=${state.chgno}&jno=${state.jno}`;
                         const headers1 = {"Content-Type":"application/json"};
                         const body1 = {};
                         const response1 = await axios.put(url1, body1, {headers:headers1});
@@ -434,7 +434,7 @@ export default {
         // 좋아요
         const handleLike = async() => {
             // console.log(state.chgno);
-            const url = `/ROOT/api/like/insert?chgno=${state.chgno}`;
+            const url = `/until15/api/like/insert?chgno=${state.chgno}`;
             const headers = {
                 "Content-Type" : "application/json",
                 "token":state.token
@@ -449,7 +449,7 @@ export default {
                 handleData(state.chgno);
             }
             // else if(response.data.status === 0) {
-            //     const url = `/ROOT/api/like/delete?chgno=${state.chgno}&lno=${state.lno}`;
+            //     const url = `/until15/api/like/delete?chgno=${state.chgno}&lno=${state.lno}`;
             //     const headers = {
             //         "Content-Type" : "application/json",
             //         token:state.token
@@ -467,7 +467,7 @@ export default {
         // 즐겨찾기
         const handleBmk = async() => {
             console.log(state.chgno);
-            const url = `/ROOT/api/bookmark/insert?chgno=${state.chgno}`;
+            const url = `/until15/api/bookmark/insert?chgno=${state.chgno}`;
             const headers = {
                 "Content-Type" : "application/json",
                 token:state.token
@@ -481,7 +481,7 @@ export default {
                 console.log(state.chgno);
             }
             // else if(response.data.status === 0) {
-            //     const url = `/ROOT/api/like/delete?chgno=${state.chgno}&lno=${state.lno}`;
+            //     const url = `/until15/api/like/delete?chgno=${state.chgno}&lno=${state.lno}`;
             //     const headers = {
             //         "Content-Type" : "application/json",
             //         token:state.token

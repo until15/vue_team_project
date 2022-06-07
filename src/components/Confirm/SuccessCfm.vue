@@ -130,7 +130,7 @@ export default {
 
         // 인증글 리스트
         const handleData = async(page)=> {
-            const url = `/ROOT/api/confirm/chgcfmlist.json?chgno=${props.chgno}&page=${page}`;
+            const url = `/until15/api/confirm/chgcfmlist.json?chgno=${props.chgno}&page=${page}`;
             const headers = {"Content-Type":"application/json"};
             const response = await axios.get(url, {headers});
             console.log("인증글 조회 : ", response.data);
@@ -153,7 +153,7 @@ export default {
                     // console.log(state.imageNo);
 
                     // 인증 이미지
-                    const url1 = `/ROOT/api/confirm/selectimages?cfno=${state.imageNo}`;
+                    const url1 = `/until15/api/confirm/selectimages?cfno=${state.imageNo}`;
                     const headers1 = {"Content-Type":"application/json"};
                     const response1 = await axios.get(url1, {headers:headers1});
                     // console.log("이미지 데이터 : ", response1.data);
@@ -220,7 +220,7 @@ export default {
             if (confirm( state.jconfirm+" 확정하시겠습니까?")) {
                 // console.log("인증 번호 : ", cfno);
                 // console.log("성공 여부 : ", e);
-                const url = `/ROOT/api/confirm/whethercfm.json?cfno=${cfno}`;
+                const url = `/until15/api/confirm/whethercfm.json?cfno=${cfno}`;
                 const headers = {"Content-Type":"application/json"};
                 const body = {cfsuccess : e};
                 const response = await axios.put(url, body, {headers});
@@ -236,7 +236,7 @@ export default {
 
         // 달성률 업데이트
         const challnegeRate = async()=> {
-            const url1 = `/ROOT/api/confirm/successrate.json?chgno=${props.chgno}&jno=${props.jno}`;
+            const url1 = `/until15/api/confirm/successrate.json?chgno=${props.chgno}&jno=${props.jno}`;
             const headers1 = {"Content-Type":"application/json"};
             const body1 = {};
             const response1 = await axios.put(url1, body1, {headers:headers1});

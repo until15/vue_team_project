@@ -53,7 +53,7 @@ export default {
         });
 
         const handleData = async() => {
-            const url = `/ROOT/api/community/myselectlist?page=${state.page}&btitle=${state.btitle}`;
+            const url = `/until15/api/community/myselectlist?page=${state.page}&btitle=${state.btitle}`;
             const headers = {"Content-Type":"application/json", "token":state.token};
             const response = await axios.get(url, {headers});
             console.log(response.data);

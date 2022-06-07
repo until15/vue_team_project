@@ -65,7 +65,7 @@ export default {
           
           
             editor.editing.view.change( writer => {
-                writer.setStyle( 'height', '600px', editor.editing.view.document.getRoot() );
+                writer.setStyle( 'height', '600px', editor.editing.view.document.getuntil15() );
             });
         }
 
@@ -85,7 +85,7 @@ export default {
 
 
             if(state.token !== null){
-                const url = `/ROOT/api/community/insert`;
+                const url = `/until15/api/community/insert`;
                 const headers = {"Content-Type":"application/json", "token":state.token};
                 const body = {
                     btitle : state.btitle,
@@ -95,7 +95,7 @@ export default {
                 console.log(response.data);
                 if(response.data.status === 200){
                     
-                    const url1 = `/ROOT/api/bimg/insert`;
+                    const url1 = `/until15/api/bimg/insert`;
                     const headers1 = {"Content-Type":"multipart/form-data", "token":state.token};
                     const body1 = new FormData();
                     body1.append("file", state.mimage);

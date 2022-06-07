@@ -134,7 +134,7 @@ export default createStore({
         //     console.log(payload);
         //     const token = sessionStorage.getItem("TOKEN");
         //     if(typeof token !== 'undefined' && token !== null){
-        //         const url = `/ROOT/api/member/selectmemberone`;
+        //         const url = `/until15/api/member/selectmemberone`;
         //         const headers = {"Content-type":"application/json","token":token};
         //         const response = await axios.get(url, {headers:headers});
         //         if(response.data.status===200){

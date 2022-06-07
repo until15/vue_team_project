@@ -32,7 +32,7 @@ export default {
         });
 
         const handleData = async() => {
-            const url = `/ROOT/api/pay/selectlist.json`;
+            const url = `/until15/api/pay/selectlist.json`;
             const headers = {"Content-Type":"application/json", "token":state.token};
             const response = await axios.get(url, {headers});
             console.log(response.data);

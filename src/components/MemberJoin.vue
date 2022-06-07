@@ -319,7 +319,7 @@ export default {
                 if(validPhone(state.mphone)){
                     const mphone = state.mphone;
                     const newmphone = mphone.replace(/-/g, '');
-                    const url = `/ROOT/api/member/join`;
+                    const url = `/until15/api/member/join`;
                     const headers = {"Content-Type":"multipart/form-data"};
                     const body = new FormData();
                     body.append("memail", state.memail + "@" + state.memail1);
@@ -385,7 +385,7 @@ export default {
         const emailCheck = async() => {
             if(validEmail(state.memail+'@'+state.memail1)){
                 console.log(state.memail +'@'+ state.memail1);
-                const url = `/ROOT/api/member/emailcheck?memail=${state.memail+'@'+ state.memail1}`;
+                const url = `/until15/api/member/emailcheck?memail=${state.memail+'@'+ state.memail1}`;
                 const headers = {"Content-Type":"application/json"};
                 const response = await axios.get(url, {headers});
                 console.log(response.data);
@@ -413,7 +413,7 @@ export default {
         // 닉네임 체크
         const checkMid = async() => {
             if(state.mid){
-                const url = `/ROOT/api/member/checkmid?mid=${state.mid}`;
+                const url = `/until15/api/member/checkmid?mid=${state.mid}`;
                 const headers = {"Content-Type":"application/json"};
                 const response = await axios.get(url, {headers});
                 console.log(response.data);

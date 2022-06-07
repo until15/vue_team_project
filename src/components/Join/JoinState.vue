@@ -61,7 +61,7 @@ export default {
         const handleData = async(chgs)=> {
             // console.log("넘어오는 상태값 : ", chgs);
             // console.log("페이지 : ", state.page);
-            const url = `/ROOT/api/join/joinstate?chgstate=${chgs}&page=${state.page}`;
+            const url = `/until15/api/join/joinstate?chgstate=${chgs}&page=${state.page}`;
             const headers = {
                 "Content-Type":"application/json",
                 "token" : state.token
