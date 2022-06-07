@@ -17,6 +17,6 @@ module.exports = {
     
 
     // 리소스의 위치
-    // publicPath : '/ROOT/vue'
+    publicPath : '/ROOT/vue/'
 
 };
