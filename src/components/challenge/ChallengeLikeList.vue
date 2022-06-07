@@ -71,7 +71,7 @@ export default {
 
 
         const handleData = async() => {
-            const url = `/ROOT/api/challenge/likeselectlist?page=${state.page}&like=${state.like}`;
+            const url = `/until15/api/challenge/likeselectlist?page=${state.page}&like=${state.like}`;
             const headers = {"Content-Type" : "application/json"};
             const response = await axios.get(url, {headers});
 

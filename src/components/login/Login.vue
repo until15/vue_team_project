@@ -179,7 +179,7 @@ export default {
                 return false;
             }
 
-            const url = `/ROOT/api/member/login`;
+            const url = `/until15/api/member/login`;
             const headers = {"Content-Type":"application/json"};
             const body = {
                 memail : state.memail,
@@ -218,7 +218,7 @@ export default {
                 return false;
             }
 
-            const url = `/ROOT/api/member/findmemail?mname=${state.mname}&mbirth=${state.mbirth}`;
+            const url = `/until15/api/member/findmemail?mname=${state.mname}&mbirth=${state.mbirth}`;
             const headers = {"Content-Type":"application/json"};
             const response = await axios.get(url, {headers});
             console.log(response.data);
@@ -241,7 +241,7 @@ export default {
                 return false;
             }
 
-            const url = `/ROOT/api/member/updatepw3?memail=${state.memail}`;
+            const url = `/until15/api/member/updatepw3?memail=${state.memail}`;
             const headers = {"Content-Type":"application/json"};
             const response = await axios.put(url, {headers});
             console.log(response.data);
@@ -283,7 +283,7 @@ export default {
             console.log("로그인 버튼 클릭 ");
 
             window.Kakao.Auth.authorize({
-                redirectUri: '${http://127.0.0.1:8080/ROOT/}'
+                redirectUri: '${http://127.0.0.1:8080/until15/}'
             });
 
             // window.Kakao.Auth.login({
@@ -317,7 +317,7 @@ export default {
     //         });
 
     //         if(state.memail){
-    //             const url = `/ROOT/api/member/login`;
+    //             const url = `/until15/api/member/login`;
     //             const headers = {"Content-Type":"application/json"};
     //             const body = {
     //                 memail : state.memail,

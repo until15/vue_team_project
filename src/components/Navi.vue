@@ -4,7 +4,9 @@
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #fff;">
             <div class="container px-4 px-lg-5">
                 <div>
-                    <a href="http://localhost:8080/#/">
+                    <!-- <router-link to="/"><img class="logo_black" 
+                        :src="logo_black" id="nav1" /> </router-link> -->
+                    <a href="/until15/#/">
                         <img class="logo_black" 
                         :src="logo_black" id="nav1" /> 
                     </a>
@@ -150,7 +152,7 @@ export default {
 
         const handleData = async() => {
 
-            const url = `/ROOT/api/member/selectmemberone`;
+            const url = `/until15/api/member/selectmemberone`;
             const headers = {"Content-Type":"application/json", "token":state.token};
             const response = await axios.get(url, {headers});
             console.log(response.data);

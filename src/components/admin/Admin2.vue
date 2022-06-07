@@ -88,7 +88,7 @@ export default {
 
         // 데이터 불러오기
         const handleData = async(qno) => {
-            const url = `/ROOT/api/Inquiry/selectone?qno=${qno}`;
+            const url = `/until15/api/Inquiry/selectone?qno=${qno}`;
             const headers = {"Content-Type":"application/json", "token":state.token};
             const response = await axios.get(url, {headers});
             console.log(response.data);
@@ -100,7 +100,7 @@ export default {
 
         // 댓글 쓰기(댓글 등록시 com 숫자 +1)
         const handleComment = async() => {
-            const url = `/ROOT/api/Iqcomment/insert`;
+            const url = `/until15/api/Iqcomment/insert`;
             const headers = {"Content-Type":"application/json", "token":state.token};
             const body = {
                 iqcontent : state.reply1. iqcontent ,
@@ -109,7 +109,7 @@ export default {
             const response = await axios.post(url, body, {headers});
             console.log(response.data);
             if(response.data.status === 200){
-                const url1 = `/ROOT/api/Inquiry/updatecom?qno=${state.qno}`;
+                const url1 = `/until15/api/Inquiry/updatecom?qno=${state.qno}`;
                 const headers1 = {"Content-Type":"application/json"};
                 const response1 = await axios.put(url1, {headers:headers1});
                 console.log(response1.data);
@@ -123,7 +123,7 @@ export default {
 
         // 댓글 불러오기
         const handleSelectComment = async(qno) => {
-            const url = `/ROOT/api/Iqcomment/selectone?qno=${qno}`;
+            const url = `/until15/api/Iqcomment/selectone?qno=${qno}`;
             const headers = {"Content-Type":"application/json","token":state.token};
             const response = await axios.get(url, {headers});
             console.log(response.data);
@@ -134,13 +134,13 @@ export default {
 
         // 댓글 삭제(댓글 삭제시 com 숫자 -1)
         const handleReplyDelete = async(iqcmtno) => {
-            const url1 = `/ROOT/api/Inquiry/updatetwo?qno=${state.qno}`;
+            const url1 = `/until15/api/Inquiry/updatetwo?qno=${state.qno}`;
                 const headers1 = {"Content-Type":"application/json"};
                 const response1 = await axios.put(url1, {headers:headers1});
                 console.log(response1.data);
             if(response1.data.status === 200){
 
-                const url = `/ROOT/api/Iqcomment/delete?iqcmtno=${iqcmtno}`;
+                const url = `/until15/api/Iqcomment/delete?iqcmtno=${iqcmtno}`;
                 const headers = {"Content-Type":"application/json","token":state.token};
                 const response = await axios.delete(url, {headers});
                 console.log(response.data);
@@ -156,7 +156,7 @@ export default {
         // 상세글 삭제
         const handleDelete = async() => {
             if(confirm('정말 삭제하시겠습니까?')){
-                const url = `/ROOT/api/Inquiry/delete?qno=${state.qno}`;
+                const url = `/until15/api/Inquiry/delete?qno=${state.qno}`;
                 const headers = {"Content-Type":"application/json", "token":state.token};
                 const response = await axios.delete(url, {headers});
                 console.log(response.data);
@@ -167,7 +167,7 @@ export default {
         };
 
         const handleData2 = async() => {
-            const url = `/ROOT/api/member/selectmemberone`;
+            const url = `/until15/api/member/selectmemberone`;
             const headers = {"Content-Type":"application/json","token":state.token};
             const response = await axios.get(url, {headers});
             console.log("---------------" + response.data);

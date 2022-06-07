@@ -92,7 +92,7 @@ export default {
         });
 
         const handleData = async(page, text)=> {
-            const url = `/ROOT/api/confirm/myselectlist.json?page=${page}&text=${text}`;
+            const url = `/until15/api/confirm/myselectlist.json?page=${page}&text=${text}`;
             const headers = {
                 "Content-Type":"application/json",
                 "token" : state.token
@@ -118,7 +118,7 @@ export default {
                     // console.log(state.imageNo);
 
                     // 인증 이미지
-                    const url1 = `/ROOT/api/confirm/selectimages?cfno=${state.imageNo}`;
+                    const url1 = `/until15/api/confirm/selectimages?cfno=${state.imageNo}`;
                     const headers1 = {"Content-Type":"application/json"};
                     const response1 = await axios.get(url1, {headers:headers1});
                     // console.log("이미지 데이터 : ", response1.data);

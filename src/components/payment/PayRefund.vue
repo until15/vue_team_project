@@ -45,7 +45,7 @@ export default {
 
     // 회원 조회
     async handleData() {
-      const url = `/ROOT/api/member/selectmemberone`;
+      const url = `/until15/api/member/selectmemberone`;
       const headers = {
         "Content-Type": "application/json",
         token: this.token,
@@ -59,7 +59,7 @@ export default {
 
     // 참여중인 챌린지 상세조회 (번호)
     async handleJoinCHG() {
-      const url = `/ROOT/api/join/selectone?jno=${this.jno}`;
+      const url = `/until15/api/join/selectone?jno=${this.jno}`;
       const headers = { "Content-Type": "application/json", token: this.token };
       const response = await this.axios.get(url, { headers: headers });
       console.log(response.data);
@@ -70,7 +70,7 @@ export default {
 
     //참가비 조회
     async handlePayCHG() {
-      const url = `/ROOT/api/pay/selectone.json?no=${this.jno}`;
+      const url = `/until15/api/pay/selectone.json?no=${this.jno}`;
       const headers = { "Content-Type": "application/json", token: this.token };
       const response = await this.axios.get(url, { headers: headers });
       console.log(response.data);
@@ -84,7 +84,7 @@ export default {
       // 환급 중복 방지
       if (this.paychg.checksum === 0) {
         axios({
-          url: `/ROOT/api/pay/refund.json`, // 환급 요청을 받을 서비스 URL
+          url: `/until15/api/pay/refund.json`, // 환급 요청을 받을 서비스 URL
           method: "post",
           headers: { "Content-Type": "application/json" },
           data: {

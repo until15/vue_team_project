@@ -33,7 +33,7 @@ export default {
 
         const handleData = async()=> {
 
-            const url = `/ROOT/api/join/joinstate?chgstate=${state.chgs}&page=${state.page}`;
+            const url = `/until15/api/join/joinstate?chgstate=${state.chgs}&page=${state.page}`;
             const headers = {
                 "Content-Type":"application/json",
                 "token" : state.token

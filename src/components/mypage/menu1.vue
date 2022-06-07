@@ -180,7 +180,7 @@ export default {
 
         // 데이터 불러오기(회원)
         const handleData = async() => {
-            const url = `/ROOT/api/member/selectmemberone`;
+            const url = `/until15/api/member/selectmemberone`;
             const headers = {"Content-Type":"application/json","token":state.token};
             const response = await axios.get(url, {headers});
             console.log(response.data);
@@ -219,7 +219,7 @@ export default {
                     if(validPhone(state.item.mphone)){
                         const mphone = state.item.mphone;
                         const newmphone = mphone.replace(/-/g, '');
-                        const url = `/ROOT/api/member/updatemember`;
+                        const url = `/until15/api/member/updatemember`;
                         const headers = {"Content-Type":"multipart/form-data", "token":state.token};
                         const body = new FormData();
                         body.append("mname", state.item.mname);
@@ -266,7 +266,7 @@ export default {
 
         // 닉네임 체크
         const checkMid = async() => {
-            const url = `/ROOT/api/member/checkmidone?mid=${state.item.mid}`;
+            const url = `/until15/api/member/checkmidone?mid=${state.item.mid}`;
             const headers = {"Content-Type":"application/json", "token":state.token};
             const response = await axios.get(url, {headers});
             console.log(response.data);
@@ -328,7 +328,7 @@ export default {
             }
 
             if(state.token !== null){
-                const url = `/ROOT/api/member/updatepw`;
+                const url = `/until15/api/member/updatepw`;
                 const headers = {"Content-Type":"application/json","token":state.token};
                 const body = {
                     mpw : state.item.mpw,

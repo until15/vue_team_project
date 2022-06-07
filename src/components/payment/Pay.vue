@@ -48,7 +48,7 @@ export default {
   methods: {
     // 회원 조회
     async handleMemberData() {
-      const url = `/ROOT/api/member/selectmemberone`;
+      const url = `/until15/api/member/selectmemberone`;
       const headers = {
         "Content-Type": "application/json",
         token: this.token,
@@ -62,7 +62,7 @@ export default {
 
     // 참여중인 챌린지 상세조회 (번호)
     async handleJoinCHG() {
-      const url = `/ROOT/api/join/selectone?jno=${this.jno}`;
+      const url = `/until15/api/join/selectone?jno=${this.jno}`;
       const headers = { "Content-Type": "application/json", token: this.token };
       const response = await this.axios.get(url, { headers: headers });
       console.log(response.data);
@@ -93,7 +93,7 @@ export default {
             // 결제 성공 시 로직
             // axios로 HTTP 요청
             axios({
-              url: `/ROOT/api/pay/insert.json`, // 서버의 결제 정보
+              url: `/until15/api/pay/insert.json`, // 서버의 결제 정보
               method: "post",
               headers: { "Content-Type": "application/json" },
               data: {

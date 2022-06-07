@@ -148,7 +148,7 @@ export default {
         // 첼린지 조회
         const handleData = async(no) => {
             console.log("챌린지 번호 : " + no);
-            const url = `/ROOT/api/challenge/selectone?chgno=${no}`;
+            const url = `/until15/api/challenge/selectone?chgno=${no}`;
             const headers = {"Content-Type":"application/json"};
             const response = await axios.get(url, {headers});
             console.log(response.data);
@@ -156,13 +156,13 @@ export default {
                 state.item = response.data.result;
                 state.image = response.data.image;
 
-                const url2 = `/ROOT/api/routine/chgselectone.json?no=${state.item.chgroutine}`;
+                const url2 = `/until15/api/routine/chgselectone.json?no=${state.item.chgroutine}`;
                 const headers2 = {"Content-Type":"application/json"};
                 const response2 = await axios.get(url2, { headers: headers2 });
                 console.log(response2.data);
                 if(response2.data.status === 200){
                     state.routineseq = response2.data.result;
-                    const url1 = `/ROOT/api/routine/chgselectseq.json?no=${state.routineseq.rtnseq}`;
+                    const url1 = `/until15/api/routine/chgselectseq.json?no=${state.routineseq.rtnseq}`;
                     const headers1 = {"Content-Type":"application/json"};
                     const response1 = await axios.get(url1, { headers: headers1 });
                     console.log(response1.data);
@@ -178,7 +178,7 @@ export default {
             // console.log("참가하기");
             // console.log("첼린지 번호 : ", state.chgno);
             // console.log("토큰 : ", state.token);
-            const url = `/ROOT/api/join/insert?chgno=${state.chgno}`;
+            const url = `/until15/api/join/insert?chgno=${state.chgno}`;
             const headers = {
                 "Content-Type":"application/json",
                 "token":state.token
@@ -198,7 +198,7 @@ export default {
         // 좋아요
         const handleLike = async() => {
             // console.log(state.chgno);
-            const url = `/ROOT/api/like/insert?chgno=${state.chgno}`;
+            const url = `/until15/api/like/insert?chgno=${state.chgno}`;
             const headers = {
                 "Content-Type" : "application/json",
                 "token":state.token
@@ -213,7 +213,7 @@ export default {
                 handleData(state.chgno);
             }
             // else if(response.data.status === 0) {
-            //     const url = `/ROOT/api/like/delete?chgno=${state.chgno}&lno=${state.lno}`;
+            //     const url = `/until15/api/like/delete?chgno=${state.chgno}&lno=${state.lno}`;
             //     const headers = {
             //         "Content-Type" : "application/json",
             //         token:state.token
@@ -231,7 +231,7 @@ export default {
         // 즐겨찾기
         const handleBmk = async() => {
             console.log(state.chgno);
-            const url = `/ROOT/api/bookmark/insert?chgno=${state.chgno}`;
+            const url = `/until15/api/bookmark/insert?chgno=${state.chgno}`;
             const headers = {
                 "Content-Type" : "application/json",
                 token:state.token
@@ -245,7 +245,7 @@ export default {
                 console.log(state.chgno);
             }
             // else if(response.data.status === 0) {
-            //     const url = `/ROOT/api/like/delete?chgno=${state.chgno}&lno=${state.lno}`;
+            //     const url = `/until15/api/like/delete?chgno=${state.chgno}&lno=${state.lno}`;
             //     const headers = {
             //         "Content-Type" : "application/json",
             //         token:state.token

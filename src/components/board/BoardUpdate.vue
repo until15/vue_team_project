@@ -68,7 +68,7 @@ export default {
 
         // 데이터 불러오기
         const handleData = async(bno) => {
-            const url = `/ROOT/api/community/selectone?bno=${bno}`;
+            const url = `/until15/api/community/selectone?bno=${bno}`;
             const headers = {"Content-Type":"application/json"};
             const response = await axios.get(url, {headers});
             console.log(response.data);
@@ -80,7 +80,7 @@ export default {
 
         // 수정버튼
         const handleUpdate = async() => {
-            const url = `/ROOT/api/community/update?bno=${state.bno}`;
+            const url = `/until15/api/community/update?bno=${state.bno}`;
             const headers = {"Content-Type":"application/json", "token":state.token};
             const body = {
                 btitle : state.item.btitle,
@@ -97,7 +97,7 @@ export default {
         const handleDeleteImg = async(tmp) => {
             const no = tmp.split('=');
             console.log("==no==", Number(no[1]));
-            const url = `/ROOT/api/bimg/delete?bimgno=${Number(no[1])}`;
+            const url = `/until15/api/bimg/delete?bimgno=${Number(no[1])}`;
             const headers = {"Content-Type":"application/json", "token":state.token};
             const response = await axios.delete(url, {headers});
             console.log(response.data);

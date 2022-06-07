@@ -202,7 +202,7 @@ export default {
         alert("루틴 이름을 입력하세요");
         return false;
       }
-      const url = `/ROOT/api/routine/insertbatch.json`;
+      const url = `/until15/api/routine/insertbatch.json`;
       const headers = {
         "Content-Type": "application/json",
         token: state.token,
@@ -230,7 +230,7 @@ export default {
 
     // 루틴 불러오기 확인용
     const handleRoutineData = async () => {
-      const url = `/ROOT/api/routine/selectlist.json`;
+      const url = `/until15/api/routine/selectlist.json`;
       const headers = {
         "Content-Type": "application/json",
         token: state.token,
@@ -243,7 +243,7 @@ export default {
     };
 
     const handleLoadData = async () => {
-      const url = `/ROOT/api/pose/selectlist.json?step=${state.step}&page=${state.page}&title=${state.title}`;
+      const url = `/until15/api/pose/selectlist.json?step=${state.step}&page=${state.page}&title=${state.title}`;
       const headers = { "Content-Type": "application/json" };
       const response = await axios.get(url, { headers: headers });
       console.log(response.data);

@@ -84,7 +84,7 @@ export default {
 
         // 회원 조회
         const handleMemberData = async() => {
-            const url = `/ROOT/api/member/selectmemberone`;
+            const url = `/until15/api/member/selectmemberone`;
             const headers = {
                 "Content-Type": "application/json",
                 token: state.token,
@@ -108,7 +108,7 @@ export default {
         }
 
         const handleLoadData = async () => {
-            const url = `/ROOT/api/pose/selectlist.json?step=${state.step}&page=${state.page}&title=${state.title}`;
+            const url = `/until15/api/pose/selectlist.json?step=${state.step}&page=${state.page}&title=${state.title}`;
             const headers = {"Content-Type":"application/json"};
             const response = await axios.get(url, { headers: headers });
             console.log(response.data);

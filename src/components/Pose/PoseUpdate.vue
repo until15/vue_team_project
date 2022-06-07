@@ -136,7 +136,7 @@ export default {
         }
     }
     const handleVideoInsertAction = async () => {
-      const url = `/ROOT/api/pose/insertvideo.json`;
+      const url = `/until15/api/pose/insertvideo.json`;
       const headers = {
         "Content-Type": "multipart/form-data",
         token: state.token,
@@ -149,7 +149,7 @@ export default {
     };
     const handleVideoDelete = async (no) => {
       if (confirm("삭제하시겠습니까?")) {
-        const url = `/ROOT/api/pose/deletevideo.json?no=${state.vno}&pno=${no}`;
+        const url = `/until15/api/pose/deletevideo.json?no=${state.vno}&pno=${no}`;
         const headers = {
           "Content-Type": "application/json",
           token: state.token,
@@ -167,7 +167,7 @@ export default {
     };
 
     const handleVideoUpdateAction = async () => {
-      const url = `/ROOT/api/pose/updatevideo.json`;
+      const url = `/until15/api/pose/updatevideo.json`;
       const headers = {
         "Content-Type": "multipart/form-data",
         token: state.token,
@@ -201,7 +201,7 @@ export default {
         alert("난이도는 1~5까지 설정 가능합니다.");
         return false;
       }
-      const url = `/ROOT/api/pose/update.json`;
+      const url = `/until15/api/pose/update.json`;
       const body = {
         pname: state.pose.pname,
         ppart: state.pose.ppart,
@@ -222,7 +222,7 @@ export default {
     };
 
     const handleLoadData = async (no) => {
-      const url = `/ROOT/api/pose/selectone.json?pno=${no}`;
+      const url = `/until15/api/pose/selectone.json?pno=${no}`;
       const headers = { "Content-Type": "application/json" };
       const response = await axios.get(url, { headers });
       console.log(response.data);

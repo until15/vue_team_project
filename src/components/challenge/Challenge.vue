@@ -134,7 +134,7 @@ export default {
 
         // 최신순 목록
         const handleData = async() => {
-            const url = `/ROOT/api/challenge/selectlist?page=${state.page}&challenge=${state.challenge}`;
+            const url = `/until15/api/challenge/selectlist?page=${state.page}&challenge=${state.challenge}`;
             const headers = {"Content-Type" : "application/json"};
             const response = await axios.get(url, {headers});
             console.log(response.data);

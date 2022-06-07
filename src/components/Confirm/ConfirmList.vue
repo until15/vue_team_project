@@ -101,7 +101,7 @@ export default {
 
         // 전체 인증 리스트
         const handleData = async(tmp, text)=> {
-            const url = `/ROOT/api/confirm/provelist.json?page=${tmp}&email=${text}`;
+            const url = `/until15/api/confirm/provelist.json?page=${tmp}&email=${text}`;
             const headers = {"Content-Type":"application/json"};
             const response = await axios.get(url, {headers});
             // console.log(response.data);
@@ -124,7 +124,7 @@ export default {
                     // console.log(state.imageNo);
 
                     // 인증 이미지
-                    const url1 = `/ROOT/api/confirm/selectimages?cfno=${state.imageNo}`;
+                    const url1 = `/until15/api/confirm/selectimages?cfno=${state.imageNo}`;
                     const headers1 = {"Content-Type":"application/json"};
                     const response1 = await axios.get(url1, {headers:headers1});
                     // console.log("이미지 데이터 : ", response1.data);

@@ -247,7 +247,7 @@ export default {
     // 루틴 개별 삭제
     const handleRoutineDelete = async (no) => {
       if (confirm("삭제하시겠습니까?")) {
-        const url = `/ROOT/api/routine/delete.json?no=${no}`;
+        const url = `/until15/api/routine/delete.json?no=${no}`;
         const headers = {
           "Content-Type": "application/json",
           token: state.token,
@@ -263,7 +263,7 @@ export default {
 
     // 루틴 삭제
     const handleDelete = async () => {
-      const url = `/ROOT/api/routine/deleteseq.json?no=${state.chk}`;
+      const url = `/until15/api/routine/deleteseq.json?no=${state.chk}`;
       const headers = {
         "Content-Type": "application/json",
         token: state.token,
@@ -310,7 +310,7 @@ export default {
 
     // 자세 불러오기
     const handlePoseData = async () => {
-      const url = `/ROOT/api/pose/selectlist.json?step=${state.step}&page=${state.page2}&title=${state.title}`;
+      const url = `/until15/api/pose/selectlist.json?step=${state.step}&page=${state.page2}&title=${state.title}`;
       const headers = { "Content-Type": "application/json" };
       const response = await axios.get(url, { headers: headers });
       console.log(response.data);
@@ -322,7 +322,7 @@ export default {
 
     // 루틴 수정하기
     const handleRoutineUpdate = async (no) => {
-      const url = `/ROOT/api/routine/update.json?no=${no}`;
+      const url = `/until15/api/routine/update.json?no=${no}`;
       const headers = {
         "Content-Type": "application/json",
         token: state.token,
@@ -345,7 +345,7 @@ export default {
     // 루틴 개별 불러오기
     const handleRoutineOneData = async (row) => {
       console.log(row);
-      const url = `/ROOT/api/routine/selectoneDt.json?no=${row}`;
+      const url = `/until15/api/routine/selectoneDt.json?no=${row}`;
       const headers = {
         "Content-Type": "application/json",
         token: state.token,
@@ -359,7 +359,7 @@ export default {
 
     // 루틴 불러오기
     const handleRoutineData = async () => {
-      const url = `/ROOT/api/routine/selectlist.json?page=${state.page}`;
+      const url = `/until15/api/routine/selectlist.json?page=${state.page}`;
       const headers = {
         "Content-Type": "application/json",
         token: state.token,

@@ -175,7 +175,7 @@ export default {
             // console.log(state.chgno);
 
             if (confirm("포기하시겠습니까?")) {
-                const url = `/ROOT/api/join/giveup?chgno=${state.chgno}`;
+                const url = `/until15/api/join/giveup?chgno=${state.chgno}`;
                 const headers = {
                     "Content-Type":"application/json",
                     "token" : state.token
@@ -192,7 +192,7 @@ export default {
 
         // 내가만든 첼린지 상세
         const handleData = async()=> {
-            const url = `/ROOT/api/join/cidselectone?chgno=${state.chgno}`;
+            const url = `/until15/api/join/cidselectone?chgno=${state.chgno}`;
             const headers = {
                 "Content-Type":"application/json",
                 "token" : state.token
@@ -210,7 +210,7 @@ export default {
         // 좋아요
         const handleLike = async() => {
             // console.log(state.chgno);
-            const url = `/ROOT/api/like/insert?chgno=${state.chgno}`;
+            const url = `/until15/api/like/insert?chgno=${state.chgno}`;
             const headers = {
                 "Content-Type" : "application/json",
                 "token":state.token
@@ -225,7 +225,7 @@ export default {
                 handleData(state.chgno);
             }
             // else if(response.data.status === 0) {
-            //     const url = `/ROOT/api/like/delete?chgno=${state.chgno}&lno=${state.lno}`;
+            //     const url = `/until15/api/like/delete?chgno=${state.chgno}&lno=${state.lno}`;
             //     const headers = {
             //         "Content-Type" : "application/json",
             //         token:state.token
@@ -243,7 +243,7 @@ export default {
         // 즐겨찾기
         const handleBmk = async() => {
             console.log(state.chgno);
-            const url = `/ROOT/api/bookmark/insert?chgno=${state.chgno}`;
+            const url = `/until15/api/bookmark/insert?chgno=${state.chgno}`;
             const headers = {
                 "Content-Type" : "application/json",
                 token:state.token
@@ -257,7 +257,7 @@ export default {
                 console.log(state.chgno);
             }
             // else if(response.data.status === 0) {
-            //     const url = `/ROOT/api/like/delete?chgno=${state.chgno}&lno=${state.lno}`;
+            //     const url = `/until15/api/like/delete?chgno=${state.chgno}&lno=${state.lno}`;
             //     const headers = {
             //         "Content-Type" : "application/json",
             //         token:state.token

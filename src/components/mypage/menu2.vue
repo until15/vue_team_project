@@ -50,7 +50,7 @@ export default {
             }
 
             if(confirm('정말 탈퇴하시겠습니까?')){
-                const url = `/ROOT/api/member/deletemember?mpw=${state.mpw}`;
+                const url = `/until15/api/member/deletemember?mpw=${state.mpw}`;
                 const headers = {"Content-Type":"multipart/form-data", "token":state.token};
                 const body = new FormData();
                 const response = await axios.put(url, body, {headers});

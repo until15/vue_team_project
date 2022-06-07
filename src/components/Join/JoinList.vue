@@ -55,7 +55,7 @@ export default {
         const handleData = async(tmp, text) => {
             console.log("page", state.page);
             console.log("text", state.text);
-            const url = `ROOT/api/join/selectlist?page=${tmp}&title=${text}`;
+            const url = `until15/api/join/selectlist?page=${tmp}&title=${text}`;
             const headers = {
                 "Content-Type":"application/json",
                 "token" : state.token

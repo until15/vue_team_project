@@ -51,14 +51,14 @@ export default {
           
           
             editor.editing.view.change( writer => {
-                writer.setStyle( 'height', '600px', editor.editing.view.document.getRoot() );
+                writer.setStyle( 'height', '600px', editor.editing.view.document.getuntil15() );
             });
         }
 
         // 글쓰기
         const handleInsert = async() => {
             if(state.token !== null){
-                const url = `/ROOT/api/Inquiry/insert`;
+                const url = `/until15/api/Inquiry/insert`;
                 const headers = {"Content-Type":"application/json", "token":state.token};
                 const body = {
                     qtitle : state.qtitle,
@@ -67,7 +67,7 @@ export default {
                 const response = await axios.post(url, body, {headers});
                 console.log(response.data);
                 if(response.data.status === 200){
-                    const url1 = `/ROOT/api/Inquiryimg/insert`;
+                    const url1 = `/until15/api/Inquiryimg/insert`;
                     const headers1 = {"Content-Type":"multipart/form-data", "token":state.token};
                     const body1 = new FormData();
                     body1.append("file", state.qimage);

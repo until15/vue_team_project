@@ -237,7 +237,7 @@ export default {
             }
 
             if(state.token !== null){
-                const url = `/ROOT/api/challenge/insert`;
+                const url = `/until15/api/challenge/insert`;
                 const headers = {"Content-Type":"multipart/form-data", "token":state.token};
                 const body = new FormData();
 
