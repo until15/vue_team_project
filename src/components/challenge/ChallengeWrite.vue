@@ -80,9 +80,20 @@
                 </el-form-item><br />
 
                 <!-- 이미지 -->
-                <img :src="state.imageUrl" style="width:300px" /><br />
-        이미지 : <input type="file" accept="image/*" @change="handleImage($event)" /><br />
+                <a class="center">
+                            <div style="overflow: hidden;margin-left:30px;margin-top:-10px">
+                                <img :src="state.imageUrl" style="width:340px; height:350px object-fit: cover;margin-left:40px;" />
+                            </div>
+                        </a>
 
+                        <!-- 프로필 사진 업로드 -->
+                        <div class="center">
+                            <!-- 버튼 -->
+                            <label style="margin-left:75px;" class="button-blk" for="file">파일선택</label> 
+
+                            <!-- 숨김 -->
+                            <input class="hide" type="file" accept="image/*" id="file" @change="handleImage($event)" />
+                        </div>
 
 
                 <!-- 목록으로 -->
@@ -321,6 +332,29 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="css" scoped>
+.center{
+  text-align: center;
+}
+.float{
+    float: left;
 
+}
+.button-blk {
+    background-color: #212529;
+    border: none;
+    color: rgb(255, 255, 255);
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 16px;
+    width: 350px;
+}
+
+.hide {
+    display: none;
+}
 </style>

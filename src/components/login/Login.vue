@@ -252,6 +252,9 @@ export default {
             else if(response.data.status === 1){
                 alert('존재하지 않는 이메일(아이디)입니다.');
             }
+            else {
+                alert('존재하지 않거나 탙퇴한 이메일(아이디)입니다.');
+            }
         };
 
         const handleEmail = () => {
